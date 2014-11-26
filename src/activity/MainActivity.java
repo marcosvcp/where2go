@@ -1,7 +1,8 @@
-package br.com.les.where2go;
+package activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import br.com.les.where2go.R;
 
 public class MainActivity extends Activity {
     /**
@@ -12,4 +13,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
     }
+
+
 }
