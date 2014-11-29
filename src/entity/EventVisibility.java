@@ -1,17 +1,22 @@
 package entity;
 
 /**
+ * Representa a visiblidade de um {@link entity.Event}
  * Created by andersongfs on 25/11/14.
  */
 public enum EventVisibility {
-    FINISHED(1), CANCELED(2), ONGOING(3), OPENED(4);
-    private final int mValue;
+    PUBLIC("Público"), PRIVATE("Privado");
+    private String visibility;
 
-    EventVisibility(int value){
-        mValue = value;
-    }
-    public int getValue(){
-        return mValue;
+    EventVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
 }

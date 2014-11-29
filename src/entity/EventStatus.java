@@ -1,16 +1,20 @@
 package entity;
 
-/**
- * Created by andersongfs on 25/11/14.
- */
 public enum EventStatus {
-    PUBLIC(1), PRIVATE(2);
-    private final int mValue;
+    FINISHED("Finished"), CANCELED("Canceled"), ONGOING("Ongoing"), OPENED(
+            "Opened");
 
-    EventStatus(int value){
-        mValue = value;
+    public String status;
+
+    EventStatus(String status) {
+        this.status = status;
     }
-    public int getValue(){
-        return mValue;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -1,49 +1,58 @@
 package entity;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
+ * Entidade que representa um usuário
  * Created by andersongfs on 25/11/14.
  */
 public class User {
-    private String mName;
-    private int mAge;
-    private List<Event> mEvents;
+    private String name;
+    private int age;
+    private List<Event> events;
     //falta o atributo que liga o usuario aos dados do facebook: FACEBOOK ID?
 
-    public User(String name, int age){
-        this.mName = name;
-        this.mAge = age;
-
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String mName) {
-        this.mName = mName;
+        this.name = mName;
     }
 
     public int getAge() {
-        return mAge;
+        return age;
     }
 
     public void setAge(int mAge) {
-        this.mAge = mAge;
+        this.age = mAge;
     }
 
     public List<Event> getEvents() {
-        return mEvents;
+        return Collections.unmodifiableList(events);
     }
 
-    public void addEvent(Event event){
-        mEvents.add(event);
+    /**
+     * Adiciona um eveneto à {@code events} do usuário
+     *
+     * @param event O evento a ser adicionado
+     */
+    public void addEvent(Event event) {
+        events.add(event);
     }
 
-    public void removeEvent(Event event){
-        if(mEvents.contains(event)){
-            mEvents.remove(event);
-        }
+    /**
+     * Remove um evento dos {@code events} do usuário
+     *
+     * @param event O evento a ser removido
+     */
+    public void removeEvent(Event event) {
+        events.remove(event);
     }
 }
