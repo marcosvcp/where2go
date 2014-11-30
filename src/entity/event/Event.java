@@ -1,5 +1,11 @@
-package entity;
+package entity.event;
 
+
+import com.google.common.base.Objects;
+import entity.user.User;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Representa um evento.
@@ -16,12 +22,15 @@ public class Event {
     private String finalDate;
     private String price;
     private String outfit;
-    private String capacity;
+    private Integer capacity;
     private String timestamp;
+    List<User> participants;
+    private EventState state;
 
     public Event(Integer id, String name, String status, String description,
                  String photo, String info, String initialDate, String finalDate,
-                 String price, String outfit, String capacity, String timestamp) {
+                 String price, String outfit, Integer capacity, String timestamp) {
+        this.state = new EventOpened();
         this.id = id;
         this.name = name;
         this.status = status;
@@ -116,11 +125,11 @@ public class Event {
         this.outfit = outfit;
     }
 
-    public String getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
@@ -130,5 +139,59 @@ public class Event {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public List<User> getParticipants() {
+        return Collections.unmodifiableList(participants);
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
+
+    /**
+     * Adiciona um {@code participant} à lista de {@code participants}
+     *
+     * @param participant O participante a ser adicionado
+     * @return True caso ele possa participar do evento
+     */
+    public boolean addParticipant(User participant) {
+        if (isFull()) {
+            return false;
+        }
+        return participants.add(participant);
+    }
+
+    /**
+     * Remove o {@code participant} da lista de {@code participants}
+     *
+     * @param participant O participante a ser removido
+     */
+    public void removeParticipant(User participant) {
+        this.participants.remove(participant);
+    }
+
+    /**
+     * @return True caso o evento esteja completo
+     */
+    public boolean isFull() {
+        return capacity <= participants.size();
+    }
+
+    @Override
+    public int hashCode() {
+        // FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
+        return Objects.hashCode(this.name, this.description, this.initialDate);
+    }
+
+    @Override
+    public boolean equals(Object otherEvent) {
+        if (otherEvent == null || !(otherEvent instanceof Event)) {
+            return false;
+        }
+        Event other = (Event) otherEvent;
+        return Objects.equal(this.name, other.name) &&
+                Objects.equal(this.description, other.description) &&
+                Objects.equal(this.initialDate, other.initialDate);
     }
 }

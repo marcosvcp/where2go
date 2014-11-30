@@ -1,6 +1,6 @@
 package persistence;
 import java.util.List;
-import entity.Event;
+import entity.event.Event;
 
 public interface StorageSystem {
     public Integer add(Event event);

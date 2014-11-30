@@ -1,7 +1,7 @@
-package entity;
+package entity.event;
 
 /**
- * Representa a visiblidade de um {@link entity.Event}
+ * Representa a visiblidade de um {@link Event}
  * Created by andersongfs on 25/11/14.
  */
 public enum EventVisibility {

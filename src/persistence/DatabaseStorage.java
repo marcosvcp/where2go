@@ -10,7 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import entity.Event;
+import entity.event.Event;
 
 public class DatabaseStorage implements StorageSystem {
 	public static final String EVENT_TABLE_NAME = "EVENTS";
@@ -152,7 +152,7 @@ public class DatabaseStorage implements StorageSystem {
 		 	String final_date = mCursor.getString(mCursor.getColumnIndex(EVENT_FINAL_DATE));
 		 	String price = mCursor.getString(mCursor.getColumnIndex(EVENT_PRICE));
 		 	String outfit = mCursor.getString(mCursor.getColumnIndex(EVENT_OUTFIT));
-		 	String capacity = mCursor.getString(mCursor.getColumnIndex(EVENT_CAPACITY));
+		 	Integer capacity = mCursor.getInt(mCursor.getColumnIndex(EVENT_CAPACITY));
 		 	String timestamp = mCursor.getString(mCursor.getColumnIndex(EVENT_TIMESTAMP));
 		 	
 		 	Event event = new Event(id, name, status, description, photo, info, initial_date, final_date, price, outfit, capacity, timestamp);
