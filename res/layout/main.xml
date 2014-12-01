@@ -13,6 +13,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
             />
+
     <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
@@ -24,5 +25,12 @@
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:typeface="monospace" />
+
+    <ImageButton
+        android:id="@+id/enterEventListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_get" />
+
 </LinearLayout>
 

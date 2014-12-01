@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">where2go</string>
     <string name="facebook_app_id">368270400000815</string>
     <string name="title_facebook_login">Where 2 Go</string>
+    <string name="title_activity_event_list">EventListActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
 </resources>
