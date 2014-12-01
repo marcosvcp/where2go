@@ -34,6 +34,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
         ImageButton mBtnEventList = (ImageButton) findViewById(R.id.enterEventListButton);
         mViews = new LinkedList<View>();
         mViews.add(mBtnEventList);
@@ -50,7 +51,6 @@ public class MainActivity extends FragmentActivity {
             mainFragment = (MainFragment) getSupportFragmentManager()
                     .findFragmentById(android.R.id.content);
         }
-        setContentView(R.layout.main);
         
         mBtnEventList.setOnClickListener(new View.OnClickListener() {
 			
