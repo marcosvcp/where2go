@@ -24,7 +24,7 @@ import java.util.List;
  * Application core
  */
 public class MainActivity extends FragmentActivity {
-
+//
     private MainFragment mainFragment;
     private List<View> mViews;
     
