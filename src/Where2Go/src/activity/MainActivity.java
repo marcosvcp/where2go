@@ -38,19 +38,19 @@ public class MainActivity extends FragmentActivity {
         ImageButton mBtnEventList = (ImageButton) findViewById(R.id.enterEventListButton);
         mViews = new LinkedList<View>();
         mViews.add(mBtnEventList);
-        
-        if (savedInstanceState == null) {
-            // Add the fragment on initial activity setup
-            mainFragment = new MainFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(android.R.id.content, mainFragment)
-                    .commit();
-        } else {
-            // Or set the fragment from restored state info
-            mainFragment = (MainFragment) getSupportFragmentManager()
-                    .findFragmentById(android.R.id.content);
-        }
+        //TODO 
+//        if (savedInstanceState == null) {
+//            // Add the fragment on initial activity setup
+//            mainFragment = new MainFragment();
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .add(android.R.id.content, mainFragment)
+//                    .commit();
+//        } else {
+//            // Or set the fragment from restored state info
+//            mainFragment = (MainFragment) getSupportFragmentManager()
+//                    .findFragmentById(android.R.id.content);
+//        }
         
         mBtnEventList.setOnClickListener(new View.OnClickListener() {
 			
