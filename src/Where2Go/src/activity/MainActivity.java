@@ -56,7 +56,7 @@ public class MainActivity extends FragmentActivity {
 			
 			@Override
 			public void onClick(View v) {
-				lockAll();
+				//lockAll();
 				enterEventList();
 			}
 		});
