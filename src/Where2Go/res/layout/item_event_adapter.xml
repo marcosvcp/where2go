@@ -23,32 +23,42 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/valor"
+            android:id="@+id/event_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="valor"
-            android:textColor="#DDDDDD"
+            android:text="@string/event_price"
+            android:textColor="#FF0101"
             android:textSize="18sp"
             android:maxWidth="150dp"
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/nome"
+            android:id="@+id/event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome"
+            android:text="@string/event_name"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/categoria"
+            android:id="@+id/event_category"
             android:layout_width="wrap_content"
             android:layout_height="0dip"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="Categoria"
-            android:textColor="#EEDD82"
+            android:text="@string/event_category"
+            android:textColor="#3B8944"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+        <TextView
+            android:id="@+id/event_status"
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/event_status"
+            android:textColor="#3B5AAE"
             android:textSize="14sp"
             android:textStyle="normal" />
     </LinearLayout>

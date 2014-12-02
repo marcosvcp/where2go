@@ -31,7 +31,7 @@ public class CreateEventActivity extends Activity {
 		setContentView(R.layout.activity_create_event);
 		
         et_event_name = (EditText) findViewById(R.id.et_event_name);
-        et_event_status = (EditText) findViewById(R.id.et_event_status);
+        //et_event_status = (EditText) findViewById(R.id.et_event_status);
         et_event_description = (EditText) findViewById(R.id.et_event_description);
         et_event_info = (EditText) findViewById(R.id.et_event_info);
         et_event_initial_date = (EditText) findViewById(R.id.et_event_initial_date);
@@ -42,7 +42,7 @@ public class CreateEventActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Event event = new Event(1, et_event_name.getText().toString(), et_event_status.getText().toString(), et_event_description.getText().toString(), null, et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), null, null, null, null);
+				Event event = new Event(1, et_event_name.getText().toString(), "Opened", et_event_description.getText().toString(), null, et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), null, null, null, null);
 				Log.v("EVENT", "NAME: " + event.getName());
 				Log.v("EVENT", "STATUS: " + event.getStatus());
 				Log.v("EVENT", "DESCRIPTION: " + event.getDescription());

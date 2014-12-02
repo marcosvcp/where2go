@@ -69,14 +69,19 @@ public class EventAdapter extends BaseAdapter {
          
          final Event event = mListEvents.get(position);
 
-         TextView eventName = (TextView) myView.findViewById(R.id.nome);
+         TextView eventName = (TextView) myView.findViewById(R.id.event_name);
          eventName.setText(event.getName());
 
          TextView eventDescription = (TextView) myView
-                 .findViewById(R.id.categoria);
+                 .findViewById(R.id.event_category);
+         
+         TextView eventStatus = (TextView) myView
+                 .findViewById(R.id.event_status);
+         eventStatus.setText(event.getStatus());
+         
          eventDescription.setText(event.getDescription());
 
-         TextView eventValue = (TextView) myView.findViewById(R.id.valor);
+         TextView eventValue = (TextView) myView.findViewById(R.id.event_price);
 
          listview = (ListView) parentActivity.findViewById(R.id.listViewEvents);
          listview.setClickable(true);
@@ -182,7 +187,8 @@ public class EventAdapter extends BaseAdapter {
             builder.setPositiveButton(parentActivity.getResources().getString(R.string.cancel_alert_positive),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                        	
+                        event.setStatus("Canceled");
+                        notifyDataSetChanged();
                         }
                     });
             builder.setNegativeButton(parentActivity.getResources().getString(R.string.cancel_alert_negative),
