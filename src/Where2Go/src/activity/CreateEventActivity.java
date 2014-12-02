@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import br.com.les.where2go.R;
 
 public class CreateEventActivity extends Activity {
@@ -47,6 +48,13 @@ public class CreateEventActivity extends Activity {
 				Log.v("EVENT", "INFO: " + event.getInfo());
 				Log.v("EVENT", "INITIAL DATE: " + event.getInitialDate());
 				Log.v("EVENT", "FINAL DATE: " + event.getFinalDate());
+				
+				//Adiciona evento na lista estática provisória 
+				MainActivity.events.add(event);
+				Log.v("TAMANHO", MainActivity.events.size()+"");
+				
+				Toast.makeText(getApplicationContext(), "Event Created", Toast.LENGTH_SHORT).show();
+				onBackPressed();
 				
 			}
 		});

@@ -2,52 +2,48 @@ package adapter;
 
 import java.util.List;
 
-import br.com.les.where2go.R;
-import entity.event.Event;
-
-import persistence.DatabaseStorage;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import br.com.les.where2go.R;
+import entity.event.Event;
 
 public class EventAdapter extends BaseAdapter {
 
     private static List<Event> mListEvents;
-    @SuppressWarnings("unused")
     private LayoutInflater mInflater;
     private int posicao;
     Context mcontext;
-    private DatabaseStorage bdHelper;
-    private View parentView;
+    private Activity parentActivity;
     private ListView listview;
 
     /**
      * Class constructor
      */
-    public EventAdapter() {
+    public EventAdapter(Context context, List<Event> listEvent) {
+    	mListEvents = listEvent;
+    	mInflater = LayoutInflater.from(context);
+    	mcontext = context;
     }
-
+    
     @SuppressWarnings("static-access")
-    public EventAdapter(Context context, List<Event> listEvents,
-            DatabaseStorage bdHelper, View parentView) {
+    public EventAdapter(Context context, List<Event> listEvents,Activity parentActivity) {
         this.mListEvents = listEvents;
         this.mInflater = LayoutInflater.from(context);
         this.mcontext = context;
-        this.parentView = parentView;
-        this.bdHelper = bdHelper;
+        this.parentActivity = parentActivity;
     }
 
     @Override
@@ -69,10 +65,9 @@ public class EventAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View myView, ViewGroup parent) {
-    	 LayoutInflater inflater = (LayoutInflater) mcontext
-                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-         myView = inflater.inflate(R.layout.item_event_adapter, null);
+    public View getView(final int position, View myView, ViewGroup viewGroup) {
+         myView = mInflater.inflate(R.layout.item_event_adapter, null);
+         
          final Event event = mListEvents.get(position);
 
          TextView eventName = (TextView) myView.findViewById(R.id.nome);
@@ -84,7 +79,7 @@ public class EventAdapter extends BaseAdapter {
 
          TextView eventValue = (TextView) myView.findViewById(R.id.valor);
 
-         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
+         listview = (ListView) parentActivity.findViewById(R.id.listViewEvents);
          listview.setClickable(true);
 
          myView.setOnLongClickListener(new OnLongClickListener() {
@@ -100,8 +95,6 @@ public class EventAdapter extends BaseAdapter {
          
          ImageButton btOptions = (ImageButton) myView.findViewById(R.id.bt_options);
          btOptions.setOnClickListener(new OnClickListener() {
-             Event event = EventAdapter.this.getItem(posicao);
-
              @Override
              public void onClick(View v) {
                  showPopupMenu(v, event);
@@ -133,7 +126,7 @@ public class EventAdapter extends BaseAdapter {
                                 editAlert(event);
                                 return true;
                             case (R.id.delete):
-                                deleteAlert(event);
+                                cancelAlert(event);
                                 break;
                             default:
                                 break;
@@ -146,9 +139,9 @@ public class EventAdapter extends BaseAdapter {
 
     public void editAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-                parentView.getContext());
+        		parentActivity);
 
-            builder.setTitle("Cancel Event");
+            builder.setTitle("Edit Event");
             builder.setMessage("Mensagem");
             builder.setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {
@@ -177,10 +170,10 @@ public class EventAdapter extends BaseAdapter {
      * 
      * @param event
      */
-    public void deleteAlert(final Event event) {
+    public void cancelAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-                parentView.getContext());
-            builder.setTitle("DELETE");
+        		parentActivity);
+            builder.setTitle("Cancel Event");
             builder.setMessage("MESSAGE");
             builder.setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {
@@ -203,6 +196,4 @@ public class EventAdapter extends BaseAdapter {
             AlertDialog alert = builder.create();
             alert.show();
     }
-
-
 }

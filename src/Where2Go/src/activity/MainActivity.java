@@ -1,32 +1,28 @@
 package activity;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import br.com.les.where2go.R;
 
 import com.facebook.AppEventsLogger;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
-import java.util.List;
+import entity.event.Event;
 
 /**
  * Application core
  */
 public class MainActivity extends FragmentActivity {
-//
+
     private MainFragment mainFragment;
     private List<View> mViews;
+    public static List<Event> events = new ArrayList<Event>();
     
     /**
      * Called when the activity is first created.

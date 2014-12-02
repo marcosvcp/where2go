@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import br.com.les.where2go.R;
 import entity.event.Event;
@@ -27,10 +30,26 @@ public class EventListActivity extends Activity {
 		setContentView(R.layout.activity_event_list);
         listview = (ListView) findViewById(R.id.listViewEvents);
         
-        bdHelper = new DatabaseStorage(getApplicationContext());
-        List<Event> events = new ArrayList<Event>();
-        adapter = new EventAdapter(getApplicationContext(), events, bdHelper, getWindow().getDecorView().findViewById(android.R.id.content));
+        
+        List<Event> events = MainActivity.events;
+        adapter = new EventAdapter(getApplicationContext(), events, EventListActivity.this);
         listview.setAdapter(adapter);
+        
+        listview.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
+        //SERÁ USADO QUANDO FOR FAZER NO BD
+//        bdHelper = new DatabaseStorage(getApplicationContext());
+//        List<Event> events = new ArrayList<Event>();
+//        adapter = new EventAdapter(getApplicationContext(), events, bdHelper, getWindow().getDecorView().findViewById(android.R.id.content));
+//        listview.setAdapter(adapter);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
