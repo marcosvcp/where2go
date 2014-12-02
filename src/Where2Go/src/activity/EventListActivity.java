@@ -5,20 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.DatabaseStorage;
-
-import entity.event.Event;
-
-import br.com.les.where2go.R;
-import br.com.les.where2go.R.id;
-import br.com.les.where2go.R.layout;
-import br.com.les.where2go.R.menu;
 import adapter.EventAdapter;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import br.com.les.where2go.R;
+import entity.event.Event;
 
 public class EventListActivity extends Activity {
 	public static EventAdapter adapter;
@@ -59,6 +55,11 @@ public class EventListActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}
+		if (id == R.id.action_create_event) {
+            Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
+            startActivity(intent);
+            return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

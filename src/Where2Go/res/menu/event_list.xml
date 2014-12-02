@@ -3,8 +3,11 @@
     tools:context="br.com.les.where2go.EventListActivity" >
 
     <item
+        android:id="@+id/action_create_event"
+        android:showAsAction="never"
+        android:title="@string/action_create_event"/>
+    <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
 
