@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity {
 			
 			@Override
 			public void onClick(View v) {
-				//lockAll();
+				lockAll();
 				enterEventList();
 			}
 		});
@@ -96,5 +96,6 @@ public class MainActivity extends FragmentActivity {
     public void enterEventList() {
     	final Intent intent = new Intent(MainActivity.this,EventListActivity.class);
     	startActivity(intent);
+    	unlockAll();
     }
 }
