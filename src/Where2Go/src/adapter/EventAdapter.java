@@ -114,11 +114,11 @@ public class EventAdapter extends BaseAdapter {
     }
     
     /**
-     * Shows popup menu with delete and edit options for a given expense in the
+     * Shows popup menu with delete and edit options for a given event in the
      * list
      * 
      * @param v - view refers the screen listing
-     * @param expense selected
+     * @param event selected
      */
     private void showPopupMenu(View v, final Event event) {
         PopupMenu popupMenu = new PopupMenu(mcontext, v);
@@ -175,7 +175,7 @@ public class EventAdapter extends BaseAdapter {
     /**
      * Alert dialog to delete confirmation
      * 
-     * @param expense
+     * @param event
      */
     public void deleteAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
