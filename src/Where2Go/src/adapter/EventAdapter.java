@@ -125,7 +125,7 @@ public class EventAdapter extends BaseAdapter {
                             case (R.id.edit):
                                 editAlert(event);
                                 return true;
-                            case (R.id.delete):
+                            case (R.id.cancel):
                                 cancelAlert(event);
                                 break;
                             default:
@@ -166,7 +166,7 @@ public class EventAdapter extends BaseAdapter {
     }
     
     /**
-     * Alert dialog to delete confirmation
+     * Alert dialog to cancel confirmation
      * 
      * @param event
      */
@@ -181,7 +181,6 @@ public class EventAdapter extends BaseAdapter {
                         	
                         }
                     });
-
             builder.setNegativeButton("CANCEL",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {

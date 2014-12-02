@@ -3,6 +3,7 @@ package activity;
 
 import entity.event.Event;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -54,8 +55,9 @@ public class CreateEventActivity extends Activity {
 				Log.v("TAMANHO", MainActivity.events.size()+"");
 				
 				Toast.makeText(getApplicationContext(), "Event Created", Toast.LENGTH_SHORT).show();
-				onBackPressed();
 				
+	            Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
+	            startActivity(intent);
 			}
 		});
 	}
