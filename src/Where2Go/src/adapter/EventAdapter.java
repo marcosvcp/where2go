@@ -38,7 +38,6 @@ public class EventAdapter extends BaseAdapter {
     	mcontext = context;
     }
     
-    @SuppressWarnings("static-access")
     public EventAdapter(Context context, List<Event> listEvents,Activity parentActivity) {
         this.mListEvents = listEvents;
         this.mInflater = LayoutInflater.from(context);
@@ -137,20 +136,25 @@ public class EventAdapter extends BaseAdapter {
         popupMenu.show();
     }
 
+    /**
+     * Alert dialog to edit event
+     * 
+     * @param event
+     */
     public void editAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
         		parentActivity);
 
-            builder.setTitle("Edit Event");
-            builder.setMessage("Mensagem");
-            builder.setPositiveButton("OK",
+            builder.setTitle(parentActivity.getResources().getString(R.string.edit_alert_title));
+            builder.setMessage(parentActivity.getResources().getString(R.string.edit_alert_message));
+            builder.setPositiveButton(parentActivity.getResources().getString(R.string.edit_alert_positive),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             
                         }
                     });
 
-            builder.setNegativeButton("CANCEL",
+            builder.setNegativeButton(parentActivity.getResources().getString(R.string.edit_alert_negative),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             try {
@@ -166,22 +170,22 @@ public class EventAdapter extends BaseAdapter {
     }
     
     /**
-     * Alert dialog to cancel confirmation
+     * Alert dialog to cancel event
      * 
      * @param event
      */
     public void cancelAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
         		parentActivity);
-            builder.setTitle("Cancel Event");
-            builder.setMessage("MESSAGE");
-            builder.setPositiveButton("OK",
+            builder.setTitle(parentActivity.getResources().getString(R.string.cancel_alert_title));
+            builder.setMessage(parentActivity.getResources().getString(R.string.cancel_alert_message));
+            builder.setPositiveButton(parentActivity.getResources().getString(R.string.cancel_alert_positive),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                         	
                         }
                     });
-            builder.setNegativeButton("CANCEL",
+            builder.setNegativeButton(parentActivity.getResources().getString(R.string.cancel_alert_negative),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             try {

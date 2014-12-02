@@ -52,7 +52,6 @@ public class CreateEventActivity extends Activity {
 				
 				//Adiciona evento na lista estática provisória 
 				MainActivity.events.add(event);
-				Log.v("TAMANHO", MainActivity.events.size()+"");
 				
 				Toast.makeText(getApplicationContext(), "Event Created", Toast.LENGTH_SHORT).show();
 				
@@ -75,9 +74,7 @@ public class CreateEventActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 }

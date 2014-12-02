@@ -1,7 +1,6 @@
 package activity;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import persistence.DatabaseStorage;
@@ -28,15 +27,18 @@ public class EventListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_list);
-        listview = (ListView) findViewById(R.id.listViewEvents);
-        
-        
+		
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+       
+		listview = (ListView) findViewById(R.id.listViewEvents);      
         List<Event> events = MainActivity.events;
         adapter = new EventAdapter(getApplicationContext(), events, EventListActivity.this);
         listview.setAdapter(adapter);
         
         listview.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -44,19 +46,6 @@ public class EventListActivity extends Activity {
 				
 			}
 		});
-        
-        //SERÁ USADO QUANDO FOR FAZER NO BD
-//        bdHelper = new DatabaseStorage(getApplicationContext());
-//        List<Event> events = new ArrayList<Event>();
-//        adapter = new EventAdapter(getApplicationContext(), events, bdHelper, getWindow().getDecorView().findViewById(android.R.id.content));
-//        listview.setAdapter(adapter);
-
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        //adapter = new EventAdapter(getApplicationContext(), listEvents, bdHelper, parentView);
 	}
 
 	@Override
@@ -72,9 +61,7 @@ public class EventListActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+
 		if (id == R.id.action_create_event) {
             Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
             startActivity(intent);
