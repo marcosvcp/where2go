@@ -35,7 +35,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main, container, false);
+        View view = inflater.inflate(R.layout.activity_main, container, false);
         LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends"));
