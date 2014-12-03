@@ -8,14 +8,19 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -74,12 +79,17 @@ public class EventAdapter extends BaseAdapter {
          TextView eventName = (TextView) myView.findViewById(R.id.event_name);
          eventName.setText(event.getName());
 
-         TextView eventDescription = (TextView) myView
-                 .findViewById(R.id.event_category);
+         TextView eventDescription = (TextView) myView.findViewById(R.id.event_category);
          
-         TextView eventStatus = (TextView) myView
-                 .findViewById(R.id.event_status);
+         TextView eventStatus = (TextView) myView.findViewById(R.id.event_status);
          eventStatus.setText(event.getStatus());
+         
+         ImageButton thumbnail = (ImageButton) myView.findViewById(R.id.photo);
+         Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable()).getBitmap();
+         int pixel = bitmap.getPixel(bitmap.getWidth()/2,bitmap.getHeight()/2);
+         
+         LinearLayout card = (LinearLayout) myView.findViewById(R.id.card);
+         card.setBackgroundColor(Color.argb(255, Color.red(pixel), Color.green(pixel), Color.blue(pixel)));
          
          eventDescription.setText(event.getDescription());
 
