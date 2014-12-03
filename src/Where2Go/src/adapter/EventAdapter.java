@@ -3,6 +3,7 @@ package adapter;
 import java.util.List;
 
 import activity.EditEventActivity;
+import activity.EventListActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -201,7 +202,9 @@ public class EventAdapter extends BaseAdapter {
             builder.setPositiveButton(parentActivity.getResources().getString(R.string.cancel_alert_positive),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                        event.setStatus("Canceled");
+                        EventListActivity.bdHelper.delete(event.getId());
+                        event.setStatus(parentActivity.getResources().getString(R.string.event_canceled));
+                        EventListActivity.bdHelper.add(event);
                         notifyDataSetChanged();
                         }
                     });

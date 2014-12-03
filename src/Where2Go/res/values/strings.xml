@@ -16,9 +16,13 @@
 	<string name="cancel_alert_message">Do you want cancel this event?</string>
 	<string name="cancel_alert_positive">YES</string>
 	<string name="cancel_alert_negative">NO</string>
+	
 	<!-- Event Item Adapter -->
 	<string name="event_price">Price</string>
 	<string name="event_name">Name</string>
 	<string name="event_category">Tag</string>
 	<string name="event_status">Status</string>
+	<string name="event_canceled">Event Canceled</string>
+	
+	
 </resources>
