@@ -1,7 +1,11 @@
 package activity;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import persistence.DatabaseStorage;
+import utils.FieldValidation;
 import entity.event.Event;
 import android.app.Activity;
 import android.content.Intent;
@@ -41,11 +45,14 @@ public class CreateEventActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Event event = new Event(null, et_event_name.getText().toString(), "Opened", et_event_description.getText().toString(), "Default Image Path", et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), "Default Price", "Default Outfit", 999, "Default Time Stamp");
-				EventListActivity.bdHelper.add(event);
 				
-	            Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
-	            startActivity(intent);
+				if(checkValidation()){
+					Event event = new Event(null, et_event_name.getText().toString(), "Opened", et_event_description.getText().toString(), "Default Image Path", et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), "Default Price", "Default Outfit", 999, "Default Time Stamp");
+					EventListActivity.bdHelper.add(event);
+				
+					Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
+					startActivity(intent);
+				}
 			}
 		});
 	}
@@ -66,4 +73,32 @@ public class CreateEventActivity extends Activity {
 		
 		return super.onOptionsItemSelected(item);
 	}
+	
+    private boolean checkValidation() {
+        boolean ret = true;
+        FieldValidation validation = new FieldValidation(this);
+        List<EditText> listEditText = new ArrayList<EditText>();
+        listEditText.add(et_event_name);
+        listEditText.add(et_event_description);
+        listEditText.add(et_event_info);
+        listEditText.add(et_event_initial_date);
+        listEditText.add(et_event_final_date);
+
+        if (!validation.hasText(et_event_name)) {
+            ret = false;
+        }
+        if (!validation.hasText(et_event_description)) {
+            ret = false;
+        }
+        if (!validation.hasText(et_event_info)) {
+            ret = false;
+        }
+        if (!validation.hasText(et_event_initial_date)) {
+            ret = false;
+        }
+        if (!validation.hasText(et_event_final_date)) {
+            ret = false;
+        }
+        return ret;
+    }
 }

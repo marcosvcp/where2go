@@ -7,6 +7,9 @@
     <string name="title_activity_event_list">EventListActivity</string>
     <string name="action_create_event">Create Event</string>
 
+    <string name="required">Required</string>
+    <string name="duplicated">Duplicated</string>
+    
     <!-- Adapter -->
 	<string name="edit_alert_title">Edit Event</string>
 	<string name="edit_alert_message">Do you want edit this event?</string>
