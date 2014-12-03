@@ -22,10 +22,17 @@
 	
 	<!-- Event Item Adapter -->
 	<string name="event_price">Price</string>
-	<string name="event_name">Name</string>
+	<string name="name">Name</string>
 	<string name="event_category">Tag</string>
 	<string name="event_status">Status</string>
+
+	<!-- Event -->
+	<string name="event_name">Event name</string>
+	<string name="event_description">Event description</string>
+	<string name="event_info">Event info</string>
+	<string name="event_initial_date">Event initial date</string>
+	<string name="event_final_date">Event final date</string>
+	<string name="create_event">Create event</string>
 	<string name="event_canceled">Event Canceled</string>
-	
-	
+
 </resources>
