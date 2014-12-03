@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import br.com.les.where2go.R;
+
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -52,8 +53,12 @@ public class MainFragment extends Fragment {
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
+            final Intent intent = new Intent(getActivity(),EventListActivity.class);
+        	startActivity(intent);
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
+            final Intent intent = new Intent(getActivity(),MainActivity.class);
+        	startActivity(intent);
         }
     }
 
