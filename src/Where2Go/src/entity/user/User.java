@@ -1,8 +1,10 @@
 package entity.user;
 
 import com.google.common.base.Objects;
+
 import entity.event.Invitation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class User {
     public User(String name, int age) {
         this.name = name;
         this.age = age;
+        this.invitations = new ArrayList<Invitation>();
     }
     
     public String getName() {
@@ -40,10 +43,6 @@ public class User {
   
     public List<Invitation> getInvitations() {
         return Collections.unmodifiableList(invitations);
-    }
-  
-    public void setInvitations(List<Invitation> invitations) {
-        this.invitations = invitations;
     }
   
     /**

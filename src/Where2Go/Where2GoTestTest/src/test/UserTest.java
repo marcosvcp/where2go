@@ -1,9 +1,13 @@
 package test;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import entity.event.Event;
+import entity.event.Invitation;
 import entity.user.User;
 
 /**
@@ -12,11 +16,24 @@ import entity.user.User;
  */
 public class UserTest extends TestCase{
 	private User user1, user2;
+	private Event testEvent1;
+	private Invitation invitation1, invitation2; 
 	
 	public void setUp() {
 		user1 = new User("User1 name", 25);
-		
 		user2 = new User("User2 name", 30);
+		testEvent1 = new Event(1, "Event 1", "Opened", "Event 1 Description", "Event Image Path", "Event 1 Info", "01/12/2014", "02/12/2014", "200,00", "", 100, "01/12/2014");
+		invitation1 = new Invitation(user1, testEvent1);
+	}
+	
+	@Test
+	public void testUserConstrucot() {
+		user1 = null;
+		user2 = null;
+		user1 = new User("New Test User1",20);
+		user2 = new User("New Test User2",30);
+		Assert.assertNotNull("User constructor not working", user1);
+		Assert.assertNotNull("User constructor not working", user2);
 	}
 	
 	@Test
@@ -56,14 +73,39 @@ public class UserTest extends TestCase{
 	}
 	
 	@Test
-	public void testGetInvitations() {
-		//TODO Definir a estrutura para pode testar
+	public void testAddInvitation() {
+		List<Invitation> user1Invitatios = user1.getInvitations();
+		List<Invitation> user2Invitatios = user2.getInvitations();
+		Assert.assertNotNull("User addInvitation not working", user1Invitatios);
+		Assert.assertNotNull("User addInvitation not working", user2Invitatios);
+		Assert.assertEquals("User addInvitation not working",user1.getInvitations().size(),0);
+		Assert.assertEquals("User addInvitation not working",user2.getInvitations().size(),0);
+		user1.addInvitation(invitation1);
+		Assert.assertEquals("User addInvitation not working",user1.getInvitations().size(),1);
+		user2.addInvitation(invitation2);
+		Assert.assertEquals("User addInvitation not working",user2.getInvitations().size(),1);
 	}
 	
 	@Test
-	public void testSetIvitations() {
-		//TODO Definir a estrutura para pode testar
+	public void testRemoveInvitations() {
+		user1.addInvitation(invitation1);
+		user2.addInvitation(invitation2);
+		Assert.assertEquals("User removeIvitation not working",user1.getInvitations().size(),1);
+		Assert.assertEquals("User removeIvitation not working",user2.getInvitations().size(),1);
+		user1.removeInvitation(invitation1);
+		Assert.assertEquals("User removeIvitation not working",user1.getInvitations().size(),0);
+		user2.removeInvitation(invitation2);
+		Assert.assertEquals("User removeIvitation not working",user2.getInvitations().size(),0);
 	}
+	
+	@Test
+	public void testGetInvitations() {
+		user1.addInvitation(invitation1);
+		user2.addInvitation(invitation2);
+		Assert.assertEquals("User removeIvitation not working",user1.getInvitations().size(),1);
+		Assert.assertEquals("User removeIvitation not working",user2.getInvitations().size(),1);
+	}
+	
 	
 	@Test
 	public void testHashCode() {
