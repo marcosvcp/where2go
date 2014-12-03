@@ -21,7 +21,7 @@ import entity.event.Event;
 public class EventListActivity extends Activity {
 	private  EventAdapter adapter;
     private ListView listview;
-    private DatabaseStorage bdHelper;
+    public static DatabaseStorage bdHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

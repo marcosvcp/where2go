@@ -17,7 +17,6 @@ import android.widget.Toast;
 import br.com.les.where2go.R;
 
 public class CreateEventActivity extends Activity {
-	private DatabaseStorage bdHelper;
 	private EditText et_event_name;
 	private EditText et_event_description;
 	private EditText et_event_info;
@@ -30,7 +29,6 @@ public class CreateEventActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_event);
-		bdHelper = new DatabaseStorage(getApplicationContext());
 		
         et_event_name = (EditText) findViewById(R.id.et_event_name);
         et_event_description = (EditText) findViewById(R.id.et_event_description);
@@ -43,16 +41,8 @@ public class CreateEventActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Event event = new Event(1, et_event_name.getText().toString(), "Opened", et_event_description.getText().toString(), "Default Image Path", et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), "Default Price", "Default Outfit", 999, "Default Time Stamp");
-				Log.v("EVENT", "NAME: " + event.getName());
-				Log.v("EVENT", "STATUS: " + event.getStatus());
-				Log.v("EVENT", "DESCRIPTION: " + event.getDescription());
-				Log.v("EVENT", "INFO: " + event.getInfo());
-				Log.v("EVENT", "INITIAL DATE: " + event.getInitialDate());
-				Log.v("EVENT", "FINAL DATE: " + event.getFinalDate());
-				
-				bdHelper.add(event);
-				Toast.makeText(getApplicationContext(), "Event Created", Toast.LENGTH_SHORT).show();
+				Event event = new Event(null, et_event_name.getText().toString(), "Opened", et_event_description.getText().toString(), "Default Image Path", et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), "Default Price", "Default Outfit", 999, "Default Time Stamp");
+				EventListActivity.bdHelper.add(event);
 				
 	            Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
 	            startActivity(intent);
