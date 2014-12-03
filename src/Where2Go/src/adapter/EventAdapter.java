@@ -2,10 +2,12 @@ package adapter;
 
 import java.util.List;
 
+import activity.EditEventActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -155,7 +157,9 @@ public class EventAdapter extends BaseAdapter {
             builder.setPositiveButton(parentActivity.getResources().getString(R.string.edit_alert_positive),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                            
+                            Intent intent = new Intent(parentActivity, EditEventActivity.class);
+                            intent.putExtra("event_id", event.getId());
+                            parentActivity.startActivity(intent);
                         }
                     });
 

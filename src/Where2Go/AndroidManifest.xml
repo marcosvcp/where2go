@@ -40,6 +40,11 @@
             android:label="@string/title_activity_event_list"
             android:parentActivityName="activity.EventListActivity" >
         </activity>
+		<activity
+            android:name="activity.EditEventActivity"
+            android:label="@string/title_activity_event_list"
+            android:parentActivityName="activity.EventListActivity" >
+        </activity>
     </application>
 
 </manifest>
