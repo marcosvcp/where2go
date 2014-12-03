@@ -27,3 +27,5 @@ proguard/
 
 #Others
 *.settings/
+*src/facebook-android-sdk-3.20.0/facebook/.classpath
+*src/facebook-android-sdk-3.20.0/facebook/lint.xml
