@@ -19,14 +19,15 @@ import br.com.les.where2go.R;
 import entity.event.Event;
 
 public class EventListActivity extends Activity {
-	public static EventAdapter adapter;
-    private static ListView listview;
-    private static DatabaseStorage bdHelper;
+	private  EventAdapter adapter;
+    private ListView listview;
+    private DatabaseStorage bdHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_list);
+		bdHelper = new DatabaseStorage(getApplicationContext());
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowTitleEnabled(false);
@@ -34,7 +35,7 @@ public class EventListActivity extends Activity {
 		actionBar.setDisplayHomeAsUpEnabled(true);
        
 		listview = (ListView) findViewById(R.id.listViewEvents);      
-        List<Event> events = MainActivity.events;
+        List<Event> events = bdHelper.getEvents();
         adapter = new EventAdapter(getApplicationContext(), events, EventListActivity.this);
         listview.setAdapter(adapter);
         

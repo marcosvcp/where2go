@@ -125,7 +125,7 @@ public class DatabaseStorage implements StorageSystem {
         mDb.update(EVENT_TABLE_NAME, values,
                 EVENT_ID + "=" + event.getId(), null);
 	}
-
+	
 	@Override
 	public Event getEvent(int key) {
 		Cursor mCursor = null;

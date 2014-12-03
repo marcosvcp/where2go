@@ -24,7 +24,7 @@ public class Event {
     private String outfit;
     private Integer capacity;
     private String timestamp;
-    List<User> participants;
+    private List<User> participants;
     private EventState state;
 
     public Event(Integer id, String name, String status, String description,
