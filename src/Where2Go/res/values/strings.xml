@@ -36,5 +36,35 @@
 	<string name="event_canceled">Event Canceled</string>
 	<string name="edit_event">Edit event</string>
 	
+		<!-- Content Description -->
+	<string name="desc_list_item_icon">Item Icon</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    
+	<!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Ads</item>
+        <item>Map</item>
+        <item>Events</item>
+        <item>Menu3</item>
+        <item>Menu4</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+    </array>
+    <array name="nav_drawer_icons_selected">
+        <item>@drawable/ic_action_overflow</item>
+        <item>@drawable/ic_action_overflow</item>
+        <item>@drawable/ic_action_overflow</item>
+        <item>@drawable/ic_action_overflow</item>
+        <item>@drawable/ic_action_overflow</item>
+    </array>
 
 </resources>

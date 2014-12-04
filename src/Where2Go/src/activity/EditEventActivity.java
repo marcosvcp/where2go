@@ -56,11 +56,13 @@ public class EditEventActivity extends Activity {
 	}
 
 	protected void confirmEdition() {
-		EventListActivity.bdHelper.delete(event.getId());
+		EventsListFragment.bdHelper.delete(event.getId());
 		Event new_event = new Event(null, et_event_name.getText().toString(), "Opened", et_event_description.getText().toString(), "Default Image Path", et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), "Default Price", "Default Outfit", 999, "Default Time Stamp");
-		EventListActivity.bdHelper.add(new_event);
+		EventsListFragment.bdHelper.add(new_event);
 		
-        Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
+		EventsListFragment.adapter.notifyDataSetChanged();
+		Intent intent = new Intent(getApplicationContext(), MainScreen.class);
+		intent.putExtra("eventslist", 2);
         startActivity(intent);
 	}
 

@@ -3,7 +3,6 @@ package adapter;
 import java.util.List;
 
 import activity.EditEventActivity;
-import activity.EventListActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -34,23 +33,14 @@ public class EventAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private int posicao;
     Context mcontext;
-    private Activity parentActivity;
+    private View parentView;
     private ListView listview;
 
-    /**
-     * Class constructor
-     */
-    public EventAdapter(Context context, List<Event> listEvent) {
-    	mListEvents = listEvent;
-    	mInflater = LayoutInflater.from(context);
-    	mcontext = context;
-    }
-    
-    public EventAdapter(Context context, List<Event> listEvents,Activity parentActivity) {
+    public EventAdapter(Context context, List<Event> listEvents,View parentView) {
         this.mListEvents = listEvents;
         this.mInflater = LayoutInflater.from(context);
         this.mcontext = context;
-        this.parentActivity = parentActivity;
+        this.parentView = parentView;
     }
 
     @Override
@@ -96,7 +86,7 @@ public class EventAdapter extends BaseAdapter {
 
          TextView eventValue = (TextView) myView.findViewById(R.id.event_price);
 
-         listview = (ListView) parentActivity.findViewById(R.id.listViewEvents);
+         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
          listview.setClickable(true);
 
          myView.setOnLongClickListener(new OnLongClickListener() {
@@ -161,20 +151,20 @@ public class EventAdapter extends BaseAdapter {
      */
     public void editAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-        		parentActivity);
+        		parentView.getContext());
 
-            builder.setTitle(parentActivity.getResources().getString(R.string.edit_alert_title));
-            builder.setMessage(parentActivity.getResources().getString(R.string.edit_alert_message));
-            builder.setPositiveButton(parentActivity.getResources().getString(R.string.edit_alert_positive),
+            builder.setTitle(parentView.getResources().getString(R.string.edit_alert_title));
+            builder.setMessage(parentView.getResources().getString(R.string.edit_alert_message));
+            builder.setPositiveButton(parentView.getResources().getString(R.string.edit_alert_positive),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                            Intent intent = new Intent(parentActivity, EditEventActivity.class);
+                            Intent intent = new Intent(parentView.getContext(), EditEventActivity.class);
                             intent.putExtra("event_id", event.getId());
-                            parentActivity.startActivity(intent);
+                            parentView.getContext().startActivity(intent);
                         }
                     });
 
-            builder.setNegativeButton(parentActivity.getResources().getString(R.string.edit_alert_negative),
+            builder.setNegativeButton(parentView.getResources().getString(R.string.edit_alert_negative),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             try {
@@ -196,19 +186,17 @@ public class EventAdapter extends BaseAdapter {
      */
     public void cancelAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-        		parentActivity);
-            builder.setTitle(parentActivity.getResources().getString(R.string.cancel_alert_title));
-            builder.setMessage(parentActivity.getResources().getString(R.string.cancel_alert_message));
-            builder.setPositiveButton(parentActivity.getResources().getString(R.string.cancel_alert_positive),
+        		parentView.getContext());
+            builder.setTitle(parentView.getResources().getString(R.string.cancel_alert_title));
+            builder.setMessage(parentView.getResources().getString(R.string.cancel_alert_message));
+            builder.setPositiveButton(parentView.getResources().getString(R.string.cancel_alert_positive),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                        EventListActivity.bdHelper.delete(event.getId());
-                        event.setStatus(parentActivity.getResources().getString(R.string.event_canceled));
-                        EventListActivity.bdHelper.add(event);
+                        event.setStatus("Canceled");
                         notifyDataSetChanged();
                         }
                     });
-            builder.setNegativeButton(parentActivity.getResources().getString(R.string.cancel_alert_negative),
+            builder.setNegativeButton(parentView.getResources().getString(R.string.cancel_alert_negative),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             try {

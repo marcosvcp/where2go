@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import br.com.les.where2go.R;
 
@@ -22,6 +23,7 @@ public class MainActivity extends FragmentActivity {
 
     private MainFragment mainFragment;
     private List<View> mViews;
+    private ImageButton btEnter;
     public static List<Event> events = new ArrayList<Event>();
     
     /**
@@ -33,7 +35,18 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         mViews = new LinkedList<View>();
 
-        if (savedInstanceState == null) {
+        btEnter = (ImageButton) findViewById(R.id.bt_enter);
+        btEnter.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), MainScreen.class);
+				intent.putExtra("eventslist", 0);
+	            startActivity(intent);
+			}
+		});
+        
+        /*if (savedInstanceState == null) {
             // Add the fragment on initial activity setup
             mainFragment = new MainFragment();
             getSupportFragmentManager()
@@ -44,7 +57,10 @@ public class MainActivity extends FragmentActivity {
             // Or set the fragment from restored state info
             mainFragment = (MainFragment) getSupportFragmentManager()
                     .findFragmentById(android.R.id.content);
-        }
+        }*/
+        
+        
+        
     }
 
     @Override
@@ -83,8 +99,9 @@ public class MainActivity extends FragmentActivity {
      * Evento referente a ação do botão EnterEventList.
      */
     public void enterEventList() {
-    	final Intent intent = new Intent(MainActivity.this,EventListActivity.class);
-    	startActivity(intent);
+		Intent intent = new Intent(getApplicationContext(), MainScreen.class);
+		intent.putExtra("eventslist", 2);
+        startActivity(intent);
     	unlockAll();
     }
 }

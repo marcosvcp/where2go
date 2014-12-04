@@ -1,23 +1,14 @@
 package activity;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import persistence.DatabaseStorage;
-import utils.FieldValidation;
 import entity.event.Event;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import br.com.les.where2go.R;
 
 public class CreateEventActivity extends Activity {
@@ -45,60 +36,15 @@ public class CreateEventActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				Event event = new Event(null, et_event_name.getText().toString(), "Opened", et_event_description.getText().toString(), "Default Image Path", et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), "Default Price", "Default Outfit", 999, "Default Time Stamp");
+				EventsListFragment.bdHelper.add(event);
 				
-				if(checkValidation()){
-					Event event = new Event(null, et_event_name.getText().toString(), "Opened", et_event_description.getText().toString(), "Default Image Path", et_event_info.getText().toString(), et_event_initial_date.getText().toString(), et_event_final_date.getText().toString(), "Default Price", "Default Outfit", 999, "Default Time Stamp");
-					EventListActivity.bdHelper.add(event);
-				
-					Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
-					startActivity(intent);
-				}
+				EventsListFragment.adapter.notifyDataSetChanged();
+				Intent intent = new Intent(getApplicationContext(), MainScreen.class);
+				intent.putExtra("eventslist", 2);
+	            startActivity(intent);
 			}
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.event_list, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		
-		return super.onOptionsItemSelected(item);
-	}
-	
-    private boolean checkValidation() {
-        boolean ret = true;
-        FieldValidation validation = new FieldValidation(this);
-        List<EditText> listEditText = new ArrayList<EditText>();
-        listEditText.add(et_event_name);
-        listEditText.add(et_event_description);
-        listEditText.add(et_event_info);
-        listEditText.add(et_event_initial_date);
-        listEditText.add(et_event_final_date);
-
-        if (!validation.hasText(et_event_name)) {
-            ret = false;
-        }
-        if (!validation.hasText(et_event_description)) {
-            ret = false;
-        }
-        if (!validation.hasText(et_event_info)) {
-            ret = false;
-        }
-        if (!validation.hasText(et_event_initial_date)) {
-            ret = false;
-        }
-        if (!validation.hasText(et_event_final_date)) {
-            ret = false;
-        }
-        return ret;
-    }
 }
