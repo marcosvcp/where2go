@@ -34,5 +34,7 @@
 	<string name="event_final_date">Event final date</string>
 	<string name="create_event">Create event</string>
 	<string name="event_canceled">Event Canceled</string>
+	<string name="edit_event">Edit event</string>
+	
 
 </resources>
