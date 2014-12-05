@@ -1,7 +1,6 @@
 package activity;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import slidermenu.NavDrawerItem;
@@ -13,21 +12,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import br.com.les.where2go.R;
-
-import com.facebook.AppEventsLogger;
-
 import entity.event.Event;
 
 /**
@@ -65,7 +63,8 @@ public class MainScreen extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
-		
+        setStatusBarColor(findViewById(R.id.statusBarBackground),getResources().getColor(R.color.status_bar));
+
         mTitle = mDrawerTitle = getTitle();
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         
@@ -249,4 +248,35 @@ public class MainScreen extends Activity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
     
+	public void setStatusBarColor(View statusBar,int color){
+	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+	           Window w = getWindow();
+	           w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+	           //status bar height
+	           int actionBarHeight = getActionBarHeight();
+	           int statusBarHeight = getStatusBarHeight();
+	           //action bar height
+	           statusBar.getLayoutParams().height = actionBarHeight + statusBarHeight;
+	           statusBar.setBackgroundColor(color);
+	     }
+	}
+	
+	public int getActionBarHeight() {
+	    int actionBarHeight = 0;
+	    TypedValue tv = new TypedValue();
+	    if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+	    {
+	       actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+	    }
+	    return actionBarHeight;
+	}
+
+	public int getStatusBarHeight() {
+	    int result = 0;
+	    int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+	    if (resourceId > 0) {
+	        result = getResources().getDimensionPixelSize(resourceId);
+	    }
+	    return result;
+	}
 }
