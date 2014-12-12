@@ -192,6 +192,7 @@ public class MainScreen extends Activity {
                 fragment = new EventsListFragment();
                 break;
             case 3:
+            	fragment = new ProfileFragment();
                 break;
             case 4:
                 break;
