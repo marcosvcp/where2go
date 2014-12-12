@@ -1,11 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.com.les.where2go.EventListActivity" >
-
-    <item
-        android:id="@+id/action_create_event"
-        android:showAsAction="always"
-        android:title="@string/action_create_event"
-        android:icon="@drawable/ic_action_new"/>
-
 </menu>

@@ -50,6 +50,7 @@ public class EventsListFragment extends Fragment {
             Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.activity_event_list, container, false);
+        ImageButton mBtnAddEvent = (ImageButton) rootView.findViewById(R.id.bt_add_event);
         listview = (ListView) rootView.findViewById(R.id.listViewEvents);
         context = rootView.getContext();
     	bdHelper = new DatabaseStorage(context);
@@ -62,6 +63,15 @@ public class EventsListFragment extends Fragment {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         setHasOptionsMenu(true);
+        
+        mBtnAddEvent.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				addEvent();			
+			}
+		});
+        
         return rootView;
     }
 
@@ -85,13 +95,16 @@ public class EventsListFragment extends Fragment {
                 intentBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentBack);
                 return true;
-            case R.id.action_create_event:
-                Intent intent = new Intent(context, CreateEventActivity.class);
-                startActivity(intent);
-                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
-        return true;
+    }
+    
+    /**
+     * Actions of the addEvent button.
+     */
+    public void addEvent() {
+    	Intent intent = new Intent(context, CreateEventActivity.class);
+        startActivity(intent);
     }
 }
