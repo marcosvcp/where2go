@@ -26,6 +26,9 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import br.com.les.where2go.R;
+
+import com.facebook.Session;
+
 import entity.event.Event;
 
 /**
@@ -195,6 +198,9 @@ public class MainScreen extends Activity {
             	fragment = new ProfileFragment();
                 break;
             case 4:
+            	logoutFacebook();
+                final Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            	startActivity(intent);
                 break;
             default:
                 break;
@@ -279,5 +285,13 @@ public class MainScreen extends Activity {
 	        result = getResources().getDimensionPixelSize(resourceId);
 	    }
 	    return result;
+	}
+	
+	public void logoutFacebook(){
+		if (Session.getActiveSession() != null) {
+		    Session.getActiveSession().closeAndClearTokenInformation();
+		}
+
+		Session.setActiveSession(null);
 	}
 }
