@@ -15,6 +15,7 @@ import java.util.List;
 public class User {
     private String name;
     private int age;
+    private String gender;
 
     private List<Invitation> invitations;
     //falta o atributo que liga o usuario aos dados do facebook: FACEBOOK ID?
@@ -41,7 +42,15 @@ public class User {
         this.age = mAge;
     }
   
-    public List<Invitation> getInvitations() {
+    public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public List<Invitation> getInvitations() {
         return Collections.unmodifiableList(invitations);
     }
   

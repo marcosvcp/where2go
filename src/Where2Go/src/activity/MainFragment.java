@@ -1,5 +1,7 @@
 package activity;
 
+import java.util.Arrays;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,15 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import br.com.les.where2go.R;
 
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
-import java.util.Arrays;
+import entity.user.User;
 
 /**
  * Gerencia a sessão com o facebook
@@ -27,6 +34,13 @@ public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
     private UiLifecycleHelper uiHelper;
     private ImageButton btEnter;
+    private View rootView;
+    private User mUser;
+    private TextView tv_name;
+    private TextView tv_email;
+    private TextView tv_gender;
+
+
 
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
@@ -39,13 +53,14 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main, container, false);
-        LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
+
+        rootView = inflater.inflate(R.layout.activity_main, container, false);
+        LoginButton authButton = (LoginButton) rootView.findViewById(R.id.authButton);
         authButton.setFragment(this);
-        authButton.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends"));
+        authButton.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends", "user_birthday", "user_location", "user_events"));
         
         
-        btEnter = (ImageButton) view.findViewById(R.id.bt_enter);
+        btEnter = (ImageButton) rootView.findViewById(R.id.bt_enter);
         btEnter.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -57,7 +72,7 @@ public class MainFragment extends Fragment {
 			}
 		});
         
-        return view;
+        return rootView;
     }
 
     @Override
@@ -65,22 +80,14 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         uiHelper = new UiLifecycleHelper(getActivity(), callback);
         uiHelper.onCreate(savedInstanceState);
-        
-        
-        
     }
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
-//			final Intent intent = new Intent(getActivity(), MainScreen.class);
-//			intent.putExtra("eventslist", 2);
-//            startActivity(intent);
-//        	startActivity(intent);
+            makeMeRequest(session);
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
-//            final Intent intent = new Intent(getActivity(),MainActivity.class);
-//        	startActivity(intent);
         }
     }
 
@@ -122,4 +129,30 @@ public class MainFragment extends Fragment {
         super.onSaveInstanceState(outState);
         uiHelper.onSaveInstanceState(outState);
     }
+    
+	private void makeMeRequest(final Session session) {
+		Request request = Request.newMeRequest(session,
+				new Request.GraphUserCallback() {
+					@Override
+					public void onCompleted(GraphUser user, Response response) {
+						if (session == Session.getActiveSession()) {
+							if (user != null) {
+								Log.v("USERS", user.asMap().toString());
+								
+								tv_name = (TextView) rootView.findViewById(R.id.tv_name);
+								tv_email = (TextView) rootView.findViewById(R.id.tv_email);
+								tv_gender = (TextView) rootView.findViewById(R.id.tv_gender);
+								
+//								tv_name.setText(user.getName());
+//								tv_email.setText(user.asMap().get("email").toString());
+//								tv_gender.setText(user.getBirthday());
+						
+							}
+						}
+						if (response.getError() != null) {
+						}
+					}
+				});
+		request.executeAsync();
+	}
 }

@@ -8,8 +8,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_vertical" >
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,15 +18,21 @@
         </TextView>
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name" >
+            android:layout_height="wrap_content" >
         </TextView>
 
         <TextView
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Other" >
+            android:layout_height="wrap_content" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
         </TextView>
     </LinearLayout>
 
