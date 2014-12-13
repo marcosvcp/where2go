@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import br.com.les.where2go.R;
 
 import com.facebook.Session;
@@ -24,6 +26,7 @@ import java.util.Arrays;
 public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
     private UiLifecycleHelper uiHelper;
+    private ImageButton btEnter;
 
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
@@ -40,6 +43,20 @@ public class MainFragment extends Fragment {
         LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends"));
+        
+        
+        btEnter = (ImageButton) view.findViewById(R.id.bt_enter);
+        btEnter.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity().getApplicationContext() , MainScreen.class);
+				intent.putExtra("eventslist", 0);
+	            startActivity(intent);
+				
+			}
+		});
+        
         return view;
     }
 
@@ -48,19 +65,22 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         uiHelper = new UiLifecycleHelper(getActivity(), callback);
         uiHelper.onCreate(savedInstanceState);
+        
+        
+        
     }
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
-			final Intent intent = new Intent(getActivity(), MainScreen.class);
-			intent.putExtra("eventslist", 2);
-            startActivity(intent);
-        	startActivity(intent);
+//			final Intent intent = new Intent(getActivity(), MainScreen.class);
+//			intent.putExtra("eventslist", 2);
+//            startActivity(intent);
+//        	startActivity(intent);
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
-            final Intent intent = new Intent(getActivity(),MainActivity.class);
-        	startActivity(intent);
+//            final Intent intent = new Intent(getActivity(),MainActivity.class);
+//        	startActivity(intent);
         }
     }
 
