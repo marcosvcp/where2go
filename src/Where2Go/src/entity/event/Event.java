@@ -2,6 +2,8 @@ package entity.event;
 
 
 import com.google.common.base.Objects;
+
+import entity.notifications.Notification;
 import entity.user.User;
 
 import java.util.Collections;
@@ -26,6 +28,8 @@ public class Event {
     private String timestamp;
     private List<User> participants;
     private EventState state;
+    private User owner;
+    private boolean isPublic;
 
     public Event(Integer id, String name, String status, String description,
                  String photo, String info, String initialDate, String finalDate,
@@ -43,6 +47,9 @@ public class Event {
         this.outfit = outfit;
         this.capacity = capacity;
         this.timestamp = timestamp;
+        this.owner = owner;
+        this.isPublic = isPublic;
+
     }
 
     public Integer getId() {
@@ -149,7 +156,23 @@ public class Event {
         this.participants = participants;
     }
 
-    /**
+    public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
+	}
+
+	/**
      * Adiciona um {@code participant} à lista de {@code participants}
      *
      * @param participant O participante a ser adicionado
@@ -193,5 +216,9 @@ public class Event {
         return Objects.equal(this.name, other.name) &&
                 Objects.equal(this.description, other.description) &&
                 Objects.equal(this.initialDate, other.initialDate);
+    }
+    
+    public boolean isOwner(User user){
+    	return user.equals(owner);
     }
 }

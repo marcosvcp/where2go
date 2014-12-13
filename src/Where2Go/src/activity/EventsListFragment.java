@@ -5,12 +5,18 @@
 
 package activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import adapter.EventAdapter;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,12 +24,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Spinner;
 import br.com.les.where2go.R;
-
-import java.util.Calendar;
 
 import persistence.DatabaseStorage;
 
@@ -35,10 +42,11 @@ public class EventsListFragment extends Fragment {
     public static Context context;
     private ActionBar actionBar;
     private View rootView;
+    private Spinner mSearchEventSpinner;
+    private ImageButton mBtnAddEvent;
     public static boolean shouldShown = false;
     public static String incomingFragment = "";
-    private int num = -30;
-
+    
     public EventsListFragment() {
     }
 
@@ -50,13 +58,14 @@ public class EventsListFragment extends Fragment {
             Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.activity_event_list, container, false);
-        ImageButton mBtnAddEvent = (ImageButton) rootView.findViewById(R.id.bt_add_event);
+        mBtnAddEvent = (ImageButton) rootView.findViewById(R.id.bt_add_event);
+        mSearchEventSpinner = (Spinner) rootView.findViewById(R.id.searchEventList);
         listview = (ListView) rootView.findViewById(R.id.listViewEvents);
         context = rootView.getContext();
     	bdHelper = new DatabaseStorage(context);
         adapter = new EventAdapter(context, bdHelper.getEvents(), rootView);
         listview.setAdapter(adapter);
-
+        
         listview.setClickable(true);
 
         actionBar = getActivity().getActionBar();
@@ -64,6 +73,8 @@ public class EventsListFragment extends Fragment {
         actionBar.setDisplayShowTitleEnabled(true);
         setHasOptionsMenu(true);
         
+        searchSpinnerSetUp();
+    	
         mBtnAddEvent.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -74,8 +85,43 @@ public class EventsListFragment extends Fragment {
         
         return rootView;
     }
-
+    
     /**
+     * SetUp the search Spinner elements and listener.
+     */
+	private void searchSpinnerSetUp() {
+		// Essa lista deve ser a lista de tags do BD
+        List<String> list = new ArrayList<String>();
+        list.add("Todos");
+    	list.add("Festa");
+    	list.add("Bagacera");
+    	list.add("Churrasco");
+    	
+    	ArrayAdapter<String> spinnerDataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list);
+    	
+    	spinnerDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	
+    	mSearchEventSpinner.setAdapter(spinnerDataAdapter);
+    	
+    	mSearchEventSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				String filter = parent.getItemAtPosition(position).toString();
+				//Atualiza o adapter passando o filtro como parametro
+				adapter = new EventAdapter(context, bdHelper.getEvents(), rootView, filter);
+				listview.setAdapter(adapter);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+			}
+		});		
+	}
+
+	/**
      * Inflate the menu items for use in the action bar
      */
     @Override
