@@ -1,5 +1,6 @@
 package adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import activity.EditEventActivity;
@@ -38,6 +39,24 @@ public class EventAdapter extends BaseAdapter {
 
     public EventAdapter(Context context, List<Event> listEvents,View parentView) {
         this.mListEvents = listEvents;
+        this.mInflater = LayoutInflater.from(context);
+        this.mcontext = context;
+        this.parentView = parentView;
+    }
+    
+    public EventAdapter(Context context, List<Event> listEvents,View parentView, String filter) {
+    	if (filter.equals("Todos")) {
+    		this.mListEvents = listEvents;
+    	} else {
+        	List<Event> newListEvents = new ArrayList<Event>();
+    		for (int i = 0; i < listEvents.size(); i++) {
+        		Event tempEvent = listEvents.get(i);
+        		if (tempEvent.getName().equals(filter)) {
+        			newListEvents.add(tempEvent);
+        		}
+    		}
+    		this.mListEvents = newListEvents;
+    	}
         this.mInflater = LayoutInflater.from(context);
         this.mcontext = context;
         this.parentView = parentView;
