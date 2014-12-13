@@ -12,8 +12,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import br.com.les.where2go.R;
 
 import com.facebook.AppEventsLogger;
@@ -27,7 +25,6 @@ public class MainActivity extends FragmentActivity {
 
     private MainFragment mainFragment;
     private List<View> mViews;
-    private ImageButton btEnter;
     public static List<Event> events = new ArrayList<Event>();
     
     /**
@@ -40,19 +37,8 @@ public class MainActivity extends FragmentActivity {
         setStatusBarColor(findViewById(R.id.statusBarBackground),getResources().getColor(R.color.status_bar));
 
         mViews = new LinkedList<View>();
-
-        btEnter = (ImageButton) findViewById(R.id.bt_enter);
-        btEnter.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), MainScreen.class);
-				intent.putExtra("eventslist", 0);
-	            startActivity(intent);
-			}
-		});
         
-        /*if (savedInstanceState == null) {
+        if (savedInstanceState == null) {
             // Add the fragment on initial activity setup
             mainFragment = new MainFragment();
             getSupportFragmentManager()
@@ -63,9 +49,7 @@ public class MainActivity extends FragmentActivity {
             // Or set the fragment from restored state info
             mainFragment = (MainFragment) getSupportFragmentManager()
                     .findFragmentById(android.R.id.content);
-        }*/
-        
-        
+        }
         
     }
 

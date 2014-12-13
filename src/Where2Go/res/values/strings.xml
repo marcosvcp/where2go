@@ -47,7 +47,7 @@
         <item>Map</item>
         <item>Events</item>
         <item>Profile</item>
-        <item>Menu4</item>
+        <item>Logout</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
