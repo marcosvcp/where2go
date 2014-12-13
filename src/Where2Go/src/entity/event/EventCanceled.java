@@ -15,4 +15,9 @@ public class EventCanceled implements EventState {
     public Notification addParticipant() {
         return null;
     }
+    
+    @Override
+    public String getName() {
+    	return "Canceled";
+    }
 }

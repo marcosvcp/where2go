@@ -1,9 +1,11 @@
 package test;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.junit.Test;
 
+import persistence.ParseUtil;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import entity.event.Event;
@@ -19,10 +21,10 @@ public class UserTest extends TestCase{
 	private Event testEvent1;
 	private Invitation invitation1, invitation2; 
 	
-	public void setUp() {
+	public void setUp() throws ParseException {
 		user1 = new User("User1 name", 25);
 		user2 = new User("User2 name", 30);
-		testEvent1 = new Event(1, "Event 1", "Opened", "Event 1 Description", "Event Image Path", "Event 1 Info", "01/12/2014", "02/12/2014", "200,00", "", 100, "01/12/2014");
+		testEvent1 = new Event("Event 1", "Event 1 Description", "Event Image Path", "Event 1 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Marcos", 20));
 		invitation1 = new Invitation(user1, testEvent1);
 	}
 	

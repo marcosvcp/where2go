@@ -15,6 +15,9 @@ import android.view.WindowManager;
 import br.com.les.where2go.R;
 
 import com.facebook.AppEventsLogger;
+import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
 
 import entity.event.Event;
 
@@ -33,6 +36,8 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Parse.initialize(this, "nUL0Lh3eOXpMYmaUgMJuveMYC0cIkEupF0eaqmh6", "vd7smIM4ePAFUtWhQfT7TpNKmJ2d9PvfDeqke16D");
+        ParseObject.registerSubclass(Event.class);
         setContentView(R.layout.activity_main);
         setStatusBarColor(findViewById(R.id.statusBarBackground),getResources().getColor(R.color.status_bar));
 
@@ -125,5 +130,11 @@ public class MainActivity extends FragmentActivity {
 	        result = getResources().getDimensionPixelSize(resourceId);
 	    }
 	    return result;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		 super.onActivityResult(requestCode, resultCode, data);
+		  ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
 	}
 }

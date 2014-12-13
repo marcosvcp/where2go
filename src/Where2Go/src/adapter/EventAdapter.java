@@ -27,10 +27,11 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import br.com.les.where2go.R;
 import entity.event.Event;
+import entity.event.EventCanceled;
 
 public class EventAdapter extends BaseAdapter {
 
-    private static List<Event> mListEvents;
+    private  List<Event> mListEvents;
     private LayoutInflater mInflater;
     private int posicao;
     Context mcontext;
@@ -92,7 +93,7 @@ public class EventAdapter extends BaseAdapter {
          TextView eventDescription = (TextView) myView.findViewById(R.id.event_category);
          
          TextView eventStatus = (TextView) myView.findViewById(R.id.event_status);
-         eventStatus.setText(event.getStatus());
+         eventStatus.setText(event.getState());
          
          ImageButton thumbnail = (ImageButton) myView.findViewById(R.id.photo);
          Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable()).getBitmap();
@@ -178,7 +179,7 @@ public class EventAdapter extends BaseAdapter {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             Intent intent = new Intent(parentView.getContext(), EditEventActivity.class);
-                            intent.putExtra("event_id", event.getId());
+                            intent.putExtra("event_id", event.getObjectId());
                             parentView.getContext().startActivity(intent);
                         }
                     });
@@ -211,8 +212,8 @@ public class EventAdapter extends BaseAdapter {
             builder.setPositiveButton(parentView.getResources().getString(R.string.cancel_alert_positive),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
-                        event.setStatus("Canceled");
-                        notifyDataSetChanged();
+                        	event.setState(new EventCanceled().getName());
+                        	notifyDataSetChanged();
                         }
                     });
             builder.setNegativeButton(parentView.getResources().getString(R.string.cancel_alert_negative),
