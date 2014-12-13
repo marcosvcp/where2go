@@ -6,8 +6,8 @@
 	<classpathentry kind="lib" path="libs/guava-17.0.jar"/>
 	<classpathentry kind="lib" path="libs/Parse-1.8.0.jar"/>
 	<classpathentry kind="lib" path="libs/ParseCrashReporting-1.8.0.jar"/>
+	<classpathentry kind="src" path="/FacebookSDK"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="src" path="/FacebookSDK"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

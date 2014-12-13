@@ -3,6 +3,7 @@ package adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import persistence.ParseUtil;
 import activity.EditEventActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -213,6 +214,7 @@ public class EventAdapter extends BaseAdapter {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                         	event.setState(new EventCanceled().getName());
+                        	ParseUtil.saveEvent(event);
                         	notifyDataSetChanged();
                         }
                     });
