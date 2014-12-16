@@ -46,6 +46,11 @@
             android:label="@string/title_activity_event_list"
             android:parentActivityName="activity.EventListActivity" >
         </activity>
+		<activity
+            android:name="activity.AditionalEventInformationActivity"
+            android:label="@string/title_activity_aditional_event_information"
+            android:parentActivityName="activity.CreateEventActivity" >
+        </activity>  
         <activity
             android:name="activity.EditEventActivity"
             android:label="@string/title_activity_event_list"

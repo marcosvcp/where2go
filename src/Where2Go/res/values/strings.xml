@@ -36,6 +36,7 @@
 	<string name="create_event">Create event</string>
 	<string name="event_canceled">Event Canceled</string>
 	<string name="edit_event">Edit event</string>
+	<string name="title_activity_aditional_event_information">Aditional informations</string>
 	
 		<!-- Content Description -->
 	<string name="desc_list_item_icon">Item Icon</string>

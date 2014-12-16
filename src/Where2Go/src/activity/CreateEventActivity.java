@@ -29,6 +29,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import br.com.les.where2go.R;
 
 /**
@@ -43,6 +44,7 @@ public class CreateEventActivity extends Activity {
 	private EditText et_event_final_date;
 	private Button bt_create_event;
 	private Button bt_select_tags;
+	private ImageButton bt_add_aditional_informations;
 	private Date initialDate, finalDate;
 	private SimpleDateFormat dateFormatter;
 	private DatePickerDialog initialDatePickerDialog;
@@ -69,6 +71,7 @@ public class CreateEventActivity extends Activity {
 		et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
 		bt_create_event = (Button) findViewById(R.id.bt_create_event);
 		bt_select_tags = (Button) findViewById(R.id.bt_select_tags);
+		bt_add_aditional_informations = (ImageButton) findViewById(R.id.bt_add_aditional_informations);
 
 		et_event_final_date.setInputType(InputType.TYPE_NULL);
 		et_event_final_date.requestFocusFromTouch();
@@ -141,6 +144,17 @@ public class CreateEventActivity extends Activity {
 				selectTag();
 			}
 		});
+		
+		bt_add_aditional_informations.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), AditionalEventInformationActivity.class);
+            	startActivity(intent);
+			}
+		});
+		
+		
 	}
 	
 	/**
