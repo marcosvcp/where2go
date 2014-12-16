@@ -32,35 +32,66 @@ import com.facebook.Session;
 import entity.event.Event;
 
 /**
- * Application core
+ * Application core.
  */  
 public class MainScreen extends Activity {
 
+    /** The main fragment. */
     private MainFragment mainFragment;
+    
+    /** The m views. */
     private List<View> mViews;
+    
+    /** The events. */
     public static List<Event> events = new ArrayList<Event>();
+    
+    /** The choosed fragment. */
     public static int choosedFragment = 0;
+    
+    /** The backit. */
     public static boolean backit = false;
+    
+    /** The m context. */
     private static Context mContext;
+	
+	/** The m drawer layout. */
 	private DrawerLayout mDrawerLayout;
+	
+	/** The m drawer list. */
 	private ListView mDrawerList;
+	
+	/** The m drawer toggle. */
 	private ActionBarDrawerToggle mDrawerToggle;
+	
+	/** The m drawer title. */
 	private CharSequence mDrawerTitle;
+	
+	/** The m content. */
 	private static Fragment mContent;
 	
 	// nav drawer title
+	/** The m title. */
 	private CharSequence mTitle;
 
 	// slide menu items
+	/** The nav menu titles. */
 	private String[] navMenuTitles;
+	
+	/** The nav menu icons. */
 	private TypedArray navMenuIcons;
+	
+	/** The nav drawer items. */
 	private ArrayList<NavDrawerItem> navDrawerItems;
+	
+	/** The adapter. */
 	private NavDrawerListAdapter adapter;
 
 	
 	
     /**
      * Called when the activity is first created.
+     *
+     * @param savedInstanceState the saved instance state
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -136,22 +167,34 @@ public class MainScreen extends Activity {
     }
     
     /**
-     * Display view for selected nav drawer item
+     * Display view for selected nav drawer item.
+     *
+     * @see SlideMenuClickEvent
      */
     private class SlideMenuClickListener implements
             ListView.OnItemClickListener {
+        
+        /* (non-Javadoc)
+         * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+         */
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
             displayView(position);
         }
     }
     
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_screen, menu);
 		return true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// toggle nav drawer on selecting action bar app icon/title
@@ -168,6 +211,9 @@ public class MainScreen extends Activity {
 	/* *
 	 * Called when invalidateOptionsMenu() is triggered
 	 */
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
@@ -176,7 +222,9 @@ public class MainScreen extends Activity {
 	}
 	
     /**
-     * Diplaying fragment view for selected nav drawer list item
+     * Diplaying fragment view for selected nav drawer list item.
+     *
+     * @param position the position
      */
     private void displayView(int position) {
         // update the main content by replacing fragments
@@ -222,6 +270,9 @@ public class MainScreen extends Activity {
 		}
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -235,12 +286,18 @@ public class MainScreen extends Activity {
 
     }
     
+	/* (non-Javadoc)
+	 * @see android.app.Activity#setTitle(java.lang.CharSequence)
+	 */
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
 		getActionBar().setTitle(mTitle);
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onPostCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -248,6 +305,9 @@ public class MainScreen extends Activity {
 		mDrawerToggle.syncState();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onConfigurationChanged(android.content.res.Configuration)
+	 */
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -255,6 +315,12 @@ public class MainScreen extends Activity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
     
+	/**
+	 * Sets the status bar color.
+	 *
+	 * @param statusBar the status bar
+	 * @param color the color
+	 */
 	public void setStatusBarColor(View statusBar,int color){
 	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 	           Window w = getWindow();
@@ -268,6 +334,11 @@ public class MainScreen extends Activity {
 	     }
 	}
 	
+	/**
+	 * Gets the action bar height.
+	 *
+	 * @return the action bar height
+	 */
 	public int getActionBarHeight() {
 	    int actionBarHeight = 0;
 	    TypedValue tv = new TypedValue();
@@ -278,6 +349,11 @@ public class MainScreen extends Activity {
 	    return actionBarHeight;
 	}
 
+	/**
+	 * Gets the status bar height.
+	 *
+	 * @return the status bar height
+	 */
 	public int getStatusBarHeight() {
 	    int result = 0;
 	    int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -287,11 +363,13 @@ public class MainScreen extends Activity {
 	    return result;
 	}
 	
+	/**
+	 * Logout facebook.
+	 */
 	public void logoutFacebook(){
 		if (Session.getActiveSession() != null) {
 		    Session.getActiveSession().closeAndClearTokenInformation();
 		}
-
 		Session.setActiveSession(null);
 	}
 }

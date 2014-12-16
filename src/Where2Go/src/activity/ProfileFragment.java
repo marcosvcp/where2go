@@ -17,19 +17,37 @@ import com.facebook.widget.ProfilePictureView;
 
 import entity.user.User;
 
-
+/**
+ * Fragment responsible to manager of logged user.
+ *
+ * @author julioandherson
+ */
 public class ProfileFragment extends Fragment{
-	
+
+	/** The profile picture view. */
 	private ProfilePictureView profilePictureView;
+    
+    /** The tv_name. */
     private TextView tv_name;
+    
+    /** The tv_email. */
     private TextView tv_email;
+    
+    /** The tv_gender. */
     private TextView tv_gender;
+    
+    /** The m user. */
     private User mUser;
     
-    
+    /**
+     * Instantiates a new profile fragment.
+     */
     public ProfileFragment() {
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.activity_profile, container, false);
@@ -45,6 +63,11 @@ public class ProfileFragment extends Fragment{
 		return rootView;
     }
     
+	/**
+	 * Make me request to get user's data
+	 *
+	 * @param session the session
+	 */
 	private void makeMeRequest(final Session session) {
 		Request request = Request.newMeRequest(session,
 				new Request.GraphUserCallback() {
@@ -68,5 +91,4 @@ public class ProfileFragment extends Fragment{
 				});
 		request.executeAsync();
 	}
- 
 }

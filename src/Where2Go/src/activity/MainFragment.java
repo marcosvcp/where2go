@@ -19,16 +19,24 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
 
 /**
- * Gerencia a sessão com o facebook
- * <p/>
+ * Responsible to manager the session of facebook
  * Created by marcos on 29/11/14.
  */
 public class MainFragment extends Fragment {
+    
+    /** The Constant TAG. */
     private static final String TAG = "MainFragment";
+    
+    /** The ui helper. */
     private UiLifecycleHelper uiHelper;
+    
+    /** The bt enter. */
     private ImageButton btEnter;
+    
+    /** The root view. */
     private View rootView;
     
+    /** The callback. */
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -36,6 +44,9 @@ public class MainFragment extends Fragment {
         }
     };
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+     */
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -58,6 +69,9 @@ public class MainFragment extends Fragment {
         return rootView;
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +79,13 @@ public class MainFragment extends Fragment {
         uiHelper.onCreate(savedInstanceState);
     }
 
+    /**
+     * On session state change.
+     *
+     * @param session the session
+     * @param state the state
+     * @param exception the exception
+     */
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
@@ -73,6 +94,9 @@ public class MainFragment extends Fragment {
         }
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.Fragment#onResume()
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -88,24 +112,36 @@ public class MainFragment extends Fragment {
         uiHelper.onResume();
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.Fragment#onActivityResult(int, int, android.content.Intent)
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         uiHelper.onActivityResult(requestCode, resultCode, data);
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.Fragment#onPause()
+     */
     @Override
     public void onPause() {
         super.onPause();
         uiHelper.onPause();
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.Fragment#onDestroy()
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         uiHelper.onDestroy();
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
