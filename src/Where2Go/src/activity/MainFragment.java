@@ -55,7 +55,6 @@ public class MainFragment extends Fragment {
 	            startActivity(intent);
 			}
 		});
-        
         return rootView;
     }
 

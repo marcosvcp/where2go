@@ -37,7 +37,7 @@ public class ProfileFragment extends Fragment{
         tv_name = (TextView) rootView.findViewById(R.id.tv_name);
 		tv_email = (TextView) rootView.findViewById(R.id.tv_email);
 		tv_gender = (TextView) rootView.findViewById(R.id.tv_gender);
-		
+		profilePictureView = (ProfilePictureView) rootView.findViewById(R.id.profile_picture);
         Session session = Session.getActiveSession();
         if (session != null && session.isOpened()) {
                 makeMeRequest(session);
@@ -61,6 +61,7 @@ public class ProfileFragment extends Fragment{
 								tv_name.setText(mUser.getName());
 								tv_email.setText(mUser.getEmail());
 								tv_gender.setText(mUser.getGender());
+								profilePictureView.setProfileId(user.getId());
 							}
 						}
 					}
