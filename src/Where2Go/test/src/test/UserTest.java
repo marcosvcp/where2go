@@ -22,9 +22,9 @@ public class UserTest extends TestCase{
 	private Invitation invitation1, invitation2; 
 	
 	public void setUp() throws ParseException {
-		user1 = new User("User1 name", 25);
-		user2 = new User("User2 name", 30);
-		testEvent1 = new Event("Event 1", "Event 1 Description", "Event Image Path", "Event 1 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Marcos", 20));
+		user1 = new User("User1 name");
+		user2 = new User("User2 name");
+		testEvent1 = new Event("Event 1", "Event 1 Description", "Event Image Path", "Event 1 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Marcos"));
 		invitation1 = new Invitation(user1, testEvent1);
 	}
 	
@@ -32,8 +32,8 @@ public class UserTest extends TestCase{
 	public void testUserConstrucot() {
 		user1 = null;
 		user2 = null;
-		user1 = new User("New Test User1",20);
-		user2 = new User("New Test User2",30);
+		user1 = new User("New Test User1");
+		user2 = new User("New Test User2");
 		Assert.assertNotNull("User constructor not working", user1);
 		Assert.assertNotNull("User constructor not working", user2);
 	}
