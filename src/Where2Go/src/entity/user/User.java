@@ -15,14 +15,15 @@ import java.util.List;
 public class User {
     private String name;
     private int age;
+    private String birthday;
+    private String email;
     private String gender;
 
     private List<Invitation> invitations;
     //falta o atributo que liga o usuario aos dados do facebook: FACEBOOK ID?
 
-    public User(String name, int age) {
+    public User(String name) {
         this.name = name;
-        this.age = age;
         this.invitations = new ArrayList<Invitation>();
     }
     
@@ -34,7 +35,23 @@ public class User {
         this.name = mName;
     }
   
-    public int getAge() {
+    public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getAge() {
         return age;
     }
   

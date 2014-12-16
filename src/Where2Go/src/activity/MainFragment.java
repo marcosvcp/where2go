@@ -10,20 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import br.com.les.where2go.R;
 
-import com.facebook.Request;
-import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
-
-import entity.user.User;
 
 /**
  * Gerencia a sessão com o facebook
@@ -35,13 +28,7 @@ public class MainFragment extends Fragment {
     private UiLifecycleHelper uiHelper;
     private ImageButton btEnter;
     private View rootView;
-    private User mUser;
-    private TextView tv_name;
-    private TextView tv_email;
-    private TextView tv_gender;
-
-
-
+    
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -59,16 +46,13 @@ public class MainFragment extends Fragment {
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends", "user_birthday", "user_location", "user_events"));
         
-        
         btEnter = (ImageButton) rootView.findViewById(R.id.bt_enter);
         btEnter.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity().getApplicationContext() , MainScreen.class);
 				intent.putExtra("eventslist", 0);
 	            startActivity(intent);
-				
 			}
 		});
         
@@ -85,7 +69,6 @@ public class MainFragment extends Fragment {
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
-            makeMeRequest(session);
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }
@@ -129,30 +112,4 @@ public class MainFragment extends Fragment {
         super.onSaveInstanceState(outState);
         uiHelper.onSaveInstanceState(outState);
     }
-    
-	private void makeMeRequest(final Session session) {
-		Request request = Request.newMeRequest(session,
-				new Request.GraphUserCallback() {
-					@Override
-					public void onCompleted(GraphUser user, Response response) {
-						if (session == Session.getActiveSession()) {
-							if (user != null) {
-								Log.v("USERS", user.asMap().toString());
-								
-								tv_name = (TextView) rootView.findViewById(R.id.tv_name);
-								tv_email = (TextView) rootView.findViewById(R.id.tv_email);
-								tv_gender = (TextView) rootView.findViewById(R.id.tv_gender);
-								
-//								tv_name.setText(user.getName());
-//								tv_email.setText(user.asMap().get("email").toString());
-//								tv_gender.setText(user.getBirthday());
-						
-							}
-						}
-						if (response.getError() != null) {
-						}
-					}
-				});
-		request.executeAsync();
-	}
 }
