@@ -22,16 +22,23 @@ import com.parse.ParseObject;
 import entity.event.Event;
 
 /**
- * Application core
+ * Application core.
  */
 public class MainActivity extends FragmentActivity {
 
+    /** The main fragment. */
     private MainFragment mainFragment;
+    
+    /** The m views. */
     private List<View> mViews;
+    
+    /** The events. */
     public static List<Event> events = new ArrayList<Event>();
     
     /**
      * Called when the activity is first created.
+     *
+     * @param savedInstanceState the saved instance state
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,9 @@ public class MainActivity extends FragmentActivity {
         
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.FragmentActivity#onResume()
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -65,6 +75,9 @@ public class MainActivity extends FragmentActivity {
         AppEventsLogger.activateApp(this);
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.FragmentActivity#onPause()
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -73,7 +86,7 @@ public class MainActivity extends FragmentActivity {
     }
     
     /**
-     * Bloqueia todas as Views, para evitar que duas das mesmas sejam selecionadas ao mesmo tempo.
+     * Block all views to avoid multiple clicks.
      */
     private void lockAll() {
         for (final View v : mViews) {
@@ -82,7 +95,7 @@ public class MainActivity extends FragmentActivity {
     }
     
     /**
-     * Desbloqueia as Views.
+     * Unlock all views.
      */
     private void unlockAll() {
         for (final View v : mViews) {
@@ -91,7 +104,7 @@ public class MainActivity extends FragmentActivity {
     }
     
     /**
-     * Evento referente a ação do botão EnterEventList.
+     * Open activity MainScreen.
      */
     public void enterEventList() {
 		Intent intent = new Intent(getApplicationContext(), MainScreen.class);
@@ -100,6 +113,12 @@ public class MainActivity extends FragmentActivity {
     	unlockAll();
     }
     
+	/**
+	 * Sets the status bar color.
+	 *
+	 * @param statusBar the status bar
+	 * @param color the color
+	 */
 	public void setStatusBarColor(View statusBar,int color){
 	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 	           Window w = getWindow();
@@ -113,6 +132,11 @@ public class MainActivity extends FragmentActivity {
 	     }
 	}
 	
+	/**
+	 * Gets the action bar height.
+	 *
+	 * @return the action bar height
+	 */
 	public int getActionBarHeight() {
 	    int actionBarHeight = 0;
 	    TypedValue tv = new TypedValue();
@@ -123,6 +147,11 @@ public class MainActivity extends FragmentActivity {
 	    return actionBarHeight;
 	}
 
+	/**
+	 * Gets the status bar height.
+	 *
+	 * @return the status bar height
+	 */
 	public int getStatusBarHeight() {
 	    int result = 0;
 	    int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -132,6 +161,9 @@ public class MainActivity extends FragmentActivity {
 	    return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		 super.onActivityResult(requestCode, resultCode, data);

@@ -30,15 +30,36 @@ import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.event.EventCanceled;
 
+/**
+ * The Class EventAdapter.
+ */
 public class EventAdapter extends BaseAdapter {
 
+    /** The m list events. */
     private  List<Event> mListEvents;
+    
+    /** The m inflater. */
     private LayoutInflater mInflater;
+    
+    /** The posicao. */
     private int posicao;
+    
+    /** The mcontext. */
     Context mcontext;
+    
+    /** The parent view. */
     private View parentView;
+    
+    /** The listview. */
     private ListView listview;
 
+    /**
+     * Instantiates a new event adapter.
+     *
+     * @param context the context
+     * @param listEvents the list events
+     * @param parentView the parent view
+     */
     public EventAdapter(Context context, List<Event> listEvents,View parentView) {
         this.mListEvents = listEvents;
         this.mInflater = LayoutInflater.from(context);
@@ -46,6 +67,14 @@ public class EventAdapter extends BaseAdapter {
         this.parentView = parentView;
     }
     
+    /**
+     * Instantiates a new event adapter.
+     *
+     * @param context the context
+     * @param listEvents the list events
+     * @param parentView the parent view
+     * @param filter the filter
+     */
     public EventAdapter(Context context, List<Event> listEvents,View parentView, String filter) {
     	if (filter.equals("Todos")) {
     		this.mListEvents = listEvents;
@@ -64,24 +93,36 @@ public class EventAdapter extends BaseAdapter {
         this.parentView = parentView;
     }
 
+    /* (non-Javadoc)
+     * @see android.widget.Adapter#getCount()
+     */
     @Override
     public int getCount() {
         return mListEvents.size();
     }
 
+    /* (non-Javadoc)
+     * @see android.widget.Adapter#getItem(int)
+     */
     @Override
     public Event getItem(int position) {
         return mListEvents.get(position);
     }
 
     /**
-     * Get id of item selected
+     * Get id of item selected.
+     *
+     * @param index the index
+     * @return the item id
      */
     @Override
     public long getItemId(int index) {
         return index;
     }
 
+    /* (non-Javadoc)
+     * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+     */
     @Override
     public View getView(final int position, View myView, ViewGroup viewGroup) {
          myView = mInflater.inflate(R.layout.item_event_adapter, null);
@@ -136,8 +177,8 @@ public class EventAdapter extends BaseAdapter {
     
     /**
      * Shows popup menu with delete and edit options for a given event in the
-     * list
-     * 
+     * list.
+     *
      * @param v - view refers the screen listing
      * @param event selected
      */
@@ -166,9 +207,9 @@ public class EventAdapter extends BaseAdapter {
     }
 
     /**
-     * Alert dialog to edit event
-     * 
-     * @param event
+     * Alert dialog to edit event.
+     *
+     * @param event the event
      */
     public void editAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -201,9 +242,9 @@ public class EventAdapter extends BaseAdapter {
     }
     
     /**
-     * Alert dialog to cancel event
-     * 
-     * @param event
+     * Alert dialog to cancel event.
+     *
+     * @param event the event
      */
     public void cancelAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(

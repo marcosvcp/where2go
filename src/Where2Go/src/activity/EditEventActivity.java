@@ -17,16 +17,38 @@ import com.parse.ParseException;
 
 import entity.event.Event;
 
+/**
+ * The Class EditEventActivity.
+ */
 public class EditEventActivity extends Activity {
+	
+	/** The et_event_name. */
 	private EditText et_event_name;
+	
+	/** The et_event_status. */
 	private EditText et_event_status;
+	
+	/** The et_event_description. */
 	private EditText et_event_description;
+	
+	/** The et_event_info. */
 	private EditText et_event_info;
+	
+	/** The et_event_initial_date. */
 	private EditText et_event_initial_date;
+	
+	/** The et_event_final_date. */
 	private EditText et_event_final_date;
+	
+	/** The bt_edit_event. */
 	private Button bt_edit_event;
+	
+	/** The event. */
 	private Event event;
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,6 +83,9 @@ public class EditEventActivity extends Activity {
 		});
 	}
 
+	/**
+	 * Confirm edition.
+	 */
 	protected void confirmEdition() {
 		event.setName(et_event_name.getText().toString());
 		event.setDescription(et_event_description.getText().toString());
@@ -73,7 +98,7 @@ public class EditEventActivity extends Activity {
 	}
 
 	/**
-	 * Seta os campos da view com o nome dos campos do evento
+	 * Set all fields of view with name of events fields
 	 */
 	private void setDataFields() {
 		et_event_name.setText(event.getName());
@@ -83,6 +108,9 @@ public class EditEventActivity extends Activity {
 		et_event_final_date.setText(ParseUtil.ptbr.format(event.getFinalDate()));
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -90,6 +118,9 @@ public class EditEventActivity extends Activity {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

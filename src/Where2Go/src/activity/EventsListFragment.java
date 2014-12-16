@@ -1,8 +1,3 @@
-/**
- * Copyright (C) 2014 Embedded Systems and Pervasive Computing Lab - UFCG
- * All rights reserved.
- */
-
 package activity;
 
 import java.util.ArrayList;
@@ -35,23 +30,51 @@ import com.parse.ParseException;
 
 import entity.event.Event;
 
+/**
+ * The Class EventsListFragment.
+ */
 public class EventsListFragment extends Fragment {
 
+	/** The listview. */
 	private ListView listview;
+	
+	/** The adapter. */
 	public static EventAdapter adapter;
+	
+	/** The context. */
 	public static Context context;
+	
+	/** The action bar. */
 	private ActionBar actionBar;
+	
+	/** The root view. */
 	private View rootView;
+	
+	/** The m search event spinner. */
 	private Spinner mSearchEventSpinner;
+	
+	/** The m btn add event. */
 	private ImageButton mBtnAddEvent;
+	
+	/** The should shown. */
 	public static boolean shouldShown = false;
+	
+	/** The incoming fragment. */
 	public static String incomingFragment = "";
 
+	/**
+	 * Instantiates a new events list fragment.
+	 */
 	public EventsListFragment() {
 	}
 
 	/**
-	 * Instantiate components
+	 * Instantiate components.
+	 *
+	 * @param inflater the inflater
+	 * @param container the container
+	 * @param savedInstanceState the saved instance state
+	 * @return the view
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -128,7 +151,10 @@ public class EventsListFragment extends Fragment {
 	}
 
 	/**
-	 * Inflate the menu items for use in the action bar
+	 * Inflate the menu items for use in the action bar.
+	 *
+	 * @param menu the menu
+	 * @param inflater the inflater
 	 */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -138,6 +164,9 @@ public class EventsListFragment extends Fragment {
 
 	/**
 	 * Options for action bar, allowing create a new income.
+	 *
+	 * @param item the item
+	 * @return true, if successful
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
