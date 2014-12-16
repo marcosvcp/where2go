@@ -5,18 +5,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import persistence.ParseUtil;
 import utils.FieldValidation;
 import entity.event.Event;
 import entity.user.User;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,10 +37,13 @@ public class CreateEventActivity extends Activity {
 	private EditText et_event_initial_date;
 	private EditText et_event_final_date;
 	private Button bt_create_event;
+	private Button bt_select_tags;
 	private Date initialDate, finalDate;
 	private SimpleDateFormat dateFormatter;
 	private DatePickerDialog initialDatePickerDialog;
     private DatePickerDialog finalDatePickerDialog;
+    private AlertDialog dialog;
+    private List<String> tags;
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -48,7 +53,7 @@ public class CreateEventActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_event);
 		
-		dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+		tags = new ArrayList<String>();
 
 		et_event_name = (EditText) findViewById(R.id.et_event_name);
 		et_event_description = (EditText) findViewById(R.id.et_event_description);
@@ -56,6 +61,7 @@ public class CreateEventActivity extends Activity {
 		et_event_initial_date = (EditText) findViewById(R.id.et_event_initial_date);
 		et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
 		bt_create_event = (Button) findViewById(R.id.bt_create_event);
+		bt_select_tags = (Button) findViewById(R.id.bt_select_tags);
 
 		et_event_final_date.setInputType(InputType.TYPE_NULL);
 		et_event_final_date.requestFocusFromTouch();
@@ -120,6 +126,14 @@ public class CreateEventActivity extends Activity {
 				}
 			}
 		});
+		
+		bt_select_tags.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				selectTag();
+			}
+		});
 	}
 	
 	/**
@@ -154,4 +168,49 @@ public class CreateEventActivity extends Activity {
         }
         return ret;
     }
+	
+	/**
+	 * Method of select a tag on a dialog.
+	 */
+	public void selectTag(){
+		final CharSequence[] items = {"Festa","Churrasco","Confra","Casamento"};
+		
+		final ArrayList<Integer> seletedItems=new ArrayList<Integer>();
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Select The Tags");
+		builder.setMultiChoiceItems(items, null,
+				new DialogInterface.OnMultiChoiceClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int indexSelected,
+					boolean isChecked) {
+				if (isChecked) {
+					seletedItems.add(indexSelected);
+				} else if (seletedItems.contains(indexSelected)) {
+					seletedItems.remove(Integer.valueOf(indexSelected));
+				}
+			}
+		})
+
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				for (int i = 0; i < seletedItems.size(); i++) {
+					tags.add(items[(int) seletedItems.get(i)].toString());
+				}
+				for (int i = 0; i < tags.size(); i++) {
+					Log.e("Tags>",tags.get(i));
+				}
+			}
+		})
+		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				tags.clear();
+			}
+		});
+
+		dialog = builder.create();
+		dialog.show();
+	}
 }
