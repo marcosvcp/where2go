@@ -27,6 +27,7 @@ import br.com.les.where2go.R;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 
 import entity.event.Event;
 
@@ -111,21 +112,27 @@ public class EventsListFragment extends Fragment {
 	 */
 	private void searchSpinnerSetUp() {
 		// Essa lista deve ser a lista de tags do BD
-		List<String> list = new ArrayList<String>();
-		list.add("Todos");
-		list.add("Festa");
-		list.add("Bagacera");
-		list.add("Churrasco");
+		final List<String> tags = new ArrayList<String>();
+		tags.add("Todos");
+		
+		//Get all tags from parser
+		ParseUtil.findAllTags(new FindCallback<ParseObject>() {
+			@Override
+			public void done(List<ParseObject> objects, ParseException e) {
+				if (e == null) {
+					for (ParseObject po : objects) {
+						tags.add(po.getString("nome"));
+					}
+				}
+			}
+		});
 
+		
 		ArrayAdapter<String> spinnerDataAdapter = new ArrayAdapter<String>(context,
-				android.R.layout.simple_spinner_item, list);
-
+				android.R.layout.simple_spinner_item, tags);
 		spinnerDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 		mSearchEventSpinner.setAdapter(spinnerDataAdapter);
-
 		mSearchEventSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				final String filter = parent.getItemAtPosition(position).toString();
