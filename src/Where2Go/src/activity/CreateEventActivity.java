@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import persistence.ParseUtil;
 import utils.FieldValidation;
@@ -54,6 +55,8 @@ public class CreateEventActivity extends Activity {
 		setContentView(R.layout.activity_create_event);
 		
 		tags = new ArrayList<String>();
+		
+		dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
 		et_event_name = (EditText) findViewById(R.id.et_event_name);
 		et_event_description = (EditText) findViewById(R.id.et_event_description);
