@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+
 import persistence.ParseUtil;
 import utils.FieldValidation;
 import entity.event.Event;
@@ -175,45 +179,71 @@ public class CreateEventActivity extends Activity {
 	/**
 	 * Method of select a tag on a dialog.
 	 */
-	public void selectTag(){
-		final CharSequence[] items = {"Festa","Churrasco","Confra","Casamento"};
+	public void selectTag() {
+		// final CharSequence[] items =
+		// {"Festa","Churrasco","Confra","Casamento"};
 		
-		final ArrayList<Integer> seletedItems=new ArrayList<Integer>();
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Select The Tags");
-		builder.setMultiChoiceItems(items, null,
-				new DialogInterface.OnMultiChoiceClickListener() {
+		ParseUtil.findAllTags(new FindCallback<ParseObject>() {
 			@Override
-			public void onClick(DialogInterface dialog, int indexSelected,
-					boolean isChecked) {
-				if (isChecked) {
-					seletedItems.add(indexSelected);
-				} else if (seletedItems.contains(indexSelected)) {
-					seletedItems.remove(Integer.valueOf(indexSelected));
-				}
-			}
-		})
+			public void done(List<ParseObject> objects, ParseException e) {
+				final CharSequence[] items = new CharSequence[objects.size()];
+				if (e == null) {
+					
+					
+					for(int i = 0; i < items.length; i++){
+						items[i] = objects.get(i).getString("nome");
+					}
+					
+					final ArrayList<Integer> seletedItems = new ArrayList<Integer>();
 
-		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int id) {
-				for (int i = 0; i < seletedItems.size(); i++) {
-					tags.add(items[(int) seletedItems.get(i)].toString());
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							CreateEventActivity.this);
+					builder.setTitle("Select The Tags");
+					builder.setMultiChoiceItems(items, null,
+							new DialogInterface.OnMultiChoiceClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int indexSelected, boolean isChecked) {
+									if (isChecked) {
+										seletedItems.add(indexSelected);
+									} else if (seletedItems
+											.contains(indexSelected)) {
+										seletedItems.remove(Integer
+												.valueOf(indexSelected));
+									}
+								}
+							})
+
+							.setPositiveButton("OK",
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(
+												DialogInterface dialog, int id) {
+											for (int i = 0; i < seletedItems
+													.size(); i++) {
+												tags.add(items[i]
+														.toString());
+											}
+											for (int i = 0; i < tags.size(); i++) {
+												Log.e("Tags>", tags.get(i));
+											}
+										}
+									})
+							.setNegativeButton("Cancel",
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(
+												DialogInterface dialog, int id) {
+											tags.clear();
+										}
+									});
+
+					dialog = builder.create();
+					dialog.show();
 				}
-				for (int i = 0; i < tags.size(); i++) {
-					Log.e("Tags>",tags.get(i));
-				}
-			}
-		})
-		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int id) {
-				tags.clear();
 			}
 		});
-
-		dialog = builder.create();
-		dialog.show();
 	}
+		
 }
