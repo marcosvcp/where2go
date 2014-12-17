@@ -162,6 +162,11 @@ public class CreateEventActivity extends Activity {
 					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
 							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
 							true, new User("Marcos"));
+					if(!tags.isEmpty()) {
+						for (int i = 0; i < tags.size(); i++) {
+							event.addTags(tags.get(i));
+						}
+					}
 	            	startActivity(intent);
 				}
 			}
