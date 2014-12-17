@@ -37,7 +37,7 @@ public class ProfileFragment extends Fragment{
     private TextView tv_gender;
     
     /** The m user. */
-    private User mUser;
+    private static User mUser;
     
     /**
      * Instantiates a new profile fragment.
@@ -90,5 +90,13 @@ public class ProfileFragment extends Fragment{
 					}
 				});
 		request.executeAsync();
+	}
+
+	public static User getmUser() {
+		return mUser;
+	}
+
+	public static void setmUser(User mUser) {
+		ProfileFragment.mUser = mUser;
 	}
 }
