@@ -23,7 +23,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -127,7 +126,13 @@ public class CreateEventActivity extends Activity {
 					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
 							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
 							true, new User("Marcos"));
-				
+					
+					if(!tags.isEmpty()) {
+						for (int i = 0; i < tags.size(); i++) {
+							event.addTags(tags.get(i));
+						}
+					}
+					
 					ParseUtil.saveEvent(event);
 					EventsListFragment.adapter.notifyDataSetChanged();
 					Intent intent = new Intent(getApplicationContext(), MainScreen.class);
@@ -238,9 +243,6 @@ public class CreateEventActivity extends Activity {
 													.size(); i++) {
 												tags.add(items[i]
 														.toString());
-											}
-											for (int i = 0; i < tags.size(); i++) {
-												Log.e("Tags>", tags.get(i));
 											}
 										}
 									})
