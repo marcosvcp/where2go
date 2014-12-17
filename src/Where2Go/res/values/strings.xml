@@ -54,6 +54,7 @@
         <item>Events</item>
         <item>Profile</item>
         <item>Logout</item>
+        <item>My Events</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -64,8 +65,10 @@
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
     </array>
     <array name="nav_drawer_icons_selected">
+        <item>@drawable/ic_action_overflow</item>
         <item>@drawable/ic_action_overflow</item>
         <item>@drawable/ic_action_overflow</item>
         <item>@drawable/ic_action_overflow</item>

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="50dp"
+    android:background="#444444"
     android:orientation="vertical" >
 
     <com.facebook.widget.ProfilePictureView
