@@ -51,6 +51,8 @@ public class CreateEventActivity extends Activity {
     private DatePickerDialog finalDatePickerDialog;
     private AlertDialog dialog;
     private List<String> tags;
+    
+    public static Event event;
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -123,7 +125,7 @@ public class CreateEventActivity extends Activity {
 			public void onClick(View v) {
 				
 				if(checkValidation()){
-					Event event = null;
+					
 					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
 							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
 							true, new User("Marcos"));
@@ -149,8 +151,13 @@ public class CreateEventActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), AditionalEventInformationActivity.class);
-            	startActivity(intent);
+				if(checkValidation()){
+					Intent intent = new Intent(getApplicationContext(), AditionalEventInformationActivity.class);
+					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
+							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
+							true, new User("Marcos"));
+	            	startActivity(intent);
+				}
 			}
 		});
 		
@@ -171,7 +178,7 @@ public class CreateEventActivity extends Activity {
         listEditText.add(et_event_info);
         listEditText.add(et_event_initial_date);
         listEditText.add(et_event_final_date);
-
+        
         if (!validation.hasText(et_event_name)) {
             ret = false;
         }

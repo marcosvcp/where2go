@@ -4,5 +4,69 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <EditText
+        android:id="@+id/et_event_notes"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_edit_text"
+        android:ems="10"
+        android:hint="@string/event_notes"
+        android:maxLength="20"
+        android:paddingBottom="5dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="5dp"
+        android:singleLine="true" 
+        android:textColor="@color/popup_back" />
+    
+    <EditText
+        android:id="@+id/et_event_outfit"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_edit_text"
+        android:ems="10"
+        android:hint="@string/event_outfit"
+        android:maxLength="20"
+        android:paddingBottom="5dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="5dp"
+        android:singleLine="true" 
+        android:textColor="@color/popup_back" />
+    
+    <EditText
+        android:id="@+id/et_event_capacity"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_edit_text"
+        android:ems="10"
+        android:hint="@string/event_capacity"
+        android:inputType="number"
+        android:maxLength="20"
+        android:paddingBottom="5dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="5dp"
+        android:singleLine="true" 
+        android:textColor="@color/popup_back" />
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/bt_create_event_in_aditional_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bt_yellow"
+            android:text="@string/create_event"
+            android:textColor="@color/popup_back" />
+        
+    </LinearLayout>
 
 </LinearLayout>

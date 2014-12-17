@@ -13,7 +13,7 @@ import entity.user.User;
  * Representa um evento. Created by andersongfs on 25/11/14.
  */
 @ParseClassName("Event")
-public class Event extends ParseObject {
+public class Event extends ParseObject{
 	private User owner;
 	// Mudar para File
 	private String photo;
@@ -31,6 +31,7 @@ public class Event extends ParseObject {
 		put("price", price);
 		put("outfit", outfit);
 		put("capacity", capacity);
+		put("note", "");
 		this.photo = photo;
 		this.owner = owner;
 		put("isPublic", isPublic);
@@ -44,6 +45,14 @@ public class Event extends ParseObject {
 		put("name", name);
 	}
 
+	public String getNote() {
+		return getString("note");
+	}
+
+	public void setNote(String notes) {
+		put("note", notes);
+	}
+	
 	public String getDescription() {
 		return getString("description");
 	}
