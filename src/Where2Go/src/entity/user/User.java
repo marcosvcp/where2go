@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class User {
     
+	private String facebookId;
     /** The name. */
     private String name;
     
@@ -180,4 +181,12 @@ public class User {
         return Objects.equal(name, other.name)
                 && Objects.equal(age, other.age);
     }
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
 }

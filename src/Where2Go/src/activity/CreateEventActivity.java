@@ -12,6 +12,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import persistence.ParseUtil;
+import utils.Authenticator;
 import utils.FieldValidation;
 import entity.event.Event;
 import entity.user.User;
@@ -128,7 +129,7 @@ public class CreateEventActivity extends Activity {
 					
 					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
 							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
-							true, new User("Marcos"));
+							true, Authenticator.getInstance().getLoggedUser());
 					
 					if(!tags.isEmpty()) {
 						for (int i = 0; i < tags.size(); i++) {
@@ -161,7 +162,7 @@ public class CreateEventActivity extends Activity {
 					Intent intent = new Intent(getApplicationContext(), AditionalEventInformationActivity.class);
 					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
 							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
-							true, new User("Marcos"));
+							true, Authenticator.getInstance().getLoggedUser());
 					if(!tags.isEmpty()) {
 						for (int i = 0; i < tags.size(); i++) {
 							event.addTags(tags.get(i));

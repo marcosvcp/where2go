@@ -1,17 +1,16 @@
 package activity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import persistence.ParseUtil;
+import utils.Authenticator;
 import adapter.EventAdapter;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +29,7 @@ import br.com.les.where2go.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import entity.event.Event;
 
@@ -141,7 +141,9 @@ public class MyEventsListFragment extends Fragment {
 				final String filter = parent.getItemAtPosition(position).toString();
 				// Atualiza o adapter passando o filtro como parametro
 				// BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
-				ParseUtil.findAllEvents(new FindCallback<Event>() {
+				ParseQuery<Event> query = ParseUtil.getQueryEvent();
+				query.whereContains("ownerName", Authenticator.getInstance().getLoggedUser().getName());
+				query.findInBackground(new FindCallback<Event>() {
 					@Override
 					public void done(List<Event> objects, ParseException e) {
 						// Caso não tenha lançado exceção

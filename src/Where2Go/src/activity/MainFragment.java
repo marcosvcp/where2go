@@ -2,6 +2,7 @@ package activity;
 
 import java.util.Arrays;
 
+import utils.Authenticator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,6 +43,7 @@ public class MainFragment extends Fragment {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
             onSessionStateChange(session, state, exception);
+            Authenticator.getInstance().loadLoggedUser(session);
         }
     };
 

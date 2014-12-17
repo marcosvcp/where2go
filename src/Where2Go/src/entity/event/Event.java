@@ -24,6 +24,7 @@ public class Event extends ParseObject{
 			double price, String outfit, Integer capacity, boolean isPublic, User owner) {
 		put("state", new EventOpened().getName());
 		put("name", name);
+		put("ownerName", owner.getName());
 		put("description", description);
 		// FIXME Isso aqui tem que ser um file
 		put("info", info);
@@ -39,6 +40,13 @@ public class Event extends ParseObject{
 		put("tags", "");
 	}
 
+	public String getOwnerName() {
+		return getString("ownerName");
+	}
+	
+	public void setOwnerName(String ownerName) {
+		put("ownerName", ownerName);
+	}
 	public String getName() {
 		return getString("name");
 	}
