@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -207,18 +208,20 @@ public class CreateEventActivity extends Activity {
 			@Override
 			public void done(List<ParseObject> objects, ParseException e) {
 				final CharSequence[] items = new CharSequence[objects.size()];
+				
 				if (e == null) {
-					
-					
 					for(int i = 0; i < items.length; i++){
 						items[i] = objects.get(i).getString("nome");
+						Log.d("TagList>",objects.get(i).getString("nome"));
 					}
 					
 					final ArrayList<Integer> seletedItems = new ArrayList<Integer>();
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							CreateEventActivity.this);
+						
 					builder.setTitle("Select The Tags");
+					
 					builder.setMultiChoiceItems(items, null,
 							new DialogInterface.OnMultiChoiceClickListener() {
 								@Override
@@ -226,6 +229,8 @@ public class CreateEventActivity extends Activity {
 										int indexSelected, boolean isChecked) {
 									if (isChecked) {
 										seletedItems.add(indexSelected);
+										Log.d("Selected>",indexSelected + "");
+
 									} else if (seletedItems
 											.contains(indexSelected)) {
 										seletedItems.remove(Integer
@@ -241,8 +246,8 @@ public class CreateEventActivity extends Activity {
 												DialogInterface dialog, int id) {
 											for (int i = 0; i < seletedItems
 													.size(); i++) {
-												tags.add(items[i]
-														.toString());
+												tags.add(items[seletedItems.get(i)].toString());
+												Log.d("Tag Adicionada", items[seletedItems.get(i)].toString());
 											}
 										}
 									})

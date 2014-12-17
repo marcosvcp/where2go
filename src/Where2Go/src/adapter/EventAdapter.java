@@ -82,7 +82,8 @@ public class EventAdapter extends BaseAdapter {
         	List<Event> newListEvents = new ArrayList<Event>();
     		for (int i = 0; i < listEvents.size(); i++) {
         		Event tempEvent = listEvents.get(i);
-        		if (tempEvent.getName().equals(filter)) {
+        		ArrayList<String> tempEventTags = tempEvent.getTags();
+        		if (tempEventTags.contains(filter)) {
         			newListEvents.add(tempEvent);
         		}
     		}

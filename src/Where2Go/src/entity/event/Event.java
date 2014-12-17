@@ -1,5 +1,6 @@
 package entity.event;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -133,10 +134,14 @@ public class Event extends ParseObject {
 		put("isPublic", isPublic);
 	}
 	
-	public String[] getTags() {
+	public ArrayList<String> getTags() {
 		String tagsString = getString("tags");
 		String[] tags =  tagsString.split("@");
-		return tags;
+		ArrayList<String> finalTags = new ArrayList<String>();
+		for (int i = 0; i < tags.length; i++) {
+			finalTags.add(tags[i]);
+		}
+		return finalTags;
 	}
 	
 	public void addTags(String tag) {
