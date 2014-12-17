@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import br.com.les.where2go.R;
 
@@ -31,7 +32,7 @@ public class MainFragment extends Fragment {
     private UiLifecycleHelper uiHelper;
     
     /** The bt enter. */
-    private ImageButton btEnter;
+    private Button btEnter;
     
     /** The root view. */
     private View rootView;
@@ -57,7 +58,7 @@ public class MainFragment extends Fragment {
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends", "user_birthday", "user_location", "user_events"));
         
-        btEnter = (ImageButton) rootView.findViewById(R.id.bt_enter);
+        btEnter = (Button) rootView.findViewById(R.id.bt_enter);
         btEnter.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
