@@ -3,37 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <View
         android:id="@+id/statusBarBackground"
         android:layout_width="wrap_content"
+        android:layout_height="0dp" 
+        android:layout_marginTop="200dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.01" />
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:typeface="monospace" />
+    </LinearLayout>
 
     <com.facebook.widget.LoginButton
         android:id="@+id/authButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="40dp" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:text="Where 2 GO"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:typeface="monospace" />
-
-    <ImageButton
+    <Button
         android:id="@+id/bt_enter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/bt_yellow" />
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Enter"
+        android:textSize="14sp" />
 
 </LinearLayout>

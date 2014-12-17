@@ -129,7 +129,13 @@ public class CreateEventActivity extends Activity {
 					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
 							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
 							true, new User("Marcos"));
-				
+					
+					if(!tags.isEmpty()) {
+						for (int i = 0; i < tags.size(); i++) {
+							event.addTags(tags.get(i));
+						}
+					}
+					
 					ParseUtil.saveEvent(event);
 					EventsListFragment.adapter.notifyDataSetChanged();
 					Intent intent = new Intent(getApplicationContext(), MainScreen.class);
@@ -209,18 +215,20 @@ public class CreateEventActivity extends Activity {
 			@Override
 			public void done(List<ParseObject> objects, ParseException e) {
 				final CharSequence[] items = new CharSequence[objects.size()];
+				
 				if (e == null) {
-					
-					
 					for(int i = 0; i < items.length; i++){
 						items[i] = objects.get(i).getString("nome");
+						Log.d("TagList>",objects.get(i).getString("nome"));
 					}
 					
 					final ArrayList<Integer> seletedItems = new ArrayList<Integer>();
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							CreateEventActivity.this);
+						
 					builder.setTitle("Select The Tags");
+					
 					builder.setMultiChoiceItems(items, null,
 							new DialogInterface.OnMultiChoiceClickListener() {
 								@Override
@@ -228,6 +236,8 @@ public class CreateEventActivity extends Activity {
 										int indexSelected, boolean isChecked) {
 									if (isChecked) {
 										seletedItems.add(indexSelected);
+										Log.d("Selected>",indexSelected + "");
+
 									} else if (seletedItems
 											.contains(indexSelected)) {
 										seletedItems.remove(Integer
@@ -243,11 +253,8 @@ public class CreateEventActivity extends Activity {
 												DialogInterface dialog, int id) {
 											for (int i = 0; i < seletedItems
 													.size(); i++) {
-												tags.add(items[i]
-														.toString());
-											}
-											for (int i = 0; i < tags.size(); i++) {
-												Log.e("Tags>", tags.get(i));
+												tags.add(items[seletedItems.get(i)].toString());
+												Log.d("Tag Adicionada", items[seletedItems.get(i)].toString());
 											}
 										}
 									})

@@ -1,5 +1,6 @@
 package entity.event;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class Event extends ParseObject{
 		this.photo = photo;
 		this.owner = owner;
 		put("isPublic", isPublic);
+		put("tags", "");
 	}
 
 	public String getName() {
@@ -139,6 +141,22 @@ public class Event extends ParseObject{
 
 	public void setPublic(boolean isPublic) {
 		put("isPublic", isPublic);
+	}
+	
+	public ArrayList<String> getTags() {
+		String tagsString = getString("tags");
+		String[] tags =  tagsString.split("@");
+		ArrayList<String> finalTags = new ArrayList<String>();
+		for (int i = 0; i < tags.length; i++) {
+			finalTags.add(tags[i]);
+		}
+		return finalTags;
+	}
+	
+	public void addTags(String tag) {
+		String tags = getString("tags");
+		tags = tags + "@" + tag;
+		put("tags", tags);
 	}
 
 	/**

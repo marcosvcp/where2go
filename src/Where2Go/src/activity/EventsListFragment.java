@@ -130,6 +130,7 @@ public class EventsListFragment extends Fragment {
 		
 		ArrayAdapter<String> spinnerDataAdapter = new ArrayAdapter<String>(context,
 				android.R.layout.simple_spinner_item, tags);
+		
 		spinnerDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mSearchEventSpinner.setAdapter(spinnerDataAdapter);
 		mSearchEventSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
