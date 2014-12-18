@@ -2,14 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#444444"
+    android:background="@drawable/bg"
     android:orientation="vertical"
     tools:context="activity.EventListActivity" >
 
     <View
         android:id="@+id/statusBarBackground"
         android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp" />
+
     <EditText
         android:id="@+id/et_event_name"
         android:layout_width="250dp"
@@ -19,12 +20,15 @@
         android:background="@drawable/rounded_edit_text"
         android:ems="10"
         android:hint="@string/event_name"
+        android:inputType="textCapWords"
         android:maxLength="20"
         android:paddingBottom="5dp"
-        android:paddingLeft="3dp"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:paddingTop="5dp"
         android:singleLine="true"
-        android:textColor="@color/popup_back" />
+        android:textColor="#777777"
+        android:textCursorDrawable="@drawable/cursor" />
 
     <EditText
         android:id="@+id/et_event_description"
@@ -35,12 +39,15 @@
         android:background="@drawable/rounded_edit_text"
         android:ems="10"
         android:hint="@string/event_description"
+        android:inputType="textCapSentences"
         android:maxLength="20"
         android:paddingBottom="5dp"
-        android:paddingLeft="3dp"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:paddingTop="5dp"
         android:singleLine="true"
-        android:textColor="@color/popup_back" />
+        android:textColor="#777777"
+        android:textCursorDrawable="@drawable/cursor" />
 
     <EditText
         android:id="@+id/et_event_info"
@@ -51,12 +58,15 @@
         android:background="@drawable/rounded_edit_text"
         android:ems="10"
         android:hint="@string/event_info"
+        android:inputType="textCapSentences"
         android:maxLength="20"
         android:paddingBottom="5dp"
-        android:paddingLeft="3dp"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:paddingTop="5dp"
         android:singleLine="true"
-        android:textColor="@color/popup_back" />
+        android:textColor="#777777"
+        android:textCursorDrawable="@drawable/cursor" />
 
     <EditText
         android:id="@+id/et_event_initial_date"
@@ -71,10 +81,12 @@
         android:inputType="date"
         android:maxLength="10"
         android:paddingBottom="5dp"
-        android:paddingLeft="3dp"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:paddingTop="5dp"
         android:singleLine="true"
-        android:textColor="@color/popup_back" />
+        android:textColor="#777777"
+        android:textCursorDrawable="@drawable/cursor" />
 
     <EditText
         android:id="@+id/et_event_final_date"
@@ -89,10 +101,12 @@
         android:inputType="date"
         android:maxLength="10"
         android:paddingBottom="5dp"
-        android:paddingLeft="3dp"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:paddingTop="5dp"
         android:singleLine="true"
-        android:textColor="@color/popup_back" />
+        android:textColor="#777777"
+        android:textCursorDrawable="@drawable/cursor" />
 
     <Button
         android:id="@+id/bt_select_tags"
@@ -130,42 +144,31 @@
     </RadioGroup>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:gravity="right"
-        android:orientation="vertical" >
-
-        <ImageButton
-            android:id="@+id/bt_add_aditional_informations"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/bt_color" />
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="-80dp"
-            android:paddingTop="30dp"
-            android:text="More Info" />
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/bt_add_aditional_informations"
+            android:layout_width="190dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_weight="0.5"
+            android:background="#444444"
+            android:text="More Info"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Button
             android:id="@+id/bt_create_event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_width="190dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_weight="0.5"
             android:background="@color/status_bar"
             android:text="@string/create_event"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

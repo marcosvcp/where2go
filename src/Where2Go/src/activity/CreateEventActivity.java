@@ -25,6 +25,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -45,7 +48,7 @@ public class CreateEventActivity extends Activity {
 	private EditText et_event_final_date;
 	private Button bt_create_event;
 	private Button bt_select_tags;
-	private ImageButton bt_add_aditional_informations;
+	private Button bt_add_aditional_informations;
 	private Date initialDate, finalDate;
 	private SimpleDateFormat dateFormatter;
 	private DatePickerDialog initialDatePickerDialog;
@@ -74,7 +77,7 @@ public class CreateEventActivity extends Activity {
 		et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
 		bt_create_event = (Button) findViewById(R.id.bt_create_event);
 		bt_select_tags = (Button) findViewById(R.id.bt_select_tags);
-		bt_add_aditional_informations = (ImageButton) findViewById(R.id.bt_add_aditional_informations);
+		bt_add_aditional_informations = (Button) findViewById(R.id.bt_add_aditional_informations);
 
 		et_event_final_date.setInputType(InputType.TYPE_NULL);
 		et_event_final_date.requestFocusFromTouch();
@@ -279,5 +282,28 @@ public class CreateEventActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.create_event_actions, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+            return true;
+		case R.id.action_cancel:
+			Intent intent = new Intent(getApplicationContext(), MainScreen.class);
+			intent.putExtra("fragmentIndex", 2);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
 		
 }

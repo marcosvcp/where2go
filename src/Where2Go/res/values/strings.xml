@@ -25,6 +25,10 @@
 	<string name="name">Name</string>
 	<string name="event_category">Tag</string>
 	<string name="event_status">Status</string>
+	
+	<!-- Create Event -->
+	<string name="action_cancel">Cancel</string>
+	
 
 	<!-- Event -->
 	<string name="event_name">Event name</string>
@@ -42,7 +46,7 @@
 	<string name="event_capacity">Capacity</string>
 	
 	
-		<!-- Content Description -->
+	<!-- Content Description -->
 	<string name="desc_list_item_icon">Item Icon</string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>

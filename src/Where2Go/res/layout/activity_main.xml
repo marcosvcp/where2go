@@ -49,6 +49,8 @@
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
         android:text="Enter"
+        android:textColor="#FFFFFF"
+        android:background="#444444"
         android:textSize="14sp" />
 
 </LinearLayout>
