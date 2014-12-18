@@ -13,5 +13,6 @@
     <color name="counter_text_color">#c5c4c4</color>
     <color name="bar_graph">#a3dbff</color>    
 	<color name="status_bar">#690b1c</color>    
-    
+    <color name="status_bar_sec_level">#892b3c</color>    
+	
 </resources>

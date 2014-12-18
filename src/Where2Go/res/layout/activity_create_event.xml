@@ -13,11 +13,10 @@
 
     <EditText
         android:id="@+id/et_event_name"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_edit_text"
+        android:background="@color/status_bar_sec_level"
         android:ems="10"
         android:hint="@string/event_name"
         android:inputType="textCapWords"
@@ -25,22 +24,23 @@
         android:paddingBottom="5dp"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:paddingTop="5dp"
         android:singleLine="true"
-        android:textColor="#777777"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textColorHint="#AAAAAA"
+        android:textStyle="bold"
         android:textCursorDrawable="@drawable/cursor" />
 
     <EditText
         android:id="@+id/et_event_description"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_edit_text"
         android:ems="10"
         android:hint="@string/event_description"
-        android:inputType="textCapSentences"
-        android:maxLength="20"
+        android:inputType="textMultiLine|textCapSentences"
         android:paddingBottom="5dp"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
@@ -49,24 +49,6 @@
         android:textColor="#777777"
         android:textCursorDrawable="@drawable/cursor" />
 
-    <EditText
-        android:id="@+id/et_event_info"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_edit_text"
-        android:ems="10"
-        android:hint="@string/event_info"
-        android:inputType="textCapSentences"
-        android:maxLength="20"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="5dp"
-        android:singleLine="true"
-        android:textColor="#777777"
-        android:textCursorDrawable="@drawable/cursor" />
 
     <EditText
         android:id="@+id/et_event_initial_date"

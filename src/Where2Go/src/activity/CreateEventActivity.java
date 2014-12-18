@@ -22,13 +22,17 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -43,7 +47,6 @@ public class CreateEventActivity extends Activity {
 	
 	private EditText et_event_name;
 	private EditText et_event_description;
-	private EditText et_event_info;
 	private EditText et_event_initial_date;
 	private EditText et_event_final_date;
 	private Button bt_create_event;
@@ -65,14 +68,14 @@ public class CreateEventActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_event);
-		
+        setStatusBarColor(findViewById(R.id.statusBarBackground),getResources().getColor(R.color.status_bar));
+
 		tags = new ArrayList<String>();
 		
 		dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
 		et_event_name = (EditText) findViewById(R.id.et_event_name);
 		et_event_description = (EditText) findViewById(R.id.et_event_description);
-		et_event_info = (EditText) findViewById(R.id.et_event_info);
 		et_event_initial_date = (EditText) findViewById(R.id.et_event_initial_date);
 		et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
 		bt_create_event = (Button) findViewById(R.id.bt_create_event);
@@ -131,7 +134,7 @@ public class CreateEventActivity extends Activity {
 				if(checkValidation()){
 					
 					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
-							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
+							.toString(), "Default Image Path", "INFO", initialDate, finalDate, 100.00, "Default Outfit", 999,
 							true, Authenticator.getInstance().getLoggedUser());
 					
 					if(!tags.isEmpty()) {
@@ -164,7 +167,7 @@ public class CreateEventActivity extends Activity {
 				if(checkValidation()){
 					Intent intent = new Intent(getApplicationContext(), AditionalEventInformationActivity.class);
 					event = new Event(et_event_name.getText().toString(), et_event_description.getText()
-							.toString(), "Default Image Path", et_event_info.getText().toString(), initialDate, finalDate, 100.00, "Default Outfit", 999,
+							.toString(), "Default Image Path", "INFO", initialDate, finalDate, 100.00, "Default Outfit", 999,
 							true, Authenticator.getInstance().getLoggedUser());
 					if(!tags.isEmpty()) {
 						for (int i = 0; i < tags.size(); i++) {
@@ -190,7 +193,6 @@ public class CreateEventActivity extends Activity {
         List<EditText> listEditText = new ArrayList<EditText>();
         listEditText.add(et_event_name);
         listEditText.add(et_event_description);
-        listEditText.add(et_event_info);
         listEditText.add(et_event_initial_date);
         listEditText.add(et_event_final_date);
         
@@ -198,9 +200,6 @@ public class CreateEventActivity extends Activity {
             ret = false;
         }
         if (!validation.hasText(et_event_description)) {
-            ret = false;
-        }
-        if (!validation.hasText(et_event_info)) {
             ret = false;
         }
         if (!validation.hasText(et_event_initial_date)) {
@@ -305,5 +304,52 @@ public class CreateEventActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * Sets the status bar color.
+	 *
+	 * @param statusBar the status bar
+	 * @param color the color
+	 */
+	public void setStatusBarColor(View statusBar,int color){
+	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+	           Window w = getWindow();
+	           w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+	           //status bar height
+	           int actionBarHeight = getActionBarHeight();
+	           int statusBarHeight = getStatusBarHeight();
+	           //action bar height
+	           statusBar.getLayoutParams().height = actionBarHeight + statusBarHeight;
+	           statusBar.setBackgroundColor(color);
+	     }
+	}
+	
+	/**
+	 * Gets the action bar height.
+	 *
+	 * @return the action bar height
+	 */
+	public int getActionBarHeight() {
+	    int actionBarHeight = 0;
+	    TypedValue tv = new TypedValue();
+	    if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+	    {
+	       actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+	    }
+	    return actionBarHeight;
+	}
+
+	/**
+	 * Gets the status bar height.
+	 *
+	 * @return the status bar height
+	 */
+	public int getStatusBarHeight() {
+	    int result = 0;
+	    int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+	    if (resourceId > 0) {
+	        result = getResources().getDimensionPixelSize(resourceId);
+	    }
+	    return result;
+	}
 		
 }
