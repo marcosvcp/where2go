@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -38,6 +39,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 import br.com.les.where2go.R;
 
 /**
@@ -47,15 +49,17 @@ public class CreateEventActivity extends Activity {
 	
 	private EditText et_event_name;
 	private EditText et_event_description;
-	private EditText et_event_initial_date;
-	private EditText et_event_final_date;
+	private EditText et_event_initial_date, et_event_initial_time;
+	private EditText et_event_final_date, et_event_final_time;
 	private Button bt_create_event;
 	private Button bt_select_tags;
 	private Button bt_add_aditional_informations;
 	private Date initialDate, finalDate;
 	private SimpleDateFormat dateFormatter;
 	private DatePickerDialog initialDatePickerDialog;
+	private TimePickerDialog initialTimePickerDialog;
     private DatePickerDialog finalDatePickerDialog;
+	private TimePickerDialog finalTimePickerDialog;
     private AlertDialog dialog;
     private List<String> tags;
     
@@ -77,14 +81,20 @@ public class CreateEventActivity extends Activity {
 		et_event_name = (EditText) findViewById(R.id.et_event_name);
 		et_event_description = (EditText) findViewById(R.id.et_event_description);
 		et_event_initial_date = (EditText) findViewById(R.id.et_event_initial_date);
+		et_event_initial_time = (EditText) findViewById(R.id.et_event_initial_time);
 		et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
+		et_event_final_time = (EditText) findViewById(R.id.et_event_final_time);
 		bt_create_event = (Button) findViewById(R.id.bt_create_event);
 		bt_select_tags = (Button) findViewById(R.id.bt_select_tags);
 		bt_add_aditional_informations = (Button) findViewById(R.id.bt_add_aditional_informations);
 
+		et_event_final_time.setInputType(InputType.TYPE_NULL);
+		et_event_final_time.requestFocusFromTouch();
 		et_event_final_date.setInputType(InputType.TYPE_NULL);
 		et_event_final_date.requestFocusFromTouch();
+
 		et_event_initial_date.setInputType(InputType.TYPE_NULL);
+		et_event_initial_time.setInputType(InputType.TYPE_NULL);
 		
 		Calendar newCalendar = Calendar.getInstance();
 		
@@ -98,6 +108,7 @@ public class CreateEventActivity extends Activity {
             }
  
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        
 		
         finalDatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
         	 
