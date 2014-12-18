@@ -20,7 +20,7 @@
         android:ems="10"
         android:hint="@string/event_name"
         android:inputType="textCapWords"
-        android:maxLength="20"
+        android:maxLength="50"
         android:paddingBottom="5dp"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
