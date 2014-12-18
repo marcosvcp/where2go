@@ -3,8 +3,7 @@ package entity.event;
 import entity.notifications.Notification;
 
 /**
- * Estado de uma {@link Invitation}
- * Created by marcos on 11/30/14.
+ * Estado de uma {@link Invitation} Created by marcos on 11/30/14.
  */
 public interface InvitationState {
 

@@ -17,64 +17,67 @@ import entity.event.Event;
  */
 public class ParseUtil {
 
-	/** The ptbr. */
-	public static SimpleDateFormat ptbr = new SimpleDateFormat("dd/MM/yyyy");
+    /** The ptbr. */
+    public static SimpleDateFormat ptbr = new SimpleDateFormat("dd/MM/yyyy");
 
-	/**
-	 * Instantiates a new parses the util.
-	 */
-	private ParseUtil() {
-	}
+    /**
+     * Instantiates a new parses the util.
+     */
+    private ParseUtil() {
+    }
 
-	/**
-	 * Salva o {@code event} no Servidor.
-	 *
-	 * @param event the event
-	 */
-	public static void saveEvent(Event event) {
-		event.saveInBackground();
-	}
+    /**
+     * Salva o {@code event} no Servidor.
+     *
+     * @param event
+     *            the event
+     */
+    public static void saveEvent(Event event) {
+        event.saveInBackground();
+    }
 
-	/**
-	 * Retorna O {@link ParseQuery} do {@link Event}.
-	 *
-	 * @return the query event
-	 */
-	public static ParseQuery<Event> getQueryEvent() {
-		return ParseQuery.getQuery("Event");
-	}
+    /**
+     * Retorna O {@link ParseQuery} do {@link Event}.
+     *
+     * @return the query event
+     */
+    public static ParseQuery<Event> getQueryEvent() {
+        return ParseQuery.getQuery("Event");
+    }
 
-	/**
-	 * Busca o Objeto que tem o {@code objectId} no servidor e executa o
-	 * {@code callback} quando a requisição for terminada.
-	 *
-	 * @param objectId the object id
-	 * @param callback the callback
-	 */
-	public static void findById(String objectId, GetCallback<Event> callback) {
-		getQueryEvent().getInBackground(objectId, callback);
-	}
+    /**
+     * Busca o Objeto que tem o {@code objectId} no servidor e executa o
+     * {@code callback} quando a requisição for terminada.
+     *
+     * @param objectId
+     *            the object id
+     * @param callback
+     *            the callback
+     */
+    public static void findById(String objectId, GetCallback<Event> callback) {
+        getQueryEvent().getInBackground(objectId, callback);
+    }
 
-	/**
-	 * Retorna todos os {@link Event} do servidor.
-	 *
-	 * @param findCallback the find callback
-	 */
-	public static void findAllEvents(FindCallback<Event> findCallback) {
-		getQueryEvent().findInBackground(findCallback);
-	}
-	
-	/**
-	 * Gets the query tag.
-	 *
-	 * @return the query tag
-	 */
-	public static ParseQuery<ParseObject> getQueryTag(){
-		return ParseQuery.getQuery("Tag");
-	}
-	
+    /**
+     * Retorna todos os {@link Event} do servidor.
+     *
+     * @param findCallback
+     *            the find callback
+     */
+    public static void findAllEvents(FindCallback<Event> findCallback) {
+        getQueryEvent().findInBackground(findCallback);
+    }
 
-	public static void findAllTags(FindCallback<ParseObject> findCallback) {
-		getQueryTag().findInBackground(findCallback);
-	}
+    /**
+     * Gets the query tag.
+     *
+     * @return the query tag
+     */
+    public static ParseQuery<ParseObject> getQueryTag() {
+        return ParseQuery.getQuery("Tag");
+    }
+
+    public static void findAllTags(FindCallback<ParseObject> findCallback) {
+        getQueryTag().findInBackground(findCallback);
+    }
 }

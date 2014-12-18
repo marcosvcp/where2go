@@ -5,26 +5,28 @@ import entity.user.User;
 
 // TODO: Auto-generated Javadoc
 /**
- * Responsible for notification of events
- * Created by marcos on 11/30/14.
+ * Responsible for notification of events Created by marcos on 11/30/14.
  */
 public class Notification {
-    
+
     /** The user target. */
     private User userTarget;
-    
+
     /** The event target. */
     private Event eventTarget;
-    
+
     /** The message. */
     private String message;
 
     /**
      * Instantiates a new notification.
      *
-     * @param userTarget the user target
-     * @param eventTarget the event target
-     * @param message the message
+     * @param userTarget
+     *            the user target
+     * @param eventTarget
+     *            the event target
+     * @param message
+     *            the message
      */
     public Notification(User userTarget, Event eventTarget, String message) {
         this.userTarget = userTarget;
@@ -44,7 +46,8 @@ public class Notification {
     /**
      * Sets the user target.
      *
-     * @param userTarget the new user target
+     * @param userTarget
+     *            the new user target
      */
     public void setUserTarget(User userTarget) {
         this.userTarget = userTarget;
@@ -62,7 +65,8 @@ public class Notification {
     /**
      * Sets the event target.
      *
-     * @param eventTarget the new event target
+     * @param eventTarget
+     *            the new event target
      */
     public void setEventTarget(Event eventTarget) {
         this.eventTarget = eventTarget;
@@ -80,7 +84,8 @@ public class Notification {
     /**
      * Sets the message.
      *
-     * @param message the new message
+     * @param message
+     *            the new message
      */
     public void setMessage(String message) {
         this.message = message;

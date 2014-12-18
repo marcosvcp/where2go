@@ -18,6 +18,7 @@ public class InvitationDeclined implements InvitationState {
     @Override
     public Notification decline(Invitation invitation) {
         return new Notification(invitation.getGuest(), invitation.getEvent(),
-                String.format("You already declined this event %s", invitation.getEvent().getName()));
+                String.format("You already declined this event %s", invitation
+                        .getEvent().getName()));
     }
 }

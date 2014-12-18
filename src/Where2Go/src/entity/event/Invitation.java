@@ -4,10 +4,8 @@ import com.google.common.base.Objects;
 import entity.notifications.Notification;
 import entity.user.User;
 
-
 /**
- * Representa um convite
- * Created by marcos on 11/30/14.
+ * Representa um convite Created by marcos on 11/30/14.
  */
 public class Invitation {
     private User guest;
@@ -69,7 +67,7 @@ public class Invitation {
             return false;
         }
         Invitation other = (Invitation) otherEvent;
-        return Objects.equal(guest, other.guest) &&
-                Objects.equal(event, other.event);
+        return Objects.equal(guest, other.guest)
+                && Objects.equal(event, other.event);
     }
 }

@@ -15,9 +15,9 @@ public class EventFinished implements EventState {
     public Notification addParticipant() {
         return null;
     }
-    
+
     @Override
     public String getName() {
-    	return "Finished";
+        return "Finished";
     }
 }

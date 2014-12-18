@@ -36,65 +36,75 @@ import entity.event.EventCanceled;
 public class EventAdapter extends BaseAdapter {
 
     /** The m list events. */
-    private  List<Event> mListEvents;
-    
+    private List<Event> mListEvents;
+
     /** The m inflater. */
     private LayoutInflater mInflater;
-    
+
     /** The posicao. */
     private int posicao;
-    
+
     /** The mcontext. */
     Context mcontext;
-    
+
     /** The parent view. */
     private View parentView;
-    
+
     /** The listview. */
     private ListView listview;
 
     /**
      * Instantiates a new event adapter.
      *
-     * @param context the context
-     * @param listEvents the list events
-     * @param parentView the parent view
+     * @param context
+     *            the context
+     * @param listEvents
+     *            the list events
+     * @param parentView
+     *            the parent view
      */
-    public EventAdapter(Context context, List<Event> listEvents,View parentView) {
+    public EventAdapter(Context context, List<Event> listEvents, View parentView) {
         this.mListEvents = listEvents;
         this.mInflater = LayoutInflater.from(context);
         this.mcontext = context;
         this.parentView = parentView;
     }
-    
+
     /**
      * Instantiates a new event adapter.
      *
-     * @param context the context
-     * @param listEvents the list events
-     * @param parentView the parent view
-     * @param filter the filter
+     * @param context
+     *            the context
+     * @param listEvents
+     *            the list events
+     * @param parentView
+     *            the parent view
+     * @param filter
+     *            the filter
      */
-    public EventAdapter(Context context, List<Event> listEvents,View parentView, String filter) {
-    	if (filter.equals("Todos")) {
-    		this.mListEvents = listEvents;
-    	} else {
-        	List<Event> newListEvents = new ArrayList<Event>();
-    		for (int i = 0; i < listEvents.size(); i++) {
-        		Event tempEvent = listEvents.get(i);
-        		ArrayList<String> tempEventTags = tempEvent.getTags();
-        		if (tempEventTags.contains(filter)) {
-        			newListEvents.add(tempEvent);
-        		}
-    		}
-    		this.mListEvents = newListEvents;
-    	}
+    public EventAdapter(Context context, List<Event> listEvents,
+            View parentView, String filter) {
+        if (filter.equals("Todos")) {
+            this.mListEvents = listEvents;
+        } else {
+            List<Event> newListEvents = new ArrayList<Event>();
+            for (int i = 0; i < listEvents.size(); i++) {
+                Event tempEvent = listEvents.get(i);
+                ArrayList<String> tempEventTags = tempEvent.getTags();
+                if (tempEventTags.contains(filter)) {
+                    newListEvents.add(tempEvent);
+                }
+            }
+            this.mListEvents = newListEvents;
+        }
         this.mInflater = LayoutInflater.from(context);
         this.mcontext = context;
         this.parentView = parentView;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see android.widget.Adapter#getCount()
      */
     @Override
@@ -102,7 +112,9 @@ public class EventAdapter extends BaseAdapter {
         return mListEvents.size();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
@@ -113,7 +125,8 @@ public class EventAdapter extends BaseAdapter {
     /**
      * Get id of item selected.
      *
-     * @param index the index
+     * @param index
+     *            the index
      * @return the item id
      */
     @Override
@@ -121,67 +134,75 @@ public class EventAdapter extends BaseAdapter {
         return index;
     }
 
-    /* (non-Javadoc)
-     * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.widget.Adapter#getView(int, android.view.View,
+     * android.view.ViewGroup)
      */
     @Override
     public View getView(final int position, View myView, ViewGroup viewGroup) {
-         myView = mInflater.inflate(R.layout.item_event_adapter, null);
-         
-         final Event event = mListEvents.get(position);
+        myView = mInflater.inflate(R.layout.item_event_adapter, null);
 
-         TextView eventName = (TextView) myView.findViewById(R.id.event_name);
-         eventName.setText(event.getName());
+        final Event event = mListEvents.get(position);
 
-         TextView eventDescription = (TextView) myView.findViewById(R.id.event_category);
-         
-         TextView eventStatus = (TextView) myView.findViewById(R.id.event_status);
-         eventStatus.setText(event.getState());
-         
-         ImageButton thumbnail = (ImageButton) myView.findViewById(R.id.photo);
-         Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable()).getBitmap();
-         int pixel = bitmap.getPixel(bitmap.getWidth()/2,bitmap.getHeight()/2);
-         
-         LinearLayout card = (LinearLayout) myView.findViewById(R.id.card);
-         card.setBackgroundColor(Color.argb(255, Color.red(pixel), Color.green(pixel), Color.blue(pixel)));
-         
-         eventDescription.setText(event.getDescription());
+        TextView eventName = (TextView) myView.findViewById(R.id.event_name);
+        eventName.setText(event.getName());
 
-         TextView eventValue = (TextView) myView.findViewById(R.id.event_price);
+        TextView eventDescription = (TextView) myView
+                .findViewById(R.id.event_category);
 
-         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
-         listview.setClickable(true);
+        TextView eventStatus = (TextView) myView
+                .findViewById(R.id.event_status);
+        eventStatus.setText(event.getState());
 
-         myView.setOnLongClickListener(new OnLongClickListener() {
+        ImageButton thumbnail = (ImageButton) myView.findViewById(R.id.photo);
+        Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable()).getBitmap();
+        int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
+                bitmap.getHeight() / 2);
 
-             @Override
-             public boolean onLongClick(View v) {
-                 //SE QUISER IMPLEMENTAR O LONG CLICK
+        LinearLayout card = (LinearLayout) myView.findViewById(R.id.card);
+        card.setBackgroundColor(Color.argb(255, Color.red(pixel),
+                Color.green(pixel), Color.blue(pixel)));
 
-                 return false;
-             }
+        eventDescription.setText(event.getDescription());
 
-         });
-         
-         ImageButton btOptions = (ImageButton) myView.findViewById(R.id.bt_options);
-         btOptions.setOnClickListener(new OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 showPopupMenu(v, event);
-             }
-         });
-         
-         
-         
+        TextView eventValue = (TextView) myView.findViewById(R.id.event_price);
+
+        listview = (ListView) parentView.findViewById(R.id.listViewEvents);
+        listview.setClickable(true);
+
+        myView.setOnLongClickListener(new OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                // SE QUISER IMPLEMENTAR O LONG CLICK
+
+                return false;
+            }
+
+        });
+
+        ImageButton btOptions = (ImageButton) myView
+                .findViewById(R.id.bt_options);
+        btOptions.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v, event);
+            }
+        });
+
         return myView;
     }
-    
+
     /**
      * Shows popup menu with delete and edit options for a given event in the
      * list.
      *
-     * @param v - view refers the screen listing
-     * @param event selected
+     * @param v
+     *            - view refers the screen listing
+     * @param event
+     *            selected
      */
     private void showPopupMenu(View v, final Event event) {
         PopupMenu popupMenu = new PopupMenu(mcontext, v);
@@ -210,68 +231,83 @@ public class EventAdapter extends BaseAdapter {
     /**
      * Alert dialog to edit event.
      *
-     * @param event the event
+     * @param event
+     *            the event
      */
     public void editAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-        		parentView.getContext());
+                parentView.getContext());
 
-            builder.setTitle(parentView.getResources().getString(R.string.edit_alert_title));
-            builder.setMessage(parentView.getResources().getString(R.string.edit_alert_message));
-            builder.setPositiveButton(parentView.getResources().getString(R.string.edit_alert_positive),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            Intent intent = new Intent(parentView.getContext(), EditEventActivity.class);
-                            intent.putExtra("event_id", event.getObjectId());
-                            parentView.getContext().startActivity(intent);
+        builder.setTitle(parentView.getResources().getString(
+                R.string.edit_alert_title));
+        builder.setMessage(parentView.getResources().getString(
+                R.string.edit_alert_message));
+        builder.setPositiveButton(
+                parentView.getResources().getString(
+                        R.string.edit_alert_positive),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent intent = new Intent(parentView.getContext(),
+                                EditEventActivity.class);
+                        intent.putExtra("event_id", event.getObjectId());
+                        parentView.getContext().startActivity(intent);
+                    }
+                });
+
+        builder.setNegativeButton(
+                parentView.getResources().getString(
+                        R.string.edit_alert_negative),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        try {
+                            finalize();
+                        } catch (Throwable e) {
+                            e.printStackTrace();
                         }
-                    });
+                    }
+                });
 
-            builder.setNegativeButton(parentView.getResources().getString(R.string.edit_alert_negative),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            try {
-                                finalize();
-                            } catch (Throwable e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-            AlertDialog alert = builder.create();
-            alert.show();
+        AlertDialog alert = builder.create();
+        alert.show();
     }
-    
+
     /**
      * Alert dialog to cancel event.
      *
-     * @param event the event
+     * @param event
+     *            the event
      */
     public void cancelAlert(final Event event) {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-        		parentView.getContext());
-            builder.setTitle(parentView.getResources().getString(R.string.cancel_alert_title));
-            builder.setMessage(parentView.getResources().getString(R.string.cancel_alert_message));
-            builder.setPositiveButton(parentView.getResources().getString(R.string.cancel_alert_positive),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                        	event.setState(new EventCanceled().getName());
-                        	ParseUtil.saveEvent(event);
-                        	notifyDataSetChanged();
+                parentView.getContext());
+        builder.setTitle(parentView.getResources().getString(
+                R.string.cancel_alert_title));
+        builder.setMessage(parentView.getResources().getString(
+                R.string.cancel_alert_message));
+        builder.setPositiveButton(
+                parentView.getResources().getString(
+                        R.string.cancel_alert_positive),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        event.setState(new EventCanceled().getName());
+                        ParseUtil.saveEvent(event);
+                        notifyDataSetChanged();
+                    }
+                });
+        builder.setNegativeButton(
+                parentView.getResources().getString(
+                        R.string.cancel_alert_negative),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        try {
+                            finalize();
+                        } catch (Throwable e) {
+                            e.printStackTrace();
                         }
-                    });
-            builder.setNegativeButton(parentView.getResources().getString(R.string.cancel_alert_negative),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            try {
-                                finalize();
-                            } catch (Throwable e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+                    }
+                });
 
-            AlertDialog alert = builder.create();
-            alert.show();
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

@@ -10,6 +10,6 @@ public interface EventState {
     Notification removeParticipant();
 
     Notification addParticipant();
-    
+
     String getName();
 }
