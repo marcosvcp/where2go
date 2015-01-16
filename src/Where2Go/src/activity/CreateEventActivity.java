@@ -94,13 +94,14 @@ public class CreateEventActivity extends Activity {
 		et_event_final_time.requestFocusFromTouch();
 		et_event_final_date.setInputType(InputType.TYPE_NULL);
 		et_event_final_date.requestFocusFromTouch();
-
 		et_event_initial_date.setInputType(InputType.TYPE_NULL);
+		et_event_initial_time.setInputType(InputType.TYPE_NULL);
+		
 		et_event_initial_date.setText(dateFormatter.format(Calendar.getInstance().getTime()));
 		et_event_final_date.setText(dateFormatter.format(Calendar.getInstance().getTime()));
+		et_event_initial_time.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE));
+		et_event_final_time.setText("23:59");
 		
-		et_event_initial_time.setInputType(InputType.TYPE_NULL);
-
 		final Calendar newCalendar = Calendar.getInstance();
 
 		initialDatePickerDialog = new DatePickerDialog(this,

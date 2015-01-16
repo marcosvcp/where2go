@@ -204,18 +204,19 @@
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/radio_spreadcost"
+            android:id="@+id/radio_public"
             android:layout_width="280dp"
             android:layout_weight="0.5"
             android:layout_height="match_parent"
             android:text="Public Event"
+            android:checked="true"
             android:layout_marginLeft="10dp"
             android:button="@drawable/radio_button"
             android:textColor="#777777"
             android:textSize="16dp" />
 
         <RadioButton
-            android:id="@+id/radio_repeat"
+            android:id="@+id/radio_private"
             android:layout_width="280dp"
             android:layout_weight="0.5"
             android:layout_height="match_parent"
