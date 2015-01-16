@@ -22,7 +22,7 @@
     </style>
 
     <style name="ColorTheme.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:background">#690b1c</item>
+        <item name="android:background">@color/status_bar</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:icon">@android:color/transparent</item>
         

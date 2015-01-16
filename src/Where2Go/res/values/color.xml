@@ -14,5 +14,6 @@
     <color name="bar_graph">#a3dbff</color>    
 	<color name="status_bar">#690b1c</color>    
     <color name="status_bar_sec_level">#892b3c</color>    
-	
+    <color name="status_bar_third_level">#E7D5D8</color>    
+    	
 </resources>

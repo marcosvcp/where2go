@@ -36,7 +36,7 @@
 	<string name="event_info">Event info</string>
 	<string name="event_initial_date">Event initial date</string>
 	<string name="event_final_date">Event final date</string>
-	<string name="event_tags">Tags</string>
+	<string name="event_tags">Tags: </string>
 	<string name="create_event">Create event</string>
 	<string name="event_canceled">Event Canceled</string>
 	<string name="edit_event">Edit event</string>
