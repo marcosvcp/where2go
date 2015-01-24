@@ -227,21 +227,25 @@ public class CreateEventActivity extends Activity {
 
 			@Override
 			public void onClick(final View v) {
-				if (checkValidation()) {
-					final Intent intent = new Intent(getApplicationContext(),
-							AditionalEventInformationActivity.class);
-					event = new Event(et_event_name.getText().toString(),
-							et_event_description.getText().toString(),
-							"Default Image Path", "INFO", initialDate,
-							finalDate, 100.00, "Default Outfit", 999, true,
-							Authenticator.getInstance().getLoggedUser());
-					if (!tags.isEmpty()) {
-						for (int i = 0; i < tags.size(); i++) {
-							event.addTags(tags.get(i));
-						}
-					}
-					startActivity(intent);
-				}
+////NÃO APAGAR ESTE TRECHO
+//				if (checkValidation()) {
+//					final Intent intent = new Intent(getApplicationContext(),
+//							AditionalEventInformationActivity.class);
+//					event = new Event(et_event_name.getText().toString(),
+//							et_event_description.getText().toString(),
+//							"Default Image Path", "INFO", initialDate,
+//							finalDate, 100.00, "Default Outfit", 999, true,
+//							Authenticator.getInstance().getLoggedUser());
+//					if (!tags.isEmpty()) {
+//						for (int i = 0; i < tags.size(); i++) {
+//							event.addTags(tags.get(i));
+//						}
+//					}
+//					startActivity(intent);
+//				}
+				
+				Intent intent = new Intent(getApplicationContext(), AditionalEventInformationActivity.class);
+				startActivity(intent);
 			}
 		});
 
