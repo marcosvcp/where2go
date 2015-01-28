@@ -12,13 +12,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.Toast;
 import br.com.les.where2go.R;
 
+import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
+import com.facebook.widget.WebDialog;
+import com.facebook.widget.WebDialog.OnCompleteListener;
 
 /**
  * Responsible to manager the session of facebook Created by marcos on 29/11/14.
@@ -36,6 +40,9 @@ public class MainFragment extends Fragment {
 
     /** The root view. */
     private View rootView;
+    
+    private Button sendRequestButton;
+
 
     /** The callback. */
     private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -76,6 +83,15 @@ public class MainFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        
+        sendRequestButton = (Button) rootView.findViewById(R.id.sendRequestButton);
+        sendRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendRequestDialog();        
+            }
+        });
+        
         return rootView;
     }
 
@@ -105,11 +121,55 @@ public class MainFragment extends Fragment {
             Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
+            sendRequestButton.setVisibility(View.VISIBLE);
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
+            sendRequestButton.setVisibility(View.INVISIBLE);
         }
     }
 
+    private void sendRequestDialog() {
+        Bundle params = new Bundle();
+        params.putString("message", "Learn how to make your Android apps social");
+
+        WebDialog requestsDialog = (
+            new WebDialog.RequestsDialogBuilder(getActivity(),
+                Session.getActiveSession(),
+                params))
+                .setOnCompleteListener(new OnCompleteListener() {
+
+                    @Override
+                    public void onComplete(Bundle values,
+                        FacebookException error) {
+                        if (error != null) {
+                            if (error instanceof FacebookOperationCanceledException) {
+                                Toast.makeText(getActivity().getApplicationContext(), 
+                                    "Request cancelled", 
+                                    Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), 
+                                    "Network Error", 
+                                    Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            final String requestId = values.getString("request");
+                            if (requestId != null) {
+                                Toast.makeText(getActivity().getApplicationContext(), 
+                                    "Request sent",  
+                                    Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), 
+                                    "Request cancelled", 
+                                    Toast.LENGTH_SHORT).show();
+                            }
+                        }   
+                    }
+
+                })
+                .build();
+        requestsDialog.show();
+    }
+    
     /*
      * (non-Javadoc)
      * 

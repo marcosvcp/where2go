@@ -3,14 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <View
         android:id="@+id/statusBarBackground"
         android:layout_width="wrap_content"
-        android:layout_height="0dp" 
-        android:layout_marginTop="200dp"
-        />
+        android:layout_height="0dp"
+        android:layout_marginTop="200dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -35,22 +34,31 @@
             android:typeface="monospace" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/sendRequestButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/send_request"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
     <com.facebook.widget.LoginButton
         android:id="@+id/authButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="40dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:id="@+id/bt_enter"
         android:layout_width="190dp"
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
+        android:background="#444444"
         android:text="Enter"
         android:textColor="#FFFFFF"
-        android:background="#444444"
         android:textSize="14sp" />
 
 </LinearLayout>
