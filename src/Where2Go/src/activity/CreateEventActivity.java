@@ -32,6 +32,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import br.com.les.where2go.R;
 
@@ -53,6 +55,7 @@ public class CreateEventActivity extends Activity {
 	private Button bt_create_event;
 	private Button bt_select_tags;
 	private Button bt_add_aditional_informations;
+	private RadioButton rb_radio_public;
 	private Date initialDate, finalDate;
 	private SimpleDateFormat dateFormatter;
 	private DatePickerDialog initialDatePickerDialog;
@@ -86,10 +89,13 @@ public class CreateEventActivity extends Activity {
 		et_event_initial_time = (EditText) findViewById(R.id.et_event_initial_time);
 		et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
 		et_event_final_time = (EditText) findViewById(R.id.et_event_final_time);
+		
 		bt_create_event = (Button) findViewById(R.id.bt_create_event);
 		bt_select_tags = (Button) findViewById(R.id.bt_select_tags);
 		bt_add_aditional_informations = (Button) findViewById(R.id.bt_add_aditional_informations);
 
+		rb_radio_public = (RadioButton) findViewById(R.id.rb_radio_public);
+		
 		et_event_final_time.setInputType(InputType.TYPE_NULL);
 		et_event_final_time.requestFocusFromTouch();
 		et_event_final_date.setInputType(InputType.TYPE_NULL);
@@ -192,11 +198,11 @@ public class CreateEventActivity extends Activity {
 			public void onClick(final View v) {
 
 				if (checkValidation()) {
-
+					
 					event = new Event(et_event_name.getText().toString(),
 							et_event_description.getText().toString(),
 							"Default Image Path", "INFO", initialDate,
-							finalDate, 100.00, "Default Outfit", 999, true,
+							finalDate, 100.00, "Default Outfit", 999, rb_radio_public.isChecked(),
 							Authenticator.getInstance().getLoggedUser());
 
 					if (!tags.isEmpty()) {
@@ -227,7 +233,7 @@ public class CreateEventActivity extends Activity {
 
 			@Override
 			public void onClick(final View v) {
-////NÃO APAGAR ESTE TRECHO
+////Nï¿½O APAGAR ESTE TRECHO
 //				if (checkValidation()) {
 //					final Intent intent = new Intent(getApplicationContext(),
 //							AditionalEventInformationActivity.class);
