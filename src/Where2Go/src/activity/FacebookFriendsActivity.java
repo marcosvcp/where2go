@@ -18,8 +18,6 @@ import adapter.FacebookFriendsAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -38,28 +36,11 @@ public class FacebookFriendsActivity extends Activity {
 		rootView = getLayoutInflater().inflate(R.layout.activity_main, null);
 		showFriendsFacebook();
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.facebook_friends, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 	
+	/**
+	 * Create a request friends of facebook and get name, picture and id of users
+	 */
 	public void showFriendsFacebook() {
-
 		new Request(Session.getActiveSession(), "/me/taggable_friends", null,
 				HttpMethod.GET, new Request.Callback() {
 					public void onCompleted(Response response) {
@@ -89,5 +70,4 @@ public class FacebookFriendsActivity extends Activity {
 					}
 				}).executeAsync();
 	}
-
 }

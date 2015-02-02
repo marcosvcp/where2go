@@ -82,52 +82,8 @@ public class MainFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
-
-//		sendRequestButton = (Button) rootView
-//				.findViewById(R.id.sendRequestButton);
-//		sendRequestButton.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Log.e("CHAMOU", "(:");
-//				// sendRequestDialog();
-//				showFriendsFacebook();
-//			}
-//		});
-
 		return rootView;
 	}
-
-//	public void showFriendsFacebook() {
-//
-//		new Request(Session.getActiveSession(), "/me/taggable_friends", null,
-//				HttpMethod.GET, new Request.Callback() {
-//					public void onCompleted(Response response) {
-//						Log.e("FACEBOOK", response.getGraphObject()
-//								.getInnerJSONObject().toString());
-//						try {
-//							JSONObject jsonFriends = new JSONObject(response
-//									.getGraphObject().getInnerJSONObject()
-//									.toString());
-//							JSONArray jArray = jsonFriends.getJSONArray("data");
-//							for (int i = 0; i < jArray.length(); i++) {
-//								friends.add(new UserFriend(jArray
-//										.getJSONObject(i).getString("name"),
-//										jArray.getJSONObject(i)
-//												.getJSONObject("picture")
-//												.getJSONObject("data")
-//												.getString("url"), jArray
-//												.getJSONObject(i).getString(
-//														"id")));
-//							}
-//							FacebookFriendsAdapter adapter = new FacebookFriendsAdapter(friends, mContext);
-//							friendList.setAdapter(adapter);
-//							
-//						} catch (JSONException e) {
-//							e.printStackTrace();
-//						}
-//					}
-//				}).executeAsync();
-//	}
 
 	/*
 	 * (non-Javadoc)

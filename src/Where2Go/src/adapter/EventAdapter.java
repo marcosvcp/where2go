@@ -3,7 +3,6 @@ package adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import persistence.ParseUtil;
 import activity.EditEventActivity;
 import activity.FacebookFriendsActivity;
@@ -21,7 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
