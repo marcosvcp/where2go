@@ -3,8 +3,10 @@ package adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import persistence.ParseUtil;
 import activity.EditEventActivity;
+import activity.FacebookFriendsActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -52,6 +54,8 @@ public class EventAdapter extends BaseAdapter {
 
     /** The listview. */
     private ListView listview;
+    
+    private Activity parentActivity;
 
     /**
      * Instantiates a new event adapter.
@@ -83,7 +87,7 @@ public class EventAdapter extends BaseAdapter {
      *            the filter
      */
     public EventAdapter(Context context, List<Event> listEvents,
-            View parentView, String filter) {
+            View parentView, String filter, Activity parentActivity) {
         if (filter.equals("Todos")) {
             this.mListEvents = listEvents;
         } else {
@@ -100,6 +104,7 @@ public class EventAdapter extends BaseAdapter {
         this.mInflater = LayoutInflater.from(context);
         this.mcontext = context;
         this.parentView = parentView;
+        this.parentActivity = parentActivity;
     }
 
     /*
@@ -213,6 +218,10 @@ public class EventAdapter extends BaseAdapter {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
+                        case (R.id.invite):
+                        	Intent intent = new Intent(parentActivity, FacebookFriendsActivity.class);
+                        	parentActivity.startActivity(intent);
+                        	return true;
                             case (R.id.edit):
                                 editAlert(event);
                                 return true;

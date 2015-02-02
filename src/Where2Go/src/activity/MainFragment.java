@@ -3,6 +3,7 @@ package activity;
 import java.util.Arrays;
 
 import utils.Authenticator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,226 +13,215 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 import br.com.les.where2go.R;
 
-import com.facebook.FacebookException;
-import com.facebook.FacebookOperationCanceledException;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
-import com.facebook.widget.WebDialog;
-import com.facebook.widget.WebDialog.OnCompleteListener;
 
 /**
  * Responsible to manager the session of facebook Created by marcos on 29/11/14.
  */
 public class MainFragment extends Fragment {
 
-    /** The Constant TAG. */
-    private static final String TAG = "MainFragment";
+	/** The Constant TAG. */
+	private static final String TAG = "MainFragment";
 
-    /** The ui helper. */
-    private UiLifecycleHelper uiHelper;
+	/** The ui helper. */
+	private UiLifecycleHelper uiHelper;
 
-    /** The bt enter. */
-    private Button btEnter;
+	/** The bt enter. */
+	private Button btEnter;
 
-    /** The root view. */
-    private View rootView;
-    
-    private Button sendRequestButton;
+	/** The root view. */
+	private View rootView;
 
+	private Context mContext;
+	
+	public MainFragment(Context context) {
+		mContext = context;
+	}
 
-    /** The callback. */
-    private Session.StatusCallback callback = new Session.StatusCallback() {
-        @Override
-        public void call(Session session, SessionState state,
-                Exception exception) {
-            onSessionStateChange(session, state, exception);
-            Authenticator.getInstance().loadLoggedUser(session);
-        }
-    };
+	/** The callback. */
+	private Session.StatusCallback callback = new Session.StatusCallback() {
+		@Override
+		public void call(Session session, SessionState state,
+				Exception exception) {
+			onSessionStateChange(session, state, exception);
+			Authenticator.getInstance().loadLoggedUser(session);
+		}
+	};
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
-     * android.view.ViewGroup, android.os.Bundle)
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
+	 * android.view.ViewGroup, android.os.Bundle)
+	 */
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+	
+		rootView = inflater.inflate(R.layout.activity_main, container, false);
+		LoginButton authButton = (LoginButton) rootView
+				.findViewById(R.id.authButton);
+		authButton.setFragment(this);
+		authButton.setReadPermissions(Arrays
+				.asList("email", "public_profile", "user_friends",
+						"user_birthday", "user_location", "user_events"));
 
-        rootView = inflater.inflate(R.layout.activity_main, container, false);
-        LoginButton authButton = (LoginButton) rootView
-                .findViewById(R.id.authButton);
-        authButton.setFragment(this);
-        authButton.setReadPermissions(Arrays
-                .asList("email", "public_profile", "user_friends",
-                        "user_birthday", "user_location", "user_events"));
+		btEnter = (Button) rootView.findViewById(R.id.bt_enter);
+		btEnter.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity()
+						.getApplicationContext(), MainScreen.class);
+				intent.putExtra("eventslist", 0);
+				startActivity(intent);
+			}
+		});
 
-        btEnter = (Button) rootView.findViewById(R.id.bt_enter);
-        btEnter.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity()
-                        .getApplicationContext(), MainScreen.class);
-                intent.putExtra("eventslist", 0);
-                startActivity(intent);
-            }
-        });
-        
-        sendRequestButton = (Button) rootView.findViewById(R.id.sendRequestButton);
-        sendRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendRequestDialog();        
-            }
-        });
-        
-        return rootView;
-    }
+//		sendRequestButton = (Button) rootView
+//				.findViewById(R.id.sendRequestButton);
+//		sendRequestButton.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Log.e("CHAMOU", "(:");
+//				// sendRequestDialog();
+//				showFriendsFacebook();
+//			}
+//		});
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        uiHelper = new UiLifecycleHelper(getActivity(), callback);
-        uiHelper.onCreate(savedInstanceState);
-    }
+		return rootView;
+	}
 
-    /**
-     * On session state change.
-     *
-     * @param session
-     *            the session
-     * @param state
-     *            the state
-     * @param exception
-     *            the exception
-     */
-    private void onSessionStateChange(Session session, SessionState state,
-            Exception exception) {
-        if (state.isOpened()) {
-            Log.i(TAG, "Logged in...");
-            sendRequestButton.setVisibility(View.VISIBLE);
-        } else if (state.isClosed()) {
-            Log.i(TAG, "Logged out...");
-            sendRequestButton.setVisibility(View.INVISIBLE);
-        }
-    }
+//	public void showFriendsFacebook() {
+//
+//		new Request(Session.getActiveSession(), "/me/taggable_friends", null,
+//				HttpMethod.GET, new Request.Callback() {
+//					public void onCompleted(Response response) {
+//						Log.e("FACEBOOK", response.getGraphObject()
+//								.getInnerJSONObject().toString());
+//						try {
+//							JSONObject jsonFriends = new JSONObject(response
+//									.getGraphObject().getInnerJSONObject()
+//									.toString());
+//							JSONArray jArray = jsonFriends.getJSONArray("data");
+//							for (int i = 0; i < jArray.length(); i++) {
+//								friends.add(new UserFriend(jArray
+//										.getJSONObject(i).getString("name"),
+//										jArray.getJSONObject(i)
+//												.getJSONObject("picture")
+//												.getJSONObject("data")
+//												.getString("url"), jArray
+//												.getJSONObject(i).getString(
+//														"id")));
+//							}
+//							FacebookFriendsAdapter adapter = new FacebookFriendsAdapter(friends, mContext);
+//							friendList.setAdapter(adapter);
+//							
+//						} catch (JSONException e) {
+//							e.printStackTrace();
+//						}
+//					}
+//				}).executeAsync();
+//	}
 
-    private void sendRequestDialog() {
-        Bundle params = new Bundle();
-        params.putString("message", "Learn how to make your Android apps social");
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
+	 */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		uiHelper = new UiLifecycleHelper(getActivity(), callback);
+		uiHelper.onCreate(savedInstanceState);
+	}
 
-        WebDialog requestsDialog = (
-            new WebDialog.RequestsDialogBuilder(getActivity(),
-                Session.getActiveSession(),
-                params))
-                .setOnCompleteListener(new OnCompleteListener() {
+	/**
+	 * On session state change.
+	 * 
+	 * @param session
+	 *            the session
+	 * @param state
+	 *            the state
+	 * @param exception
+	 *            the exception
+	 */
+	private void onSessionStateChange(Session session, SessionState state,
+			Exception exception) {
+		if (state.isOpened()) {
+			Log.i(TAG, "Logged in...");
+		} else if (state.isClosed()) {
+			Log.i(TAG, "Logged out...");
+		}
+	}
 
-                    @Override
-                    public void onComplete(Bundle values,
-                        FacebookException error) {
-                        if (error != null) {
-                            if (error instanceof FacebookOperationCanceledException) {
-                                Toast.makeText(getActivity().getApplicationContext(), 
-                                    "Request cancelled", 
-                                    Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getActivity().getApplicationContext(), 
-                                    "Network Error", 
-                                    Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            final String requestId = values.getString("request");
-                            if (requestId != null) {
-                                Toast.makeText(getActivity().getApplicationContext(), 
-                                    "Request sent",  
-                                    Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getActivity().getApplicationContext(), 
-                                    "Request cancelled", 
-                                    Toast.LENGTH_SHORT).show();
-                            }
-                        }   
-                    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#onResume()
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		// For scenarios where the main activity is launched and user
+		// session is not null, the session state change notification
+		// may not be triggered. Trigger it if it's open/closed.
+		Session session = Session.getActiveSession();
+		if (session != null && (session.isOpened() || session.isClosed())) {
+			onSessionStateChange(session, session.getState(), null);
+		}
 
-                })
-                .build();
-        requestsDialog.show();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.support.v4.app.Fragment#onResume()
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-        // For scenarios where the main activity is launched and user
-        // session is not null, the session state change notification
-        // may not be triggered. Trigger it if it's open/closed.
-        Session session = Session.getActiveSession();
-        if (session != null && (session.isOpened() || session.isClosed())) {
-            onSessionStateChange(session, session.getState(), null);
-        }
+		uiHelper.onResume();
+	}
 
-        uiHelper.onResume();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#onActivityResult(int, int,
+	 * android.content.Intent)
+	 */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.support.v4.app.Fragment#onActivityResult(int, int,
-     * android.content.Intent)
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        uiHelper.onActivityResult(requestCode, resultCode, data);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#onPause()
+	 */
+	@Override
+	public void onPause() {
+		super.onPause();
+		uiHelper.onPause();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.support.v4.app.Fragment#onPause()
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-        uiHelper.onPause();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#onDestroy()
+	 */
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		uiHelper.onDestroy();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.support.v4.app.Fragment#onDestroy()
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        uiHelper.onDestroy();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
-     */
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        uiHelper.onSaveInstanceState(outState);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
+	}
 }

@@ -7,55 +7,53 @@
     <string name="title_activity_event_list">EventListActivity</string>
     <string name="action_create_event">Create Event</string>
     <string name="action_edit_event">Edit Event</string>
-
     <string name="required">Required</string>
     <string name="duplicated">Duplicated</string>
-    
-    <!-- Adapter -->
-	<string name="edit_alert_title">Edit Event</string>
-	<string name="edit_alert_message">Do you want edit this event?</string>
-	<string name="edit_alert_positive">YES</string>
-	<string name="edit_alert_negative">NO</string>
-	<string name="cancel_alert_title">Cancel Event</string>
-	<string name="cancel_alert_message">Do you want cancel this event?</string>
-	<string name="cancel_alert_positive">YES</string>
-	<string name="cancel_alert_negative">NO</string>
-	
-	<!-- Event Item Adapter -->
-	<string name="event_price">Price</string>
-	<string name="name">Name</string>
-	<string name="event_category">Tag</string>
-	<string name="event_status">Status</string>
-	
-	<!-- Create Event -->
-	<string name="action_cancel">Cancel</string>
-	
 
-	<!-- Event -->
-	<string name="event_name">Event name</string>
-	<string name="event_description">Event description</string>
-	<string name="event_info">Event info</string>
-	<string name="event_initial_date">Event initial date</string>
-	<string name="event_final_date">Event final date</string>
-	<string name="event_tags">Tags: </string>
-	<string name="create_event">Create event</string>
-	<string name="edit_event">Edit event</string>
-	<string name="event_canceled">Event Canceled</string>
-	<string name="edit_event">Edit event</string>
-	<string name="title_activity_aditional_event_information">Aditional informations</string>
-	<string name="event_notes">Notes</string>
-	<string name="event_outfit">Outfit</string>
-	<string name="event_capacity">Capacity</string>
-	
-	<!-- Request -->
-	<string name="send_request">Send Request</string>
-	
-	<!-- Content Description -->
-	<string name="desc_list_item_icon">Item Icon</string>
+    <!-- Adapter -->
+    <string name="edit_alert_title">Edit Event</string>
+    <string name="edit_alert_message">Do you want edit this event?</string>
+    <string name="edit_alert_positive">YES</string>
+    <string name="edit_alert_negative">NO</string>
+    <string name="cancel_alert_title">Cancel Event</string>
+    <string name="cancel_alert_message">Do you want cancel this event?</string>
+    <string name="cancel_alert_positive">YES</string>
+    <string name="cancel_alert_negative">NO</string>
+
+    <!-- Event Item Adapter -->
+    <string name="event_price">Price</string>
+    <string name="name">Name</string>
+    <string name="event_category">Tag</string>
+    <string name="event_status">Status</string>
+
+    <!-- Create Event -->
+    <string name="action_cancel">Cancel</string>
+
+    <!-- Event -->
+    <string name="event_name">Event name</string>
+    <string name="event_description">Event description</string>
+    <string name="event_info">Event info</string>
+    <string name="event_initial_date">Event initial date</string>
+    <string name="event_final_date">Event final date</string>
+    <string name="event_tags">Tags: </string>
+    <string name="create_event">Create event</string>
+    <string name="edit_event">Edit event</string>
+    <string name="event_canceled">Event Canceled</string>
+    <string name="edit_event">Edit event</string>
+    <string name="title_activity_aditional_event_information">Aditional informations</string>
+    <string name="event_notes">Notes</string>
+    <string name="event_outfit">Outfit</string>
+    <string name="event_capacity">Capacity</string>
+
+    <!-- Request -->
+    <string name="send_request">Send Request</string>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
-    
-	<!-- Nav Drawer Menu Items -->
+
+    <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item>Ads</item>
         <item>Map</item>
@@ -83,5 +81,9 @@
         <item>@drawable/ic_action_overflow</item>
         <item>@drawable/ic_action_overflow</item>
     </array>
+
+    <string name="title_activity_facebook_friends">FacebookFriends</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
