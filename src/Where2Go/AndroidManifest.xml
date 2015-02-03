@@ -48,7 +48,7 @@
             android:parentActivityName="activity.EventListActivity" >
         </activity>
         <activity
-            android:name="activity.AditionalEventInformationActivity"
+            android:name="activity.CreateEventAditInfoActivity"
             android:label="@string/title_activity_aditional_event_information"
             android:parentActivityName="activity.CreateEventActivity" >
         </activity>
