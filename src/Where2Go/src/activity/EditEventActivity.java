@@ -54,6 +54,9 @@ public class EditEventActivity extends Activity {
     /** The bt_edit_event. */
     private Button bt_edit_event;
 
+    /** The bt_edit_aditional_informations. */
+    private Button bt_edit_aditional_informations;
+    
     /** The event. */
     private Event event;
     
@@ -86,13 +89,40 @@ public class EditEventActivity extends Activity {
 		et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
 		et_event_final_time = (EditText) findViewById(R.id.et_event_final_time);
         bt_edit_event = (Button) findViewById(R.id.bt_edit_event);
-
+        bt_edit_aditional_informations = (Button) findViewById(R.id.bt_edit_aditional_informations);
+        
         et_event_final_time.setInputType(InputType.TYPE_NULL);
 		et_event_final_time.requestFocusFromTouch();
 		et_event_final_date.setInputType(InputType.TYPE_NULL);
 		et_event_final_date.requestFocusFromTouch();
 		et_event_initial_date.setInputType(InputType.TYPE_NULL);
 		et_event_initial_time.setInputType(InputType.TYPE_NULL);
+		
+		bt_edit_aditional_informations.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(final View v) {
+////N�O APAGAR ESTE TRECHO
+//				if (checkValidation()) {
+//					final Intent intent = new Intent(getApplicationContext(),
+//							AditionalEventInformationActivity.class);
+//					event = new Event(et_event_name.getText().toString(),
+//							et_event_description.getText().toString(),
+//							"Default Image Path", "INFO", initialDate,
+//							finalDate, 100.00, "Default Outfit", 999, true,
+//							Authenticator.getInstance().getLoggedUser());
+//					if (!tags.isEmpty()) {
+//						for (int i = 0; i < tags.size(); i++) {
+//							event.addTags(tags.get(i));
+//						}
+//					}
+//					startActivity(intent);
+//				}
+				
+				Intent intent = new Intent(getApplicationContext(), EditEventAditInfoActivity.class);
+				startActivity(intent);
+			}
+		});
 		
 		final Calendar newCalendar = Calendar.getInstance();
 

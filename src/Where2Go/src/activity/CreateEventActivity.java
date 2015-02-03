@@ -250,7 +250,7 @@ public class CreateEventActivity extends Activity {
 //					startActivity(intent);
 //				}
 				
-				Intent intent = new Intent(getApplicationContext(), AditionalEventInformationActivity.class);
+				Intent intent = new Intent(getApplicationContext(), CreateEventAditInfoActivity.class);
 				startActivity(intent);
 			}
 		});

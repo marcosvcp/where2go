@@ -155,7 +155,7 @@ public class EventsListFragment extends Fragment {
                                 // Caso não tenha lançado exceção
                                 if (e == null) {
                                     adapter = new EventAdapter(context,
-                                            objects, rootView, filter);
+                                            objects, rootView, filter, getActivity());
                                     listview.setAdapter(adapter);
                                 }
                             }

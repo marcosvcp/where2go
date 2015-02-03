@@ -86,6 +86,7 @@
     </array>
 
     <string name="title_activity_my_invite_fragment">MyInviteFragment</string>
+    <string name="title_activity_facebook_friends">FacebookFriends</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
