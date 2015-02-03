@@ -210,7 +210,6 @@ public class CreateEventActivity extends Activity {
 							event.addTags(tags.get(i));
 						}
 					}
-
 					ParseUtil.saveEvent(event);
 					EventsListFragment.adapter.notifyDataSetChanged();
 					final Intent intent = new Intent(getApplicationContext(),

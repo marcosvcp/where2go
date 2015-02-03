@@ -24,4 +24,6 @@ public interface InvitationState {
      * @return Uma notificação com uma mensagem
      */
     Notification decline(Invitation invitation);
+    
+    String getName();
 }

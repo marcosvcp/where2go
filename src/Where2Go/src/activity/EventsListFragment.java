@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ParseUtil;
+import utils.Authenticator;
 import adapter.EventAdapter;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +32,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import entity.event.Event;
+import entity.event.Invitation;
 
 /**
  * The Class EventsListFragment.

@@ -1,19 +1,20 @@
 package entity.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.base.Objects;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
 import entity.event.Invitation;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * The Class User.
  */
-public class User {
+@ParseClassName("iUser")
+public class User extends ParseObject{
 
-    private String facebookId;
     /** The name. */
     private String name;
 
@@ -29,22 +30,31 @@ public class User {
     /** The gender. */
     private String gender;
 
-    /** The invitations. */
-    private List<Invitation> invitations;
-
     // falta o atributo que liga o usuario aos dados do facebook: FACEBOOK ID?
 
-    /**
-     * Instantiates a new user.
-     *
-     * @param name
-     *            the name
-     */
-    public User(String name) {
-        this.name = name;
-        this.invitations = new ArrayList<Invitation>();
+    public User() {}
+    
+    public User(String facebookId) {
+    	setFacebookId(facebookId);
+    	setInvitations(new ArrayList<Invitation>());
     }
-
+    
+    public List<Invitation> getInvitations() {
+    	return getList("invitations");
+    }
+    
+    public void setInvitations(List<Invitation> invitations) {
+    	put("invitations", invitations);
+    }
+    
+    public String getFacebookId() {
+    	return getString("facebookId");
+    }
+    
+    public void setFacebookId(String facebookId) {
+        put("facebookId", facebookId);
+    }
+    
     /**
      * Gets the name.
      *
@@ -141,15 +151,6 @@ public class User {
     }
 
     /**
-     * Gets the invitations.
-     *
-     * @return the invitations
-     */
-    public List<Invitation> getInvitations() {
-        return Collections.unmodifiableList(invitations);
-    }
-
-    /**
      * Remove uma {@code invitation} das {@code invitations} do usuário.
      *
      * @param invitation
@@ -157,7 +158,7 @@ public class User {
      * @return True, caso seja removida a {@code invitation}
      */
     public boolean removeInvitation(Invitation invitation) {
-        return invitations.remove(invitation);
+        return getInvitations().remove(invitation);
     }
 
     /**
@@ -167,7 +168,7 @@ public class User {
      *            a {@code invitation} a ser adicionada
      */
     public void addInvitation(Invitation invitation) {
-        invitations.add(invitation);
+        getInvitations().add(invitation);
     }
 
     /*
@@ -192,13 +193,5 @@ public class User {
         }
         User other = (User) therUser;
         return Objects.equal(name, other.name) && Objects.equal(age, other.age);
-    }
-
-    public String getFacebookId() {
-        return facebookId;
-    }
-
-    public void setFacebookId(String facebookId) {
-        this.facebookId = facebookId;
     }
 }

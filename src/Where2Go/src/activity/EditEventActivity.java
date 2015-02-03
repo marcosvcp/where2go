@@ -217,7 +217,7 @@ public class EditEventActivity extends Activity {
             }
         });
         // Busca no servidor o Objeto que tem o ID
-        ParseUtil.findById(key, new GetCallback<Event>() {
+        ParseUtil.findEventById(key, new GetCallback<Event>() {
             @Override
             public void done(final Event Event, final ParseException e) {
                 if (e == null) {

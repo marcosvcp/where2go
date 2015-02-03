@@ -22,4 +22,9 @@ public class InvitationConfirmed implements InvitationState {
                 String.format("You leave from this event %s",
                         invitation.getEvent()));
     }
+    
+    @Override
+    public String getName (){
+    	return "Confirmed";
+    }
 }
