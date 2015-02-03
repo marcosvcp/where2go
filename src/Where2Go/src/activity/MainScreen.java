@@ -93,7 +93,7 @@ public class MainScreen extends Activity {
      *            the saved instance state
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
         setStatusBarColor(findViewById(R.id.statusBarBackground),
@@ -120,6 +120,8 @@ public class MainScreen extends Activity {
                 .getResourceId(4, -1), true, "50+"));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
                 .getResourceId(5, -1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
+                .getResourceId(6, -1)));
         // Recycle the typed array
         navMenuIcons.recycle();
 
@@ -137,13 +139,15 @@ public class MainScreen extends Activity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.app_name, R.string.app_name) {
 
-            public void onDrawerClosed(View view) {
+            @Override
+            public void onDrawerClosed(final View view) {
                 getActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
 
-            public void onDrawerOpened(View drawerView) {
+            @Override
+            public void onDrawerOpened(final View drawerView) {
                 getActionBar().setTitle("Where2Go");
 
                 // calling onPrepareOptionsMenu() to hide action bar icons
@@ -158,8 +162,8 @@ public class MainScreen extends Activity {
         }
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        Intent i = getIntent();
-        Bundle extras = i.getExtras();
+        final Intent i = getIntent();
+        final Bundle extras = i.getExtras();
         if (i.getIntExtra("eventslist", -1) != -1) {
 
             displayView(i.getIntExtra("eventslist", -1));
@@ -191,8 +195,8 @@ public class MainScreen extends Activity {
          * .widget.AdapterView, android.view.View, int, long)
          */
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id) {
+        public void onItemClick(final AdapterView<?> parent, final View view,
+                final int position, final long id) {
             displayView(position);
         }
     }
@@ -203,7 +207,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main_screen, menu);
         return true;
     }
@@ -214,7 +218,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -235,9 +239,9 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
      */
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+    public boolean onPrepareOptionsMenu(final Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        final boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -247,7 +251,7 @@ public class MainScreen extends Activity {
      * @param position
      *            the position
      */
-    private void displayView(int position) {
+    private void displayView(final int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
         backit = false;
@@ -275,12 +279,15 @@ public class MainScreen extends Activity {
             case 5:
                 fragment = new MyEventsListFragment();
                 break;
+            case 6:
+                fragment = new MyInvitesFragment();
+                break;
             default:
                 break;
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
+            final FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.frame_container, fragment).commit();
 
@@ -302,13 +309,13 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
      */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // Save the fragment's instance
         try {
             getFragmentManager().putFragment(outState, "mContent", mContent);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // TODO: handle exception
         }
 
@@ -320,7 +327,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#setTitle(java.lang.CharSequence)
      */
     @Override
-    public void setTitle(CharSequence title) {
+    public void setTitle(final CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
     }
@@ -331,7 +338,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onPostCreate(android.os.Bundle)
      */
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    protected void onPostCreate(final Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
@@ -345,7 +352,7 @@ public class MainScreen extends Activity {
      * )
      */
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
@@ -359,14 +366,14 @@ public class MainScreen extends Activity {
      * @param color
      *            the color
      */
-    public void setStatusBarColor(View statusBar, int color) {
+    public void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow();
+            final Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             // status bar height
-            int actionBarHeight = getActionBarHeight();
-            int statusBarHeight = getStatusBarHeight();
+            final int actionBarHeight = getActionBarHeight();
+            final int statusBarHeight = getStatusBarHeight();
             // action bar height
             statusBar.getLayoutParams().height = actionBarHeight
                     + statusBarHeight;
@@ -381,7 +388,7 @@ public class MainScreen extends Activity {
      */
     public int getActionBarHeight() {
         int actionBarHeight = 0;
-        TypedValue tv = new TypedValue();
+        final TypedValue tv = new TypedValue();
         if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,
                     getResources().getDisplayMetrics());
@@ -396,8 +403,8 @@ public class MainScreen extends Activity {
      */
     public int getStatusBarHeight() {
         int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height",
-                "dimen", "android");
+        final int resourceId = getResources().getIdentifier(
+                "status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
         }

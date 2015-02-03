@@ -9,25 +9,15 @@
     tools:context="activity.EventListActivity" >
 
     <Spinner
-        android:id="@+id/searchEventList"
+        android:id="@+id/searchInvitationList"
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 
     <ListView
-        android:id="@+id/listViewEvents"
+        android:id="@+id/listInvites"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginTop="2dp" >
     </ListView>
-    
-    <ImageButton
-        android:id="@+id/bt_add_event"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="-75dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/floating_button_add" />
 </LinearLayout>
