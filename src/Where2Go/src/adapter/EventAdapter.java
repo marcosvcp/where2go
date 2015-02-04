@@ -15,8 +15,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +40,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
     private List<Event> mListEvents;
 
     /** The m inflater. */
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
 
     /** The posicao. */
     private int posicao;
@@ -51,11 +49,11 @@ public class EventAdapter extends BaseAdapter implements Serializable {
     Context mcontext;
 
     /** The parent view. */
-    private View parentView;
+    private final View parentView;
 
     /** The listview. */
     private ListView listview;
-    
+
     private Activity parentActivity;
 
     /**
@@ -68,7 +66,8 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * @param parentView
      *            the parent view
      */
-    public EventAdapter(Context context, List<Event> listEvents, View parentView) {
+    public EventAdapter(final Context context, final List<Event> listEvents,
+            final View parentView) {
         this.mListEvents = listEvents;
         this.mInflater = LayoutInflater.from(context);
         this.mcontext = context;
@@ -87,15 +86,16 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * @param filter
      *            the filter
      */
-    public EventAdapter(Context context, List<Event> listEvents,
-            View parentView, String filter, Activity parentActivity) {
+    public EventAdapter(final Context context, final List<Event> listEvents,
+            final View parentView, final String filter,
+            final Activity parentActivity) {
         if (filter.equals("Todos")) {
             this.mListEvents = listEvents;
         } else {
-            List<Event> newListEvents = new ArrayList<Event>();
+            final List<Event> newListEvents = new ArrayList<Event>();
             for (int i = 0; i < listEvents.size(); i++) {
-                Event tempEvent = listEvents.get(i);
-                ArrayList<String> tempEventTags = tempEvent.getTags();
+                final Event tempEvent = listEvents.get(i);
+                final ArrayList<String> tempEventTags = tempEvent.getTags();
                 if (tempEventTags.contains(filter)) {
                     newListEvents.add(tempEvent);
                 }
@@ -124,7 +124,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
-    public Event getItem(int position) {
+    public Event getItem(final int position) {
         return mListEvents.get(position);
     }
 
@@ -136,7 +136,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * @return the item id
      */
     @Override
-    public long getItemId(int index) {
+    public long getItemId(final int index) {
         return index;
     }
 
@@ -147,33 +147,38 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * android.view.ViewGroup)
      */
     @Override
-    public View getView(final int position, View myView, ViewGroup viewGroup) {
+    public View getView(final int position, View myView,
+            final ViewGroup viewGroup) {
         myView = mInflater.inflate(R.layout.item_event_adapter, null);
 
         final Event event = mListEvents.get(position);
 
-        TextView eventName = (TextView) myView.findViewById(R.id.event_name);
+        final TextView eventName = (TextView) myView
+                .findViewById(R.id.event_name);
         eventName.setText(event.getName());
 
-        TextView eventDescription = (TextView) myView
+        final TextView eventDescription = (TextView) myView
                 .findViewById(R.id.event_category);
 
-        TextView eventStatus = (TextView) myView
+        final TextView eventStatus = (TextView) myView
                 .findViewById(R.id.event_status);
         eventStatus.setText(event.getState());
 
-        ImageButton thumbnail = (ImageButton) myView.findViewById(R.id.photo);
-        Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable()).getBitmap();
-        int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
+        final ImageButton thumbnail = (ImageButton) myView
+                .findViewById(R.id.photo);
+        final Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable())
+                .getBitmap();
+        final int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
                 bitmap.getHeight() / 2);
 
-        LinearLayout card = (LinearLayout) myView.findViewById(R.id.card);
+        final LinearLayout card = (LinearLayout) myView.findViewById(R.id.card);
         card.setBackgroundColor(Color.argb(255, Color.red(pixel),
                 Color.green(pixel), Color.blue(pixel)));
 
         eventDescription.setText(event.getDescription());
 
-        TextView eventValue = (TextView) myView.findViewById(R.id.event_price);
+        final TextView eventValue = (TextView) myView
+                .findViewById(R.id.event_price);
 
         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
         listview.setClickable(true);
@@ -181,7 +186,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         myView.setOnLongClickListener(new OnLongClickListener() {
 
             @Override
-            public boolean onLongClick(View v) {
+            public boolean onLongClick(final View v) {
                 // SE QUISER IMPLEMENTAR O LONG CLICK
 
                 return false;
@@ -189,11 +194,11 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
         });
 
-        ImageButton btOptions = (ImageButton) myView
+        final ImageButton btOptions = (ImageButton) myView
                 .findViewById(R.id.bt_options);
         btOptions.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 showPopupMenu(v, event);
             }
         });
@@ -210,19 +215,22 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * @param event
      *            selected
      */
-    private void showPopupMenu(View v, final Event event) {
-        PopupMenu popupMenu = new PopupMenu(mcontext, v);
+    private void showPopupMenu(final View v, final Event event) {
+        final PopupMenu popupMenu = new PopupMenu(mcontext, v);
         popupMenu.getMenuInflater().inflate(R.menu.event_options,
                 popupMenu.getMenu());
         popupMenu
                 .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item) {
+                    public boolean onMenuItemClick(final MenuItem item) {
                         switch (item.getItemId()) {
-                        case (R.id.invite):
-                        	Intent intent = new Intent(parentActivity, FacebookFriendsActivity.class);
-                        	parentActivity.startActivity(intent);
-                        	return true;
+                            case (R.id.invite):
+                                final Intent intent = new Intent(
+                                        parentActivity,
+                                        FacebookFriendsActivity.class);
+                                intent.putExtra("EventId", event.getObjectId());
+                                parentActivity.startActivity(intent);
+                                return true;
                             case (R.id.edit):
                                 editAlert(event);
                                 return true;
@@ -245,7 +253,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      *            the event
      */
     public void editAlert(final Event event) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
                 parentView.getContext());
 
         builder.setTitle(parentView.getResources().getString(
@@ -256,9 +264,11 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 parentView.getResources().getString(
                         R.string.edit_alert_positive),
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        Intent intent = new Intent(parentView.getContext(),
-                                EditEventActivity.class);
+                    @Override
+                    public void onClick(final DialogInterface arg0,
+                            final int arg1) {
+                        final Intent intent = new Intent(parentView
+                                .getContext(), EditEventActivity.class);
                         intent.putExtra("event_id", event.getObjectId());
                         parentView.getContext().startActivity(intent);
                     }
@@ -268,16 +278,18 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 parentView.getResources().getString(
                         R.string.edit_alert_negative),
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
+                    @Override
+                    public void onClick(final DialogInterface arg0,
+                            final int arg1) {
                         try {
                             finalize();
-                        } catch (Throwable e) {
+                        } catch (final Throwable e) {
                             e.printStackTrace();
                         }
                     }
                 });
 
-        AlertDialog alert = builder.create();
+        final AlertDialog alert = builder.create();
         alert.show();
     }
 
@@ -288,7 +300,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      *            the event
      */
     public void cancelAlert(final Event event) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
                 parentView.getContext());
         builder.setTitle(parentView.getResources().getString(
                 R.string.cancel_alert_title));
@@ -298,7 +310,9 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 parentView.getResources().getString(
                         R.string.cancel_alert_positive),
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
+                    @Override
+                    public void onClick(final DialogInterface arg0,
+                            final int arg1) {
                         event.setState(new EventCanceled().getName());
                         ParseUtil.saveEvent(event);
                         notifyDataSetChanged();
@@ -308,16 +322,18 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 parentView.getResources().getString(
                         R.string.cancel_alert_negative),
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
+                    @Override
+                    public void onClick(final DialogInterface arg0,
+                            final int arg1) {
                         try {
                             finalize();
-                        } catch (Throwable e) {
+                        } catch (final Throwable e) {
                             e.printStackTrace();
                         }
                     }
                 });
 
-        AlertDialog alert = builder.create();
+        final AlertDialog alert = builder.create();
         alert.show();
     }
 }

@@ -1,42 +1,50 @@
 package entity.user;
 
 public class UserFriend {
-	
-	private String friendName;
-	
-	private String friendPicture;
-	
-	private String friendid;
 
-	public UserFriend(String friendName, String friendPicture, String friendid) {
-		super();
-		this.friendName = friendName;
-		this.friendPicture = friendPicture;
-		this.friendid = friendid;
-	}
+    private String friendName;
 
-	public String getFriendName() {
-		return friendName;
-	}
+    private String friendPicture;
 
-	public void setFriendName(String friendName) {
-		this.friendName = friendName;
-	}
+    private String friendid;
 
-	public String getFriendPicture() {
-		return friendPicture;
-	}
+    public UserFriend(final String friendName, final String friendPicture,
+            final String friendid) {
+        super();
+        this.friendName = friendName;
+        this.friendPicture = friendPicture;
+        this.friendid = friendid;
+    }
 
-	public void setFriendPicture(String friendPicture) {
-		this.friendPicture = friendPicture;
-	}
+    public UserFriend(final String friendName, final String friendid) {
+        super();
+        this.friendName = friendName;
+        this.friendPicture = "";
+        this.friendid = friendid;
+    }
 
-	public String getFriendid() {
-		return friendid;
-	}
+    public String getFriendName() {
+        return friendName;
+    }
 
-	public void setFriendid(String friendid) {
-		this.friendid = friendid;
-	}
+    public void setFriendName(final String friendName) {
+        this.friendName = friendName;
+    }
+
+    public String getFriendPicture() {
+        return friendPicture;
+    }
+
+    public void setFriendPicture(final String friendPicture) {
+        this.friendPicture = friendPicture;
+    }
+
+    public String getFriendid() {
+        return friendid;
+    }
+
+    public void setFriendid(final String friendid) {
+        this.friendid = friendid;
+    }
 
 }
