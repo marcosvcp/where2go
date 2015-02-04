@@ -13,7 +13,7 @@ public class InvitationPending implements InvitationState {
     @Override
     public Notification confirm(Invitation invitation) {
         if (invitation.getEvent().addParticipant(invitation.getGuest())) {
-            invitation.setState(new InvitationConfirmed());
+            invitation.setState(new InvitationConfirmed().getName());
             return new Notification(invitation.getGuest(),
                     invitation.getEvent(), String.format(EVENT_MSG, invitation
                             .getEvent().getName(), "confirmed"));
@@ -24,9 +24,14 @@ public class InvitationPending implements InvitationState {
 
     @Override
     public Notification decline(Invitation invitation) {
-        invitation.setState(new InvitationDeclined());
+        invitation.setState(new InvitationDeclined().getName());
         return new Notification(invitation.getGuest(), invitation.getEvent(),
                 String.format(EVENT_MSG, invitation.getEvent().getName(),
                         "declined"));
+    }
+    
+    @Override
+    public String getName() {
+    	return "Pending";
     }
 }

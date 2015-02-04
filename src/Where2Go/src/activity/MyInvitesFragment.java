@@ -84,9 +84,9 @@ public class MyInvitesFragment extends Fragment {
         event = new Event("Mussum ipsum cacilds", "Mussum ipsum cacilds",
                 "Mussum ipsum cacilds", "Mussum ipsum cacilds", y, y, 0,
                 "Mussum ipsum cacilds", 100, true, user);
-        inv = new Invitation(user1, event);
-        inv2 = new Invitation(user1, event);
-        inv3 = new Invitation(user1, event);
+        inv = new Invitation(user1,user1, event);
+        inv2 = new Invitation(user1,user1, event);
+        inv3 = new Invitation(user1,user1, event);
         Log.e("Teste", event.getName());
         Log.e("Teste", inv.getEvent().getName());
 

@@ -1,13 +1,20 @@
 package persistence;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
+
+import utils.Authenticator;
+import android.util.Log;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import entity.event.Event;
+import entity.event.Invitation;
+import entity.user.User;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -17,6 +24,15 @@ import entity.event.Event;
  */
 public class ParseUtil {
 
+//	FIXME Exemplo de Invitations Query
+//	ParseUtil.findInvitationByUserGuest(Authenticator.getInstance().getLoggedUser(), new FindCallback<Invitation>() {
+//		@Override
+//		public void done(
+//				List<Invitation> objects,
+//				ParseException e) {
+//			Log.v("invts", objects.toString());
+//		}
+//	});
     /** The ptbr. */
     public static SimpleDateFormat ptbr = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -44,7 +60,27 @@ public class ParseUtil {
     public static ParseQuery<Event> getQueryEvent() {
         return ParseQuery.getQuery("Event");
     }
-
+    
+    public static ParseQuery<User> getQueryUser() {
+        return ParseQuery.getQuery("iUser");
+    }
+    
+    public static ParseQuery<Invitation> getQueryInvitation() {
+        return ParseQuery.getQuery("Invitation");
+    }
+    
+    public static void findInvitationByUserGuest(User from, FindCallback<Invitation> callback) {
+        ParseQuery<Invitation> query = getQueryInvitation().whereEqualTo("userGuest", from);
+        query.findInBackground(callback);
+        
+    }
+    
+    public static void findByFacebookId(String facebookId, FindCallback<User> callback) {
+        ParseQuery<User> query = getQueryUser().whereEqualTo("facebookId", facebookId);
+        query.findInBackground(callback);
+        
+    }
+    
     /**
      * Busca o Objeto que tem o {@code objectId} no servidor e executa o
      * {@code callback} quando a requisição for terminada.
@@ -54,7 +90,7 @@ public class ParseUtil {
      * @param callback
      *            the callback
      */
-    public static void findById(String objectId, GetCallback<Event> callback) {
+    public static void findEventById(String objectId, GetCallback<Event> callback) {
         getQueryEvent().getInBackground(objectId, callback);
     }
 
