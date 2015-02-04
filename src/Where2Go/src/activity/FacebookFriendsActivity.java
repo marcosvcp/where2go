@@ -22,6 +22,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -89,6 +92,7 @@ public class FacebookFriendsActivity extends Activity {
 	    switch (item.getItemId()) {
 	        case R.id.action_done:
 	            Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
+	            Log.v("CHECKBOX", "Completa" + FacebookFriendsAdapter.getmListIdFacebook().size());
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
