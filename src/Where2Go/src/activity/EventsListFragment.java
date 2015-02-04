@@ -30,6 +30,7 @@ import br.com.les.where2go.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import entity.event.Event;
 import entity.event.Invitation;
@@ -151,7 +152,11 @@ public class EventsListFragment extends Fragment {
                                 .getItemAtPosition(position).toString();
                         // Atualiza o adapter passando o filtro como parametro
                         // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
-                        ParseUtil.findAllEvents(new FindCallback<Event>() {
+                        ParseQuery<Event> query = ParseUtil.getQueryEvent();
+
+                        query.whereEqualTo("isPublic", true);
+                        
+                        query.findInBackground(new FindCallback<Event>() {
                             @Override
                             public void done(List<Event> objects,
                                     ParseException e) {

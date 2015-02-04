@@ -151,8 +151,10 @@ public class MyEventsListFragment extends Fragment {
                         // Atualiza o adapter passando o filtro como parametro
                         // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
                         ParseQuery<Event> query = ParseUtil.getQueryEvent();
-                        query.whereContains("ownerName", Authenticator
-                                .getInstance().getLoggedUser().getName());
+                        
+                        query.whereContains("facebookId", Authenticator
+                                .getInstance().getLoggedUser().getFacebookId());
+                        
                         query.findInBackground(new FindCallback<Event>() {
                             @Override
                             public void done(List<Event> objects,
