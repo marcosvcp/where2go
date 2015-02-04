@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="/FacebookSDK"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="/home/julioandherson/Projeto-LES/where2go/src/Where2Go/libs/Parse-1.8.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
