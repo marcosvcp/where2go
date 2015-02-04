@@ -1,32 +1,40 @@
 package adapter;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.parse.ParseFacebookUtils.Permissions.Friends;
 
 import activity.ImageLoadTask;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.les.where2go.R;
-import entity.user.User;
 import entity.user.UserFriend;
 
 public class FacebookFriendsAdapter extends BaseAdapter {
 
 	private List<UserFriend> mFriends;
+	private static List<String> mListIdFacebook;
 	private Context mContext;
+	private CheckBox cb_select_friend;
 
 	public FacebookFriendsAdapter(List<UserFriend> friends, Context context) {
 		mFriends = friends;
 		mContext = context;
+		mListIdFacebook = new ArrayList<String>();
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return mFriends.size();
 	}
 
@@ -37,8 +45,7 @@ public class FacebookFriendsAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+ 		return 0;
 	}
 
 	@Override
@@ -51,9 +58,35 @@ public class FacebookFriendsAdapter extends BaseAdapter {
 		tv_facebook_name.setText(user.getFriendName());
 		ImageView friendImage = (ImageView) myView
 				.findViewById(R.id.image_facebook_friend);
+		
+		final String friendID = mFriends.get(position).getFriendid();
+		
+		//Load facebook profile photo
 		ImageLoadTask image = new ImageLoadTask(user.getFriendPicture(),
 				friendImage);
 		image.execute();
+		
+		cb_select_friend = (CheckBox) myView.findViewById(R.id.cb_select_friend);
+		cb_select_friend.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked){
+					mListIdFacebook.add(friendID);
+					Log.v("CHECKBOX", "MARCADO" + friendID);
+				}else{
+					mListIdFacebook.remove(friendID);
+					Log.v("CHECKBOX", "DESMARCADO" + friendID);
+				}
+			}
+		});
 		return myView;
+	}
+
+	public static List<String> getmListIdFacebook() {
+		return mListIdFacebook;
+	}
+
+	public static void setmListIdFacebook(List<String> mListIdFacebook) {
+		FacebookFriendsAdapter.mListIdFacebook = mListIdFacebook;
 	}
 }
