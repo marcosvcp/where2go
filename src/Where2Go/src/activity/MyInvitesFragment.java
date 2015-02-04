@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.google.common.net.HostSpecifier;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+
+import persistence.ParseUtil;
+import utils.Authenticator;
+import adapter.EventAdapter;
 import adapter.InviteAdapter;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -45,12 +54,11 @@ public class MyInvitesFragment extends Fragment {
 
     private List<Invitation> mListInvites;
 
+    private User guest, host;
+    private Event event;
+    
     /** The m search event spinner. */
     private Spinner mSearchEventSpinner;
-
-    private Event event;
-    private Invitation inv, inv2, inv3;
-    private User user, user1;
 
     /**
      * Instantiates a new ads fragment.
@@ -77,29 +85,53 @@ public class MyInvitesFragment extends Fragment {
 
         listview.setClickable(true);
 
-        final Date y = new Date();
-
-        user = new User("Mussum ipsum cacilds");
-        user1 = new User("Mussum ipsum ");
-        event = new Event("Mussum ipsum cacilds", "Mussum ipsum cacilds",
-                "Mussum ipsum cacilds", "Mussum ipsum cacilds", y, y, 0,
-                "Mussum ipsum cacilds", 100, true, user);
-        inv = new Invitation(user1,user1, event);
-        inv2 = new Invitation(user1,user1, event);
-        inv3 = new Invitation(user1,user1, event);
-        Log.e("Teste", event.getName());
-        Log.e("Teste", inv.getEvent().getName());
-
         searchSpinnerSetUp();
+        
+//        ParseQuery<Event> query = ParseUtil.getQueryEvent();
+//        
+//        ParseUtil.findByFacebookId(Authenticator.getInstance().getLoggedUser().getFacebookId(), new FindCallback<User>() {
+//			
+//			@Override
+//			public void done(List<User> objects, ParseException e) {
+//				guest = objects.get(0);
+//			}
+//		});
+//        
+//        ParseUtil.findByFacebookId("826299547415878", new FindCallback<User>() {
+//			
+//			@Override
+//			public void done(List<User> objects, ParseException e) {
+//				host = objects.get(0);
+//			}
+//		});
+//        
+//        ParseUtil.findEventById("dqUnb8PbiM", new GetCallback<Event>() {
+//			
+//			@Override
+//			public void done(Event object, ParseException e) {
+//				event = object;
+//				Log.v("guest", guest.toString());
+//				Log.v("host", host.toString());
+//				Log.v("event", event.toString());
+//				Invitation invite = new Invitation(guest, host, event);
+//				ParseUtil.saveInvitation(invite);
+//			}
+//		});
+
         return rootView;
     }
 
     private void searchSpinnerSetUp() {
         mListInvites = new ArrayList<Invitation>();
-        mListInvites.add(inv);
-        mListInvites.add(inv2);
-        mListInvites.add(inv3);
 
+        ParseUtil.findInvitationByUserGuest(Authenticator.getInstance().getLoggedUser(), new FindCallback<Invitation>() {
+			
+			@Override
+			public void done(List<Invitation> objects, ParseException e) {
+				mListInvites = objects;
+			}
+		});
+        
         final List<String> status = new ArrayList<String>();
         status.add("Pendentes");
         status.add("Aceitados");

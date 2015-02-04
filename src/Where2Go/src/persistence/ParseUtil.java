@@ -51,6 +51,16 @@ public class ParseUtil {
     public static void saveEvent(Event event) {
         event.saveInBackground();
     }
+    
+    /**
+     * Salva o {@code invitation} no Servidor.
+     *
+     * @param event
+     *            the event
+     */
+    public static void saveInvitation(Invitation invitation) {
+    	invitation.saveInBackground();
+    }
 
     /**
      * Retorna O {@link ParseQuery} do {@link Event}.
@@ -76,7 +86,7 @@ public class ParseUtil {
     }
     
     public static void findByFacebookId(String facebookId, FindCallback<User> callback) {
-        ParseQuery<User> query = getQueryUser().whereEqualTo("facebookId", facebookId);
+        ParseQuery<User> query = getQueryUser().whereEqualTo("facebookId", facebookId);	
         query.findInBackground(callback);
         
     }

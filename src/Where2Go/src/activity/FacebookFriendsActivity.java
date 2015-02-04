@@ -7,32 +7,39 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.facebook.HttpMethod;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-
-import entity.user.UserFriend;
-import br.com.les.where2go.R;
+import persistence.ParseUtil;
+import utils.Authenticator;
 import adapter.FacebookFriendsAdapter;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Toast;
+import br.com.les.where2go.R;
+
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+
+import entity.event.Event;
+import entity.event.Invitation;
+import entity.user.User;
+import entity.user.UserFriend;
 
 public class FacebookFriendsActivity extends Activity {
 
 	private ListView friendList;
 	private List<UserFriend> friends;
 	private View rootView;
+	private User host;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class FacebookFriendsActivity extends Activity {
 		friendList = (ListView) findViewById(R.id.listViewFacebookFriends);
 		friends = new ArrayList<UserFriend>();
 		rootView = getLayoutInflater().inflate(R.layout.activity_main, null);
+		host = Authenticator.getInstance().getLoggedUser();
 		showFriendsFacebook();
 	}
 	
@@ -91,8 +99,25 @@ public class FacebookFriendsActivity extends Activity {
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
 	        case R.id.action_done:
-	            Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
 	            Log.v("CHECKBOX", "Completa" + FacebookFriendsAdapter.getmListIdFacebook().size());
+	           
+	            Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
+
+	
+	           
+	            for (int i = 0; i < FacebookFriendsAdapter.getmListIdFacebook().size(); i++) {
+					String facebookId = FacebookFriendsAdapter.getmListIdFacebook().get(i);
+					ParseUtil.findByFacebookId(facebookId, new FindCallback<User>() {
+						
+						@Override
+						public void done(List<User> objects, ParseException e) {
+							User guest = objects.get(0);
+							Invitation invite = new Invitation(guest, host, null);
+							ParseUtil.saveInvitation(invite);
+						}
+					});
+				}
+	            
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
