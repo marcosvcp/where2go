@@ -98,4 +98,10 @@ public class FacebookFriendsActivity extends Activity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
+	
+	@Override
+    public void onBackPressed() {
+		FacebookFriendsAdapter.setmListIdFacebook(new ArrayList<String>());
+		super.onBackPressed();
+    }
 }

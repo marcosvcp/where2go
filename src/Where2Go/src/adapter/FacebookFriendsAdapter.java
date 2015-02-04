@@ -79,8 +79,6 @@ public class FacebookFriendsAdapter extends BaseAdapter {
 				}
 			}
 		});
-		
-		
 		return myView;
 	}
 
