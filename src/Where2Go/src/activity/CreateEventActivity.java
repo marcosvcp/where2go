@@ -127,6 +127,9 @@ public class CreateEventActivity extends Activity {
 				}, newCalendar.get(Calendar.YEAR),
 				newCalendar.get(Calendar.MONTH),
 				newCalendar.get(Calendar.DAY_OF_MONTH));
+		
+		initialDate = Calendar.getInstance().getTime();
+		finalDate = Calendar.getInstance().getTime();
         
         initialTimePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
