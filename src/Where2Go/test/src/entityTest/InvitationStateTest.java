@@ -12,7 +12,7 @@ import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
 
-public class TestInvitation {
+public class InvitationStateTest {
 	private User user1, user2, user3, user4;
 	private Event event1, event2, event3, event4, event5;
 	private final String INVITATION_PENDING = "Pending";
