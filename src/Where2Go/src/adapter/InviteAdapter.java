@@ -3,12 +3,19 @@ package adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import persistence.ParseUtil;
+import activity.MyInvitesFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import br.com.les.where2go.R;
 import entity.event.Invitation;
@@ -131,11 +138,54 @@ public class InviteAdapter extends BaseAdapter {
 
         final TextView inviteStatus = (TextView) myView
                 .findViewById(R.id.invitation_status);
-        inviteStatus.setText("A Definir");
+        inviteStatus.setText(invite.getState());
 
         listview = (ListView) myView.findViewById(R.id.listInvites);
+
+        final ImageButton btOptions = (ImageButton) myView
+                .findViewById(R.id.invitation_bt_options);
+        btOptions.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                showPopupMenu(v, invite);
+            }
+        });
 
         return myView;
     }
 
+    private void showPopupMenu(final View v, final Invitation invite) {
+        final PopupMenu popupMenu = new PopupMenu(mcontext, v);
+        final Intent intent = new Intent(mcontext, MyInvitesFragment.class);
+        popupMenu.getMenuInflater().inflate(R.menu.invitation_options,
+                popupMenu.getMenu());
+        popupMenu
+                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(final MenuItem item) {
+                        switch (item.getItemId()) {
+                            case (R.id.invitation_accept):
+                                if (!invite.getState().equals("Accepted")) {
+                                    invite.setState("Accepted");
+                                    ParseUtil.saveInvitation(invite);
+                                    mListInvites.remove(invite);
+                                    notifyDataSetChanged();
+                                }
+                                return true;
+                            case (R.id.invitation_refuse):
+                                if (!invite.getState().equals("Denied")) {
+                                    invite.setState("Denied");
+                                    ParseUtil.saveInvitation(invite);
+                                    mListInvites.remove(invite);
+                                    notifyDataSetChanged();
+                                }
+                                return true;
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                });
+        popupMenu.show();
+    }
 }

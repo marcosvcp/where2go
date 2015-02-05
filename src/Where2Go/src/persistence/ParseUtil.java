@@ -1,14 +1,9 @@
 package persistence;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
-
-import utils.Authenticator;
-import android.util.Log;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -24,15 +19,16 @@ import entity.user.User;
  */
 public class ParseUtil {
 
-//	FIXME Exemplo de Invitations Query
-//	ParseUtil.findInvitationByUserGuest(Authenticator.getInstance().getLoggedUser(), new FindCallback<Invitation>() {
-//		@Override
-//		public void done(
-//				List<Invitation> objects,
-//				ParseException e) {
-//			Log.v("invts", objects.toString());
-//		}
-//	});
+    // FIXME Exemplo de Invitations Query
+    // ParseUtil.findInvitationByUserGuest(Authenticator.getInstance().getLoggedUser(),
+    // new FindCallback<Invitation>() {
+    // @Override
+    // public void done(
+    // List<Invitation> objects,
+    // ParseException e) {
+    // Log.v("invts", objects.toString());
+    // }
+    // });
     /** The ptbr. */
     public static SimpleDateFormat ptbr = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -48,18 +44,18 @@ public class ParseUtil {
      * @param event
      *            the event
      */
-    public static void saveEvent(Event event) {
+    public static void saveEvent(final Event event) {
         event.saveInBackground();
     }
-    
+
     /**
      * Salva o {@code invitation} no Servidor.
      *
      * @param event
      *            the event
      */
-    public static void saveInvitation(Invitation invitation) {
-    	invitation.saveInBackground();
+    public static void saveInvitation(final Invitation invitation) {
+        invitation.saveInBackground();
     }
 
     /**
@@ -70,27 +66,31 @@ public class ParseUtil {
     public static ParseQuery<Event> getQueryEvent() {
         return ParseQuery.getQuery("Event");
     }
-    
+
     public static ParseQuery<User> getQueryUser() {
         return ParseQuery.getQuery("iUser");
     }
-    
+
     public static ParseQuery<Invitation> getQueryInvitation() {
         return ParseQuery.getQuery("Invitation");
     }
-    
-    public static void findInvitationByUserGuest(User from, FindCallback<Invitation> callback) {
-        ParseQuery<Invitation> query = getQueryInvitation().whereEqualTo("userGuest", from);
+
+    public static void findInvitationByUserGuest(final User from,
+            final FindCallback<Invitation> callback) {
+        final ParseQuery<Invitation> query = getQueryInvitation().whereEqualTo(
+                "userGuest", from);
         query.findInBackground(callback);
-        
+
     }
-    
-    public static void findByFacebookId(String facebookId, FindCallback<User> callback) {
-        ParseQuery<User> query = getQueryUser().whereEqualTo("facebookId", facebookId);	
+
+    public static void findByFacebookId(final String facebookId,
+            final FindCallback<User> callback) {
+        final ParseQuery<User> query = getQueryUser().whereEqualTo(
+                "facebookId", facebookId);
         query.findInBackground(callback);
-        
+
     }
-    
+
     /**
      * Busca o Objeto que tem o {@code objectId} no servidor e executa o
      * {@code callback} quando a requisição for terminada.
@@ -100,7 +100,8 @@ public class ParseUtil {
      * @param callback
      *            the callback
      */
-    public static void findEventById(String objectId, GetCallback<Event> callback) {
+    public static void findEventById(final String objectId,
+            final GetCallback<Event> callback) {
         getQueryEvent().getInBackground(objectId, callback);
     }
 
@@ -110,7 +111,7 @@ public class ParseUtil {
      * @param findCallback
      *            the find callback
      */
-    public static void findAllEvents(FindCallback<Event> findCallback) {
+    public static void findAllEvents(final FindCallback<Event> findCallback) {
         getQueryEvent().findInBackground(findCallback);
     }
 
@@ -123,7 +124,7 @@ public class ParseUtil {
         return ParseQuery.getQuery("Tag");
     }
 
-    public static void findAllTags(FindCallback<ParseObject> findCallback) {
+    public static void findAllTags(final FindCallback<ParseObject> findCallback) {
         getQueryTag().findInBackground(findCallback);
     }
 }

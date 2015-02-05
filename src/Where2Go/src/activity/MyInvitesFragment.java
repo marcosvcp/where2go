@@ -33,7 +33,7 @@ import entity.user.User;
 public class MyInvitesFragment extends Fragment {
 
     /** The listview. */
-    private static ListView listview;
+    public static ListView listview;
 
     /** The adapter. */
     public static InviteAdapter adapter;
@@ -164,6 +164,23 @@ public class MyInvitesFragment extends Fragment {
             public void done(final List<Invitation> objects,
                     final ParseException e) {
                 adapter = new InviteAdapter(context, objects, rootView, filter);
+                listview.setAdapter(adapter);
+            }
+        });
+        // adapter = new InviteAdapter(context, mListInvites, rootView);
+    }
+
+    public static void loadInvites(final View rootView) {
+        new ArrayList<Invitation>();
+
+        ParseUtil.findInvitationByUserGuest(Authenticator.getInstance()
+                .getLoggedUser(), new FindCallback<Invitation>() {
+
+            @Override
+            public void done(final List<Invitation> objects,
+                    final ParseException e) {
+                adapter = new InviteAdapter(context, objects, rootView,
+                        "Pending");
                 listview.setAdapter(adapter);
             }
         });
