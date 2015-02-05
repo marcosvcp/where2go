@@ -1,6 +1,7 @@
-package test;
+package entityTest;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -17,19 +18,23 @@ import entity.user.User;
  * Created by brunomb on 02/12/14.
  */
 public class UserTest extends TestCase{
-	private User user1, user2;
-	private Event testEvent1;
+	private User user1, user2, user3, user4;
+	private Event testEvent1, testEvent2, testEvent3, testEvent4, testEvent5;
 	private Invitation invitation1, invitation2; 
 	
 	public void setUp() throws ParseException {
 		user1 = new User("User1 name");
 		user2 = new User("User2 name");
-		testEvent1 = new Event("Event 1", "Event 1 Description", "Event Image Path", "Event 1 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Marcos"));
-		invitation1 = new Invitation(user1, testEvent1);
+		testEvent1 = new Event("Event 1", "Event 1 Description", "Event Image Path", "Event 1 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Anderson"));
+		testEvent2 = new Event("Event 2", "Event 2 Description", "Event Image Path", "Event 2 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Bruno"));
+		testEvent3 = new Event("Event 3", "Event 3 Description", "Event Image Path", "Event 3 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Diego"));
+		testEvent4 = new Event("Event 4", "Event 4 Description", "Event Image Path", "Event 4 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Marcos"));
+		testEvent5 = new Event("Event 5", "Event 5 Description", "Event Image Path", "Event 5 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Julio"));
+		invitation1 = new Invitation(user1, user2, testEvent1);
 	}
 	
 	@Test
-	public void testUserConstrucot() {
+	public void testUserConstructor() {
 		user1 = null;
 		user2 = null;
 		user1 = new User("New Test User1");
@@ -106,6 +111,23 @@ public class UserTest extends TestCase{
 		user2.addInvitation(invitation2);
 		Assert.assertEquals("User removeIvitation not working",user1.getInvitations().size(),1);
 		Assert.assertEquals("User removeIvitation not working",user2.getInvitations().size(),1);
+	}
+	
+	@Test
+	public void testSetInvitations() {
+		Invitation invite1 = new Invitation(user1, user2, testEvent1);
+		Invitation invite2 = new Invitation(user1, user3, testEvent1);
+		Invitation invite3 = new Invitation(user1, user4, testEvent1);
+		
+		Invitation invite4 = new Invitation(user1, user2, testEvent2);
+		
+		List<Invitation> listInvitations = new ArrayList<Invitation>();
+		listInvitations.add(invite1);
+		listInvitations.add(invite2);
+		listInvitations.add(invite3);
+		listInvitations.add(invite4);
+		
+		Assert.assertEquals("User setIvitation not working", user1.getInvitations().size(), 4);
 	}
 	
 	
