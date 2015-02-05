@@ -3,6 +3,7 @@ package adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.facebook.widget.ProfilePictureView;
 import com.parse.ParseFacebookUtils.Permissions.Friends;
 
 import activity.ImageLoadTask;
@@ -21,6 +22,9 @@ import br.com.les.where2go.R;
 import entity.user.UserFriend;
 
 public class FacebookFriendsAdapter extends BaseAdapter {
+    
+	/** The profile picture view. */
+    private ProfilePictureView profilePictureView;
 
 	private List<UserFriend> mFriends;
 	private static List<String> mListIdFacebook;
@@ -40,7 +44,8 @@ public class FacebookFriendsAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return mFriends.get(position);
+		return mFriends.get(position);    /** The profile picture view. */
+
 	}
 
 	@Override
@@ -56,15 +61,11 @@ public class FacebookFriendsAdapter extends BaseAdapter {
 				.findViewById(R.id.tv_facebook_friend);
 		UserFriend user = (UserFriend) getItem(position);
 		tv_facebook_name.setText(user.getFriendName());
-		ImageView friendImage = (ImageView) myView
-				.findViewById(R.id.image_facebook_friend);
-		
+        profilePictureView = (ProfilePictureView) myView
+                .findViewById(R.id.image_facebook_friend);
 		final String friendID = mFriends.get(position).getFriendid();
 		
-		//Load facebook profile photo
-		ImageLoadTask image = new ImageLoadTask(user.getFriendPicture(),
-				friendImage);
-		image.execute();
+        profilePictureView.setProfileId(friendID);
 		
 		cb_select_friend = (CheckBox) myView.findViewById(R.id.cb_select_friend);
 		cb_select_friend.setOnCheckedChangeListener(new OnCheckedChangeListener() {
