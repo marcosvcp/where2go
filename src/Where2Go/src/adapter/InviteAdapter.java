@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import br.com.les.where2go.R;
-import entity.event.Event;
 import entity.event.Invitation;
 
 public class InviteAdapter extends BaseAdapter {
@@ -67,19 +66,15 @@ public class InviteAdapter extends BaseAdapter {
     public InviteAdapter(final Context context,
             final List<Invitation> listInvites, final View parentView,
             final String filter) {
-        if (filter.equals("Todos")) {
-            this.mListInvites = listInvites;
-        } else {
-            final List<Event> newListInvites = new ArrayList<Event>();
-            for (int i = 0; i < listInvites.size(); i++) {
-                final Invitation tempInvite = listInvites.get(i);
-                // final ArrayList<String> tempEventTags = tempEvent.getTags();
-                // if (tempEventTags.contains(filter)) {
-                // newListInvites.add(tempEvent);
-                // }
+
+        final List<Invitation> newListInvites = new ArrayList<Invitation>();
+        for (int i = 0; i < listInvites.size(); i++) {
+            final Invitation tempInvite = listInvites.get(i);
+            if (tempInvite.getState().equals(filter)) {
+                newListInvites.add(tempInvite);
             }
-            this.mListInvites = listInvites;
         }
+        this.mListInvites = newListInvites;
         this.mInflater = LayoutInflater.from(context);
         this.mcontext = context;
         this.parentView = parentView;
@@ -87,7 +82,7 @@ public class InviteAdapter extends BaseAdapter {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getCount()
      */
     @Override
@@ -97,7 +92,7 @@ public class InviteAdapter extends BaseAdapter {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
@@ -119,7 +114,7 @@ public class InviteAdapter extends BaseAdapter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.widget.Adapter#getView(int, android.view.View,
      * android.view.ViewGroup)
      */

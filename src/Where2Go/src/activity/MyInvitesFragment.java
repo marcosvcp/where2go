@@ -61,7 +61,7 @@ public class MyInvitesFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Fragment#onCreateView(android.view.LayoutInflater,
      * android.view.ViewGroup, android.os.Bundle)
      */
@@ -74,7 +74,7 @@ public class MyInvitesFragment extends Fragment {
                 .findViewById(R.id.searchInvitationList);
         listview = (ListView) rootView.findViewById(R.id.listInvites);
         context = rootView.getContext();
-        loadInvites();
+        loadInvites("Pending");
         listview.setClickable(true);
 
         searchSpinnerSetUp();
@@ -129,9 +129,9 @@ public class MyInvitesFragment extends Fragment {
         // });
 
         final List<String> status = new ArrayList<String>();
-        status.add("Pendentes");
-        status.add("Aceitados");
-        status.add("Recudadsos");
+        status.add("Pending");
+        status.add("Accepted");
+        status.add("Denied");
         final ArrayAdapter<String> spinnerDataAdapter = new ArrayAdapter<String>(
                 context, android.R.layout.simple_spinner_item, status);
         spinnerDataAdapter
@@ -163,7 +163,7 @@ public class MyInvitesFragment extends Fragment {
             @Override
             public void done(final List<Invitation> objects,
                     final ParseException e) {
-                adapter = new InviteAdapter(context, objects, rootView);
+                adapter = new InviteAdapter(context, objects, rootView, filter);
                 listview.setAdapter(adapter);
             }
         });
