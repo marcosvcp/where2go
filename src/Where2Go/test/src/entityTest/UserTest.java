@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import persistence.ParseUtil;
@@ -22,6 +23,7 @@ public class UserTest extends TestCase{
 	private Event testEvent1, testEvent2, testEvent3, testEvent4, testEvent5;
 	private Invitation invitation1, invitation2; 
 	
+	@Before
 	public void setUp() throws ParseException {
 		user1 = new User("User1 name");
 		user2 = new User("User2 name");

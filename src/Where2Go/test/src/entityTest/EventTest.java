@@ -5,6 +5,7 @@ import java.util.Date;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import persistence.ParseUtil;
@@ -18,6 +19,7 @@ public class EventTest {
 	private Event event1, event2, event3, event4, event5;
 	private Invitation invitation1, invitation2; 
 	
+	@Before
 	public void setUp() throws ParseException {
 		user1 = new User("User1 name");
 		user2 = new User("User2 name");
