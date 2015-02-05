@@ -108,4 +108,58 @@ public class EventTest {
 		Assert.assertEquals(2, event1.getInitialDate().getMonth());
 		Assert.assertEquals(2015, event1.getInitialDate().getYear());
 	}
+	
+	@Test
+	public void testGetAndSetEventFinalDate(){
+		Assert.assertEquals(2, event1.getFinalDate().getDay());
+		Assert.assertEquals(12, event1.getFinalDate().getMonth());
+		Assert.assertEquals(2014, event1.getFinalDate().getYear());
+		
+		event1.setInitialDate(new Date(2015, 02, 02) );
+		
+		Assert.assertEquals(2, event1.getInitialDate().getDay());
+		Assert.assertEquals(2, event1.getInitialDate().getMonth());
+		Assert.assertEquals(2015, event1.getInitialDate().getYear());
+	}
+	
+	@Test
+	public void testGetAndSetEventPrice(){
+		Assert.assertEquals(200.00, event1.getPrice());
+		
+		event1.setPrice(500.00);
+		
+		Assert.assertEquals(500.00, event1.getPrice());
+	}
+	
+	@Test
+	public void testGetAndSetEventOutfit(){
+		Assert.assertEquals("", event1.getOutfit());
+		
+		event1.setOutfit("Casual");
+		
+		Assert.assertEquals("Casual", event1.getOutfit());
+	}
+	
+	@Test
+	public void testGetAndSetEventCapacity(){
+		Assert.assertEquals(Integer.valueOf(100), event1.getCapacity());
+		
+		event1.setCapacity(Integer.valueOf(999));
+		
+		Assert.assertEquals(Integer.valueOf(999), event1.getCapacity());
+	}
+	
+	@Test
+	public void testIsPublicMethod(){
+		Assert.assertTrue(event1.isPublic());		
+		event1.setPublic(false);
+		Assert.assertFalse(event1.isPublic());	
+		event1.setPublic(false);
+		Assert.assertFalse(event1.isPublic());
+	}
+	
+	@Test
+	public void testGetEventOwner(){
+		Assert.assertEquals("Anderson", event1.getFacebookId());
+	}
 }
