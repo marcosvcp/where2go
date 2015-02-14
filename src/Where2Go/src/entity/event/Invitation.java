@@ -1,3 +1,4 @@
+
 package entity.event;
 
 import com.google.common.base.Objects;
@@ -15,103 +16,172 @@ import entity.user.User;
 @ParseClassName("Invitation")
 public class Invitation extends ParseObject {
 
-	public Invitation() {
-	}
+    /**
+     * Instantiates a new invitation.
+     */
+    public Invitation() {
+    }
 
-	public Invitation(User guest, User host, Event event) {
-		put("status", new InvitationPending().getName());
-		setGuest(guest);
-		setHost(host);
-		setEvent(event);
-	}
+    /**
+     * Instantiates a new invitation.
+     * 
+     * @param guest the guest
+     * @param host the host
+     * @param event the event
+     */
+    public Invitation(final User guest, final User host, final Event event) {
+        put("status", new InvitationPending().getName());
+        setGuest(guest);
+        setHost(host);
+        setEvent(event);
+    }
 
-	public InvitationState getInvitationState() {
-		if (getState().equals("Pending")) {
-			return new InvitationPending();
-		}
-		if (getState().equals("Declined")) {
-			return new InvitationDeclined();
-		} else {
-			return new InvitationConfirmed();
-		}
-	}
+    /**
+     * Gets the invitation state.
+     * 
+     * @return the invitation state
+     */
+    public final InvitationState getInvitationState() {
+        if (getState().equals("Pending")) {
+            return new InvitationPending();
+        }
+        if (getState().equals("Declined")) {
+            return new InvitationDeclined();
+        } else {
+            return new InvitationConfirmed();
+        }
+    }
 
-	public User getHost() {
-		ParseRelation<User> query = getRelation("userHost");
-		try {
-			return query.getQuery().find().get(0);
-		} catch (ParseException e) {
-			return null;
-		}
-	}
+    /**
+     * Gets the host.
+     * 
+     * @return the host
+     */
+    public final User getHost() {
+        ParseRelation<User> query = getRelation("userHost");
+        try {
+            return query.getQuery().find().get(0);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
-	public void setHost(User host) {
-		ParseRelation<User> relat = getRelation("userHost");
-		relat.add(host);
-	}
+    /**
+     * Sets the host.
+     * 
+     * @param host the new host
+     */
+    public final void setHost(final User host) {
+        ParseRelation<User> relat = getRelation("userHost");
+        relat.add(host);
+    }
 
-	public User getGuest() {
-		ParseRelation<User> query = getRelation("userGuest");
-		try {
-			return query.getQuery().find().get(0);
-		} catch (ParseException e) {
-			return null;
-		}
-	}
+    /**
+     * Gets the guest.
+     * 
+     * @return the guest
+     */
+    public final User getGuest() {
+        ParseRelation<User> query = getRelation("userGuest");
+        try {
+            return query.getQuery().find().get(0);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
-	public void setGuest(User guest) {
-		ParseRelation<User> relat = getRelation("userGuest");
-		relat.add(guest);
-	}
+    /**
+     * Sets the guest.
+     * 
+     * @param guest the new guest
+     */
+    public final void setGuest(final User guest) {
+        ParseRelation<User> relat = getRelation("userGuest");
+        relat.add(guest);
+    }
 
-	public Event getEvent() {
-		ParseRelation<Event> query = getRelation("event");
-		try {
-			return query.getQuery().find().get(0);
-		} catch (ParseException e) {
-			return null;
-		}
-	}
+    /**
+     * Gets the event.
+     * 
+     * @return the event
+     */
+    public final Event getEvent() {
+        ParseRelation<Event> query = getRelation("event");
+        try {
+            return query.getQuery().find().get(0);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
-	public void setEvent(Event event) {
-		ParseRelation<Event> relat = getRelation("event");
-		relat.add(event);
-	}
+    /**
+     * Sets the event.
+     * 
+     * @param event the new event
+     */
+    public final void setEvent(final Event event) {
+        ParseRelation<Event> relat = getRelation("event");
+        relat.add(event);
+    }
 
-	/**
-	 * Aceita um convite de um evento dependendo do seu {@code state}
-	 */
-	public Notification confirm() {
-		return getInvitationState().confirm(this);
-	}
+    /**
+     * Aceita um convite de um evento dependendo do seu {@code state}.
+     * 
+     * @return the notification
+     */
+    public final Notification confirm() {
+        return getInvitationState().confirm(this);
+    }
 
-	/**
-	 * Nega o convite para o {@code event}
-	 */
-	public Notification decline() {
-		return getInvitationState().decline(this);
-	}
+    /**
+     * Nega o convite para o {@code event}.
+     * 
+     * @return the notification
+     */
+    public final Notification decline() {
+        return getInvitationState().decline(this);
+    }
 
-	public String getState() {
-		return getString("status");
-	}
+    /**
+     * Gets the state.
+     * 
+     * @return the state
+     */
+    public final String getState() {
+        return getString("status");
+    }
 
-	public void setState(String state) {
-		put("status", state);
-	}
+    /**
+     * Sets the state.
+     * 
+     * @param state the new state
+     */
+    public final void setState(final String state) {
+        put("status", state);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(getGuest(), getEvent());
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(getGuest(), getEvent());
+    }
 
-	@Override
-	public boolean equals(Object otherEvent) {
-		if (otherEvent == null || !(otherEvent instanceof Invitation)) {
-			return false;
-		}
-		Invitation other = (Invitation) otherEvent;
-		return Objects.equal(getGuest(), other.getGuest())
-				&& Objects.equal(getEvent(), other.getEvent());
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public final boolean equals(final Object otherEvent) {
+        if (otherEvent == null || !(otherEvent instanceof Invitation)) {
+            return false;
+        }
+        Invitation other = (Invitation) otherEvent;
+        return Objects.equal(getGuest(), other.getGuest())
+                && Objects.equal(getEvent(), other.getEvent());
+    }
 }

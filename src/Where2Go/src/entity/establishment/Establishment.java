@@ -1,8 +1,5 @@
-package entity.establishment;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+package entity.establishment;
 
 import com.google.common.base.Objects;
 import com.parse.ParseClassName;
@@ -12,97 +9,164 @@ import com.parse.ParseObject;
 import entity.event.Event;
 import entity.user.User;
 
+import java.util.List;
+
 /**
  * Representa um estabelecimento. Created by diegotavarez on 21/01/15.
  */
 @ParseClassName("Establishment")
 public class Establishment extends ParseObject {
-	// Mudar para File
-	private String photo;
+    // Mudar para File
+    /** The photo. */
+    private String photo;
 
-	public Establishment() {
-	}
+    /**
+     * Instantiates a new establishment.
+     */
+    public Establishment() {
+    }
 
-	public Establishment(String name, String description, String photo,
-			double lat, double lon) {
-		put("name", name);
-		put("description", description);
-		ParseGeoPoint location = new ParseGeoPoint(lat, lon);
-		put("location", location);
-		this.photo = photo;
-	}
+    /**
+     * Instantiates a new establishment.
+     * 
+     * @param name the name
+     * @param description the description
+     * @param photo the photo
+     * @param lat the lat
+     * @param lon the lon
+     */
+    public Establishment(final String name, final String description, final String photo,
+            final double lat, final double lon) {
+        put("name", name);
+        put("description", description);
+        ParseGeoPoint location = new ParseGeoPoint(lat, lon);
+        put("location", location);
+        this.photo = photo;
+    }
 
+    /**
+     * Gets the location.
+     * 
+     * @return the location
+     */
+    public final String getLocation() {
+        return getString("location");
+    }
 
-	public String getLocation() {
-		return getString("location");
-	}
+    /**
+     * Gets the name.
+     * 
+     * @return the name
+     */
+    public final String getName() {
+        return getString("name");
+    }
 
-	public String getName() {
-		return getString("name");
-	}
+    /**
+     * Sets the name.
+     * 
+     * @param name the new name
+     */
+    public final void setName(final String name) {
+        put("name", name);
+    }
 
-	public void setName(String name) {
-		put("name", name);
-	}
+    /**
+     * Gets the description.
+     * 
+     * @return the description
+     */
+    public final String getDescription() {
+        return getString("description");
+    }
 
-	public String getDescription() {
-		return getString("description");
-	}
+    /**
+     * Sets the description.
+     * 
+     * @param description the new description
+     */
+    public final void setDescription(final String description) {
+        put("description", description);
+    }
 
-	public void setDescription(String description) {
-		put("description", description);
-	}
+    /**
+     * Gets the photo.
+     * 
+     * @return the photo
+     */
+    public final String getPhoto() {
+        return photo;
+    }
 
-	public String getPhoto() {
-		return photo;
-	}
+    /**
+     * Sets the photo.
+     * 
+     * @param photo the new photo
+     */
+    public final void setPhoto(final String photo) {
+        this.photo = photo;
+    }
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
+    /**
+     * Gets the events.
+     * 
+     * @return the events
+     */
+    public final List<Event> getEvents() {
+        return getList("events");
+    }
 
-	public List<Event> getEvents() {
-		return getList("events");
-	}
+    /**
+     * Sets the participants.
+     * 
+     * @param participants the new participants
+     */
+    public final void setParticipants(final List<User> participants) {
+        put("participants", participants);
+    }
 
-	public void setParticipants(List<User> participants) {
-		put("participants", participants);
-	}
+    /**
+     * Adiciona um {@code event} da lista de {@code events}.
+     * 
+     * @param event O evento a ser adicionado
+     * @return True caso ele possa ser associado ao {@code establishment}
+     */
+    public final boolean addEvent(final Event event) {
+        return getEvents().add(event);
+    }
 
-	/**
-	 * Adiciona um {@code event} da lista de {@code events}
-	 * 
-	 * @param event
-	 *            O evento a ser adicionado
-	 * @return True caso ele possa ser associado ao {@code establishment}
-	 */
-	public boolean addEvent(Event event) {
-		return getEvents().add(event);
-	}
+    /**
+     * Remove o {@code event} da lista de {@code events}.
+     * 
+     * @param event O evento a ser removido
+     */
+    public final void removeEvent(final Event event) {
+        getEvents().remove(event);
+    }
 
-	/**
-	 * Remove o {@code event} da lista de {@code events}
-	 * 
-	 * @param event
-	 *            O evento a ser removido
-	 */
-	public void removeEvent(Event event) {
-		this.getEvents().remove(event);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public final int hashCode() {
+        // FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
+        return Objects.hashCode(getName(), getDescription());
+    }
 
-	@Override
-	public int hashCode() {
-		// FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
-		return Objects.hashCode(this.getName(), this.getDescription());
-	}
-
-	@Override
-	public boolean equals(Object otherEvent) {
-		if (otherEvent == null || !(otherEvent instanceof Establishment)) {
-			return false;
-		}
-		Establishment other = (Establishment) otherEvent;
-		return Objects.equal(this.getName(), other.getName())
-				&& Objects.equal(this.getLocation(), other.getLocation());
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public final boolean equals(final Object otherEvent) {
+        if (otherEvent == null || !(otherEvent instanceof Establishment)) {
+            return false;
+        }
+        Establishment other = (Establishment) otherEvent;
+        return Objects.equal(getName(), other.getName())
+                && Objects.equal(getLocation(), other.getLocation());
+    }
 }

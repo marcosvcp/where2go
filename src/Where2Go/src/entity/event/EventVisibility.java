@@ -1,3 +1,4 @@
+
 package entity.event;
 
 /**
@@ -5,18 +6,39 @@ package entity.event;
  * 25/11/14.
  */
 public enum EventVisibility {
-    PUBLIC("Público"), PRIVATE("Privado");
+
+    /** The public. */
+    PUBLIC("Público"),
+    /** The private. */
+    PRIVATE("Privado");
+
+    /** The visibility. */
     private String visibility;
 
-    EventVisibility(String visibility) {
-        this.visibility = visibility;
+    /**
+     * Instantiates a new event visibility.
+     * 
+     * @param newVisibility the visibility
+     */
+    EventVisibility(final String newVisibility) {
+        visibility = newVisibility;
     }
 
+    /**
+     * Gets the visibility.
+     * 
+     * @return the visibility
+     */
     public String getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(String visibility) {
-        this.visibility = visibility;
+    /**
+     * Sets the visibility.
+     * 
+     * @param newVisibility the new visibility
+     */
+    public void setVisibility(final String newVisibility) {
+        visibility = newVisibility;
     }
 }

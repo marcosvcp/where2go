@@ -1,3 +1,4 @@
+
 package entity.event;
 
 import entity.notifications.Notification;
@@ -8,10 +9,16 @@ import entity.notifications.Notification;
  */
 public class InvitationPending implements InvitationState {
 
+    /** The Constant EVENT_MSG. */
     public static final String EVENT_MSG = "The event %s was successfully %s";
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see entity.event.InvitationState#confirm(entity.event.Invitation)
+     */
     @Override
-    public Notification confirm(Invitation invitation) {
+    public final Notification confirm(final Invitation invitation) {
         if (invitation.getEvent().addParticipant(invitation.getGuest())) {
             invitation.setState(new InvitationConfirmed().getName());
             return new Notification(invitation.getGuest(),
@@ -22,16 +29,26 @@ public class InvitationPending implements InvitationState {
                 "Sorry, but you don't have access to this event");
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see entity.event.InvitationState#decline(entity.event.Invitation)
+     */
     @Override
-    public Notification decline(Invitation invitation) {
+    public final Notification decline(final Invitation invitation) {
         invitation.setState(new InvitationDeclined().getName());
         return new Notification(invitation.getGuest(), invitation.getEvent(),
                 String.format(EVENT_MSG, invitation.getEvent().getName(),
                         "declined"));
     }
-    
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see entity.event.InvitationState#getName()
+     */
     @Override
-    public String getName() {
-    	return "Pending";
+    public final String getName() {
+        return "Pending";
     }
 }

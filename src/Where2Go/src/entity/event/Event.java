@@ -1,8 +1,5 @@
-package entity.event;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+package entity.event;
 
 import com.google.common.base.Objects;
 import com.parse.ParseClassName;
@@ -12,19 +9,42 @@ import com.parse.ParseRelation;
 
 import entity.user.User;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * Representa um evento. Created by andersongfs on 25/11/14.
  */
 @ParseClassName("Event")
 public class Event extends ParseObject {
     // Mudar para File
+    /** The photo. */
     private String photo;
 
+    /**
+     * Instantiates a new event.
+     */
     public Event() {
     }
 
+    /**
+     * Instantiates a new event.
+     * 
+     * @param name the name
+     * @param description the description
+     * @param newPhoto the photo
+     * @param info the info
+     * @param initialDate the initial date
+     * @param finalDate the final date
+     * @param price the price
+     * @param outfit the outfit
+     * @param capacity the capacity
+     * @param isPublic the is public
+     * @param owner the owner
+     */
     public Event(final String name, final String description,
-            final String photo, final String info, final Date initialDate,
+            final String newPhoto, final String info, final Date initialDate,
             final Date finalDate, final double price, final String outfit,
             final Integer capacity, final boolean isPublic, final User owner) {
         put("state", new EventOpened().getName());
@@ -41,134 +61,290 @@ public class Event extends ParseObject {
         put("note", "");
         setOwner(owner);
         put("facebookId", owner.getFacebookId());
-        this.photo = photo;
+        photo = newPhoto;
         put("isPublic", isPublic);
         put("tags", "");
     }
 
-    public User getOwner() throws ParseException {
+    /**
+     * Gets the owner.
+     * 
+     * @return the owner
+     * @throws ParseException the parse exception
+     */
+    public final User getOwner() throws ParseException {
         final ParseRelation<User> a = getRelation("owner");
         return a.getQuery().find().get(0);
     }
 
-    public void setOwner(final User owner) {
+    /**
+     * Sets the owner.
+     * 
+     * @param owner the new owner
+     */
+    public final void setOwner(final User owner) {
         final ParseRelation<User> relat = getRelation("owner");
         relat.add(owner);
     }
 
-    public String getOwnerName() {
+    /**
+     * Gets the owner name.
+     * 
+     * @return the owner name
+     */
+    public final String getOwnerName() {
         return getString("ownerName");
     }
 
-    public void setOwnerName(final String ownerName) {
+    /**
+     * Sets the owner name.
+     * 
+     * @param ownerName the new owner name
+     */
+    public final void setOwnerName(final String ownerName) {
         put("ownerName", ownerName);
     }
 
-    public String getName() {
+    /**
+     * Gets the name.
+     * 
+     * @return the name
+     */
+    public final String getName() {
         return getString("name");
     }
 
-    public void setName(final String name) {
+    /**
+     * Sets the name.
+     * 
+     * @param name the new name
+     */
+    public final void setName(final String name) {
         put("name", name);
     }
 
-    public String getNote() {
+    /**
+     * Gets the note.
+     * 
+     * @return the note
+     */
+    public final String getNote() {
         return getString("note");
     }
 
-    public void setNote(final String notes) {
+    /**
+     * Sets the note.
+     * 
+     * @param notes the new note
+     */
+    public final void setNote(final String notes) {
         put("note", notes);
     }
 
-    public String getDescription() {
+    /**
+     * Gets the description.
+     * 
+     * @return the description
+     */
+    public final String getDescription() {
         return getString("description");
     }
 
-    public void setDescription(final String description) {
+    /**
+     * Sets the description.
+     * 
+     * @param description the new description
+     */
+    public final void setDescription(final String description) {
         put("description", description);
     }
 
-    public String getPhoto() {
+    /**
+     * Gets the photo.
+     * 
+     * @return the photo
+     */
+    public final String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(final String photo) {
-        this.photo = photo;
+    /**
+     * Sets the photo.
+     * 
+     * @param newPhoto the new photo
+     */
+    public final void setPhoto(final String newPhoto) {
+        photo = newPhoto;
     }
 
-    public String getInfo() {
+    /**
+     * Gets the info.
+     * 
+     * @return the info
+     */
+    public final String getInfo() {
         return getString("info");
     }
 
-    public void setInfo(final String info) {
+    /**
+     * Sets the info.
+     * 
+     * @param info the new info
+     */
+    public final void setInfo(final String info) {
         put("info", info);
     }
 
-    public Date getInitialDate() {
+    /**
+     * Gets the initial date.
+     * 
+     * @return the initial date
+     */
+    public final Date getInitialDate() {
         return getDate("initialDate");
     }
 
-    public void setInitialDate(final Date initialDate) {
+    /**
+     * Sets the initial date.
+     * 
+     * @param initialDate the new initial date
+     */
+    public final void setInitialDate(final Date initialDate) {
         put("initialDate", initialDate);
     }
 
-    public Date getFinalDate() {
+    /**
+     * Gets the final date.
+     * 
+     * @return the final date
+     */
+    public final Date getFinalDate() {
         return getDate("finalDate");
     }
 
-    public void setFinalDate(final Date finalDate) {
+    /**
+     * Sets the final date.
+     * 
+     * @param finalDate the new final date
+     */
+    public final void setFinalDate(final Date finalDate) {
         put("finalDate", finalDate);
     }
 
-    public double getPrice() {
+    /**
+     * Gets the price.
+     * 
+     * @return the price
+     */
+    public final double getPrice() {
         return getDouble("price");
     }
 
-    public void setPrice(final double price) {
+    /**
+     * Sets the price.
+     * 
+     * @param price the new price
+     */
+    public final void setPrice(final double price) {
         put("price", price);
     }
 
-    public String getOutfit() {
+    /**
+     * Gets the outfit.
+     * 
+     * @return the outfit
+     */
+    public final String getOutfit() {
         return getString("outfit");
     }
 
-    public void setOutfit(final String outfit) {
+    /**
+     * Sets the outfit.
+     * 
+     * @param outfit the new outfit
+     */
+    public final void setOutfit(final String outfit) {
         put("outfit", outfit);
     }
 
-    public Integer getCapacity() {
+    /**
+     * Gets the capacity.
+     * 
+     * @return the capacity
+     */
+    public final Integer getCapacity() {
         return getInt("capacity");
     }
 
-    public void setCapacity(final Integer capacity) {
+    /**
+     * Sets the capacity.
+     * 
+     * @param capacity the new capacity
+     */
+    public final void setCapacity(final Integer capacity) {
         put("capacity", capacity);
     }
 
-    public List<User> getParticipants() {
+    /**
+     * Gets the participants.
+     * 
+     * @return the participants
+     */
+    public final List<User> getParticipants() {
         return getList("participants");
     }
 
-    public void setParticipants(final List<User> participants) {
+    /**
+     * Sets the participants.
+     * 
+     * @param participants the new participants
+     */
+    public final void setParticipants(final List<User> participants) {
         put("participants", participants);
     }
 
-    public String getFacebookId() {
+    /**
+     * Gets the facebook id.
+     * 
+     * @return the facebook id
+     */
+    public final String getFacebookId() {
         return getString("facebookId");
     }
 
-    public void setFacebookId(final String facebookId) {
+    /**
+     * Sets the facebook id.
+     * 
+     * @param facebookId the new facebook id
+     */
+    public final void setFacebookId(final String facebookId) {
         put("facebookId", facebookId);
     }
 
-    public boolean isPublic() {
+    /**
+     * Checks if is public.
+     * 
+     * @return true, if is public
+     */
+    public final boolean isPublic() {
         return getBoolean("isPublic");
     }
 
-    public void setPublic(final boolean isPublic) {
+    /**
+     * Sets the public.
+     * 
+     * @param isPublic the new public
+     */
+    public final void setPublic(final boolean isPublic) {
         put("isPublic", isPublic);
     }
 
-    public ArrayList<String> getTags() {
+    /**
+     * Gets the tags.
+     * 
+     * @return the tags
+     */
+    public final ArrayList<String> getTags() {
         final String tagsString = getString("tags");
         final String[] tags = tagsString.split("@");
         final ArrayList<String> finalTags = new ArrayList<String>();
@@ -178,20 +354,24 @@ public class Event extends ParseObject {
         return finalTags;
     }
 
-    public void addTags(final String tag) {
+    /**
+     * Adds the tags.
+     * 
+     * @param tag the tag
+     */
+    public final void addTags(final String tag) {
         String tags = getString("tags");
         tags = tags + "@" + tag;
         put("tags", tags);
     }
 
     /**
-     * Adiciona um {@code participant} à lista de {@code participants}
-     *
-     * @param participant
-     *            O participante a ser adicionado
+     * Adiciona um {@code participant} à lista de {@code participants}.
+     * 
+     * @param participant O participante a ser adicionado
      * @return True caso ele possa participar do evento
      */
-    public boolean addParticipant(final User participant) {
+    public final boolean addParticipant(final User participant) {
         if (isFull()) {
             return false;
         }
@@ -199,49 +379,65 @@ public class Event extends ParseObject {
     }
 
     /**
-     * Remove o {@code participant} da lista de {@code participants}
-     *
-     * @param participant
-     *            O participante a ser removido
+     * Remove o {@code participant} da lista de {@code participants}.
+     * 
+     * @param participant O participante a ser removido
      */
-    public void removeParticipant(final User participant) {
-        this.getParticipants().remove(participant);
+    public final void removeParticipant(final User participant) {
+        getParticipants().remove(participant);
     }
 
     /**
+     * Checks if is full.
+     * 
      * @return True caso o evento esteja completo
      */
-    public boolean isFull() {
+    public final boolean isFull() {
         return getCapacity() <= getParticipants().size();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         // FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
-        return Objects.hashCode(this.getName(), this.getDescription());
+        return Objects.hashCode(getName(), getDescription());
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
-    public boolean equals(final Object otherEvent) {
+    public final boolean equals(final Object otherEvent) {
         if (otherEvent == null || !(otherEvent instanceof Event)) {
             return false;
         }
         final Event other = (Event) otherEvent;
-        return Objects.equal(this.getName(), other.getName())
-                && Objects.equal(this.getDescription(), other.getDescription());
+        return Objects.equal(getName(), other.getName())
+                && Objects.equal(getDescription(), other.getDescription());
     }
 
     /**
-     * Retorna true caso {@code user} é o dono do evento
+     * Retorna true caso {@code user} é o dono do evento.
+     * 
+     * @param user the user
+     * @return true, if is owner
      */
-    public boolean isOwner(final User user) {
+    public final boolean isOwner(final User user) {
         return user.getFacebookId().equals(getFacebookId());
     }
 
     /**
-     * Seta o estado do evento de acordo com o nome
+     * Seta o estado do evento de acordo com o nome.
+     * 
+     * @return the event state
      */
-    public EventState getEventState() {
+    public final EventState getEventState() {
         if (getState().equals("Opened")) {
             return new EventOpened();
         } else if (getState().equals("Finished")) {
@@ -250,11 +446,21 @@ public class Event extends ParseObject {
         return new EventCanceled();
     }
 
-    public void setState(final String state) {
+    /**
+     * Sets the state.
+     * 
+     * @param state the new state
+     */
+    public final void setState(final String state) {
         put("state", state);
     }
 
-    public String getState() {
+    /**
+     * Gets the state.
+     * 
+     * @return the state
+     */
+    public final String getState() {
         return getString("state");
     }
 }

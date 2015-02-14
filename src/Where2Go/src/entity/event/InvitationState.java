@@ -1,3 +1,4 @@
+
 package entity.event;
 
 import entity.notifications.Notification;
@@ -8,22 +9,25 @@ import entity.notifications.Notification;
 public interface InvitationState {
 
     /**
-     * Confirma convite para um {@link Event}
-     * <p/>
-     * {@see Event}
-     *
-     * @return Uma notificação com uma mensagem
+     * Confirm.
+     * 
+     * @param invitation the invitation
+     * @return the notification
      */
     Notification confirm(Invitation invitation);
 
     /**
-     * Rejeita convite para um {@link Event}
-     * <p/>
-     * {@see Event}
-     *
-     * @return Uma notificação com uma mensagem
+     * Decline.
+     * 
+     * @param invitation the invitation
+     * @return the notification
      */
     Notification decline(Invitation invitation);
-    
+
+    /**
+     * Gets the name.
+     * 
+     * @return the name
+     */
     String getName();
 }
