@@ -50,31 +50,40 @@ import java.util.Locale;
 public class CreateEventActivity extends Activity {
 
     /** The et_event_name. */
-    private EditText et_event_name;
+    private EditText etEventName;
 
     /** The et_event_description. */
-    private EditText et_event_description;
+    private EditText etEventDescription;
 
     /** The et_event_initial_time. */
-    private EditText et_event_initial_date, et_event_initial_time;
+    private EditText etEventInitialDate;
+
+    /** The et event initial time. */
+    private EditText etEventInitialTime;
 
     /** The et_event_final_time. */
-    private EditText et_event_final_date, et_event_final_time;
+    private EditText etEventFinalDate;
+
+    /** The et event final time. */
+    private EditText etEventFinalTime;
 
     /** The bt_create_event. */
-    private Button bt_create_event;
+    private Button btCreateEvent;
 
     /** The bt_select_tags. */
-    private Button bt_select_tags;
+    private Button btSelectTags;
 
     /** The bt_add_aditional_informations. */
-    private Button bt_add_aditional_informations;
+    private Button btAddAditionalInformations;
 
     /** The rb_radio_public. */
-    private RadioButton rb_radio_public;
+    private RadioButton rbRadioPublic;
 
     /** The final date. */
-    private Date initialDate, finalDate;
+    private Date initialDate;
+
+    /** The final date. */
+    private Date finalDate;
 
     /** The date formatter. */
     private SimpleDateFormat dateFormatter;
@@ -116,31 +125,31 @@ public class CreateEventActivity extends Activity {
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-        et_event_name = (EditText) findViewById(R.id.et_event_name);
-        et_event_description = (EditText) findViewById(R.id.et_event_description);
-        et_event_initial_date = (EditText) findViewById(R.id.et_event_initial_date);
-        et_event_initial_time = (EditText) findViewById(R.id.et_event_initial_time);
-        et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
-        et_event_final_time = (EditText) findViewById(R.id.et_event_final_time);
+        etEventName = (EditText) findViewById(R.id.et_event_name);
+        etEventDescription = (EditText) findViewById(R.id.et_event_description);
+        etEventInitialDate = (EditText) findViewById(R.id.et_event_initial_date);
+        etEventInitialTime = (EditText) findViewById(R.id.et_event_initial_time);
+        etEventFinalDate = (EditText) findViewById(R.id.et_event_final_date);
+        etEventFinalTime = (EditText) findViewById(R.id.et_event_final_time);
 
-        bt_create_event = (Button) findViewById(R.id.bt_create_event);
-        bt_select_tags = (Button) findViewById(R.id.bt_select_tags);
-        bt_add_aditional_informations = (Button) findViewById(R.id.bt_add_aditional_informations);
+        btCreateEvent = (Button) findViewById(R.id.bt_create_event);
+        btSelectTags = (Button) findViewById(R.id.bt_select_tags);
+        btAddAditionalInformations = (Button) findViewById(R.id.bt_add_aditional_informations);
 
-        rb_radio_public = (RadioButton) findViewById(R.id.rb_radio_public);
+        rbRadioPublic = (RadioButton) findViewById(R.id.rb_radio_public);
 
-        et_event_final_time.setInputType(InputType.TYPE_NULL);
-        et_event_final_time.requestFocusFromTouch();
-        et_event_final_date.setInputType(InputType.TYPE_NULL);
-        et_event_final_date.requestFocusFromTouch();
-        et_event_initial_date.setInputType(InputType.TYPE_NULL);
-        et_event_initial_time.setInputType(InputType.TYPE_NULL);
+        etEventFinalTime.setInputType(InputType.TYPE_NULL);
+        etEventFinalTime.requestFocusFromTouch();
+        etEventFinalDate.setInputType(InputType.TYPE_NULL);
+        etEventFinalDate.requestFocusFromTouch();
+        etEventInitialDate.setInputType(InputType.TYPE_NULL);
+        etEventInitialTime.setInputType(InputType.TYPE_NULL);
 
-        et_event_initial_date.setText(dateFormatter.format(Calendar.getInstance().getTime()));
-        et_event_final_date.setText(dateFormatter.format(Calendar.getInstance().getTime()));
-        et_event_initial_time.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
+        etEventInitialDate.setText(dateFormatter.format(Calendar.getInstance().getTime()));
+        etEventFinalDate.setText(dateFormatter.format(Calendar.getInstance().getTime()));
+        etEventInitialTime.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
                 + Calendar.getInstance().get(Calendar.MINUTE));
-        et_event_final_time.setText("23:59");
+        etEventFinalTime.setText("23:59");
 
         final Calendar newCalendar = Calendar.getInstance();
 
@@ -154,7 +163,7 @@ public class CreateEventActivity extends Activity {
                         final Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
                         initialDate = newDate.getTime();
-                        et_event_initial_date.setText(dateFormatter
+                        etEventInitialDate.setText(dateFormatter
                                 .format(newDate.getTime()));
                     }
 
@@ -171,7 +180,7 @@ public class CreateEventActivity extends Activity {
                     public final void onTimeSet(final TimePicker timePicker,
                             final int selectedHour,
                             final int selectedMinute) {
-                        et_event_initial_time.setText("" + selectedHour + ":" + selectedMinute);
+                        etEventInitialTime.setText("" + selectedHour + ":" + selectedMinute);
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -181,7 +190,7 @@ public class CreateEventActivity extends Activity {
                     public final void onTimeSet(final TimePicker timePicker,
                             final int selectedHour,
                             final int selectedMinute) {
-                        et_event_final_time.setText("" + selectedHour + ":" + selectedMinute);
+                        etEventFinalTime.setText("" + selectedHour + ":" + selectedMinute);
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -195,7 +204,7 @@ public class CreateEventActivity extends Activity {
                         final Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
                         finalDate = newDate.getTime();
-                        et_event_final_date.setText(dateFormatter
+                        etEventFinalDate.setText(dateFormatter
                                 .format(newDate.getTime()));
                     }
 
@@ -203,7 +212,7 @@ public class CreateEventActivity extends Activity {
                 newCalendar.get(Calendar.MONTH),
                 newCalendar.get(Calendar.DAY_OF_MONTH));
 
-        et_event_initial_date.setOnClickListener(new OnClickListener() {
+        etEventInitialDate.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -211,7 +220,7 @@ public class CreateEventActivity extends Activity {
             }
         });
 
-        et_event_initial_time.setOnClickListener(new OnClickListener() {
+        etEventInitialTime.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -219,7 +228,7 @@ public class CreateEventActivity extends Activity {
             }
         });
 
-        et_event_final_date.setOnClickListener(new OnClickListener() {
+        etEventFinalDate.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -227,7 +236,7 @@ public class CreateEventActivity extends Activity {
             }
         });
 
-        et_event_final_time.setOnClickListener(new OnClickListener() {
+        etEventFinalTime.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -235,17 +244,17 @@ public class CreateEventActivity extends Activity {
             }
         });
 
-        bt_create_event.setOnClickListener(new OnClickListener() {
+        btCreateEvent.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
 
                 if (checkValidation()) {
 
-                    event = new Event(et_event_name.getText().toString(),
-                            et_event_description.getText().toString(),
+                    event = new Event(etEventName.getText().toString(),
+                            etEventDescription.getText().toString(),
                             "Default Image Path", "INFO", initialDate,
-                            finalDate, 100.00, "Default Outfit", 999, rb_radio_public.isChecked(),
+                            finalDate, 100.00, "Default Outfit", 999, rbRadioPublic.isChecked(),
                             Authenticator.getInstance().getLoggedUser());
 
                     if (!tags.isEmpty()) {
@@ -263,7 +272,7 @@ public class CreateEventActivity extends Activity {
             }
         });
 
-        bt_select_tags.setOnClickListener(new OnClickListener() {
+        btSelectTags.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -271,7 +280,7 @@ public class CreateEventActivity extends Activity {
             }
         });
 
-        bt_add_aditional_informations.setOnClickListener(new OnClickListener() {
+        btAddAditionalInformations.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -292,21 +301,21 @@ public class CreateEventActivity extends Activity {
         boolean ret = true;
         final FieldValidation validation = new FieldValidation(this);
         final List<EditText> listEditText = new ArrayList<EditText>();
-        listEditText.add(et_event_name);
-        listEditText.add(et_event_description);
-        listEditText.add(et_event_initial_date);
-        listEditText.add(et_event_final_date);
+        listEditText.add(etEventName);
+        listEditText.add(etEventDescription);
+        listEditText.add(etEventInitialDate);
+        listEditText.add(etEventFinalDate);
 
-        if (!validation.hasText(et_event_name)) {
+        if (!validation.hasText(etEventName)) {
             ret = false;
         }
-        if (!validation.hasText(et_event_description)) {
+        if (!validation.hasText(etEventDescription)) {
             ret = false;
         }
-        if (!validation.hasText(et_event_initial_date)) {
+        if (!validation.hasText(etEventInitialDate)) {
             ret = false;
         }
-        if (!validation.hasText(et_event_final_date)) {
+        if (!validation.hasText(etEventFinalDate)) {
             ret = false;
         }
         return ret;
@@ -377,7 +386,7 @@ public class CreateEventActivity extends Activity {
                                                                 .get(i)]
                                                                 .toString());
                                             }
-                                            bt_select_tags.setText(bt_select_tags.getText() + t);
+                                            btSelectTags.setText(btSelectTags.getText() + t);
                                         }
                                     })
                             .setNegativeButton("Cancel",

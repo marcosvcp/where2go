@@ -24,16 +24,16 @@ import utils.FieldValidation;
 public class EditEventAditInfoActivity extends Activity {
 
     /** The et_event_notes. */
-    private EditText et_event_notes;
+    private EditText etEventNotes;
 
     /** The et_event_outfit. */
-    private EditText et_event_outfit;
+    private EditText etEventOutfit;
 
     /** The et_event_capacity. */
-    private EditText et_event_capacity;
+    private EditText etEventCapacity;
 
     /** The bt_create_event_in_aditional_information. */
-    private Button bt_create_event_in_aditional_information;
+    private Button btCreateEventInAditionalInformation;
 
     /** The validation. */
     private final FieldValidation validation = new FieldValidation(this);
@@ -50,28 +50,28 @@ public class EditEventAditInfoActivity extends Activity {
         setStatusBarColor(findViewById(R.id.statusBarBackground),
                 getResources().getColor(R.color.status_bar));
 
-        et_event_notes = (EditText) findViewById(R.id.et_event_notes);
-        et_event_outfit = (EditText) findViewById(R.id.et_event_outfit);
-        et_event_capacity = (EditText) findViewById(R.id.et_event_capacity);
-        bt_create_event_in_aditional_information = (Button) findViewById(R.id.bt_create_event_in_aditional_information);
+        etEventNotes = (EditText) findViewById(R.id.et_event_notes);
+        etEventOutfit = (EditText) findViewById(R.id.et_event_outfit);
+        etEventCapacity = (EditText) findViewById(R.id.et_event_capacity);
+        btCreateEventInAditionalInformation = (Button) findViewById(R.id.bt_create_event_in_aditional_information);
 
-        bt_create_event_in_aditional_information
+        btCreateEventInAditionalInformation
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
                     public void onClick(final View v) {
 
                         final Event event = CreateEventActivity.getEvent();
-                        if (validation.hasText(et_event_notes)) {
-                            event.setNote(et_event_notes.getText().toString());
+                        if (validation.hasText(etEventNotes)) {
+                            event.setNote(etEventNotes.getText().toString());
                         }
-                        if (validation.hasText(et_event_outfit)) {
-                            event.setOutfit(et_event_outfit.getText()
+                        if (validation.hasText(etEventOutfit)) {
+                            event.setOutfit(etEventOutfit.getText()
                                     .toString());
                         }
-                        if (validation.hasText(et_event_capacity)) {
+                        if (validation.hasText(etEventCapacity)) {
                             event.setCapacity(Integer
-                                    .parseInt(et_event_capacity.getText()
+                                    .parseInt(etEventCapacity.getText()
                                             .toString()));
                         }
                         ParseUtil.saveEvent(event);

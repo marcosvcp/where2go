@@ -26,13 +26,13 @@ public class ProfileFragment extends Fragment {
     private ProfilePictureView profilePictureView;
 
     /** The tv_name. */
-    private TextView tv_name;
+    private TextView tvName;
 
     /** The tv_email. */
-    private TextView tv_email;
+    private TextView tvEmail;
 
     /** The tv_gender. */
-    private TextView tv_gender;
+    private TextView tvGender;
 
     /** The m user. */
     private static User mUser;
@@ -55,15 +55,15 @@ public class ProfileFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.activity_profile,
                 container, false);
 
-        tv_name = (TextView) rootView.findViewById(R.id.tv_name);
-        tv_email = (TextView) rootView.findViewById(R.id.tv_email);
-        tv_gender = (TextView) rootView.findViewById(R.id.tv_gender);
+        tvName = (TextView) rootView.findViewById(R.id.tv_name);
+        tvEmail = (TextView) rootView.findViewById(R.id.tv_email);
+        tvGender = (TextView) rootView.findViewById(R.id.tv_gender);
         profilePictureView = (ProfilePictureView) rootView
                 .findViewById(R.id.profile_picture);
         mUser = Authenticator.getInstance().getLoggedUser();
-        tv_name.setText(mUser.getName());
-        tv_email.setText(mUser.getEmail());
-        tv_gender.setText(mUser.getGender());
+        tvName.setText(mUser.getName());
+        tvEmail.setText(mUser.getEmail());
+        tvGender.setText(mUser.getGender());
         profilePictureView.setProfileId(mUser.getFacebookId());
         return rootView;
     }
