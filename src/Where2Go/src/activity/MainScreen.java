@@ -1,10 +1,6 @@
+
 package activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import slidermenu.NavDrawerItem;
-import slidermenu.NavDrawerListAdapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -25,28 +21,23 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import br.com.les.where2go.R;
 
 import com.facebook.Session;
 
-import entity.event.Event;
+import slidermenu.NavDrawerItem;
+import slidermenu.NavDrawerListAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Application core.
  */
 public class MainScreen extends Activity {
 
-    /** The main fragment. */
-    private MainFragment mainFragment;
-
-    /** The m views. */
-    private List<View> mViews;
-
-    /** The events. */
-    public static List<Event> events = new ArrayList<Event>();
-
     /** The choosed fragment. */
-    public static int choosedFragment = 0;
+    private static int choosedFragment = 0;
 
     /** The backit. */
     public static boolean backit = false;
@@ -88,12 +79,11 @@ public class MainScreen extends Activity {
 
     /**
      * Called when the activity is first created.
-     *
-     * @param savedInstanceState
-     *            the saved instance state
+     * 
+     * @param savedInstanceState the saved instance state
      */
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
+    public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
         setStatusBarColor(findViewById(R.id.statusBarBackground),
@@ -181,7 +171,7 @@ public class MainScreen extends Activity {
 
     /**
      * Display view for selected nav drawer item.
-     *
+     * 
      * @see SlideMenuClickEvent
      */
     private class SlideMenuClickListener implements
@@ -207,7 +197,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public final boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main_screen, menu);
         return true;
     }
@@ -218,7 +208,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public final boolean onOptionsItemSelected(final MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -239,7 +229,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
      */
     @Override
-    public boolean onPrepareOptionsMenu(final Menu menu) {
+    public final boolean onPrepareOptionsMenu(final Menu menu) {
         // if nav drawer is opened, hide the action items
         final boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         return super.onPrepareOptionsMenu(menu);
@@ -247,9 +237,8 @@ public class MainScreen extends Activity {
 
     /**
      * Diplaying fragment view for selected nav drawer list item.
-     *
-     * @param position
-     *            the position
+     * 
+     * @param position the position
      */
     private void displayView(final int position) {
         // update the main content by replacing fragments
@@ -309,14 +298,14 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
      */
     @Override
-    protected void onSaveInstanceState(final Bundle outState) {
+    protected final void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // Save the fragment's instance
         try {
             getFragmentManager().putFragment(outState, "mContent", mContent);
         } catch (final Exception e) {
-            // TODO: handle exception
+            System.err.println(e);
         }
 
     }
@@ -327,7 +316,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#setTitle(java.lang.CharSequence)
      */
     @Override
-    public void setTitle(final CharSequence title) {
+    public final void setTitle(final CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
     }
@@ -338,7 +327,7 @@ public class MainScreen extends Activity {
      * @see android.app.Activity#onPostCreate(android.os.Bundle)
      */
     @Override
-    protected void onPostCreate(final Bundle savedInstanceState) {
+    protected final void onPostCreate(final Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
@@ -352,7 +341,7 @@ public class MainScreen extends Activity {
      * )
      */
     @Override
-    public void onConfigurationChanged(final Configuration newConfig) {
+    public final void onConfigurationChanged(final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
@@ -360,13 +349,11 @@ public class MainScreen extends Activity {
 
     /**
      * Sets the status bar color.
-     *
-     * @param statusBar
-     *            the status bar
-     * @param color
-     *            the color
+     * 
+     * @param statusBar the status bar
+     * @param color the color
      */
-    public void setStatusBarColor(final View statusBar, final int color) {
+    public final void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
@@ -383,7 +370,7 @@ public class MainScreen extends Activity {
 
     /**
      * Gets the action bar height.
-     *
+     * 
      * @return the action bar height
      */
     public int getActionBarHeight() {
@@ -398,10 +385,10 @@ public class MainScreen extends Activity {
 
     /**
      * Gets the status bar height.
-     *
+     * 
      * @return the status bar height
      */
-    public int getStatusBarHeight() {
+    public final int getStatusBarHeight() {
         int result = 0;
         final int resourceId = getResources().getIdentifier(
                 "status_bar_height", "dimen", "android");
@@ -414,7 +401,7 @@ public class MainScreen extends Activity {
     /**
      * Logout facebook.
      */
-    public void logoutFacebook() {
+    public final void logoutFacebook() {
         if (Session.getActiveSession() != null) {
             Session.getActiveSession().closeAndClearTokenInformation();
         }

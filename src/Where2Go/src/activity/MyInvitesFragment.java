@@ -1,12 +1,8 @@
+
 package activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import persistence.ParseUtil;
-import utils.Authenticator;
 import adapter.InviteAdapter;
-import android.app.ActionBar;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -18,37 +14,36 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+
 import br.com.les.where2go.R;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
-import entity.event.Event;
 import entity.event.Invitation;
-import entity.user.User;
+import persistence.ParseUtil;
+import utils.Authenticator;
 
+import java.util.ArrayList;
+import java.util.List;
+
+// TODO: Auto-generated Javadoc
 /**
  * The Class AdsFragment.
  */
 public class MyInvitesFragment extends Fragment {
 
     /** The listview. */
-    public static ListView listview;
+    private static ListView listview;
 
     /** The adapter. */
-    public static InviteAdapter adapter;
+    private static InviteAdapter adapter;
 
     /** The context. */
-    public static Context context;
-
-    /** The action bar. */
-    private ActionBar actionBar;
+    private static Context context;
 
     /** The root view. */
     private View rootView;
-
-    private User guest, host;
-    private Event event;
 
     /** The m search event spinner. */
     private Spinner mSearchEventSpinner;
@@ -66,68 +61,25 @@ public class MyInvitesFragment extends Fragment {
      * android.view.ViewGroup, android.os.Bundle)
      */
     @Override
-    public View onCreateView(final LayoutInflater inflater,
+    public final View onCreateView(final LayoutInflater inflater,
             final ViewGroup container, final Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(
+        final View rootViewLayout = inflater.inflate(
                 R.layout.activity_my_invite_fragment, container, false);
-        mSearchEventSpinner = (Spinner) rootView
+        mSearchEventSpinner = (Spinner) rootViewLayout
                 .findViewById(R.id.searchInvitationList);
-        listview = (ListView) rootView.findViewById(R.id.listInvites);
-        context = rootView.getContext();
+        listview = (ListView) rootViewLayout.findViewById(R.id.listInvites);
+        context = rootViewLayout.getContext();
         loadInvites("Pending");
         listview.setClickable(true);
 
         searchSpinnerSetUp();
-
-        // ParseQuery<Event> query = ParseUtil.getQueryEvent();
-        //
-        // ParseUtil.findByFacebookId(Authenticator.getInstance().getLoggedUser().getFacebookId(),
-        // new FindCallback<User>() {
-        //
-        // @Override
-        // public void done(List<User> objects, ParseException e) {
-        // guest = objects.get(0);
-        // }
-        // });
-        //
-        // ParseUtil.findByFacebookId("826299547415878", new
-        // FindCallback<User>() {
-        //
-        // @Override
-        // public void done(List<User> objects, ParseException e) {
-        // host = objects.get(0);
-        // }
-        // });
-        //
-        // ParseUtil.findEventById("dqUnb8PbiM", new GetCallback<Event>() {
-        //
-        // @Override
-        // public void done(Event object, ParseException e) {
-        // event = object;
-        // Log.v("guest", guest.toString());
-        // Log.v("host", host.toString());
-        // Log.v("event", event.toString());
-        // Invitation invite = new Invitation(guest, host, event);
-        // ParseUtil.saveInvitation(invite);
-        // }
-        // });
-
-        return rootView;
+        return rootViewLayout;
     }
 
+    /**
+     * Search spinner set up.
+     */
     private void searchSpinnerSetUp() {
-        // mListInvites = new ArrayList<Invitation>();
-
-        // ParseUtil.findInvitationByUserGuest(Authenticator.getInstance()
-        // .getLoggedUser(), new FindCallback<Invitation>() {
-        //
-        // @Override
-        // public void done(final List<Invitation> objects,
-        // final ParseException e) {
-        // mListInvites = objects;
-        // }
-        // });
-
         final List<String> status = new ArrayList<String>();
         status.add("Pending");
         status.add("Accepted");
@@ -154,7 +106,12 @@ public class MyInvitesFragment extends Fragment {
                 });
     }
 
-    public void loadInvites(final String filter) {
+    /**
+     * Load invites.
+     * 
+     * @param filter the filter
+     */
+    public final void loadInvites(final String filter) {
         new ArrayList<Invitation>();
 
         ParseUtil.findInvitationByUserGuest(Authenticator.getInstance()
@@ -167,9 +124,13 @@ public class MyInvitesFragment extends Fragment {
                 listview.setAdapter(adapter);
             }
         });
-        // adapter = new InviteAdapter(context, mListInvites, rootView);
     }
 
+    /**
+     * Load invites.
+     * 
+     * @param rootView the root view
+     */
     public static void loadInvites(final View rootView) {
         new ArrayList<Invitation>();
 
@@ -184,10 +145,12 @@ public class MyInvitesFragment extends Fragment {
                 listview.setAdapter(adapter);
             }
         });
-        // adapter = new InviteAdapter(context, mListInvites, rootView);
     }
 
-    public void loadInvites() {
+    /**
+     * Load invites.
+     */
+    public final void loadInvites() {
         new ArrayList<Invitation>();
 
         ParseUtil.findInvitationByUserGuest(Authenticator.getInstance()
@@ -200,7 +163,6 @@ public class MyInvitesFragment extends Fragment {
                 listview.setAdapter(adapter);
             }
         });
-        // adapter = new InviteAdapter(context, mListInvites, rootView);
     }
 
 }
