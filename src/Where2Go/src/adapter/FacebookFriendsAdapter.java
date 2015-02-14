@@ -21,41 +21,78 @@ import entity.user.UserFriend;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Class FacebookFriendsAdapter.
+ */
 public class FacebookFriendsAdapter extends BaseAdapter {
 
     /** The profile picture view. */
     private ProfilePictureView profilePictureView;
 
+    /** The m friends. */
     private final List<UserFriend> mFriends;
+
+    /** The m list id facebook. */
     private static List<String> mListIdFacebook;
+
+    /** The m context. */
     private final Context mContext;
+
+    /** The cb_select_friend. */
     private CheckBox cb_select_friend;
 
-    public FacebookFriendsAdapter(List<UserFriend> friends, Context context) {
+    /**
+     * Instantiates a new facebook friends adapter.
+     * 
+     * @param friends the friends
+     * @param context the context
+     */
+    public FacebookFriendsAdapter(final List<UserFriend> friends, final Context context) {
         mFriends = friends;
         mContext = context;
         mListIdFacebook = new ArrayList<String>();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.widget.Adapter#getCount()
+     */
     @Override
-    public int getCount() {
+    public final int getCount() {
         return mFriends.size();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.widget.Adapter#getItem(int)
+     */
     @Override
-    public Object getItem(int position) {
+    public final Object getItem(int position) {
         return mFriends.get(position);
         /** The profile picture view. */
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.widget.Adapter#getItemId(int)
+     */
     @Override
-    public long getItemId(int position) {
+    public final long getItemId(final int position) {
         return 0;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.widget.Adapter#getView(int, android.view.View,
+     * android.view.ViewGroup)
+     */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public final View getView(final int position, final View convertView, final ViewGroup parent) {
         View myView = LayoutInflater.from(mContext).inflate(
                 R.layout.facebook_friends_adapter, null);
         TextView tv_facebook_name = (TextView) myView
@@ -71,7 +108,7 @@ public class FacebookFriendsAdapter extends BaseAdapter {
         cb_select_friend = (CheckBox) myView.findViewById(R.id.cb_select_friend);
         cb_select_friend.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
                 if (isChecked) {
                     mListIdFacebook.add(friendID);
                     Log.v("CHECKBOX", "MARCADO" + friendID);
@@ -84,11 +121,21 @@ public class FacebookFriendsAdapter extends BaseAdapter {
         return myView;
     }
 
+    /**
+     * Gets the m list id facebook.
+     * 
+     * @return the m list id facebook
+     */
     public static List<String> getmListIdFacebook() {
         return mListIdFacebook;
     }
 
-    public static void setmListIdFacebook(List<String> mListIdFacebook) {
-        FacebookFriendsAdapter.mListIdFacebook = mListIdFacebook;
+    /**
+     * Sets the m list id facebook.
+     * 
+     * @param listIdFacebook the new m list id facebook
+     */
+    public static void setmListIdFacebook(final List<String> listIdFacebook) {
+        FacebookFriendsAdapter.mListIdFacebook = listIdFacebook;
     }
 }

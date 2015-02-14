@@ -1,10 +1,8 @@
+
 package adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import persistence.ParseUtil;
 import activity.MyInvitesFragment;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -17,9 +15,17 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
 import br.com.les.where2go.R;
 import entity.event.Invitation;
+import persistence.ParseUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The Class InviteAdapter.
+ */
 public class InviteAdapter extends BaseAdapter {
 
     /** The m list invites. */
@@ -28,11 +34,8 @@ public class InviteAdapter extends BaseAdapter {
     /** The m inflater. */
     private final LayoutInflater mInflater;
 
-    /** The posicao. */
-    private int posicao;
-
     /** The mcontext. */
-    Context mcontext;
+    private final Context mcontext;
 
     /** The parent view. */
     private final View parentView;
@@ -42,36 +45,29 @@ public class InviteAdapter extends BaseAdapter {
 
     /**
      * Instantiates a new event adapter.
-     *
-     * @param context
-     *            the context
-     * @param listEvents
-     *            the list events
-     * @param parentView
-     *            the parent view
+     * 
+     * @param context the context
+     * @param listInvites the list invites
+     * @param view the parent view
      */
     public InviteAdapter(final Context context,
-            final List<Invitation> listInvites, final View parentView) {
-        this.mListInvites = listInvites;
-        this.mInflater = LayoutInflater.from(context);
-        this.mcontext = context;
-        this.parentView = parentView;
+            final List<Invitation> listInvites, final View view) {
+        mListInvites = listInvites;
+        mInflater = LayoutInflater.from(context);
+        mcontext = context;
+        parentView = view;
     }
 
     /**
      * Instantiates a new invite adapter.
-     *
-     * @param context
-     *            the context
-     * @param listInvites
-     *            the list invites
-     * @param parentView
-     *            the parent view
-     * @param filter
-     *            the filter
+     * 
+     * @param context the context
+     * @param listInvites the list invites
+     * @param view the parent view
+     * @param filter the filter
      */
     public InviteAdapter(final Context context,
-            final List<Invitation> listInvites, final View parentView,
+            final List<Invitation> listInvites, final View view,
             final String filter) {
 
         final List<Invitation> newListInvites = new ArrayList<Invitation>();
@@ -81,10 +77,10 @@ public class InviteAdapter extends BaseAdapter {
                 newListInvites.add(tempInvite);
             }
         }
-        this.mListInvites = newListInvites;
-        this.mInflater = LayoutInflater.from(context);
-        this.mcontext = context;
-        this.parentView = parentView;
+        mListInvites = newListInvites;
+        mInflater = LayoutInflater.from(context);
+        mcontext = context;
+        parentView = view;
     }
 
     /*
@@ -93,7 +89,7 @@ public class InviteAdapter extends BaseAdapter {
      * @see android.widget.Adapter#getCount()
      */
     @Override
-    public int getCount() {
+    public final int getCount() {
         return mListInvites.size();
     }
 
@@ -103,30 +99,29 @@ public class InviteAdapter extends BaseAdapter {
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
-    public Invitation getItem(final int position) {
+    public final Invitation getItem(final int position) {
         return mListInvites.get(position);
     }
 
     /**
      * Get id of item selected.
-     *
-     * @param index
-     *            the index
+     * 
+     * @param index the index
      * @return the item id
      */
     @Override
-    public long getItemId(final int index) {
+    public final long getItemId(final int index) {
         return index;
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getView(int, android.view.View,
      * android.view.ViewGroup)
      */
     @Override
-    public View getView(final int position, View myView,
+    public final View getView(final int position, View myView,
             final ViewGroup viewGroup) {
         myView = mInflater.inflate(R.layout.item_invitation_adapter, null);
 
@@ -154,6 +149,12 @@ public class InviteAdapter extends BaseAdapter {
         return myView;
     }
 
+    /**
+     * Show popup menu.
+     * 
+     * @param v the v
+     * @param invite the invite
+     */
     private void showPopupMenu(final View v, final Invitation invite) {
         final PopupMenu popupMenu = new PopupMenu(mcontext, v);
         final Intent intent = new Intent(mcontext, MyInvitesFragment.class);
@@ -164,7 +165,7 @@ public class InviteAdapter extends BaseAdapter {
                     @Override
                     public boolean onMenuItemClick(final MenuItem item) {
                         switch (item.getItemId()) {
-                            case (R.id.invitation_accept):
+                            case R.id.invitation_accept:
                                 if (!invite.getState().equals("Accepted")) {
                                     invite.setState("Accepted");
                                     ParseUtil.saveInvitation(invite);
@@ -172,7 +173,7 @@ public class InviteAdapter extends BaseAdapter {
                                     notifyDataSetChanged();
                                 }
                                 return true;
-                            case (R.id.invitation_refuse):
+                            case R.id.invitation_refuse:
                                 if (!invite.getState().equals("Denied")) {
                                     invite.setState("Denied");
                                     ParseUtil.saveInvitation(invite);

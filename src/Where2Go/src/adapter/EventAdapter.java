@@ -1,12 +1,9 @@
+
 package adapter;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import persistence.ParseUtil;
 import activity.EditEventActivity;
 import activity.FacebookFriendsActivity;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,14 +24,23 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
 import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.event.EventCanceled;
+import persistence.ParseUtil;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class EventAdapter.
  */
 public class EventAdapter extends BaseAdapter implements Serializable {
+
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
     /** The m list events. */
     private List<Event> mListEvents;
@@ -42,11 +48,8 @@ public class EventAdapter extends BaseAdapter implements Serializable {
     /** The m inflater. */
     private final LayoutInflater mInflater;
 
-    /** The posicao. */
-    private int posicao;
-
     /** The mcontext. */
-    Context mcontext;
+    private final Context mcontext;
 
     /** The parent view. */
     private final View parentView;
@@ -54,43 +57,38 @@ public class EventAdapter extends BaseAdapter implements Serializable {
     /** The listview. */
     private ListView listview;
 
+    /** The parent activity. */
     private Activity parentActivity;
 
     /**
      * Instantiates a new event adapter.
-     *
-     * @param context
-     *            the context
-     * @param listEvents
-     *            the list events
-     * @param parentView
-     *            the parent view
+     * 
+     * @param context the context
+     * @param listEvents the list events
+     * @param view the parent view
      */
     public EventAdapter(final Context context, final List<Event> listEvents,
-            final View parentView) {
-        this.mListEvents = listEvents;
-        this.mInflater = LayoutInflater.from(context);
-        this.mcontext = context;
-        this.parentView = parentView;
+            final View view) {
+        mListEvents = listEvents;
+        mInflater = LayoutInflater.from(context);
+        mcontext = context;
+        parentView = view;
     }
 
     /**
      * Instantiates a new event adapter.
-     *
-     * @param context
-     *            the context
-     * @param listEvents
-     *            the list events
-     * @param parentView
-     *            the parent view
-     * @param filter
-     *            the filter
+     * 
+     * @param context the context
+     * @param listEvents the list events
+     * @param view the parent view
+     * @param filter the filter
+     * @param activity the parent activity
      */
     public EventAdapter(final Context context, final List<Event> listEvents,
-            final View parentView, final String filter,
-            final Activity parentActivity) {
+            final View view, final String filter,
+            final Activity activity) {
         if (filter.equals("Todos")) {
-            this.mListEvents = listEvents;
+            mListEvents = listEvents;
         } else {
             final List<Event> newListEvents = new ArrayList<Event>();
             for (int i = 0; i < listEvents.size(); i++) {
@@ -100,12 +98,12 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                     newListEvents.add(tempEvent);
                 }
             }
-            this.mListEvents = newListEvents;
+            mListEvents = newListEvents;
         }
-        this.mInflater = LayoutInflater.from(context);
-        this.mcontext = context;
-        this.parentView = parentView;
-        this.parentActivity = parentActivity;
+        mInflater = LayoutInflater.from(context);
+        mcontext = context;
+        parentView = view;
+        parentActivity = activity;
     }
 
     /*
@@ -114,7 +112,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * @see android.widget.Adapter#getCount()
      */
     @Override
-    public int getCount() {
+    public final int getCount() {
         return mListEvents.size();
     }
 
@@ -124,19 +122,18 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
-    public Event getItem(final int position) {
+    public final Event getItem(final int position) {
         return mListEvents.get(position);
     }
 
     /**
      * Get id of item selected.
-     *
-     * @param index
-     *            the index
+     * 
+     * @param index the index
      * @return the item id
      */
     @Override
-    public long getItemId(final int index) {
+    public final long getItemId(final int index) {
         return index;
     }
 
@@ -147,7 +144,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      * android.view.ViewGroup)
      */
     @Override
-    public View getView(final int position, View myView,
+    public final View getView(final int position, View myView,
             final ViewGroup viewGroup) {
         myView = mInflater.inflate(R.layout.item_event_adapter, null);
 
@@ -209,11 +206,9 @@ public class EventAdapter extends BaseAdapter implements Serializable {
     /**
      * Shows popup menu with delete and edit options for a given event in the
      * list.
-     *
-     * @param v
-     *            - view refers the screen listing
-     * @param event
-     *            selected
+     * 
+     * @param v - view refers the screen listing
+     * @param event selected
      */
     private void showPopupMenu(final View v, final Event event) {
         final PopupMenu popupMenu = new PopupMenu(mcontext, v);
@@ -224,17 +219,17 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                     @Override
                     public boolean onMenuItemClick(final MenuItem item) {
                         switch (item.getItemId()) {
-                            case (R.id.invite):
+                            case R.id.invite:
                                 final Intent intent = new Intent(
                                         parentActivity,
                                         FacebookFriendsActivity.class);
                                 intent.putExtra("EventId", event.getObjectId());
                                 parentActivity.startActivity(intent);
                                 return true;
-                            case (R.id.edit):
+                            case R.id.edit:
                                 editAlert(event);
                                 return true;
-                            case (R.id.cancel):
+                            case R.id.cancel:
                                 cancelAlert(event);
                                 break;
                             default:
@@ -248,11 +243,10 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
     /**
      * Alert dialog to edit event.
-     *
-     * @param event
-     *            the event
+     * 
+     * @param event the event
      */
-    public void editAlert(final Event event) {
+    public final void editAlert(final Event event) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 parentView.getContext());
 
@@ -295,11 +289,10 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
     /**
      * Alert dialog to cancel event.
-     *
-     * @param event
-     *            the event
+     * 
+     * @param event the event
      */
-    public void cancelAlert(final Event event) {
+    public final void cancelAlert(final Event event) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 parentView.getContext());
         builder.setTitle(parentView.getResources().getString(
