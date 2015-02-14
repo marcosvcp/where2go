@@ -18,14 +18,24 @@ import entity.event.Event;
 import persistence.ParseUtil;
 import utils.FieldValidation;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * The Class EditEventAditInfoActivity.
+ */
 public class EditEventAditInfoActivity extends Activity {
+
+    /** The et_event_notes. */
     private EditText et_event_notes;
+
+    /** The et_event_outfit. */
     private EditText et_event_outfit;
+
+    /** The et_event_capacity. */
     private EditText et_event_capacity;
+
+    /** The bt_create_event_in_aditional_information. */
     private Button bt_create_event_in_aditional_information;
+
+    /** The validation. */
     private final FieldValidation validation = new FieldValidation(this);
 
     /*
@@ -34,7 +44,7 @@ public class EditEventAditInfoActivity extends Activity {
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event_adt_info);
         setStatusBarColor(findViewById(R.id.statusBarBackground),
@@ -76,34 +86,13 @@ public class EditEventAditInfoActivity extends Activity {
 
     }
 
-    // Nao esta usando pq creio que n eh necessario preencher essas informacoes
-    private boolean checkValidation() {
-        boolean ret = true;
-        final FieldValidation validation = new FieldValidation(this);
-        final List<EditText> listEditText = new ArrayList<EditText>();
-        listEditText.add(et_event_notes);
-        listEditText.add(et_event_outfit);
-        listEditText.add(et_event_capacity);
-
-        if (!validation.hasText(et_event_notes)) {
-            ret = false;
-        }
-        if (!validation.hasText(et_event_outfit)) {
-            ret = false;
-        }
-        if (!validation.hasText(et_event_capacity)) {
-            ret = false;
-        }
-        return ret;
-    }
-
     /**
      * Sets the status bar color.
      * 
      * @param statusBar the status bar
      * @param color the color
      */
-    public void setStatusBarColor(final View statusBar, final int color) {
+    public final void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
@@ -123,7 +112,7 @@ public class EditEventAditInfoActivity extends Activity {
      * 
      * @return the action bar height
      */
-    public int getActionBarHeight() {
+    public final int getActionBarHeight() {
         int actionBarHeight = 0;
         final TypedValue tv = new TypedValue();
         if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
@@ -138,7 +127,7 @@ public class EditEventAditInfoActivity extends Activity {
      * 
      * @return the status bar height
      */
-    public int getStatusBarHeight() {
+    public final int getStatusBarHeight() {
         int result = 0;
         final int resourceId = getResources().getIdentifier(
                 "status_bar_height", "dimen", "android");

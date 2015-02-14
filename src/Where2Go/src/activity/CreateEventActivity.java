@@ -44,7 +44,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CreateEventActivity.
  */
@@ -169,8 +168,9 @@ public class CreateEventActivity extends Activity {
         initialTimePickerDialog = new TimePickerDialog(CreateEventActivity.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour,
-                            int selectedMinute) {
+                    public final void onTimeSet(final TimePicker timePicker,
+                            final int selectedHour,
+                            final int selectedMinute) {
                         et_event_initial_time.setText("" + selectedHour + ":" + selectedMinute);
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
@@ -178,8 +178,9 @@ public class CreateEventActivity extends Activity {
         finalTimePickerDialog = new TimePickerDialog(CreateEventActivity.this,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour,
-                            int selectedMinute) {
+                    public final void onTimeSet(final TimePicker timePicker,
+                            final int selectedHour,
+                            final int selectedMinute) {
                         et_event_final_time.setText("" + selectedHour + ":" + selectedMinute);
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
@@ -383,7 +384,7 @@ public class CreateEventActivity extends Activity {
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(
-                                                final DialogInterface dialog,
+                                                final DialogInterface dialogInterface,
                                                 final int id) {
                                             tags.clear();
                                         }
@@ -492,9 +493,9 @@ public class CreateEventActivity extends Activity {
     /**
      * Sets the event.
      * 
-     * @param event the new event
+     * @param newEvent the new event
      */
-    public static void setEvent(Event event) {
-        CreateEventActivity.event = event;
+    public static final void setEvent(final Event newEvent) {
+        CreateEventActivity.event = newEvent;
     }
 }

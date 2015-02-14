@@ -1,17 +1,13 @@
+
 package activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import persistence.ParseUtil;
-import utils.Authenticator;
 import adapter.EventAdapter;
+
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+
 import br.com.les.where2go.R;
 
 import com.parse.FindCallback;
@@ -33,7 +30,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import entity.event.Event;
-import entity.event.Invitation;
+import persistence.ParseUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class EventsListFragment.
@@ -75,13 +75,10 @@ public class EventsListFragment extends Fragment {
 
     /**
      * Instantiate components.
-     *
-     * @param inflater
-     *            the inflater
-     * @param container
-     *            the container
-     * @param savedInstanceState
-     *            the saved instance state
+     * 
+     * @param inflater the inflater
+     * @param container the container
+     * @param savedInstanceState the saved instance state
      * @return the view
      */
     @Override
@@ -155,7 +152,7 @@ public class EventsListFragment extends Fragment {
                         ParseQuery<Event> query = ParseUtil.getQueryEvent();
 
                         query.whereEqualTo("isPublic", true);
-                        
+
                         query.findInBackground(new FindCallback<Event>() {
                             @Override
                             public void done(List<Event> objects,
@@ -179,11 +176,9 @@ public class EventsListFragment extends Fragment {
 
     /**
      * Inflate the menu items for use in the action bar.
-     *
-     * @param menu
-     *            the menu
-     * @param inflater
-     *            the inflater
+     * 
+     * @param menu the menu
+     * @param inflater the inflater
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -193,9 +188,8 @@ public class EventsListFragment extends Fragment {
 
     /**
      * Options for action bar, allowing create a new income.
-     *
-     * @param item
-     *            the item
+     * 
+     * @param item the item
      * @return true, if successful
      */
     @Override
