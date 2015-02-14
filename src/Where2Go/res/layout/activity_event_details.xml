@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,9 +7,86 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="fill_parent"
-        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/thumb" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-95dp"
+        android:background="#22000000"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/et_event_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            android:textColor="#DDDDDD"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/et_data_inicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="01/01/01"
+            android:textColor="#DDDDDD"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/et_data_fim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="02/02/02"
+            android:textColor="#DDDDDD"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="-40dp"
+        android:gravity="right"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/bt_acept"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="right"
+            android:background="@android:color/transparent"
+            android:src="@drawable/floating_button_acept" />
+
+        <ImageButton
+            android:id="@+id/bt_decline"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="right"
+            android:background="@android:color/transparent"
+            android:src="@drawable/floating_button_cancel" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/et_event_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Description"
+        android:textColor="#DDDDDD"
+        android:textSize="14sp"
+        android:textStyle="normal" />
 
 </LinearLayout>
