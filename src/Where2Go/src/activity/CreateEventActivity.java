@@ -254,7 +254,7 @@ public class CreateEventActivity extends Activity {
                         }
                     }
                     ParseUtil.saveEvent(event);
-                    EventsListFragment.adapter.notifyDataSetChanged();
+                    EventsListFragment.getAdapter().notifyDataSetChanged();
                     final Intent intent = new Intent(getApplicationContext(),
                             MainScreen.class);
                     intent.putExtra("eventslist", 2);

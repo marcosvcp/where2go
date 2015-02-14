@@ -35,6 +35,7 @@ import persistence.ParseUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class EventsListFragment.
  */
@@ -44,10 +45,10 @@ public class EventsListFragment extends Fragment {
     private ListView listview;
 
     /** The adapter. */
-    public static EventAdapter adapter;
+    private static EventAdapter adapter;
 
     /** The context. */
-    public static Context context;
+    private static Context context;
 
     /** The action bar. */
     private ActionBar actionBar;
@@ -62,10 +63,10 @@ public class EventsListFragment extends Fragment {
     private ImageButton mBtnAddEvent;
 
     /** The should shown. */
-    public static boolean shouldShown = false;
+    private static boolean shouldShown = false;
 
     /** The incoming fragment. */
-    public static String incomingFragment = "";
+    private static String incomingFragment = "";
 
     /**
      * Instantiates a new events list fragment.
@@ -82,8 +83,8 @@ public class EventsListFragment extends Fragment {
      * @return the view
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+            final Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.activity_event_list, container,
                 false);
@@ -106,7 +107,7 @@ public class EventsListFragment extends Fragment {
         mBtnAddEvent.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 addEvent();
             }
         });
@@ -125,7 +126,7 @@ public class EventsListFragment extends Fragment {
         // Get all tags from parser
         ParseUtil.findAllTags(new FindCallback<ParseObject>() {
             @Override
-            public void done(List<ParseObject> objects, ParseException e) {
+            public void done(final List<ParseObject> objects, final ParseException e) {
                 if (e == null) {
                     for (ParseObject po : objects) {
                         tags.add(po.getString("nome"));
@@ -143,8 +144,8 @@ public class EventsListFragment extends Fragment {
         mSearchEventSpinner
                 .setOnItemSelectedListener(new OnItemSelectedListener() {
                     @Override
-                    public void onItemSelected(AdapterView<?> parent,
-                            View view, int position, long id) {
+                    public void onItemSelected(final AdapterView<?> parent,
+                            final View view, final int position, final long id) {
                         final String filter = parent
                                 .getItemAtPosition(position).toString();
                         // Atualiza o adapter passando o filtro como parametro
@@ -155,8 +156,8 @@ public class EventsListFragment extends Fragment {
 
                         query.findInBackground(new FindCallback<Event>() {
                             @Override
-                            public void done(List<Event> objects,
-                                    ParseException e) {
+                            public void done(final List<Event> objects,
+                                    final ParseException e) {
                                 // Caso não tenha lançado exceção
                                 if (e == null) {
                                     adapter = new EventAdapter(context,
@@ -168,7 +169,7 @@ public class EventsListFragment extends Fragment {
                     }
 
                     @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                    public void onNothingSelected(final AdapterView<?> parent) {
                         // TODO Auto-generated method stub
                     }
                 });
@@ -181,7 +182,7 @@ public class EventsListFragment extends Fragment {
      * @param inflater the inflater
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public final void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.event_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -193,7 +194,7 @@ public class EventsListFragment extends Fragment {
      * @return true, if successful
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public final boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Intent intentBack = new Intent(context, MainScreen.class);
@@ -208,8 +209,26 @@ public class EventsListFragment extends Fragment {
     /**
      * Actions of the addEvent button.
      */
-    public void addEvent() {
+    public final void addEvent() {
         Intent intent = new Intent(context, CreateEventActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Gets the adapter.
+     * 
+     * @return the adapter
+     */
+    public static EventAdapter getAdapter() {
+        return adapter;
+    }
+
+    /**
+     * Sets the adapter.
+     * 
+     * @param newAdapter the new adapter
+     */
+    public static void setAdapter(final EventAdapter newAdapter) {
+        EventsListFragment.adapter = newAdapter;
     }
 }

@@ -239,7 +239,7 @@ public class EditEventActivity extends Activity {
         event.setDescription(et_event_description.getText().toString());
         event.setInfo(et_event_info.getText().toString());
         ParseUtil.saveEvent(event);
-        EventsListFragment.adapter.notifyDataSetChanged();
+        EventsListFragment.getAdapter().notifyDataSetChanged();
         final Intent intent = new Intent(getApplicationContext(),
                 MainScreen.class);
         intent.putExtra("eventslist", 2);

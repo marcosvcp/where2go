@@ -75,7 +75,7 @@ public class CreateEventAditInfoActivity extends Activity {
                                             .toString()));
                         }
                         ParseUtil.saveEvent(event);
-                        EventsListFragment.adapter.notifyDataSetChanged();
+                        EventsListFragment.getAdapter().notifyDataSetChanged();
                         final Intent intent = new Intent(
                                 getApplicationContext(), MainScreen.class);
                         intent.putExtra("eventslist", 2);

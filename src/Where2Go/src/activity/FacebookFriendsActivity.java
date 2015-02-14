@@ -1,15 +1,8 @@
+
 package activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import persistence.ParseUtil;
-import utils.Authenticator;
 import adapter.FacebookFriendsAdapter;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import br.com.les.where2go.R;
 
 import com.facebook.HttpMethod;
@@ -35,16 +29,43 @@ import entity.event.Invitation;
 import entity.user.User;
 import entity.user.UserFriend;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import persistence.ParseUtil;
+import utils.Authenticator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The Class FacebookFriendsActivity.
+ */
 public class FacebookFriendsActivity extends Activity {
 
+    /** The friend list. */
     private ListView friendList;
+
+    /** The friends. */
     private List<UserFriend> friends;
+
+    /** The root view. */
     private View rootView;
+
+    /** The host. */
     private User host;
+
+    /** The event to invite. */
     private Event eventToInvite;
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.facebook_friends);
         friendList = (ListView) findViewById(R.id.listViewFacebookFriends);
@@ -69,9 +90,9 @@ public class FacebookFriendsActivity extends Activity {
 
     /**
      * Create a request friends of facebook and get name, picture and id of
-     * users
+     * users.
      */
-    public void showFriendsFacebook() {
+    public final void showFriendsFacebook() {
         new Request(Session.getActiveSession(), "/me/friends", null,
                 HttpMethod.GET, new Request.Callback() {
                     @Override
@@ -115,16 +136,26 @@ public class FacebookFriendsActivity extends Activity {
                 }).executeAsync();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public final boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu items for use in the action bar
         final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.invite_friends_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public final boolean onOptionsItemSelected(final MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_done:
@@ -162,8 +193,13 @@ public class FacebookFriendsActivity extends Activity {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onBackPressed()
+     */
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         FacebookFriendsAdapter.setmListIdFacebook(new ArrayList<String>());
         super.onBackPressed();
     }
