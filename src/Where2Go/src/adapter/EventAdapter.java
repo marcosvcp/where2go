@@ -3,7 +3,6 @@ package adapter;
 
 import activity.EditEventActivity;
 import activity.FacebookFriendsActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -24,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.event.EventCanceled;
@@ -149,6 +148,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         myView = mInflater.inflate(R.layout.item_event_adapter, null);
 
         final Event event = mListEvents.get(position);
+        final LinearLayout card = (LinearLayout) myView.findViewById(R.id.card);
 
         final TextView eventName = (TextView) myView
                 .findViewById(R.id.event_name);
@@ -168,7 +168,6 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         final int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
                 bitmap.getHeight() / 2);
 
-        final LinearLayout card = (LinearLayout) myView.findViewById(R.id.card);
         card.setBackgroundColor(Color.argb(255, Color.red(pixel),
                 Color.green(pixel), Color.blue(pixel)));
 
@@ -190,7 +189,14 @@ public class EventAdapter extends BaseAdapter implements Serializable {
             }
 
         });
-
+        
+        myView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+				Toast.makeText(mcontext, "CLICOU", Toast.LENGTH_LONG).show();
+            }
+        });
+        
         final ImageButton btOptions = (ImageButton) myView
                 .findViewById(R.id.bt_options);
         btOptions.setOnClickListener(new OnClickListener() {

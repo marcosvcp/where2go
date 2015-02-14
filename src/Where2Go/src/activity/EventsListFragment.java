@@ -2,7 +2,6 @@
 package activity;
 
 import adapter.EventAdapter;
-
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
@@ -16,12 +15,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
-
+import android.widget.Toast;
 import br.com.les.where2go.R;
 
 import com.parse.FindCallback;
