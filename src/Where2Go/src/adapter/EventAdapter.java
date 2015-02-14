@@ -2,6 +2,7 @@
 package adapter;
 
 import activity.EditEventActivity;
+import activity.EventDetailActivity;
 import activity.FacebookFriendsActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -193,8 +194,10 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         myView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-				Toast.makeText(mcontext, "CLICOU", Toast.LENGTH_LONG).show();
-            }
+            	final Intent intent = new Intent(
+            			mcontext, EventDetailActivity.class);
+                mcontext.startActivity(intent);            
+                }
         });
         
         final ImageButton btOptions = (ImageButton) myView
@@ -225,6 +228,11 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                     @Override
                     public boolean onMenuItemClick(final MenuItem item) {
                         switch (item.getItemId()) {
+                        	case R.id.details:
+                            	final Intent intentDetail = new Intent(
+                            	mcontext, EventDetailActivity.class);
+                                mcontext.startActivity(intentDetail);  
+                                return true;
                             case R.id.invite:
                                 final Intent intent = new Intent(
                                         parentActivity,
