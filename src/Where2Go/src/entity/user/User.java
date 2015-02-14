@@ -1,7 +1,5 @@
-package entity.user;
 
-import java.util.ArrayList;
-import java.util.List;
+package entity.user;
 
 import com.google.common.base.Objects;
 import com.parse.ParseClassName;
@@ -9,11 +7,14 @@ import com.parse.ParseObject;
 
 import entity.event.Invitation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The Class User.
  */
 @ParseClassName("iUser")
-public class User extends ParseObject{
+public class User extends ParseObject {
 
     /** The name. */
     private String name;
@@ -32,108 +33,133 @@ public class User extends ParseObject{
 
     // falta o atributo que liga o usuario aos dados do facebook: FACEBOOK ID?
 
-    public User() {}
-    
-    public User(String facebookId) {
-    	setFacebookId(facebookId);
-    	setInvitations(new ArrayList<Invitation>());
+    /**
+     * Instantiates a new user.
+     */
+    public User() {
     }
-    
-    public List<Invitation> getInvitations() {
-    	return getList("invitations");
+
+    /**
+     * Instantiates a new user.
+     * 
+     * @param facebookId the facebook id
+     */
+    public User(final String facebookId) {
+        setFacebookId(facebookId);
+        setInvitations(new ArrayList<Invitation>());
     }
-    
-    public void setInvitations(List<Invitation> invitations) {
-    	put("invitations", invitations);
+
+    /**
+     * Gets the invitations.
+     * 
+     * @return the invitations
+     */
+    public final List<Invitation> getInvitations() {
+        return getList("invitations");
     }
-    
-    public String getFacebookId() {
-    	return getString("facebookId");
+
+    /**
+     * Sets the invitations.
+     * 
+     * @param invitations the new invitations
+     */
+    public final void setInvitations(final List<Invitation> invitations) {
+        put("invitations", invitations);
     }
-    
-    public void setFacebookId(String facebookId) {
+
+    /**
+     * Gets the facebook id.
+     * 
+     * @return the facebook id
+     */
+    public final String getFacebookId() {
+        return getString("facebookId");
+    }
+
+    /**
+     * Sets the facebook id.
+     * 
+     * @param facebookId the new facebook id
+     */
+    public final void setFacebookId(final String facebookId) {
         put("facebookId", facebookId);
     }
-    
+
     /**
      * Gets the name.
-     *
+     * 
      * @return the name
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
     /**
      * Sets the name.
-     *
-     * @param mName
-     *            the new name
+     * 
+     * @param mName the new name
      */
-    public void setName(String mName) {
-        this.name = mName;
+    public final void setName(final String mName) {
+        name = mName;
     }
 
     /**
      * Gets the birthday.
-     *
+     * 
      * @return the birthday
      */
-    public String getBirthday() {
+    public final String getBirthday() {
         return birthday;
     }
 
     /**
      * Sets the birthday.
-     *
-     * @param birthday
-     *            the new birthday
+     * 
+     * @param newBirthday the new birthday
      */
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public final void setBirthday(final String newBirthday) {
+        birthday = newBirthday;
     }
 
     /**
      * Gets the email.
-     *
+     * 
      * @return the email
      */
-    public String getEmail() {
+    public final String getEmail() {
         return email;
     }
 
     /**
      * Sets the email.
-     *
-     * @param email
-     *            the new email
+     * 
+     * @param newEmail the new email
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public final void setEmail(final String newEmail) {
+        email = newEmail;
     }
 
     /**
      * Gets the age.
-     *
+     * 
      * @return the age
      */
-    public int getAge() {
+    public final int getAge() {
         return age;
     }
 
     /**
      * Sets the age.
-     *
-     * @param mAge
-     *            the new age
+     * 
+     * @param mAge the new age
      */
-    public void setAge(int mAge) {
-        this.age = mAge;
+    public final void setAge(final int mAge) {
+        age = mAge;
     }
 
     /**
      * Gets the gender.
-     *
+     * 
      * @return the gender
      */
     public String getGender() {
@@ -142,32 +168,29 @@ public class User extends ParseObject{
 
     /**
      * Sets the gender.
-     *
-     * @param gender
-     *            the new gender
+     * 
+     * @param userGender the new gender
      */
-    public void setGender(String gender) {
-        this.gender = gender;
+    public final void setGender(final String userGender) {
+        gender = userGender;
     }
 
     /**
      * Remove uma {@code invitation} das {@code invitations} do usuário.
-     *
-     * @param invitation
-     *            the invitation
+     * 
+     * @param invitation the invitation
      * @return True, caso seja removida a {@code invitation}
      */
-    public boolean removeInvitation(Invitation invitation) {
+    public final boolean removeInvitation(final Invitation invitation) {
         return getInvitations().remove(invitation);
     }
 
     /**
      * Adiciona uma {@code invitation} à sua {@code invitations}.
-     *
-     * @param invitation
-     *            a {@code invitation} a ser adicionada
+     * 
+     * @param invitation a {@code invitation} a ser adicionada
      */
-    public void addInvitation(Invitation invitation) {
+    public final void addInvitation(final Invitation invitation) {
         getInvitations().add(invitation);
     }
 
@@ -177,8 +200,8 @@ public class User extends ParseObject{
      * @see java.lang.Object#hashCode()
      */
     @Override
-    public int hashCode() {
-        return Objects.hashCode(this.name, this.age);
+    public final int hashCode() {
+        return Objects.hashCode(name, age);
     }
 
     /*
@@ -187,7 +210,7 @@ public class User extends ParseObject{
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object therUser) {
+    public final boolean equals(final Object therUser) {
         if (therUser == null || !(therUser instanceof User)) {
             return false;
         }

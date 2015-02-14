@@ -5,59 +5,125 @@
 
 package slidermenu;
 
+/**
+ * The Class NavDrawerItem.
+ */
 public class NavDrawerItem {
 
-    private String title;
-    private int icon;
+    /** The title. */
+    private String mTitle;
+
+    /** The icon. */
+    private int mIcon;
+
+    /** The count. */
     private String count = "0";
     // boolean to set visiblity of the counter
+    /** The is counter visible. */
     private boolean isCounterVisible = false;
 
+    /**
+     * Instantiates a new nav drawer item.
+     */
     public NavDrawerItem() {
     }
 
-    public NavDrawerItem(String title, int icon) {
-        this.title = title;
-        this.icon = icon;
+    /**
+     * Instantiates a new nav drawer item.
+     * 
+     * @param title the title
+     * @param icon the icon
+     */
+    public NavDrawerItem(final String title, final int icon) {
+        mTitle = title;
+        mIcon = icon;
     }
 
-    public NavDrawerItem(String title, int icon, boolean isCounterVisible,
-            String count) {
-        this.title = title;
-        this.icon = icon;
-        this.isCounterVisible = isCounterVisible;
-        this.count = count;
+    /**
+     * Instantiates a new nav drawer item.
+     * 
+     * @param title the title
+     * @param icon the icon
+     * @param isVisible the is counter visible
+     * @param newCount the count
+     */
+    public NavDrawerItem(final String title, final int icon, final boolean isVisible,
+            final String newCount) {
+        mTitle = title;
+        mIcon = icon;
+        isCounterVisible = isVisible;
+        count = newCount;
     }
 
-    public String getTitle() {
-        return this.title;
+    /**
+     * Gets the title.
+     * 
+     * @return the title
+     */
+    public final String getTitle() {
+        return mTitle;
     }
 
-    public int getIcon() {
-        return this.icon;
+    /**
+     * Gets the icon.
+     * 
+     * @return the icon
+     */
+    public final int getIcon() {
+        return mIcon;
     }
 
-    public String getCount() {
-        return this.count;
+    /**
+     * Gets the count.
+     * 
+     * @return the count
+     */
+    public final String getCount() {
+        return count;
     }
 
-    public boolean getCounterVisibility() {
-        return this.isCounterVisible;
+    /**
+     * Gets the counter visibility.
+     * 
+     * @return the counter visibility
+     */
+    public final boolean getCounterVisibility() {
+        return isCounterVisible;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    /**
+     * Sets the title.
+     * 
+     * @param title the new title
+     */
+    public final void setTitle(final String title) {
+        mTitle = title;
     }
 
-    public void setIcon(int icon) {
-        this.icon = icon;
+    /**
+     * Sets the icon.
+     * 
+     * @param icon the new icon
+     */
+    public final void setIcon(final int icon) {
+        mIcon = icon;
     }
 
-    public void setCount(String count) {
-        this.count = count;
+    /**
+     * Sets the count.
+     * 
+     * @param newCount the new count
+     */
+    public final void setCount(final String newCount) {
+        count = newCount;
     }
 
-    public void setCounterVisibility(boolean isCounterVisible) {
-        this.isCounterVisible = isCounterVisible;
+    /**
+     * Sets the counter visibility.
+     * 
+     * @param isVisible the new counter visibility
+     */
+    public final void setCounterVisibility(final boolean isVisible) {
+        this.isCounterVisible = isVisible;
     }
 }

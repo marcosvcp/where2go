@@ -1,50 +1,100 @@
+
 package entity.user;
 
+/**
+ * The Class UserFriend.
+ */
 public class UserFriend {
 
-    private String friendName;
+    /** The friend name. */
+    private String mFriendName;
 
-    private String friendPicture;
+    /** The friend picture. */
+    private String mFriendPicture;
 
-    private String friendid;
+    /** The friendid. */
+    private String mFriendId;
 
+    /**
+     * Instantiates a new user friend.
+     * 
+     * @param friendName the friend name
+     * @param friendPicture the friend picture
+     * @param friendid the friendid
+     */
     public UserFriend(final String friendName, final String friendPicture,
             final String friendid) {
         super();
-        this.friendName = friendName;
-        this.friendPicture = friendPicture;
-        this.friendid = friendid;
+        mFriendName = friendName;
+        mFriendPicture = friendPicture;
+        mFriendId = friendid;
     }
 
+    /**
+     * Instantiates a new user friend.
+     * 
+     * @param friendName the friend name
+     * @param friendid the friendid
+     */
     public UserFriend(final String friendName, final String friendid) {
         super();
-        this.friendName = friendName;
-        this.friendPicture = "";
-        this.friendid = friendid;
+        mFriendName = friendName;
+        mFriendPicture = "";
+        mFriendId = friendid;
     }
 
-    public String getFriendName() {
-        return friendName;
+    /**
+     * Gets the friend name.
+     * 
+     * @return the friend name
+     */
+    public final String getFriendName() {
+        return mFriendName;
     }
 
-    public void setFriendName(final String friendName) {
-        this.friendName = friendName;
+    /**
+     * Sets the friend name.
+     * 
+     * @param friendName the new friend name
+     */
+    public final void setFriendName(final String friendName) {
+        mFriendName = friendName;
     }
 
-    public String getFriendPicture() {
-        return friendPicture;
+    /**
+     * Gets the friend picture.
+     * 
+     * @return the friend picture
+     */
+    public final String getFriendPicture() {
+        return mFriendPicture;
     }
 
-    public void setFriendPicture(final String friendPicture) {
-        this.friendPicture = friendPicture;
+    /**
+     * Sets the friend picture.
+     * 
+     * @param friendPicture the new friend picture
+     */
+    public final void setFriendPicture(final String friendPicture) {
+        mFriendPicture = friendPicture;
     }
 
-    public String getFriendid() {
-        return friendid;
+    /**
+     * Gets the friendid.
+     * 
+     * @return the friendid
+     */
+    public final String getFriendid() {
+        return mFriendId;
     }
 
-    public void setFriendid(final String friendid) {
-        this.friendid = friendid;
+    /**
+     * Sets the friendid.
+     * 
+     * @param friendid the new friendid
+     */
+    public final void setFriendid(final String friendid) {
+        mFriendId = friendid;
     }
 
 }
