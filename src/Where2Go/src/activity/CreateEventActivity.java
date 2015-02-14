@@ -1,15 +1,6 @@
+
 package activity;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import persistence.ParseUtil;
-import utils.Authenticator;
-import utils.FieldValidation;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -33,8 +24,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TimePicker;
+
 import br.com.les.where2go.R;
 
 import com.parse.FindCallback;
@@ -42,411 +33,468 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import entity.event.Event;
+import persistence.ParseUtil;
+import utils.Authenticator;
+import utils.FieldValidation;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+// TODO: Auto-generated Javadoc
 /**
  * The Class CreateEventActivity.
  */
 public class CreateEventActivity extends Activity {
 
-	private EditText et_event_name;
-	private EditText et_event_description;
-	private EditText et_event_initial_date, et_event_initial_time;
-	private EditText et_event_final_date, et_event_final_time;
-	private Button bt_create_event;
-	private Button bt_select_tags;
-	private Button bt_add_aditional_informations;
-	private RadioButton rb_radio_public;
-	private Date initialDate, finalDate;
-	private SimpleDateFormat dateFormatter;
-	private DatePickerDialog initialDatePickerDialog;
-	private TimePickerDialog initialTimePickerDialog;
-	private DatePickerDialog finalDatePickerDialog;
-	private TimePickerDialog finalTimePickerDialog;
-	private AlertDialog dialog;
-	private List<String> tags;
+    /** The et_event_name. */
+    private EditText et_event_name;
 
-	public static Event event;
+    /** The et_event_description. */
+    private EditText et_event_description;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
-	@Override
-	protected void onCreate(final Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create_event);
-		setStatusBarColor(findViewById(R.id.statusBarBackground),
-				getResources().getColor(R.color.status_bar));
+    /** The et_event_initial_time. */
+    private EditText et_event_initial_date, et_event_initial_time;
 
-		tags = new ArrayList<String>();
+    /** The et_event_final_time. */
+    private EditText et_event_final_date, et_event_final_time;
 
-		dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+    /** The bt_create_event. */
+    private Button bt_create_event;
 
-		et_event_name = (EditText) findViewById(R.id.et_event_name);
-		et_event_description = (EditText) findViewById(R.id.et_event_description);
-		et_event_initial_date = (EditText) findViewById(R.id.et_event_initial_date);
-		et_event_initial_time = (EditText) findViewById(R.id.et_event_initial_time);
-		et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
-		et_event_final_time = (EditText) findViewById(R.id.et_event_final_time);
-		
-		bt_create_event = (Button) findViewById(R.id.bt_create_event);
-		bt_select_tags = (Button) findViewById(R.id.bt_select_tags);
-		bt_add_aditional_informations = (Button) findViewById(R.id.bt_add_aditional_informations);
+    /** The bt_select_tags. */
+    private Button bt_select_tags;
 
-		rb_radio_public = (RadioButton) findViewById(R.id.rb_radio_public);
-		
-		et_event_final_time.setInputType(InputType.TYPE_NULL);
-		et_event_final_time.requestFocusFromTouch();
-		et_event_final_date.setInputType(InputType.TYPE_NULL);
-		et_event_final_date.requestFocusFromTouch();
-		et_event_initial_date.setInputType(InputType.TYPE_NULL);
-		et_event_initial_time.setInputType(InputType.TYPE_NULL);
-		
-		et_event_initial_date.setText(dateFormatter.format(Calendar.getInstance().getTime()));
-		et_event_final_date.setText(dateFormatter.format(Calendar.getInstance().getTime()));
-		et_event_initial_time.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE));
-		et_event_final_time.setText("23:59");
-		
-		final Calendar newCalendar = Calendar.getInstance();
+    /** The bt_add_aditional_informations. */
+    private Button bt_add_aditional_informations;
 
-		initialDatePickerDialog = new DatePickerDialog(this,
-				new OnDateSetListener() {
+    /** The rb_radio_public. */
+    private RadioButton rb_radio_public;
 
-					@Override
-					public void onDateSet(final DatePicker view,
-							final int year, final int monthOfYear,
-							final int dayOfMonth) {
-						final Calendar newDate = Calendar.getInstance();
-						newDate.set(year, monthOfYear, dayOfMonth);
-						initialDate = newDate.getTime();
-						et_event_initial_date.setText(dateFormatter
-								.format(newDate.getTime()));
-					}
+    /** The final date. */
+    private Date initialDate, finalDate;
 
-				}, newCalendar.get(Calendar.YEAR),
-				newCalendar.get(Calendar.MONTH),
-				newCalendar.get(Calendar.DAY_OF_MONTH));
-		
-		initialDate = Calendar.getInstance().getTime();
-		finalDate = Calendar.getInstance().getTime();
-        
-        initialTimePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
+    /** The date formatter. */
+    private SimpleDateFormat dateFormatter;
+
+    /** The initial date picker dialog. */
+    private DatePickerDialog initialDatePickerDialog;
+
+    /** The initial time picker dialog. */
+    private TimePickerDialog initialTimePickerDialog;
+
+    /** The final date picker dialog. */
+    private DatePickerDialog finalDatePickerDialog;
+
+    /** The final time picker dialog. */
+    private TimePickerDialog finalTimePickerDialog;
+
+    /** The dialog. */
+    private AlertDialog dialog;
+
+    /** The tags. */
+    private List<String> tags;
+
+    /** The event. */
+    private static Event event;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
+    @Override
+    protected final void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_event);
+        setStatusBarColor(findViewById(R.id.statusBarBackground),
+                getResources().getColor(R.color.status_bar));
+
+        tags = new ArrayList<String>();
+
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+
+        et_event_name = (EditText) findViewById(R.id.et_event_name);
+        et_event_description = (EditText) findViewById(R.id.et_event_description);
+        et_event_initial_date = (EditText) findViewById(R.id.et_event_initial_date);
+        et_event_initial_time = (EditText) findViewById(R.id.et_event_initial_time);
+        et_event_final_date = (EditText) findViewById(R.id.et_event_final_date);
+        et_event_final_time = (EditText) findViewById(R.id.et_event_final_time);
+
+        bt_create_event = (Button) findViewById(R.id.bt_create_event);
+        bt_select_tags = (Button) findViewById(R.id.bt_select_tags);
+        bt_add_aditional_informations = (Button) findViewById(R.id.bt_add_aditional_informations);
+
+        rb_radio_public = (RadioButton) findViewById(R.id.rb_radio_public);
+
+        et_event_final_time.setInputType(InputType.TYPE_NULL);
+        et_event_final_time.requestFocusFromTouch();
+        et_event_final_date.setInputType(InputType.TYPE_NULL);
+        et_event_final_date.requestFocusFromTouch();
+        et_event_initial_date.setInputType(InputType.TYPE_NULL);
+        et_event_initial_time.setInputType(InputType.TYPE_NULL);
+
+        et_event_initial_date.setText(dateFormatter.format(Calendar.getInstance().getTime()));
+        et_event_final_date.setText(dateFormatter.format(Calendar.getInstance().getTime()));
+        et_event_initial_time.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
+                + Calendar.getInstance().get(Calendar.MINUTE));
+        et_event_final_time.setText("23:59");
+
+        final Calendar newCalendar = Calendar.getInstance();
+
+        initialDatePickerDialog = new DatePickerDialog(this,
+                new OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(final DatePicker view,
+                            final int year, final int monthOfYear,
+                            final int dayOfMonth) {
+                        final Calendar newDate = Calendar.getInstance();
+                        newDate.set(year, monthOfYear, dayOfMonth);
+                        initialDate = newDate.getTime();
+                        et_event_initial_date.setText(dateFormatter
+                                .format(newDate.getTime()));
+                    }
+
+                }, newCalendar.get(Calendar.YEAR),
+                newCalendar.get(Calendar.MONTH),
+                newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        initialDate = Calendar.getInstance().getTime();
+        finalDate = Calendar.getInstance().getTime();
+
+        initialTimePickerDialog = new TimePickerDialog(CreateEventActivity.this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour,
+                            int selectedMinute) {
+                        et_event_initial_time.setText("" + selectedHour + ":" + selectedMinute);
+                    }
+                }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
+
+        finalTimePickerDialog = new TimePickerDialog(CreateEventActivity.this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour,
+                            int selectedMinute) {
+                        et_event_final_time.setText("" + selectedHour + ":" + selectedMinute);
+                    }
+                }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
+
+        finalDatePickerDialog = new DatePickerDialog(this,
+                new OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(final DatePicker view,
+                            final int year, final int monthOfYear,
+                            final int dayOfMonth) {
+                        final Calendar newDate = Calendar.getInstance();
+                        newDate.set(year, monthOfYear, dayOfMonth);
+                        finalDate = newDate.getTime();
+                        et_event_final_date.setText(dateFormatter
+                                .format(newDate.getTime()));
+                    }
+
+                }, newCalendar.get(Calendar.YEAR),
+                newCalendar.get(Calendar.MONTH),
+                newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        et_event_initial_date.setOnClickListener(new OnClickListener() {
+
             @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                et_event_initial_time.setText( "" + selectedHour + ":" + selectedMinute);
+            public void onClick(final View v) {
+                initialDatePickerDialog.show();
             }
-        }, newCalendar.get(Calendar.HOUR_OF_DAY),newCalendar.get(Calendar.MINUTE),true);
-        
-        finalTimePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        });
+
+        et_event_initial_time.setOnClickListener(new OnClickListener() {
+
             @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                et_event_final_time.setText( "" + selectedHour + ":" + selectedMinute);
+            public void onClick(final View v) {
+                initialTimePickerDialog.show();
             }
-        }, newCalendar.get(Calendar.HOUR_OF_DAY),newCalendar.get(Calendar.MINUTE),true);
+        });
 
-		finalDatePickerDialog = new DatePickerDialog(this,
-				new OnDateSetListener() {
+        et_event_final_date.setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onDateSet(final DatePicker view,
-							final int year, final int monthOfYear,
-							final int dayOfMonth) {
-						final Calendar newDate = Calendar.getInstance();
-						newDate.set(year, monthOfYear, dayOfMonth);
-						finalDate = newDate.getTime();
-						et_event_final_date.setText(dateFormatter
-								.format(newDate.getTime()));
-					}
+            @Override
+            public void onClick(final View v) {
+                finalDatePickerDialog.show();
+            }
+        });
 
-				}, newCalendar.get(Calendar.YEAR),
-				newCalendar.get(Calendar.MONTH),
-				newCalendar.get(Calendar.DAY_OF_MONTH));
+        et_event_final_time.setOnClickListener(new OnClickListener() {
 
-		et_event_initial_date.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                finalTimePickerDialog.show();
+            }
+        });
 
-			@Override
-			public void onClick(final View v) {
-				initialDatePickerDialog.show();
-			}
-		});
-		
-		et_event_initial_time.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				initialTimePickerDialog.show();
-			}
-		});
+        bt_create_event.setOnClickListener(new OnClickListener() {
 
-		et_event_final_date.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
 
-			@Override
-			public void onClick(final View v) {
-				finalDatePickerDialog.show();
-			}
-		});
+                if (checkValidation()) {
 
-		et_event_final_time.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				finalTimePickerDialog.show();
-			}
-		});
+                    event = new Event(et_event_name.getText().toString(),
+                            et_event_description.getText().toString(),
+                            "Default Image Path", "INFO", initialDate,
+                            finalDate, 100.00, "Default Outfit", 999, rb_radio_public.isChecked(),
+                            Authenticator.getInstance().getLoggedUser());
 
-		bt_create_event.setOnClickListener(new OnClickListener() {
+                    if (!tags.isEmpty()) {
+                        for (int i = 0; i < tags.size(); i++) {
+                            event.addTags(tags.get(i));
+                        }
+                    }
+                    ParseUtil.saveEvent(event);
+                    EventsListFragment.adapter.notifyDataSetChanged();
+                    final Intent intent = new Intent(getApplicationContext(),
+                            MainScreen.class);
+                    intent.putExtra("eventslist", 2);
+                    startActivity(intent);
+                }
+            }
+        });
 
-			@Override
-			public void onClick(final View v) {
+        bt_select_tags.setOnClickListener(new OnClickListener() {
 
-				if (checkValidation()) {
-					
-					event = new Event(et_event_name.getText().toString(),
-							et_event_description.getText().toString(),
-							"Default Image Path", "INFO", initialDate,
-							finalDate, 100.00, "Default Outfit", 999, rb_radio_public.isChecked(),
-							Authenticator.getInstance().getLoggedUser());
+            @Override
+            public void onClick(final View v) {
+                selectTag();
+            }
+        });
 
-					if (!tags.isEmpty()) {
-						for (int i = 0; i < tags.size(); i++) {
-							event.addTags(tags.get(i));
-						}
-					}
-					ParseUtil.saveEvent(event);
-					EventsListFragment.adapter.notifyDataSetChanged();
-					final Intent intent = new Intent(getApplicationContext(),
-							MainScreen.class);
-					intent.putExtra("eventslist", 2);
-					startActivity(intent);
-				}
-			}
-		});
+        bt_add_aditional_informations.setOnClickListener(new OnClickListener() {
 
-		bt_select_tags.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent intent = new Intent(getApplicationContext(),
+                        CreateEventAditInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
-			@Override
-			public void onClick(final View v) {
-				selectTag();
-			}
-		});
+    }
 
-		bt_add_aditional_informations.setOnClickListener(new OnClickListener() {
+    /**
+     * Check validation of the event fields.
+     * 
+     * @return true, if successful
+     */
+    private boolean checkValidation() {
+        boolean ret = true;
+        final FieldValidation validation = new FieldValidation(this);
+        final List<EditText> listEditText = new ArrayList<EditText>();
+        listEditText.add(et_event_name);
+        listEditText.add(et_event_description);
+        listEditText.add(et_event_initial_date);
+        listEditText.add(et_event_final_date);
 
-			@Override
-			public void onClick(final View v) {
-////N�O APAGAR ESTE TRECHO
-//				if (checkValidation()) {
-//					final Intent intent = new Intent(getApplicationContext(),
-//							AditionalEventInformationActivity.class);
-//					event = new Event(et_event_name.getText().toString(),
-//							et_event_description.getText().toString(),
-//							"Default Image Path", "INFO", initialDate,
-//							finalDate, 100.00, "Default Outfit", 999, true,
-//							Authenticator.getInstance().getLoggedUser());
-//					if (!tags.isEmpty()) {
-//						for (int i = 0; i < tags.size(); i++) {
-//							event.addTags(tags.get(i));
-//						}
-//					}
-//					startActivity(intent);
-//				}
-				
-				Intent intent = new Intent(getApplicationContext(), CreateEventAditInfoActivity.class);
-				startActivity(intent);
-			}
-		});
+        if (!validation.hasText(et_event_name)) {
+            ret = false;
+        }
+        if (!validation.hasText(et_event_description)) {
+            ret = false;
+        }
+        if (!validation.hasText(et_event_initial_date)) {
+            ret = false;
+        }
+        if (!validation.hasText(et_event_final_date)) {
+            ret = false;
+        }
+        return ret;
+    }
 
-	}
+    /**
+     * Method of select a tag on a dialog.
+     */
+    public final void selectTag() {
+        // final CharSequence[] items =
+        // {"Festa","Churrasco","Confra","Casamento"};
 
-	/**
-	 * Check validation of the event fields.
-	 * 
-	 * @return true, if successful
-	 */
-	private boolean checkValidation() {
-		boolean ret = true;
-		final FieldValidation validation = new FieldValidation(this);
-		final List<EditText> listEditText = new ArrayList<EditText>();
-		listEditText.add(et_event_name);
-		listEditText.add(et_event_description);
-		listEditText.add(et_event_initial_date);
-		listEditText.add(et_event_final_date);
+        ParseUtil.findAllTags(new FindCallback<ParseObject>() {
+            @Override
+            public void done(final List<ParseObject> objects,
+                    final ParseException e) {
+                final CharSequence[] items = new CharSequence[objects.size()];
 
-		if (!validation.hasText(et_event_name)) {
-			ret = false;
-		}
-		if (!validation.hasText(et_event_description)) {
-			ret = false;
-		}
-		if (!validation.hasText(et_event_initial_date)) {
-			ret = false;
-		}
-		if (!validation.hasText(et_event_final_date)) {
-			ret = false;
-		}
-		return ret;
-	}
+                if (e == null) {
+                    for (int i = 0; i < items.length; i++) {
+                        items[i] = objects.get(i).getString("nome");
+                        Log.d("TagList>", objects.get(i).getString("nome"));
+                    }
 
-	/**
-	 * Method of select a tag on a dialog.
-	 */
-	public void selectTag() {
-		// final CharSequence[] items =
-		// {"Festa","Churrasco","Confra","Casamento"};
+                    final ArrayList<Integer> seletedItems = new ArrayList<Integer>();
 
-		ParseUtil.findAllTags(new FindCallback<ParseObject>() {
-			@Override
-			public void done(final List<ParseObject> objects,
-					final ParseException e) {
-				final CharSequence[] items = new CharSequence[objects.size()];
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(
+                            CreateEventActivity.this);
 
-				if (e == null) {
-					for (int i = 0; i < items.length; i++) {
-						items[i] = objects.get(i).getString("nome");
-						Log.d("TagList>", objects.get(i).getString("nome"));
-					}
+                    builder.setTitle("Select The Tags");
 
-					final ArrayList<Integer> seletedItems = new ArrayList<Integer>();
+                    builder.setMultiChoiceItems(items, null,
+                            new DialogInterface.OnMultiChoiceClickListener() {
+                                @Override
+                                public void onClick(
+                                        final DialogInterface dialogInterface,
+                                        final int indexSelected,
+                                        final boolean isChecked) {
+                                    if (isChecked) {
+                                        seletedItems.add(indexSelected);
+                                        Log.d("Selected>", indexSelected + "");
 
-					final AlertDialog.Builder builder = new AlertDialog.Builder(
-							CreateEventActivity.this);
+                                    } else if (seletedItems
+                                            .contains(indexSelected)) {
+                                        seletedItems.remove(Integer
+                                                .valueOf(indexSelected));
+                                    }
+                                }
+                            })
 
-					builder.setTitle("Select The Tags");
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(
+                                                final DialogInterface dialogInterface,
+                                                final int id) {
+                                            String t = "";
+                                            for (int i = 0; i < seletedItems
+                                                    .size(); i++) {
+                                                tags.add(items[seletedItems
+                                                        .get(i)].toString());
+                                                t.concat(" "
+                                                        + items[seletedItems
+                                                                .get(i)]
+                                                                .toString());
+                                                Log.d("Tag Adicionada",
+                                                        items[seletedItems
+                                                                .get(i)]
+                                                                .toString());
+                                            }
+                                            bt_select_tags.setText(bt_select_tags.getText() + t);
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(
+                                                final DialogInterface dialog,
+                                                final int id) {
+                                            tags.clear();
+                                        }
+                                    });
 
-					builder.setMultiChoiceItems(items, null,
-							new DialogInterface.OnMultiChoiceClickListener() {
-								@Override
-								public void onClick(
-										final DialogInterface dialog,
-										final int indexSelected,
-										final boolean isChecked) {
-									if (isChecked) {
-										seletedItems.add(indexSelected);
-										Log.d("Selected>", indexSelected + "");
+                    dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        });
+    }
 
-									} else if (seletedItems
-											.contains(indexSelected)) {
-										seletedItems.remove(Integer
-												.valueOf(indexSelected));
-									}
-								}
-							})
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        final MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.create_event_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-							.setPositiveButton("OK",
-									new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(
-												final DialogInterface dialog,
-												final int id) {
-											String t = "";
-											for (int i = 0; i < seletedItems
-													.size(); i++) {
-												tags.add(items[seletedItems
-														.get(i)].toString());
-												t.concat(" "
-														+ items[seletedItems
-																.get(i)]
-																.toString());
-												Log.d("Tag Adicionada",
-														items[seletedItems
-																.get(i)]
-																.toString());
-											}
-											bt_select_tags.setText(bt_select_tags.getText() + t);
-										}
-									})
-							.setNegativeButton("Cancel",
-									new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(
-												final DialogInterface dialog,
-												final int id) {
-											tags.clear();
-										}
-									});
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
+    @Override
+    public final boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                return true;
+            case R.id.action_cancel:
+                final Intent intent = new Intent(getApplicationContext(),
+                        MainScreen.class);
+                intent.putExtra("fragmentIndex", 2);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-					dialog = builder.create();
-					dialog.show();
-				}
-			}
-		});
-	}
+    /**
+     * Sets the status bar color.
+     * 
+     * @param statusBar the status bar
+     * @param color the color
+     */
+    public final void setStatusBarColor(final View statusBar, final int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // status bar height
+            final int actionBarHeight = getActionBarHeight();
+            final int statusBarHeight = getStatusBarHeight();
+            // action bar height
+            statusBar.getLayoutParams().height = actionBarHeight
+                    + statusBarHeight;
+            statusBar.setBackgroundColor(color);
+        }
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(final Menu menu) {
-		final MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.create_event_actions, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
+    /**
+     * Gets the action bar height.
+     * 
+     * @return the action bar height
+     */
+    public final int getActionBarHeight() {
+        int actionBarHeight = 0;
+        final TypedValue tv = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,
+                    getResources().getDisplayMetrics());
+        }
+        return actionBarHeight;
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			return true;
-		case R.id.action_cancel:
-			final Intent intent = new Intent(getApplicationContext(),
-					MainScreen.class);
-			intent.putExtra("fragmentIndex", 2);
-			startActivity(intent);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    /**
+     * Gets the status bar height.
+     * 
+     * @return the status bar height
+     */
+    public final int getStatusBarHeight() {
+        int result = 0;
+        final int resourceId = getResources().getIdentifier(
+                "status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
-	/**
-	 * Sets the status bar color.
-	 * 
-	 * @param statusBar
-	 *            the status bar
-	 * @param color
-	 *            the color
-	 */
-	public void setStatusBarColor(final View statusBar, final int color) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			final Window w = getWindow();
-			w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			// status bar height
-			final int actionBarHeight = getActionBarHeight();
-			final int statusBarHeight = getStatusBarHeight();
-			// action bar height
-			statusBar.getLayoutParams().height = actionBarHeight
-					+ statusBarHeight;
-			statusBar.setBackgroundColor(color);
-		}
-	}
+    /**
+     * Gets the event.
+     * 
+     * @return the event
+     */
+    public static Event getEvent() {
+        return event;
+    }
 
-	/**
-	 * Gets the action bar height.
-	 * 
-	 * @return the action bar height
-	 */
-	public int getActionBarHeight() {
-		int actionBarHeight = 0;
-		final TypedValue tv = new TypedValue();
-		if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-			actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,
-					getResources().getDisplayMetrics());
-		}
-		return actionBarHeight;
-	}
-
-	/**
-	 * Gets the status bar height.
-	 * 
-	 * @return the status bar height
-	 */
-	public int getStatusBarHeight() {
-		int result = 0;
-		final int resourceId = getResources().getIdentifier(
-				"status_bar_height", "dimen", "android");
-		if (resourceId > 0) {
-			result = getResources().getDimensionPixelSize(resourceId);
-		}
-		return result;
-	}
-
+    /**
+     * Sets the event.
+     * 
+     * @param event the new event
+     */
+    public static void setEvent(Event event) {
+        CreateEventActivity.event = event;
+    }
 }
