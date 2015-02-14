@@ -1,8 +1,6 @@
+
 package utils;
 
-import java.util.List;
-
-import persistence.ParseUtil;
 import android.util.Log;
 
 import com.facebook.Request;
@@ -13,20 +11,31 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 
 import entity.user.User;
+import persistence.ParseUtil;
+
+import java.util.List;
 
 /**
- * Classe utilitária para o usuário logado Singleton
+ * Classe utilitária para o usuário logado Singleton.
  */
-public class Authenticator {
+public final class Authenticator {
 
+    /** The logged user. */
     private User loggedUser;
+
+    /** The instance. */
     private static Authenticator instance;
 
+    /**
+     * Instantiates a new authenticator.
+     */
     private Authenticator() {
     }
 
     /**
-     * Seta o usuário logado para o resultado da requisição
+     * Seta o usuário logado para o resultado da requisição.
+     * 
+     * @param session the session
      */
     public void loadLoggedUser(final Session session) {
         if (session != null && session.isOpened()) {
@@ -34,15 +43,19 @@ public class Authenticator {
         }
     }
 
+    /**
+     * Gets the logged user.
+     * 
+     * @return the logged user
+     */
     public User getLoggedUser() {
-        return this.loggedUser;
+        return loggedUser;
     }
 
     /**
-     * Make me request to get user's data
-     *
-     * @param session
-     *            the session
+     * Make me request to get user's data.
+     * 
+     * @param session the session
      */
     private void makeMeRequest(final Session session) {
         final Request request = Request.newMeRequest(session,
@@ -101,7 +114,9 @@ public class Authenticator {
     }
 
     /**
-     * Retorna a única instância da classe
+     * Retorna a única instância da classe.
+     * 
+     * @return single instance of Authenticator
      */
     public static Authenticator getInstance() {
         if (instance == null) {
