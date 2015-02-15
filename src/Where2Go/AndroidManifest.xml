@@ -60,7 +60,6 @@
         <activity
             android:name="activity.EventDetailActivity"
             android:label="@string/title_activity_event_list"
-			android:theme="@style/TransparentTheme"
             android:parentActivityName="activity.EventListActivity" >
         </activity>
         <activity
