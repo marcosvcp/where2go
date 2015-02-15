@@ -1,7 +1,10 @@
 
 package activity;
 
-import android.content.Intent;
+import java.util.List;
+
+import persistence.ParseUtil;
+import android.R.color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,20 +12,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
+import android.widget.TextView;
 import br.com.les.where2go.R;
 
-import com.facebook.AppEventsLogger;
-import com.parse.Parse;
-import com.parse.ParseFacebookUtils;
-import com.parse.ParseObject;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 
 import entity.event.Event;
-import entity.event.Invitation;
-import entity.user.User;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Application core.
@@ -34,7 +30,17 @@ public class EventDetailActivity extends FragmentActivity {
 
     /** The m views. */
     private List<View> mViews;
+    
+    /** The event. */
+    private Event event;
 
+    /** The event name. */
+    private TextView etEventName;
+    
+    /** The event desscription. */
+    private TextView etEventDescription;
+
+    
     /**
      * Called when the activity is first created.
      * 
@@ -44,10 +50,40 @@ public class EventDetailActivity extends FragmentActivity {
     public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
-        setStatusBarColor(findViewById(R.id.statusBarBackground),
-                getResources().getColor(R.color.status_bar));
+        setStatusBarColor(findViewById(R.id.statusBarBackground),color.transparent);
+        
+        final Bundle data = getIntent().getExtras();
+        final String key = data.getString("event_id");
+        
+        etEventName = (TextView) findViewById(R.id.et_event_name_detail);
+        etEventDescription = (TextView) findViewById(R.id.et_event_description_detail);
+        
+        // Busca no servidor o Objeto que tem o ID
+        ParseUtil.findEventById(key, new GetCallback<Event>() {
+            @Override
+            public void done(final Event newEvent, final ParseException e) {
+                if (e == null) {
+                    event = newEvent;
+                    setDataFields();
+                }
+            }
+        });
     }
 
+    /**
+     * Set all fields of view with name of events fields.
+     */
+    private void setDataFields() {
+        etEventName.setText(event.getName());
+        etEventDescription.setText(event.getDescription());
+//        etEventInitialDate.setText(ParseUtil.ptbr.format(event
+//                .getInitialDate()));
+//        etEventFinalDate
+//                .setText(ParseUtil.ptbr.format(event.getFinalDate()));
+//        etEventInitialTime.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
+//                + Calendar.getInstance().get(Calendar.MINUTE));
+//        etEventFinalTime.setText("23:59");
+    }
 
     /**
      * Sets the status bar color.

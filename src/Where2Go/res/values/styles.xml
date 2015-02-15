@@ -20,9 +20,19 @@
     <style name="ColorTheme" parent="@android:style/Theme.Holo">
         <item name="android:actionBarStyle">@style/ColorTheme.ActionBar</item>
     </style>
+    
+    <style name="TransparentTheme" parent="@android:style/Theme.Holo">
+        <item name="android:actionBarStyle">@style/TransparentTheme.ActionBar</item>
+    </style>
 
     <style name="ColorTheme.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">@color/status_bar</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:icon">@android:color/transparent</item>
+        
+    </style>
+        <style name="TransparentTheme.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">#22000000</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:icon">@android:color/transparent</item>
         

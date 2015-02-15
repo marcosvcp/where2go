@@ -194,9 +194,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         myView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-            	final Intent intent = new Intent(
-            			mcontext, EventDetailActivity.class);
-                mcontext.startActivity(intent);            
+            	showDetail(event);
                 }
         });
         
@@ -229,9 +227,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                     public boolean onMenuItemClick(final MenuItem item) {
                         switch (item.getItemId()) {
                         	case R.id.details:
-                            	final Intent intentDetail = new Intent(
-                            	mcontext, EventDetailActivity.class);
-                                mcontext.startActivity(intentDetail);  
+                        		showDetail(event);
                                 return true;
                             case R.id.invite:
                                 final Intent intent = new Intent(
@@ -254,7 +250,19 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 });
         popupMenu.show();
     }
-
+    
+    /**
+     * Redirects to EventDetail activity
+     * 
+     * @param event the event
+     */
+    public final void showDetail(final Event event) {
+    	final Intent intentDetail = new Intent(
+    	parentView.getContext(), EventDetailActivity.class);
+    	intentDetail.putExtra("event_id", event.getObjectId());
+    	parentView.getContext().startActivity(intentDetail); 
+    }
+    
     /**
      * Alert dialog to edit event.
      * 
