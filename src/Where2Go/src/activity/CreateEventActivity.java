@@ -25,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import br.com.les.where2go.R;
 
@@ -151,6 +152,10 @@ public class CreateEventActivity extends Activity {
                 + Calendar.getInstance().get(Calendar.MINUTE));
         etEventFinalTime.setText("23:59");
 
+        initialDate = Calendar.getInstance().getTime();
+        finalDate = Calendar.getInstance().getTime();
+
+        
         final Calendar newCalendar = Calendar.getInstance();
 
         initialDatePickerDialog = new DatePickerDialog(this,
@@ -161,18 +166,26 @@ public class CreateEventActivity extends Activity {
                             final int year, final int monthOfYear,
                             final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
+                        Log.d("testandoHora: ", " "+ Calendar.getInstance().getTime());
                         newDate.set(year, monthOfYear, dayOfMonth);
-                        initialDate = newDate.getTime();
-                        etEventInitialDate.setText(dateFormatter
-                                .format(newDate.getTime()));
+                        if(newDate.after(Calendar.getInstance())){
+                        	
+                        	initialDate = newDate.getTime();
+                        	etEventInitialDate.setText(dateFormatter
+                        			.format(newDate.getTime()));
+                        	
+                        	etEventFinalDate.setText(dateFormatter
+                        			.format(newDate.getTime()));
+                        }else{
+                        	Toast.makeText(getApplicationContext(), "Invalid date", Toast.LENGTH_SHORT).show();
+                        }
+                       
                     }
 
                 }, newCalendar.get(Calendar.YEAR),
                 newCalendar.get(Calendar.MONTH),
                 newCalendar.get(Calendar.DAY_OF_MONTH));
 
-        initialDate = Calendar.getInstance().getTime();
-        finalDate = Calendar.getInstance().getTime();
 
         initialTimePickerDialog = new TimePickerDialog(CreateEventActivity.this,
                 new TimePickerDialog.OnTimeSetListener() {
@@ -203,9 +216,19 @@ public class CreateEventActivity extends Activity {
                             final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
-                        finalDate = newDate.getTime();
-                        etEventFinalDate.setText(dateFormatter
-                                .format(newDate.getTime()));
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(initialDate);
+							
+                        if(newDate.compareTo(cal) == 0 || newDate.compareTo(cal) == 1 ){
+                        	
+                            finalDate = newDate.getTime();
+                            etEventFinalDate.setText(dateFormatter
+                                    .format(newDate.getTime()));
+                        	
+                        }else{
+                        	Toast.makeText(getApplicationContext(), "Invalid date", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                 }, newCalendar.get(Calendar.YEAR),
