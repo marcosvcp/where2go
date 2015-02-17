@@ -24,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.event.EventCanceled;
@@ -173,9 +172,6 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 Color.green(pixel), Color.blue(pixel)));
 
         eventDescription.setText(event.getDescription());
-
-        final TextView eventValue = (TextView) myView
-                .findViewById(R.id.event_price);
 
         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
         listview.setClickable(true);

@@ -15,13 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 import br.com.les.where2go.R;
 
 import com.parse.FindCallback;
@@ -35,7 +33,6 @@ import persistence.ParseUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class EventsListFragment.
  */
@@ -92,7 +89,7 @@ public class EventsListFragment extends Fragment {
         mSearchEventSpinner = (Spinner) rootView
                 .findViewById(R.id.searchEventList);
         listview = (ListView) rootView.findViewById(R.id.listViewEvents);
-        context = rootView.getContext();
+        setContext(rootView.getContext());
         listview.setAdapter(adapter);
 
         listview.setClickable(true);
@@ -231,4 +228,20 @@ public class EventsListFragment extends Fragment {
     public static void setAdapter(final EventAdapter newAdapter) {
         EventsListFragment.adapter = newAdapter;
     }
+
+    /**
+     * Get the context.
+     * @return context
+     */
+	public static Context getContext() {
+		return context;
+	}
+
+	/**
+	 * Sets the context.
+	 * @param context the new context
+	 */
+	public static void setContext(Context context) {
+		EventsListFragment.context = context;
+	}
 }

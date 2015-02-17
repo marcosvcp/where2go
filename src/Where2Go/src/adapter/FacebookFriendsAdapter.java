@@ -50,7 +50,7 @@ public class FacebookFriendsAdapter extends BaseAdapter {
     public FacebookFriendsAdapter(final List<UserFriend> friends, final Context context) {
         mFriends = friends;
         mContext = context;
-        mListIdFacebook = new ArrayList<String>();
+        setmListIdFacebook(new ArrayList<String>());
     }
 
     /*

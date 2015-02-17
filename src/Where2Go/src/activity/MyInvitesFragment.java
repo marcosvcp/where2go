@@ -27,7 +27,6 @@ import utils.Authenticator;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AdsFragment.
  */
@@ -67,8 +66,8 @@ public class MyInvitesFragment extends Fragment {
                 R.layout.activity_my_invite_fragment, container, false);
         mSearchEventSpinner = (Spinner) rootViewLayout
                 .findViewById(R.id.searchInvitationList);
-        listview = (ListView) rootViewLayout.findViewById(R.id.listInvites);
-        context = rootViewLayout.getContext();
+        setListview((ListView) rootViewLayout.findViewById(R.id.listInvites));
+        setContext(rootViewLayout.getContext());
         loadInvites("Pending");
         listview.setClickable(true);
 
@@ -165,4 +164,35 @@ public class MyInvitesFragment extends Fragment {
         });
     }
 
+    /**
+     * Get the listView.
+     * @return the ListView
+     */
+	public static ListView getListview() {
+		return listview;
+	}
+
+	/**
+	 * Set the listView.
+	 * @param listview the new listview
+	 */
+	public static void setListview(ListView listview) {
+		MyInvitesFragment.listview = listview;
+	}
+
+	/**
+	 * Get the context.
+	 * @return the context
+	 */
+	public static Context getContext() {
+		return context;
+	}
+
+	/**
+	 * Set the context.
+	 * @param context the new context
+	 */
+	public static void setContext(Context context) {
+		MyInvitesFragment.context = context;
+	}
 }

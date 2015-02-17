@@ -92,7 +92,7 @@ public class MyEventsListFragment extends Fragment {
         mSearchEventSpinner = (Spinner) rootView
                 .findViewById(R.id.searchEventList);
         listview = (ListView) rootView.findViewById(R.id.listViewEvents);
-        context = rootView.getContext();
+        setContext(rootView.getContext());
         listview.setAdapter(adapter);
 
         listview.setClickable(true);
@@ -214,4 +214,20 @@ public class MyEventsListFragment extends Fragment {
         Intent intent = new Intent(context, CreateEventActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Get the context.
+     * @return context
+     */
+	public static Context getContext() {
+		return context;
+	}
+
+	/**
+	 * Set the context.
+	 * @param context the new context
+	 */
+	public static void setContext(Context context) {
+		MyEventsListFragment.context = context;
+	}
 }

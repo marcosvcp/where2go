@@ -147,8 +147,8 @@ public class MainScreen extends Activity {
 
         if (savedInstanceState != null) {
             // Restore the fragment's instance
-            mContent = getFragmentManager().getFragment(savedInstanceState,
-                    "mContent");
+        	setmContent(getFragmentManager().getFragment(savedInstanceState,
+                    "mContent"));
         }
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -157,8 +157,8 @@ public class MainScreen extends Activity {
         if (i.getIntExtra("eventslist", -1) != -1) {
 
             displayView(i.getIntExtra("eventslist", -1));
-            choosedFragment = i.getIntExtra("fragmentIndex", -1);
-            backit = false;
+            setChoosedFragment(i.getIntExtra("fragmentIndex", -1));
+            setBackit(false);
             return;
         }
 
@@ -407,4 +407,52 @@ public class MainScreen extends Activity {
         }
         Session.setActiveSession(null);
     }
+
+    /**
+     * Get the mContent.
+     * @return mContent
+     */
+	public static Fragment getmContent() {
+		return mContent;
+	}
+
+	/**
+	 * Set the mContent.
+	 * @param mContent the new mContent
+	 */
+	public static void setmContent(Fragment mContent) {
+		MainScreen.mContent = mContent;
+	}
+
+	/**
+	 * Get the ChoosedFragment.
+	 * @return the choosedFragmet
+	 */
+	public static int getChoosedFragment() {
+		return choosedFragment;
+	}
+
+	/**
+	 * Set the ChoosedFragment.
+	 * @param choosedFragment the new choosedFragment
+	 */
+	public static void setChoosedFragment(int choosedFragment) {
+		MainScreen.choosedFragment = choosedFragment;
+	}
+
+	/**
+	 * Check if isBackit.
+	 * @return true if isBackit, else return false
+	 */
+	public static boolean isBackit() {
+		return backit;
+	}
+
+	/**
+	 * Set the state of Backit.
+	 * @param backit the new state of backit
+	 */
+	public static void setBackit(boolean backit) {
+		MainScreen.backit = backit;
+	}
 }

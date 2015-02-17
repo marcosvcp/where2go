@@ -30,7 +30,7 @@ public final class ParseUtil {
     // }
     // });
     /** The ptbr. */
-    public static SimpleDateFormat ptbr = new SimpleDateFormat("dd/MM/yyyy");
+    public final static SimpleDateFormat ptbr = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * Instantiates a new parses the util.

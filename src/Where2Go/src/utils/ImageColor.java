@@ -51,7 +51,7 @@ public class ImageColor {
             }
         }
 
-        String colourHex = getMostCommonColour(m);
+//        String colourHex = getMostCommonColour(m);
     }
 
     /**

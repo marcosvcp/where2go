@@ -40,9 +40,6 @@ public class InviteAdapter extends BaseAdapter {
     /** The parent view. */
     private final View parentView;
 
-    /** The listview. */
-    private ListView listview;
-
     /**
      * Instantiates a new event adapter.
      * 
@@ -135,8 +132,6 @@ public class InviteAdapter extends BaseAdapter {
                 .findViewById(R.id.invitation_status);
         inviteStatus.setText(invite.getState());
 
-        listview = (ListView) myView.findViewById(R.id.listInvites);
-
         final ImageButton btOptions = (ImageButton) myView
                 .findViewById(R.id.invitation_bt_options);
         btOptions.setOnClickListener(new OnClickListener() {
@@ -157,7 +152,7 @@ public class InviteAdapter extends BaseAdapter {
      */
     private void showPopupMenu(final View v, final Invitation invite) {
         final PopupMenu popupMenu = new PopupMenu(mcontext, v);
-        final Intent intent = new Intent(mcontext, MyInvitesFragment.class);
+//        final Intent intent = new Intent(mcontext, MyInvitesFragment.class);
         popupMenu.getMenuInflater().inflate(R.menu.invitation_options,
                 popupMenu.getMenu());
         popupMenu
