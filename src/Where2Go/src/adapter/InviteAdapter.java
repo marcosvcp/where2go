@@ -1,10 +1,7 @@
 
 package adapter;
-
-import activity.MyInvitesFragment;
-
+import static android.widget.PopupMenu.OnMenuItemClickListener;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,22 +9,23 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.les.where2go.R;
 import entity.event.Invitation;
 import persistence.ParseUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Class InviteAdapter.
  */
 public class InviteAdapter extends BaseAdapter {
 
+    public static final String DENIED = "Denied";
+    public static final String ACCEPTED = "Accepted";
     /** The m list invites. */
     private final List<Invitation> mListInvites;
 
@@ -36,9 +34,6 @@ public class InviteAdapter extends BaseAdapter {
 
     /** The mcontext. */
     private final Context mcontext;
-
-    /** The parent view. */
-    private final View parentView;
 
     /**
      * Instantiates a new event adapter.
@@ -52,7 +47,6 @@ public class InviteAdapter extends BaseAdapter {
         mListInvites = listInvites;
         mInflater = LayoutInflater.from(context);
         mcontext = context;
-        parentView = view;
     }
 
     /**
@@ -77,7 +71,6 @@ public class InviteAdapter extends BaseAdapter {
         mListInvites = newListInvites;
         mInflater = LayoutInflater.from(context);
         mcontext = context;
-        parentView = view;
     }
 
     /*
@@ -120,19 +113,19 @@ public class InviteAdapter extends BaseAdapter {
     @Override
     public final View getView(final int position, View myView,
             final ViewGroup viewGroup) {
-        myView = mInflater.inflate(R.layout.item_invitation_adapter, null);
+        View view = mInflater.inflate(R.layout.item_invitation_adapter, null);
 
         final Invitation invite = mListInvites.get(position);
 
-        final TextView inviteName = (TextView) myView
+        final TextView inviteName = (TextView) view
                 .findViewById(R.id.invitation_event_name);
         inviteName.setText(invite.getEvent().getName());
 
-        final TextView inviteStatus = (TextView) myView
+        final TextView inviteStatus = (TextView) view
                 .findViewById(R.id.invitation_status);
         inviteStatus.setText(invite.getState());
 
-        final ImageButton btOptions = (ImageButton) myView
+        final ImageButton btOptions = (ImageButton) view
                 .findViewById(R.id.invitation_bt_options);
         btOptions.setOnClickListener(new OnClickListener() {
             @Override
@@ -141,7 +134,7 @@ public class InviteAdapter extends BaseAdapter {
             }
         });
 
-        return myView;
+        return view;
     }
 
     /**
@@ -152,34 +145,47 @@ public class InviteAdapter extends BaseAdapter {
      */
     private void showPopupMenu(final View v, final Invitation invite) {
         final PopupMenu popupMenu = new PopupMenu(mcontext, v);
-//        final Intent intent = new Intent(mcontext, MyInvitesFragment.class);
         popupMenu.getMenuInflater().inflate(R.menu.invitation_options,
                 popupMenu.getMenu());
         popupMenu
-                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                .setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(final MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.invitation_accept:
-                                if (!invite.getState().equals("Accepted")) {
-                                    invite.setState("Accepted");
-                                    ParseUtil.saveInvitation(invite);
-                                    mListInvites.remove(invite);
-                                    notifyDataSetChanged();
-                                }
+                                confirmInvitationState();
                                 return true;
                             case R.id.invitation_refuse:
-                                if (!invite.getState().equals("Denied")) {
-                                    invite.setState("Denied");
-                                    ParseUtil.saveInvitation(invite);
-                                    mListInvites.remove(invite);
-                                    notifyDataSetChanged();
-                                }
+                                deniedInvitationState();
                                 return true;
                             default:
                                 break;
                         }
                         return true;
+                    }
+
+                    /**
+                     * Muda o estado do convite para negado, caso seja negado o mesmo.
+                     */
+                    private void deniedInvitationState() {
+                        if (!invite.getState().equals(DENIED)) {
+                            invite.setState(DENIED);
+                            ParseUtil.saveInvitation(invite);
+                            mListInvites.remove(invite);
+                            notifyDataSetChanged();
+                        }
+                    }
+
+                    /**
+                     * Muda o estado do convite para aceito, caso seja aceito o mesmo.
+                     */
+                    private void confirmInvitationState() {
+                        if (!invite.getState().equals(ACCEPTED)) {
+                            invite.setState(ACCEPTED);
+                            ParseUtil.saveInvitation(invite);
+                            mListInvites.remove(invite);
+                            notifyDataSetChanged();
+                        }
                     }
                 });
         popupMenu.show();

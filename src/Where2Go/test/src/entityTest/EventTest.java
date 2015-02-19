@@ -1,17 +1,17 @@
 package entityTest;
 
-import java.text.ParseException;
-import java.util.Date;
-
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.ParseUtil;
+import java.text.ParseException;
+import java.util.Date;
+
 import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
+import persistence.ParseUtil;
 
 public class EventTest {
 

@@ -4,6 +4,8 @@
       <root url="jar://$PROJECT_DIR$/src/Where2Go/libs/guava-17.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/src/Where2Go/libs/Parse-1.8.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/src/Where2Go/libs/ParseCrashReporting-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Where2Go/test/libs/junit-4.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Where2Go/test/libs/robotium-solo-5.0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

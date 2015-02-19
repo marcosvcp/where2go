@@ -7,11 +7,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
 
-import entity.user.User;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import entity.user.User;
 
 /**
  * Representa um evento. Created by andersongfs on 25/11/14.
@@ -21,7 +21,9 @@ public class Event extends ParseObject {
     public static final String TAGS = "tags";
     public static final String TAG_SEPARATOR = "@";
     // Mudar para File
-    /** The photo. */
+    /**
+     * The photo.
+     */
     private String photo;
 
     /**
@@ -32,28 +34,27 @@ public class Event extends ParseObject {
 
     /**
      * Instantiates a new event.
-     * 
-     * @param name the name
+     *
+     * @param name        the name
      * @param description the description
-     * @param newPhoto the photo
-     * @param info the info
+     * @param newPhoto    the photo
+     * @param info        the info
      * @param initialDate the initial date
-     * @param finalDate the final date
-     * @param price the price
-     * @param outfit the outfit
-     * @param capacity the capacity
-     * @param isPublic the is public
-     * @param owner the owner
+     * @param finalDate   the final date
+     * @param price       the price
+     * @param outfit      the outfit
+     * @param capacity    the capacity
+     * @param isPublic    the is public
+     * @param owner       the owner
      */
-    public Event(final String name, final String description,
-            final String newPhoto, final String info, final Date initialDate,
-            final Date finalDate, final double price, final String outfit,
-            final Integer capacity, final boolean isPublic, final User owner) {
+    public Event(String name, String description,
+                 String newPhoto, String info, Date initialDate,
+                 Date finalDate, double price, String outfit,
+                 Integer capacity, boolean isPublic, User owner) {
         put("state", new EventOpened().getName());
         put("name", name);
         put("ownerName", owner.getName());
         put("description", description);
-        // FIXME Isso aqui tem que ser um file
         put("info", info);
         put("initialDate", initialDate);
         put("finalDate", finalDate);
@@ -87,7 +88,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the owner name.
-     * 
+     *
      * @return the owner name
      */
     public final String getOwnerName() {
@@ -96,7 +97,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the owner name.
-     * 
+     *
      * @param ownerName the new owner name
      */
     public final void setOwnerName(final String ownerName) {
@@ -105,7 +106,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     public final String getName() {
@@ -114,7 +115,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name the new name
      */
     public final void setName(final String name) {
@@ -123,7 +124,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the note.
-     * 
+     *
      * @return the note
      */
     public final String getNote() {
@@ -132,7 +133,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the note.
-     * 
+     *
      * @param notes the new note
      */
     public final void setNote(final String notes) {
@@ -141,7 +142,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the description.
-     * 
+     *
      * @return the description
      */
     public final String getDescription() {
@@ -150,7 +151,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the description.
-     * 
+     *
      * @param description the new description
      */
     public final void setDescription(final String description) {
@@ -159,7 +160,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the photo.
-     * 
+     *
      * @return the photo
      */
     public final String getPhoto() {
@@ -168,7 +169,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the photo.
-     * 
+     *
      * @param newPhoto the new photo
      */
     public final void setPhoto(final String newPhoto) {
@@ -177,7 +178,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the info.
-     * 
+     *
      * @return the info
      */
     public final String getInfo() {
@@ -186,7 +187,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the info.
-     * 
+     *
      * @param info the new info
      */
     public final void setInfo(final String info) {
@@ -195,7 +196,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the initial date.
-     * 
+     *
      * @return the initial date
      */
     public final Date getInitialDate() {
@@ -204,7 +205,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the initial date.
-     * 
+     *
      * @param initialDate the new initial date
      */
     public final void setInitialDate(final Date initialDate) {
@@ -213,7 +214,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the final date.
-     * 
+     *
      * @return the final date
      */
     public final Date getFinalDate() {
@@ -222,7 +223,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the final date.
-     * 
+     *
      * @param finalDate the new final date
      */
     public final void setFinalDate(final Date finalDate) {
@@ -231,7 +232,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the price.
-     * 
+     *
      * @return the price
      */
     public final double getPrice() {
@@ -240,7 +241,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the price.
-     * 
+     *
      * @param price the new price
      */
     public final void setPrice(final double price) {
@@ -249,7 +250,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the outfit.
-     * 
+     *
      * @return the outfit
      */
     public final String getOutfit() {
@@ -258,7 +259,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the outfit.
-     * 
+     *
      * @param outfit the new outfit
      */
     public final void setOutfit(final String outfit) {
@@ -267,7 +268,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the capacity.
-     * 
+     *
      * @return the capacity
      */
     public final Integer getCapacity() {
@@ -276,7 +277,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the capacity.
-     * 
+     *
      * @param capacity the new capacity
      */
     public final void setCapacity(final Integer capacity) {
@@ -285,7 +286,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the participants.
-     * 
+     *
      * @return the participants
      */
     public final List<User> getParticipants() {
@@ -294,7 +295,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the participants.
-     * 
+     *
      * @param participants the new participants
      */
     public final void setParticipants(final List<User> participants) {
@@ -303,7 +304,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the facebook id.
-     * 
+     *
      * @return the facebook id
      */
     public final String getFacebookId() {
@@ -312,7 +313,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the facebook id.
-     * 
+     *
      * @param facebookId the new facebook id
      */
     public final void setFacebookId(final String facebookId) {
@@ -321,7 +322,7 @@ public class Event extends ParseObject {
 
     /**
      * Checks if is public.
-     * 
+     *
      * @return true, if is public
      */
     public final boolean isPublic() {
@@ -330,7 +331,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the public.
-     * 
+     *
      * @param isPublic the new public
      */
     public final void setPublic(final boolean isPublic) {
@@ -340,10 +341,10 @@ public class Event extends ParseObject {
     /**
      * @return the tags of event
      */
-    public final ArrayList<String> getTags() {
+    public final List<String> getTags() {
         final String tagsString = getString(TAGS);
         final String[] tags = tagsString.split(TAG_SEPARATOR);
-        final ArrayList<String> finalTags = new ArrayList<String>();
+        final List<String> finalTags = new ArrayList<String>();
         for (int i = 0; i < tags.length; i++) {
             finalTags.add(tags[i]);
         }
@@ -352,7 +353,7 @@ public class Event extends ParseObject {
 
     /**
      * Adds the tags.
-     * 
+     *
      * @param tag the tag
      */
     public final void addTags(final String tag) {
@@ -363,7 +364,7 @@ public class Event extends ParseObject {
 
     /**
      * Adiciona um {@code participant} à lista de {@code participants}.
-     * 
+     *
      * @param participant O participante a ser adicionado
      * @return True caso ele possa participar do evento
      */
@@ -376,7 +377,7 @@ public class Event extends ParseObject {
 
     /**
      * Remove o {@code participant} da lista de {@code participants}.
-     * 
+     *
      * @param participant O participante a ser removido
      */
     public final void removeParticipant(final User participant) {
@@ -385,7 +386,7 @@ public class Event extends ParseObject {
 
     /**
      * Checks if is full.
-     * 
+     *
      * @return True caso o evento esteja completo
      */
     public final boolean isFull() {
@@ -399,8 +400,7 @@ public class Event extends ParseObject {
      */
     @Override
     public final int hashCode() {
-        // FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
-        return Objects.hashCode(getName(), getDescription());
+        return Objects.hashCode(getName(), getDescription());// FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
     }
 
     /*
@@ -420,7 +420,7 @@ public class Event extends ParseObject {
 
     /**
      * Retorna true caso {@code user} é o dono do evento.
-     * 
+     *
      * @param user the user
      * @return true, if is owner
      */
@@ -430,13 +430,13 @@ public class Event extends ParseObject {
 
     /**
      * Seta o estado do evento de acordo com o nome.
-     * 
+     *
      * @return the event state
      */
     public final EventState getEventState() {
-        if (getState().equals("Opened")) {
+        if ("Opened".equals(getState())) {
             return new EventOpened();
-        } else if (getState().equals("Finished")) {
+        } else if ("Finished".equals(getState())) {
             return new EventFinished();
         }
         return new EventCanceled();
@@ -444,7 +444,7 @@ public class Event extends ParseObject {
 
     /**
      * Sets the state.
-     * 
+     *
      * @param state the new state
      */
     public final void setState(final String state) {
@@ -453,7 +453,7 @@ public class Event extends ParseObject {
 
     /**
      * Gets the state.
-     * 
+     *
      * @return the state
      */
     public final String getState() {

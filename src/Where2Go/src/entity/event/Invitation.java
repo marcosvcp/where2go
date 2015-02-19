@@ -42,10 +42,10 @@ public class Invitation extends ParseObject {
      * @return the invitation state
      */
     public final InvitationState getInvitationState() {
-        if (getState().equals("Pending")) {
+        if ("Pending".equals(getState())) {
             return new InvitationPending();
         }
-        if (getState().equals("Declined")) {
+        if ("Declined".equals(getState())) {
             return new InvitationDeclined();
         } else {
             return new InvitationConfirmed();

@@ -12,14 +12,13 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import br.com.les.where2go.R;
-
 import com.facebook.widget.ProfilePictureView;
-
-import entity.user.UserFriend;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.les.where2go.R;
+import entity.user.UserFriend;
 
 /**
  * The Class FacebookFriendsAdapter.
@@ -38,8 +37,8 @@ public class FacebookFriendsAdapter extends BaseAdapter {
     /** The m context. */
     private final Context mContext;
 
-    /** The cb_select_friend. */
-    private CheckBox cb_select_friend;
+    /** The cbSelectFriend. */
+    private CheckBox cbSelectFriend;
 
     /**
      * Instantiates a new facebook friends adapter.
@@ -95,18 +94,18 @@ public class FacebookFriendsAdapter extends BaseAdapter {
     public final View getView(final int position, final View convertView, final ViewGroup parent) {
         View myView = LayoutInflater.from(mContext).inflate(
                 R.layout.facebook_friends_adapter, null);
-        TextView tv_facebook_name = (TextView) myView
+        TextView tvFacebookName = (TextView) myView
                 .findViewById(R.id.tv_facebook_friend);
         UserFriend user = (UserFriend) getItem(position);
-        tv_facebook_name.setText(user.getFriendName());
+        tvFacebookName.setText(user.getFriendName());
         profilePictureView = (ProfilePictureView) myView
                 .findViewById(R.id.image_facebook_friend);
         final String friendID = mFriends.get(position).getFriendid();
 
         profilePictureView.setProfileId(friendID);
 
-        cb_select_friend = (CheckBox) myView.findViewById(R.id.cb_select_friend);
-        cb_select_friend.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        cbSelectFriend = (CheckBox) myView.findViewById(R.id.cbSelectFriend);
+        cbSelectFriend.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
                 if (isChecked) {

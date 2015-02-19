@@ -1,9 +1,8 @@
 
 package adapter;
 
-import activity.EditEventActivity;
-import activity.EventDetailActivity;
-import activity.FacebookFriendsActivity;
+import static android.widget.PopupMenu.OnMenuItemClickListener;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,50 +24,71 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import br.com.les.where2go.R;
-import entity.event.Event;
-import entity.event.EventCanceled;
-import persistence.ParseUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import activity.EditEventActivity;
+import activity.EventDetailActivity;
+import activity.FacebookFriendsActivity;
+import br.com.les.where2go.R;
+import entity.event.Event;
+import entity.event.EventCanceled;
+import persistence.ParseUtil;
 
 /**
  * The Class EventAdapter.
  */
 public class EventAdapter extends BaseAdapter implements Serializable {
 
-    /** The Constant serialVersionUID. */
+    /**
+     * The Constant serialVersionUID.
+     */
     private static final long serialVersionUID = 1L;
+    public static final String FINALIZE = "Finalize";
+    public static final String EVENT_ID = "event_id";
+    public static final String TODOS = "Todos";
 
-    /** The m list events. */
+    /**
+     * The m list events.
+     */
     private List<Event> mListEvents;
 
-    /** The m inflater. */
+    /**
+     * The m inflater.
+     */
     private final LayoutInflater mInflater;
 
-    /** The mcontext. */
+    /**
+     * The mcontext.
+     */
     private final Context mcontext;
 
-    /** The parent view. */
+    /**
+     * The parent view.
+     */
     private final View parentView;
 
-    /** The listview. */
+    /**
+     * The listview.
+     */
     private ListView listview;
 
-    /** The parent activity. */
+    /**
+     * The parent activity.
+     */
     private Activity parentActivity;
 
     /**
      * Instantiates a new event adapter.
-     * 
-     * @param context the context
+     *
+     * @param context    the context
      * @param listEvents the list events
-     * @param view the parent view
+     * @param view       the parent view
      */
     public EventAdapter(final Context context, final List<Event> listEvents,
-            final View view) {
+                        final View view) {
         mListEvents = listEvents;
         mInflater = LayoutInflater.from(context);
         mcontext = context;
@@ -76,23 +97,23 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
     /**
      * Instantiates a new event adapter.
-     * 
-     * @param context the context
+     *
+     * @param context    the context
      * @param listEvents the list events
-     * @param view the parent view
-     * @param filter the filter
-     * @param activity the parent activity
+     * @param view       the parent view
+     * @param filter     the filter
+     * @param activity   the parent activity
      */
     public EventAdapter(final Context context, final List<Event> listEvents,
-            final View view, final String filter,
-            final Activity activity) {
-        if (filter.equals("Todos")) {
+                        final View view, final String filter,
+                        final Activity activity) {
+        if (filter.equals(TODOS)) {
             mListEvents = listEvents;
         } else {
             final List<Event> newListEvents = new ArrayList<Event>();
             for (int i = 0; i < listEvents.size(); i++) {
                 final Event tempEvent = listEvents.get(i);
-                final ArrayList<String> tempEventTags = tempEvent.getTags();
+                final List<String> tempEventTags = tempEvent.getTags();
                 if (tempEventTags.contains(filter)) {
                     newListEvents.add(tempEvent);
                 }
@@ -127,7 +148,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
     /**
      * Get id of item selected.
-     * 
+     *
      * @param index the index
      * @return the item id
      */
@@ -144,24 +165,24 @@ public class EventAdapter extends BaseAdapter implements Serializable {
      */
     @Override
     public final View getView(final int position, View myView,
-            final ViewGroup viewGroup) {
-        myView = mInflater.inflate(R.layout.item_event_adapter, null);
+                              final ViewGroup viewGroup) {
+        View view = mInflater.inflate(R.layout.item_event_adapter, null);
 
         final Event event = mListEvents.get(position);
-        final LinearLayout card = (LinearLayout) myView.findViewById(R.id.card);
+        final LinearLayout card = (LinearLayout) view.findViewById(R.id.card);
 
-        final TextView eventName = (TextView) myView
+        final TextView eventName = (TextView) view
                 .findViewById(R.id.event_name);
         eventName.setText(event.getName());
 
-        final TextView eventDescription = (TextView) myView
+        final TextView eventDescription = (TextView) view
                 .findViewById(R.id.event_category);
 
-        final TextView eventStatus = (TextView) myView
+        final TextView eventStatus = (TextView) view
                 .findViewById(R.id.event_status);
         eventStatus.setText(event.getState());
 
-        final ImageButton thumbnail = (ImageButton) myView
+        final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
         final Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable())
                 .getBitmap();
@@ -176,7 +197,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
         listview.setClickable(true);
 
-        myView.setOnLongClickListener(new OnLongClickListener() {
+        view.setOnLongClickListener(new OnLongClickListener() {
 
             @Override
             public boolean onLongClick(final View v) {
@@ -186,15 +207,15 @@ public class EventAdapter extends BaseAdapter implements Serializable {
             }
 
         });
-        
-        myView.setOnClickListener(new OnClickListener() {
+
+        view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-            	showDetail(event);
-                }
+                showDetail(event);
+            }
         });
-        
-        final ImageButton btOptions = (ImageButton) myView
+
+        final ImageButton btOptions = (ImageButton) view
                 .findViewById(R.id.bt_options);
         btOptions.setOnClickListener(new OnClickListener() {
             @Override
@@ -203,14 +224,14 @@ public class EventAdapter extends BaseAdapter implements Serializable {
             }
         });
 
-        return myView;
+        return view;
     }
 
     /**
      * Shows popup menu with delete and edit options for a given event in the
      * list.
-     * 
-     * @param v - view refers the screen listing
+     *
+     * @param v     - view refers the screen listing
      * @param event selected
      */
     private void showPopupMenu(final View v, final Event event) {
@@ -218,17 +239,15 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         popupMenu.getMenuInflater().inflate(R.menu.event_options,
                 popupMenu.getMenu());
         popupMenu
-                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                .setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(final MenuItem item) {
                         switch (item.getItemId()) {
-                        	case R.id.details:
-                        		showDetail(event);
+                            case R.id.details:
+                                showDetail(event);
                                 return true;
                             case R.id.invite:
-                                final Intent intent = new Intent(
-                                        parentActivity,
-                                        FacebookFriendsActivity.class);
+                                final Intent intent = new Intent(parentActivity, FacebookFriendsActivity.class);
                                 intent.putExtra("EventId", event.getObjectId());
                                 parentActivity.startActivity(intent);
                                 return true;
@@ -246,22 +265,22 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 });
         popupMenu.show();
     }
-    
+
     /**
      * Redirects to EventDetail activity
-     * 
+     *
      * @param event the event
      */
     public final void showDetail(final Event event) {
-    	final Intent intentDetail = new Intent(
-    	parentView.getContext(), EventDetailActivity.class);
-    	intentDetail.putExtra("event_id", event.getObjectId());
-    	parentView.getContext().startActivity(intentDetail); 
+        final Intent intentDetail = new Intent(
+                parentView.getContext(), EventDetailActivity.class);
+        intentDetail.putExtra(EVENT_ID, event.getObjectId());
+        parentView.getContext().startActivity(intentDetail);
     }
-    
+
     /**
      * Alert dialog to edit event.
-     * 
+     *
      * @param event the event
      */
     public final void editAlert(final Event event) {
@@ -278,10 +297,10 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
-                            final int arg1) {
+                                        final int arg1) {
                         final Intent intent = new Intent(parentView
                                 .getContext(), EditEventActivity.class);
-                        intent.putExtra("event_id", event.getObjectId());
+                        intent.putExtra(EVENT_ID, event.getObjectId());
                         parentView.getContext().startActivity(intent);
                     }
                 });
@@ -292,11 +311,11 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
-                            final int arg1) {
+                                        final int arg1) {
                         try {
                             finalize();
                         } catch (final Throwable e) {
-                            e.printStackTrace();
+                            Log.e(FINALIZE, e.getMessage());
                         }
                     }
                 });
@@ -307,7 +326,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
     /**
      * Alert dialog to cancel event.
-     * 
+     *
      * @param event the event
      */
     public final void cancelAlert(final Event event) {
@@ -323,7 +342,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
-                            final int arg1) {
+                                        final int arg1) {
                         event.setState(new EventCanceled().getName());
                         ParseUtil.saveEvent(event);
                         notifyDataSetChanged();
@@ -335,11 +354,11 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
-                            final int arg1) {
+                                        final int arg1) {
                         try {
                             finalize();
-                        } catch (final Throwable e) {
-                            e.printStackTrace();
+                        } catch (Throwable e) {
+                            Log.e(FINALIZE, e.getMessage());
                         }
                     }
                 });

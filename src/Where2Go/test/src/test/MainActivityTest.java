@@ -4,10 +4,12 @@ package test;
  * Testes da activity Main
  * Created by brunomb on 02/12/14.
  */
-import activity.MainActivity;
+
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
+
+import activity.MainActivity;
 
 public class MainActivityTest extends
         ActivityInstrumentationTestCase2<activity.MainActivity> {

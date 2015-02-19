@@ -6,10 +6,10 @@ import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
+import java.util.List;
+
 import entity.event.Event;
 import entity.user.User;
-
-import java.util.List;
 
 /**
  * Representa um estabelecimento. Created by diegotavarez on 21/01/15.
@@ -151,8 +151,7 @@ public class Establishment extends ParseObject {
      */
     @Override
     public final int hashCode() {
-        // FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
-        return Objects.hashCode(getName(), getDescription());
+        return Objects.hashCode(getName(), getDescription());// FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
     }
 
     /*

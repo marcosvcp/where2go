@@ -1,8 +1,6 @@
 
 package activity;
 
-import adapter.InviteAdapter;
-
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,17 +13,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import br.com.les.where2go.R;
-
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import adapter.InviteAdapter;
+import br.com.les.where2go.R;
 import entity.event.Invitation;
 import persistence.ParseUtil;
 import utils.Authenticator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Class AdsFragment.
@@ -111,8 +109,6 @@ public class MyInvitesFragment extends Fragment {
      * @param filter the filter
      */
     public final void loadInvites(final String filter) {
-        new ArrayList<Invitation>();
-
         ParseUtil.findInvitationByUserGuest(Authenticator.getInstance()
                 .getLoggedUser(), new FindCallback<Invitation>() {
 
@@ -131,8 +127,6 @@ public class MyInvitesFragment extends Fragment {
      * @param rootView the root view
      */
     public static void loadInvites(final View rootView) {
-        new ArrayList<Invitation>();
-
         ParseUtil.findInvitationByUserGuest(Authenticator.getInstance()
                 .getLoggedUser(), new FindCallback<Invitation>() {
 

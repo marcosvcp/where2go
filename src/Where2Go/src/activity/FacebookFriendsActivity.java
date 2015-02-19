@@ -1,8 +1,6 @@
 
 package activity;
 
-import adapter.FacebookFriendsAdapter;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +8,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import br.com.les.where2go.R;
-
+import static com.facebook.Request.Callback;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -24,20 +20,21 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 
-import entity.event.Event;
-import entity.event.Invitation;
-import entity.user.User;
-import entity.user.UserFriend;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import persistence.ParseUtil;
-import utils.Authenticator;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import adapter.FacebookFriendsAdapter;
+import br.com.les.where2go.R;
+import entity.event.Event;
+import entity.event.Invitation;
+import entity.user.User;
+import entity.user.UserFriend;
+import persistence.ParseUtil;
+import utils.Authenticator;
 
 /**
  * The Class FacebookFriendsActivity.
@@ -49,9 +46,6 @@ public class FacebookFriendsActivity extends Activity {
 
     /** The friends. */
     private List<UserFriend> friends;
-
-    /** The root view. */
-    private View rootView;
 
     /** The host. */
     private User host;
@@ -70,7 +64,6 @@ public class FacebookFriendsActivity extends Activity {
         setContentView(R.layout.facebook_friends);
         friendList = (ListView) findViewById(R.id.listViewFacebookFriends);
         friends = new ArrayList<UserFriend>();
-        rootView = getLayoutInflater().inflate(R.layout.activity_main, null);
         host = Authenticator.getInstance().getLoggedUser();
         final Intent getIntent = getIntent();
         final String eventId = getIntent.getStringExtra("EventId");
@@ -94,7 +87,7 @@ public class FacebookFriendsActivity extends Activity {
      */
     public final void showFriendsFacebook() {
         new Request(Session.getActiveSession(), "/me/friends", null,
-                HttpMethod.GET, new Request.Callback() {
+                HttpMethod.GET, new Callback() {
                     @Override
                     public void onCompleted(final Response response) {
                         Log.e("FACEBOOK", response.getGraphObject()
@@ -106,20 +99,6 @@ public class FacebookFriendsActivity extends Activity {
                             final JSONArray jArray = jsonFriends
                                     .getJSONArray("data");
 
-                            // for (int i = 0; i < jArray.length(); i++) {
-                            // Log.e("Json",
-                            // jArray.getJSONObject(i).getString(name));
-                            // }
-                            // for (int i = 0; i < jArray.length(); i++) {
-                            // friends.add(new UserFriend(jArray
-                            // .getJSONObject(i).getString("name"),
-                            // jArray.getJSONObject(i)
-                            // .getJSONObject("picture")
-                            // .getJSONObject("data")
-                            // .getString("url"), jArray
-                            // .getJSONObject(i).getString(
-                            // "id")));
-                            // }
                             for (int i = 0; i < jArray.length(); i++) {
                                 friends.add(new UserFriend(jArray
                                         .getJSONObject(i).getString("name"),
@@ -130,7 +109,7 @@ public class FacebookFriendsActivity extends Activity {
                             friendList.setAdapter(adapter);
 
                         } catch (final JSONException e) {
-                            e.printStackTrace();
+                            Log.e("FriendsActivity", e.getMessage());
                         }
                     }
                 }).executeAsync();
@@ -159,37 +138,36 @@ public class FacebookFriendsActivity extends Activity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_done:
-                Log.v("CHECKBOX", "Completa"
-                        + FacebookFriendsAdapter.getmListIdFacebook().size());
-                Log.e("teste", eventToInvite.getName());
-                Toast.makeText(getApplicationContext(), "Done",
-                        Toast.LENGTH_LONG).show();
-
-                for (int i = 0; i < FacebookFriendsAdapter.getmListIdFacebook()
-                        .size(); i++) {
-                    Log.e("ENTROU NO FOR", "XX");
-                    final String facebookId = FacebookFriendsAdapter
-                            .getmListIdFacebook().get(i);
-                    Log.e("ESTOU BUSCANDO FB ID", facebookId);
-                    ParseUtil.findByFacebookId(facebookId,
-                            new FindCallback<User>() {
-                                @Override
-                                public void done(final List<User> objects,
-                                        final ParseException e) {
-                                    Log.e("ENTROU NO PARSE", "XX");
-                                    final User guest = objects.get(0);
-                                    final Invitation invite = new Invitation(
-                                            guest, host, eventToInvite);
-                                    Log.e("ANTES DE GRAVAR NO PARSE", "XX");
-                                    ParseUtil.saveInvitation(invite);
-                                    Log.e("DEPOIS DE GRAVAR NO PARSE", "XX");
-                                    onBackPressed();
-                                }
-                            });
-                }
+                loadFacebookData();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Carrega os dados do facebook
+     */
+    private void loadFacebookData() {
+        Toast.makeText(getApplicationContext(), "Done",
+                Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < FacebookFriendsAdapter.getmListIdFacebook()
+                .size(); i++) {
+            final String facebookId = FacebookFriendsAdapter
+                    .getmListIdFacebook().get(i);
+            ParseUtil.findByFacebookId(facebookId,
+                    new FindCallback<User>() {
+                        @Override
+                        public void done(final List<User> objects,
+                                         final ParseException e) {
+                            final User guest = objects.get(0);
+                            final Invitation invite = new Invitation(
+                                    guest, host, eventToInvite);
+                            ParseUtil.saveInvitation(invite);
+                            onBackPressed();
+                        }
+                    });
         }
     }
 

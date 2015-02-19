@@ -1,8 +1,6 @@
 
 package activity;
 
-import adapter.EventAdapter;
-
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
@@ -22,19 +20,19 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import br.com.les.where2go.R;
-
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import adapter.EventAdapter;
+import br.com.les.where2go.R;
 import entity.event.Event;
 import persistence.ParseUtil;
 import utils.Authenticator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Class EventsListFragment.
@@ -61,12 +59,6 @@ public class MyEventsListFragment extends Fragment {
 
     /** The m btn add event. */
     private ImageButton mBtnAddEvent;
-
-    /** The should shown. */
-    private static boolean shouldShown = false;
-
-    /** The incoming fragment. */
-    private static String incomingFragment = "";
 
     /**
      * Instantiates a new events list fragment.

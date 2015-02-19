@@ -1,10 +1,6 @@
 
 package activity;
 
-import java.util.List;
-
-import persistence.ParseUtil;
-import android.R.color;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,12 +13,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import br.com.les.where2go.R;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
 
+import java.util.List;
+
+import br.com.les.where2go.R;
 import entity.event.Event;
+import persistence.ParseUtil;
 
 /**
  * Application core.

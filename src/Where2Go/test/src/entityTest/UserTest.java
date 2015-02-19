@@ -1,18 +1,19 @@
 package entityTest;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.ParseUtil;
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
+import persistence.ParseUtil;
 
 /**
  * Testes da entidade usuario

@@ -10,19 +10,18 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import br.com.les.where2go.R;
-
 import com.facebook.AppEventsLogger;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Application core.

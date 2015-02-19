@@ -6,11 +6,11 @@ import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.text.SimpleDateFormat;
+
 import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
-
-import java.text.SimpleDateFormat;
 
 /**
  * Classe utilitária de envio de entidade para o servidor.

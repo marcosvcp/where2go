@@ -3,7 +3,6 @@ package activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -21,14 +20,14 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import br.com.les.where2go.R;
-
 import com.facebook.Session;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.les.where2go.R;
 import slidermenu.NavDrawerItem;
 import slidermenu.NavDrawerListAdapter;
-
-import java.util.ArrayList;
 
 /**
  * Application core.
@@ -39,10 +38,7 @@ public class MainScreen extends Activity {
 	private static int choosedFragment = 0;
 
 	/** The backit. */
-	public static boolean backit = false;
-
-	/** The m context. */
-	private static Context mContext;
+	private boolean backit = false;
 
 	/** The m drawer layout. */
 	private DrawerLayout mDrawerLayout;
@@ -71,7 +67,7 @@ public class MainScreen extends Activity {
 	private TypedArray navMenuIcons;
 
 	/** The nav drawer items. */
-	private ArrayList<NavDrawerItem> navDrawerItems;
+	private List<NavDrawerItem> navDrawerItems;
 
 	/** The adapter. */
 	private NavDrawerListAdapter adapter;
@@ -152,12 +148,11 @@ public class MainScreen extends Activity {
 		}
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-		final Intent i = getIntent();
-		final Bundle extras = i.getExtras();
-		if (i.getIntExtra("eventslist", -1) != -1) {
+		final Intent intent = getIntent();
+		if (intent.getIntExtra("eventslist", -1) != -1) {
 
-			displayView(i.getIntExtra("eventslist", -1));
-			setChoosedFragment(i.getIntExtra("fragmentIndex", -1));
+			displayView(intent.getIntExtra("eventslist", -1));
+			setChoosedFragment(intent.getIntExtra("fragmentIndex", -1));
 			setBackit(false);
 			return;
 		}
@@ -171,8 +166,6 @@ public class MainScreen extends Activity {
 
 	/**
 	 * Display view for selected nav drawer item.
-	 * 
-	 * @see SlideMenuClickEvent
 	 */
 	private class SlideMenuClickListener implements
 			ListView.OnItemClickListener {
@@ -231,7 +224,6 @@ public class MainScreen extends Activity {
 	@Override
 	public final boolean onPrepareOptionsMenu(final Menu menu) {
 		// if nav drawer is opened, hide the action items
-		final boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -306,7 +298,7 @@ public class MainScreen extends Activity {
 		try {
 			getFragmentManager().putFragment(outState, "mContent", mContent);
 		} catch (final Exception e) {
-			System.err.println(e);
+			Log.e("Mainscreen", e.getMessage());
 		}
 
 	}
@@ -451,20 +443,20 @@ public class MainScreen extends Activity {
 
 	/**
 	 * Check if isBackit.
-	 * 
+	 *
 	 * @return true if isBackit, else return false
 	 */
-	public static boolean isBackit() {
+	public  boolean isBackit() {
 		return backit;
 	}
 
 	/**
 	 * Set the state of Backit.
-	 * 
+	 *
 	 * @param backit
 	 *            the new state of backit
 	 */
-	public static void setBackit(boolean backit) {
-		MainScreen.backit = backit;
+	public void setBackit(boolean backit) {
+		backit = backit;
 	}
 }

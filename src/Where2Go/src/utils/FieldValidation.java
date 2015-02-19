@@ -4,9 +4,9 @@ package utils;
 import android.content.Context;
 import android.widget.EditText;
 
-import br.com.les.where2go.R;
-
 import java.util.regex.Pattern;
+
+import br.com.les.where2go.R;
 
 /**
  * The Class FieldValidation.

@@ -257,9 +257,7 @@ public class CreateEventActivity extends Activity {
                         newDate.set(year, monthOfYear, dayOfMonth);
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(initialDate);
-
-                        if (newDate.compareTo(cal) == 0 || newDate.compareTo(cal) == 1) {
-
+                        if (newDate.compareTo(cal) >= 0) {
                             finalDate = newDate.getTime();
                             etEventFinalDate.setText(dateFormatter
                                     .format(newDate.getTime()));
@@ -387,9 +385,6 @@ public class CreateEventActivity extends Activity {
      * Method of select a tag on a dialog.
      */
     public final void selectTag() {
-        // final CharSequence[] items =
-        // {"Festa","Churrasco","Confra","Casamento"};
-
         ParseUtil.findAllTags(new FindCallback<ParseObject>() {
             @Override
             public void done(final List<ParseObject> objects,
@@ -402,7 +397,7 @@ public class CreateEventActivity extends Activity {
                         Log.d("TagList>", objects.get(i).getString("nome"));
                     }
 
-                    final ArrayList<Integer> seletedItems = new ArrayList<Integer>();
+                    final List<Integer> seletedItems = new ArrayList<Integer>();
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(
                             CreateEventActivity.this);
@@ -487,8 +482,7 @@ public class CreateEventActivity extends Activity {
             case android.R.id.home:
                 return true;
             case R.id.action_cancel:
-                final Intent intent = new Intent(getApplicationContext(),
-                        MainScreen.class);
+                final Intent intent = new Intent(getApplicationContext(), MainScreen.class);
                 intent.putExtra("fragmentIndex", 2);
                 startActivity(intent);
                 return true;

@@ -5,10 +5,10 @@ import com.google.common.base.Objects;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-import entity.event.Invitation;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import entity.event.Invitation;
 
 /**
  * The Class User.

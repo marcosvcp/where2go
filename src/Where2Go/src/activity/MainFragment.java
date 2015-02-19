@@ -12,16 +12,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import br.com.les.where2go.R;
-
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
 
-import utils.Authenticator;
-
 import java.util.Arrays;
+
+import br.com.les.where2go.R;
+import utils.Authenticator;
 
 /**
  * Responsible to manager the session of facebook Created by marcos on 29/11/14.

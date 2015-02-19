@@ -13,9 +13,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import br.com.les.where2go.R;
-
 import java.util.ArrayList;
+import java.util.List;
+
+import br.com.les.where2go.R;
 
 /**
  * The Class NavDrawerListAdapter.
@@ -26,7 +27,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
     private final Context mContext;
 
     /** The nav drawer items. */
-    private final ArrayList<NavDrawerItem> mNavDrawerItems;
+    private final List<NavDrawerItem> mNavDrawerItems;
 
     /**
      * Instantiates a new nav drawer list adapter.
@@ -35,7 +36,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
      * @param navDrawerItems the nav drawer items
      */
     public NavDrawerListAdapter(final Context context,
-            final ArrayList<NavDrawerItem> navDrawerItems) {
+            final List<NavDrawerItem> navDrawerItems) {
         mContext = context;
         mNavDrawerItems = navDrawerItems;
     }
@@ -78,14 +79,15 @@ public class NavDrawerListAdapter extends BaseAdapter {
      */
     @Override
     public final View getView(final int position, View convertView, final ViewGroup parent) {
-        if (convertView == null) {
+        View myConvertView = convertView;
+        if (myConvertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.drawer_list_item, null);
+            myConvertView = mInflater.inflate(R.layout.drawer_list_item, null);
         }
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
+        TextView txtTitle = (TextView) myConvertView.findViewById(R.id.title);
         txtTitle.setText(mNavDrawerItems.get(position).getTitle());
-        return convertView;
+        return myConvertView;
     }
 
 }

@@ -21,17 +21,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import br.com.les.where2go.R;
-
 import com.parse.GetCallback;
 import com.parse.ParseException;
-
-import entity.event.Event;
-import persistence.ParseUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import br.com.les.where2go.R;
+import entity.event.Event;
+import persistence.ParseUtil;
 
 /**
  * The Class EditEventActivity.
@@ -40,9 +39,6 @@ public class EditEventActivity extends Activity {
 
     /** The et_event_name. */
     private EditText etEventName;
-
-    /** The et_event_status. */
-    private EditText etEventStatus;
 
     /** The et_event_description. */
     private EditText etEventDescription;
@@ -70,12 +66,6 @@ public class EditEventActivity extends Activity {
 
     /** The event. */
     private Event event;
-
-    /** The final date. */
-    private Date initialDate;
-
-    /** The final date. */
-    private Date finalDate;
 
     /** The date formatter. */
     private SimpleDateFormat dateFormatter;
@@ -107,7 +97,6 @@ public class EditEventActivity extends Activity {
         final Bundle data = getIntent().getExtras();
         final String key = data.getString("event_id");
         etEventName = (EditText) findViewById(R.id.et_event_name);
-        // et_event_status = (EditText) findViewById(R.id.et_event_status);
         etEventDescription = (EditText) findViewById(R.id.et_event_description);
         etEventInitialDate = (EditText) findViewById(R.id.et_event_initial_date);
         etEventInitialTime = (EditText) findViewById(R.id.et_event_initial_time);
@@ -143,7 +132,7 @@ public class EditEventActivity extends Activity {
                             final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
-                        initialDate = newDate.getTime();
+                        Date initialDate = newDate.getTime();
                         etEventInitialDate.setText(dateFormatter
                                 .format(newDate.getTime()));
                     }
@@ -180,7 +169,7 @@ public class EditEventActivity extends Activity {
                             final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
-                        finalDate = newDate.getTime();
+                        Date finalDate = newDate.getTime();
                         etEventFinalDate.setText(dateFormatter
                                 .format(newDate.getTime()));
                     }
@@ -292,8 +281,6 @@ public class EditEventActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        final int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 

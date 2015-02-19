@@ -1,7 +1,7 @@
 
 package utils;
 
-import android.util.Log;
+import static com.facebook.Request.GraphUserCallback;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -10,20 +10,24 @@ import com.facebook.model.GraphUser;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
+import java.util.List;
+
 import entity.user.User;
 import persistence.ParseUtil;
-
-import java.util.List;
 
 /**
  * Classe utilitária para o usuário logado Singleton.
  */
 public final class Authenticator {
 
-    /** The logged user. */
+    /**
+     * The logged user.
+     */
     private User loggedUser;
 
-    /** The instance. */
+    /**
+     * The instance.
+     */
     private static Authenticator instance;
 
     /**
@@ -34,7 +38,7 @@ public final class Authenticator {
 
     /**
      * Seta o usuário logado para o resultado da requisição.
-     * 
+     *
      * @param session the session
      */
     public void loadLoggedUser(final Session session) {
@@ -45,7 +49,7 @@ public final class Authenticator {
 
     /**
      * Gets the logged user.
-     * 
+     *
      * @return the logged user
      */
     public User getLoggedUser() {
@@ -54,55 +58,53 @@ public final class Authenticator {
 
     /**
      * Make me request to get user's data.
-     * 
+     *
      * @param session the session
      */
     private void makeMeRequest(final Session session) {
         final Request request = Request.newMeRequest(session,
-                new Request.GraphUserCallback() {
+                new GraphUserCallback() {
                     @Override
                     public void onCompleted(final GraphUser user,
-                            final Response response) {
-                        if (session == Session.getActiveSession()) {
-                            if (user != null) {
-                                ParseUtil.findByFacebookId(user.getId(),
-                                        new FindCallback<User>() {
-                                            @Override
-                                            public void done(
-                                                    final List<User> objects,
-                                                    final ParseException e) {
-                                                loggedUser = new User(user
-                                                        .getId());
-                                                loggedUser.setBirthday(user
-                                                        .asMap()
-                                                        .get("birthday")
-                                                        .toString());
-                                                loggedUser.setEmail(user
-                                                        .asMap().get("email")
-                                                        .toString());
-                                                loggedUser.setGender(user
-                                                        .asMap().get("gender")
-                                                        .toString());
-                                                loggedUser.setName(user
-                                                        .getName());
-                                                if (objects.isEmpty()) {
-                                                    loggedUser
-                                                            .saveInBackground();
-                                                } else {
-                                                    // Pega o resultado do
-                                                    // usu�rio
-                                                    final User usuarioParse = objects
-                                                            .get(0);
-                                                    loggedUser
-                                                            .setInvitations(usuarioParse
-                                                                    .getInvitations());
-                                                    loggedUser
-                                                            .setObjectId(usuarioParse
-                                                                    .getObjectId());
-                                                }
+                                            final Response response) {
+                        if (session == Session.getActiveSession() && user != null) {
+                            ParseUtil.findByFacebookId(user.getId(),
+                                    new FindCallback<User>() {
+                                        @Override
+                                        public void done(
+                                                final List<User> objects,
+                                                final ParseException e) {
+                                            loggedUser = new User(user
+                                                    .getId());
+                                            loggedUser.setBirthday(user
+                                                    .asMap()
+                                                    .get("birthday")
+                                                    .toString());
+                                            loggedUser.setEmail(user
+                                                    .asMap().get("email")
+                                                    .toString());
+                                            loggedUser.setGender(user
+                                                    .asMap().get("gender")
+                                                    .toString());
+                                            loggedUser.setName(user
+                                                    .getName());
+                                            if (objects.isEmpty()) {
+                                                loggedUser
+                                                        .saveInBackground();
+                                            } else {
+                                                // Pega o resultado do
+                                                // usu�rio
+                                                final User usuarioParse = objects
+                                                        .get(0);
+                                                loggedUser
+                                                        .setInvitations(usuarioParse
+                                                                .getInvitations());
+                                                loggedUser
+                                                        .setObjectId(usuarioParse
+                                                                .getObjectId());
                                             }
-                                        });
-                            }
+                                        }
+                                    });
                         }
                     }
                 });
@@ -111,7 +113,7 @@ public final class Authenticator {
 
     /**
      * Retorna a única instância da classe.
-     * 
+     *
      * @return single instance of Authenticator
      */
     public static Authenticator getInstance() {

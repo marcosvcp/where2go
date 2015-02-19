@@ -1,16 +1,15 @@
 package entityTest;
 
-import java.text.ParseException;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.ParseUtil;
+import java.text.ParseException;
 
 import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
+import persistence.ParseUtil;
 
 public class InvitationStateTest {
 	private User user1, user2, user3, user4;

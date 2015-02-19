@@ -1,7 +1,6 @@
 
 package activity;
 
-import adapter.EventAdapter;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
@@ -20,18 +19,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
-import br.com.les.where2go.R;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import entity.event.Event;
-import persistence.ParseUtil;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import adapter.EventAdapter;
+import br.com.les.where2go.R;
+import entity.event.Event;
+import persistence.ParseUtil;
 
 /**
  * The Class EventsListFragment.

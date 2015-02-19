@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import br.com.les.where2go.R;
-
 import com.facebook.widget.ProfilePictureView;
 
+import br.com.les.where2go.R;
 import entity.user.User;
 import utils.Authenticator;
 
