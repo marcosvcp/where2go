@@ -175,12 +175,10 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 .findViewById(R.id.event_name);
         eventName.setText(event.getName());
 
-        final TextView eventDescription = (TextView) view
-                .findViewById(R.id.event_category);
 
-        final TextView eventStatus = (TextView) view
-                .findViewById(R.id.event_status);
-        eventStatus.setText(event.getState());
+        final TextView eventInitialDate = (TextView) view
+                .findViewById(R.id.event_initial_date);
+        eventInitialDate.setText(ParseUtil.ptbr.format(event.getInitialDate()));
 
         final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
@@ -192,7 +190,6 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         card.setBackgroundColor(Color.argb(255, Color.red(pixel),
                 Color.green(pixel), Color.blue(pixel)));
 
-        eventDescription.setText(event.getDescription());
 
         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
         listview.setClickable(true);
