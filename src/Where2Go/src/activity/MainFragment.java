@@ -40,7 +40,7 @@ public class MainFragment extends Fragment {
     private View rootView;
 
     /** The m context. */
-    private final Context mContext;
+    private Context mContext;
 
     /**
      * Instantiates a new main fragment.
@@ -49,6 +49,9 @@ public class MainFragment extends Fragment {
      */
     public MainFragment(final Context context) {
         mContext = context;
+    }
+    
+    public MainFragment() {
     }
 
     /** The callback. */

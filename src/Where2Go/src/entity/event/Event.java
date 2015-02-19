@@ -1,6 +1,8 @@
 
 package entity.event;
 
+import android.util.Log;
+
 import com.google.common.base.Objects;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
@@ -265,15 +267,6 @@ public class Event extends ParseObject {
         put("capacity", capacity);
     }
 
-    /**
-     * Gets the participants.
-     *
-     * @return the participants
-     */
-    public final List<User> getParticipants() {
-        List<User> participants = getList("participants"); //FIXME NÃ£o tÃ¡ salvando os participantes ainda
-        return Objects.firstNonNull(participants, new ArrayList<User>());
-    }
 
     /**
      * Sets the participants.
@@ -437,5 +430,70 @@ public class Event extends ParseObject {
      */
     public final String getState() {
         return getString("state");
+    }
+    
+
+    /**
+     * Gets the participants.
+     *
+     * @return the participants
+     * @throws ParseException 
+     */
+    public final List<User> getParticipants(){
+        final ParseRelation<User> participants = getRelation("participants");
+        try {
+			return participants.getQuery().find();
+		} catch (ParseException e) {
+			Log.e("Event", e.getMessage());
+		}
+        return new ArrayList<User>();
+    }
+    
+    /**
+     * Add one participant.
+     *
+     * @return the participants
+     * @throws ParseException 
+     */
+    public Notification addParticipant(User participant){
+    	String msg = "Agora você está participando";
+    	if(!isPublic()){
+    		msg =  "Você não tem permissão para participar";
+    	}
+    	if(isFull()){
+    		msg =  "Evento lotado";
+    	}
+    	final ParseRelation<User> participants = getRelation("participants");
+    	try {
+			if(participants.getQuery().find().contains(participant)){
+				msg = "Você já participa deste evento";
+			}else{
+				participants.add(participant);
+			}
+		} catch (ParseException e) {
+			Log.e("Event", e.getMessage());
+		}    	
+    	this.saveInBackground();
+    	return new Notification(participant, this, msg);
+    }
+
+    /**
+     * Remove one participant.
+     *
+     * @return the participants
+     * @throws ParseException 
+     */
+    public Notification removeParticipant(User participant){
+    	final ParseRelation<User> participants = getRelation("participants");
+    	try {
+    		if(!participants.getQuery().find().contains(participant)){
+    			return new Notification(participant, this, "Você não participa deste evento");
+    		}
+    	} catch (ParseException e) {
+    		Log.e("Event", e.getMessage());
+    	}
+    	participants.remove(participant);
+    	this.saveInBackground();
+    	return new Notification(participant, this, "Você saiu deste evento");
     }
 }
