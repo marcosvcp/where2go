@@ -178,7 +178,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
         final TextView eventInitialDate = (TextView) view
                 .findViewById(R.id.event_initial_date);
-        eventInitialDate.setText(ParseUtil.ptbr.format(event.getInitialDate()));
+        eventInitialDate.setText(ParseUtil.PT_BR.format(event.getInitialDate()));
 
         final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
