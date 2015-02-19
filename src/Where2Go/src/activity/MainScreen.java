@@ -28,6 +28,7 @@ import java.util.List;
 import br.com.les.where2go.R;
 import slidermenu.NavDrawerItem;
 import slidermenu.NavDrawerListAdapter;
+import utils.Authenticator;
 
 /**
  * Application core.
@@ -399,6 +400,7 @@ public class MainScreen extends Activity {
 	public final void logoutFacebook() {
 		if (Session.getActiveSession() != null) {
 			Session.getActiveSession().closeAndClearTokenInformation();
+			Authenticator.getInstance().logout();
 		}
 		Session.setActiveSession(null);
 	}

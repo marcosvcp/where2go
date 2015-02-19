@@ -121,6 +121,7 @@ public class MainFragment extends Fragment {
             Log.i(TAG, "Logged in...");
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
+            Authenticator.getInstance().logout();
         }
     }
 
