@@ -47,10 +47,10 @@ public class Event extends ParseObject {
      * @param isPublic    the is public
      * @param owner       the owner
      */
-    public Event(final String name,final String description,
-                 final String newPhoto,final Date initialDate,
-                 final Date finalDate,final double price,final String outfit,
-                 final Integer capacity,final boolean isPublic,final User owner) {
+    public Event(final String name, final String description,
+                 final String newPhoto, final Date initialDate,
+                 final Date finalDate, final double price, final String outfit,
+                 final Integer capacity, final boolean isPublic, final User owner) {
         put("state", new EventOpened().getName());
         put("name", name);
         put("ownerName", owner.getName());
@@ -271,7 +271,8 @@ public class Event extends ParseObject {
      * @return the participants
      */
     public final List<User> getParticipants() {
-        return getList("participants");
+        List<User> participants = getList("participants"); //FIXME Não tá salvando os participantes ainda
+        return Objects.firstNonNull(participants, new ArrayList<User>());
     }
 
     /**
@@ -346,7 +347,7 @@ public class Event extends ParseObject {
     /**
      * Adiciona um {@code participant} à lista de {@code participants}.
      */
-    public final Notification addParticipant(final User guest,final User host) {
+    public final Notification addParticipant(final User guest, final User host) {
         if (isFull()) {
             return new Notification(host, this, "O evento está cheio.");
         }
@@ -358,7 +359,7 @@ public class Event extends ParseObject {
      *
      * @param guest O participante a ser removido
      */
-    public final Notification removeParticipant(final User guest,final User host) {
+    public final Notification removeParticipant(final User guest, final User host) {
         return getEventState().removeParticipant(this, guest, host);
     }
 
