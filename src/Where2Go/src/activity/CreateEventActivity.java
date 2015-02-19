@@ -478,6 +478,10 @@ public class CreateEventActivity extends Activity {
     public final boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent i = new Intent(getApplicationContext(), MainScreen.class);
+                i.putExtra("fragmentIndex", 2);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
                 return true;
             case R.id.action_cancel:
                 final Intent intent = new Intent(getApplicationContext(), MainScreen.class);
