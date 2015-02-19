@@ -27,16 +27,9 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import br.com.les.where2go.R;
-
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-
-import entity.event.Event;
-import persistence.ParseUtil;
-import utils.Authenticator;
-import utils.FieldValidation;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,69 +38,115 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import br.com.les.where2go.R;
+import entity.event.Event;
+import persistence.ParseUtil;
+import utils.Authenticator;
+import utils.FieldValidation;
+
 /**
  * The Class CreateEventActivity.
  */
 public class CreateEventActivity extends Activity {
 
-    /** The et_event_name. */
+    /**
+     * The et_event_name.
+     */
     private EditText etEventName;
 
-    /** The et_event_description. */
+    /**
+     * The et_event_description.
+     */
     private EditText etEventDescription;
 
-    /** The et_event_initial_time. */
+    /**
+     * The et_event_initial_time.
+     */
     private EditText etEventInitialDate;
 
-    /** The et event initial time. */
+    /**
+     * The et event initial time.
+     */
     private EditText etEventInitialTime;
 
-    /** The et_event_final_time. */
+    /**
+     * The et_event_final_time.
+     */
     private EditText etEventFinalDate;
 
-    /** The et event final time. */
+    /**
+     * The et event final time.
+     */
     private EditText etEventFinalTime;
 
-    /** The bt_create_event. */
+    /**
+     * The bt_create_event.
+     */
     private Button btCreateEvent;
 
-    /** The bt_select_tags. */
+    /**
+     * The bt_select_tags.
+     */
     private Button btSelectTags;
 
-    /** The bt_add_aditional_informations. */
+    /**
+     * The bt_add_aditional_informations.
+     */
     private Button btAddAditionalInformations;
 
-    /** The rb_radio_public. */
+    /**
+     * The rb_radio_public.
+     */
     private RadioButton rbRadioPublic;
 
-    /** The final date. */
+    /**
+     * The final date.
+     */
     private Date initialDate;
 
-    /** The final date. */
+    /**
+     * The final date.
+     */
     private Date finalDate;
 
-    /** The date formatter. */
+    /**
+     * The date formatter.
+     */
     private SimpleDateFormat dateFormatter;
 
-    /** The initial date picker dialog. */
+    /**
+     * The initial date picker dialog.
+     */
     private DatePickerDialog initialDatePickerDialog;
 
-    /** The initial time picker dialog. */
+    /**
+     * The initial time picker dialog.
+     */
     private TimePickerDialog initialTimePickerDialog;
 
-    /** The final date picker dialog. */
+    /**
+     * The final date picker dialog.
+     */
     private DatePickerDialog finalDatePickerDialog;
 
-    /** The final time picker dialog. */
+    /**
+     * The final time picker dialog.
+     */
     private TimePickerDialog finalTimePickerDialog;
 
-    /** The dialog. */
+    /**
+     * The dialog.
+     */
     private AlertDialog dialog;
 
-    /** The tags. */
+    /**
+     * The tags.
+     */
     private List<String> tags;
 
-    /** The event. */
+    /**
+     * The event.
+     */
     private static Event event;
 
     /*
@@ -155,7 +194,7 @@ public class CreateEventActivity extends Activity {
         initialDate = Calendar.getInstance().getTime();
         finalDate = Calendar.getInstance().getTime();
 
-        
+
         final Calendar newCalendar = Calendar.getInstance();
 
         initialDatePickerDialog = new DatePickerDialog(this,
@@ -163,23 +202,23 @@ public class CreateEventActivity extends Activity {
 
                     @Override
                     public void onDateSet(final DatePicker view,
-                            final int year, final int monthOfYear,
-                            final int dayOfMonth) {
+                                          final int year, final int monthOfYear,
+                                          final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
-                        Log.d("testandoHora: ", " "+ Calendar.getInstance().getTime());
+                        Log.d("testandoHora: ", " " + Calendar.getInstance().getTime());
                         newDate.set(year, monthOfYear, dayOfMonth);
-                        if(newDate.after(Calendar.getInstance())){
-                        	
-                        	initialDate = newDate.getTime();
-                        	etEventInitialDate.setText(dateFormatter
-                        			.format(newDate.getTime()));
-                        	
-                        	etEventFinalDate.setText(dateFormatter
-                        			.format(newDate.getTime()));
-                        }else{
-                        	Toast.makeText(getApplicationContext(), "Invalid date", Toast.LENGTH_SHORT).show();
+                        if (newDate.after(Calendar.getInstance())) {
+
+                            initialDate = newDate.getTime();
+                            etEventInitialDate.setText(dateFormatter
+                                    .format(newDate.getTime()));
+
+                            etEventFinalDate.setText(dateFormatter
+                                    .format(newDate.getTime()));
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Invalid date", Toast.LENGTH_SHORT).show();
                         }
-                       
+
                     }
 
                 }, newCalendar.get(Calendar.YEAR),
@@ -191,8 +230,8 @@ public class CreateEventActivity extends Activity {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public final void onTimeSet(final TimePicker timePicker,
-                            final int selectedHour,
-                            final int selectedMinute) {
+                                                final int selectedHour,
+                                                final int selectedMinute) {
                         etEventInitialTime.setText("" + selectedHour + ":" + selectedMinute);
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
@@ -201,8 +240,8 @@ public class CreateEventActivity extends Activity {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public final void onTimeSet(final TimePicker timePicker,
-                            final int selectedHour,
-                            final int selectedMinute) {
+                                                final int selectedHour,
+                                                final int selectedMinute) {
                         etEventFinalTime.setText("" + selectedHour + ":" + selectedMinute);
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
@@ -212,21 +251,21 @@ public class CreateEventActivity extends Activity {
 
                     @Override
                     public void onDateSet(final DatePicker view,
-                            final int year, final int monthOfYear,
-                            final int dayOfMonth) {
+                                          final int year, final int monthOfYear,
+                                          final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(initialDate);
-							
-                        if(newDate.compareTo(cal) == 0 || newDate.compareTo(cal) == 1 ){
-                        	
+
+                        if (newDate.compareTo(cal) == 0 || newDate.compareTo(cal) == 1) {
+
                             finalDate = newDate.getTime();
                             etEventFinalDate.setText(dateFormatter
                                     .format(newDate.getTime()));
-                        	
-                        }else{
-                        	Toast.makeText(getApplicationContext(), "Invalid date", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Invalid date", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -317,7 +356,7 @@ public class CreateEventActivity extends Activity {
 
     /**
      * Check validation of the event fields.
-     * 
+     *
      * @return true, if successful
      */
     private boolean checkValidation() {
@@ -354,7 +393,7 @@ public class CreateEventActivity extends Activity {
         ParseUtil.findAllTags(new FindCallback<ParseObject>() {
             @Override
             public void done(final List<ParseObject> objects,
-                    final ParseException e) {
+                             final ParseException e) {
                 final CharSequence[] items = new CharSequence[objects.size()];
 
                 if (e == null) {
@@ -402,12 +441,8 @@ public class CreateEventActivity extends Activity {
                                                         .get(i)].toString());
                                                 t.concat(" "
                                                         + items[seletedItems
-                                                                .get(i)]
-                                                                .toString());
-                                                Log.d("Tag Adicionada",
-                                                        items[seletedItems
-                                                                .get(i)]
-                                                                .toString());
+                                                        .get(i)]
+                                                        .toString());
                                             }
                                             btSelectTags.setText(btSelectTags.getText() + t);
                                         }
@@ -464,9 +499,9 @@ public class CreateEventActivity extends Activity {
 
     /**
      * Sets the status bar color.
-     * 
+     *
      * @param statusBar the status bar
-     * @param color the color
+     * @param color     the color
      */
     public final void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -485,7 +520,7 @@ public class CreateEventActivity extends Activity {
 
     /**
      * Gets the action bar height.
-     * 
+     *
      * @return the action bar height
      */
     public final int getActionBarHeight() {
@@ -500,7 +535,7 @@ public class CreateEventActivity extends Activity {
 
     /**
      * Gets the status bar height.
-     * 
+     *
      * @return the status bar height
      */
     public final int getStatusBarHeight() {
@@ -515,7 +550,7 @@ public class CreateEventActivity extends Activity {
 
     /**
      * Gets the event.
-     * 
+     *
      * @return the event
      */
     public static Event getEvent() {
@@ -524,7 +559,7 @@ public class CreateEventActivity extends Activity {
 
     /**
      * Sets the event.
-     * 
+     *
      * @param newEvent the new event
      */
     public static final void setEvent(final Event newEvent) {

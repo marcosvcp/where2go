@@ -25,7 +25,6 @@ public class ImageColor {
      * @throws Exception the exception
      */
     public ImageColor(final Bitmap image) throws Exception {
-
         int height = image.getHeight();
         int width = image.getWidth();
 
@@ -129,7 +128,6 @@ public class ImageColor {
      * @return the string
      */
     public final String returnColour() {
-
         if (colour.length() == 6) {
             return colour.replaceAll("\\s", "");
         } else {

@@ -80,10 +80,8 @@ public class CreateEventAditInfoActivity extends Activity {
                                 getApplicationContext(), MainScreen.class);
                         intent.putExtra("eventslist", 2);
                         startActivity(intent);
-
                     }
                 });
-
     }
 
     /**

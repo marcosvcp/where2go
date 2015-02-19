@@ -71,8 +71,6 @@ public final class Authenticator {
                                             public void done(
                                                     final List<User> objects,
                                                     final ParseException e) {
-                                                Log.v("USERS", user.asMap()
-                                                        .toString());
                                                 loggedUser = new User(user
                                                         .getId());
                                                 loggedUser.setBirthday(user
@@ -91,8 +89,6 @@ public final class Authenticator {
                                                     loggedUser
                                                             .saveInBackground();
                                                 } else {
-                                                    Log.v("TESTE",
-                                                            "entrou aqui");
                                                     // Pega o resultado do
                                                     // usu�rio
                                                     final User usuarioParse = objects

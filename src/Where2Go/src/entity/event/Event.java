@@ -18,6 +18,8 @@ import java.util.List;
  */
 @ParseClassName("Event")
 public class Event extends ParseObject {
+    public static final String TAGS = "tags";
+    public static final String TAG_SEPARATOR = "@";
     // Mudar para File
     /** The photo. */
     private String photo;
@@ -63,24 +65,20 @@ public class Event extends ParseObject {
         put("facebookId", owner.getFacebookId());
         photo = newPhoto;
         put("isPublic", isPublic);
-        put("tags", "");
+        put(TAGS, "");
     }
 
     /**
-     * Gets the owner.
-     * 
-     * @return the owner
-     * @throws ParseException the parse exception
+     * Retorna o primeiro usuário da relação entre evento e usuário, ou seja o dono do evento
      */
     public final User getOwner() throws ParseException {
         final ParseRelation<User> a = getRelation("owner");
+        // Essa query é síncrona
         return a.getQuery().find().get(0);
     }
 
     /**
-     * Sets the owner.
-     * 
-     * @param owner the new owner
+     * Seta o dono do evento
      */
     public final void setOwner(final User owner) {
         final ParseRelation<User> relat = getRelation("owner");
@@ -340,13 +338,11 @@ public class Event extends ParseObject {
     }
 
     /**
-     * Gets the tags.
-     * 
-     * @return the tags
+     * @return the tags of event
      */
     public final ArrayList<String> getTags() {
-        final String tagsString = getString("tags");
-        final String[] tags = tagsString.split("@");
+        final String tagsString = getString(TAGS);
+        final String[] tags = tagsString.split(TAG_SEPARATOR);
         final ArrayList<String> finalTags = new ArrayList<String>();
         for (int i = 0; i < tags.length; i++) {
             finalTags.add(tags[i]);
@@ -360,9 +356,9 @@ public class Event extends ParseObject {
      * @param tag the tag
      */
     public final void addTags(final String tag) {
-        String tags = getString("tags");
-        tags = tags + "@" + tag;
-        put("tags", tags);
+        String tags = getString(TAGS);
+        tags = tags + TAG_SEPARATOR + tag;
+        put(TAGS, tags);
     }
 
     /**
