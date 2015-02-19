@@ -28,7 +28,7 @@ public class InvitationConfirmed implements InvitationState {
      */
     @Override
     public final Notification decline(final Invitation invitation) {
-        invitation.getEvent().removeParticipant(invitation.getGuest());
+        invitation.getEvent().removeParticipant(invitation.getGuest(), invitation.getHost());
         return new Notification(invitation.getGuest(), invitation.getEvent(),
                 String.format("You leave from this event %s",
                         invitation.getEvent()));

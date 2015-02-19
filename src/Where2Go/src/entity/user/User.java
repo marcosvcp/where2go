@@ -46,25 +46,6 @@ public class User extends ParseObject {
      */
     public User(final String facebookId) {
         setFacebookId(facebookId);
-        setInvitations(new ArrayList<Invitation>());
-    }
-
-    /**
-     * Gets the invitations.
-     * 
-     * @return the invitations
-     */
-    public final List<Invitation> getInvitations() {
-        return getList("invitations");
-    }
-
-    /**
-     * Sets the invitations.
-     * 
-     * @param invitations the new invitations
-     */
-    public final void setInvitations(final List<Invitation> invitations) {
-        put("invitations", invitations);
     }
 
     /**
@@ -175,25 +156,6 @@ public class User extends ParseObject {
         gender = userGender;
     }
 
-    /**
-     * Remove uma {@code invitation} das {@code invitations} do usuário.
-     * 
-     * @param invitation the invitation
-     * @return True, caso seja removida a {@code invitation}
-     */
-    public final boolean removeInvitation(final Invitation invitation) {
-        return getInvitations().remove(invitation);
-    }
-
-    /**
-     * Adiciona uma {@code invitation} à sua {@code invitations}.
-     * 
-     * @param invitation a {@code invitation} a ser adicionada
-     */
-    public final void addInvitation(final Invitation invitation) {
-        getInvitations().add(invitation);
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -201,7 +163,7 @@ public class User extends ParseObject {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(name, age);
+        return Objects.hashCode(getFacebookId());
     }
 
     /*
@@ -215,6 +177,6 @@ public class User extends ParseObject {
             return false;
         }
         User other = (User) therUser;
-        return Objects.equal(name, other.name) && Objects.equal(age, other.age);
+        return Objects.equal(getFacebookId(), other.getFacebookId());
     }
 }

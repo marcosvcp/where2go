@@ -23,11 +23,11 @@ public class EventTest {
 	public void setUp() throws ParseException {
 		user1 = new User("User1 name");
 		user2 = new User("User2 name");
-		event1 = new Event("Event 1", "Event 1 Description", "Event 1 Image Path", "Event 1 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Anderson"));
-		event2 = new Event("Event 2", "Event 2 Description", "Event 2 Image Path", "Event 2 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Bruno"));
-		event3 = new Event("Event 3", "Event 3 Description", "Event 3 Image Path", "Event 3 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Diego"));
-		event4 = new Event("Event 4", "Event 4 Description", "Event 4 Image Path", "Event 4 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Marcos"));
-		event5 = new Event("Event 5", "Event 5 Description", "Event 5 Image Path", "Event 5 Info", ParseUtil.ptbr.parse("01/12/2014"), ParseUtil.ptbr.parse("02/12/2014"), 200.00, "", 100, true, new User("Julio"));
+		event1 = new Event("Event 1", "Event 1 Description", "Event 1 Image Path", ParseUtil.PT_BR.parse("01/12/2014"), ParseUtil.PT_BR.parse("02/12/2014"), 200.00, "", 100, true, new User("Anderson"));
+		event2 = new Event("Event 2", "Event 2 Description", "Event 2 Image Path", ParseUtil.PT_BR.parse("01/12/2014"), ParseUtil.PT_BR.parse("02/12/2014"), 200.00, "", 100, true, new User("Bruno"));
+		event3 = new Event("Event 3", "Event 3 Description", "Event 3 Image Path", ParseUtil.PT_BR.parse("01/12/2014"), ParseUtil.PT_BR.parse("02/12/2014"), 200.00, "", 100, true, new User("Diego"));
+		event4 = new Event("Event 4", "Event 4 Description", "Event 4 Image Path", ParseUtil.PT_BR.parse("01/12/2014"), ParseUtil.PT_BR.parse("02/12/2014"), 200.00, "", 100, true, new User("Marcos"));
+		event5 = new Event("Event 5", "Event 5 Description", "Event 5 Image Path", ParseUtil.PT_BR.parse("01/12/2014"), ParseUtil.PT_BR.parse("02/12/2014"), 200.00, "", 100, true, new User("Julio"));
 		invitation1 = new Invitation(user1, user2, event1);
 	}
 	
@@ -84,18 +84,6 @@ public class EventTest {
 		
 		Assert.assertEquals("Event 1 Image Path", event1.getDescription());
 		Assert.assertEquals("Event 2 Image Path", event2.getDescription());
-	}
-	
-	@Test
-	public void testGetAndSetEventInfo(){
-		Assert.assertEquals("Event 1 Info", event1.getInfo());
-		Assert.assertEquals("Event 2 Info", event2.getInfo());
-		
-		event1.setPhoto("New Event 1 Info");
-		event2.setPhoto("New Event 2 Info");
-		
-		Assert.assertEquals("New Event 1 Info", event1.getInfo());
-		Assert.assertEquals("New Event 2 Info", event2.getInfo());
 	}
 	
 	@Test

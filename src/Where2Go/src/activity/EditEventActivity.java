@@ -43,9 +43,6 @@ public class EditEventActivity extends Activity {
     /** The et_event_description. */
     private EditText etEventDescription;
 
-    /** The et_event_info. */
-    private EditText etEventInfo;
-
     /** The et_event_initial_time. */
     private EditText etEventInitialDate;
 
@@ -235,7 +232,6 @@ public class EditEventActivity extends Activity {
     protected final void confirmEdition() {
         event.setName(etEventName.getText().toString());
         event.setDescription(etEventDescription.getText().toString());
-        event.setInfo(etEventInfo.getText().toString());
         ParseUtil.saveEvent(event);
         EventsListFragment.getAdapter().notifyDataSetChanged();
         final Intent intent = new Intent(getApplicationContext(),
@@ -250,10 +246,10 @@ public class EditEventActivity extends Activity {
     private void setDataFields() {
         etEventName.setText(event.getName());
         etEventDescription.setText(event.getDescription());
-        etEventInitialDate.setText(ParseUtil.ptbr.format(event
+        etEventInitialDate.setText(ParseUtil.PT_BR.format(event
                 .getInitialDate()));
         etEventFinalDate
-                .setText(ParseUtil.ptbr.format(event.getFinalDate()));
+                .setText(ParseUtil.PT_BR.format(event.getFinalDate()));
         etEventInitialTime.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
                 + Calendar.getInstance().get(Calendar.MINUTE));
         etEventFinalTime.setText("23:59");

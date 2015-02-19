@@ -9,7 +9,9 @@ import entity.notifications.Notification;
  */
 public class InvitationPending implements InvitationState {
 
-    /** The Constant EVENT_MSG. */
+    /**
+     * The Constant EVENT_MSG.
+     */
     public static final String EVENT_MSG = "The event %s was successfully %s";
 
     /*
@@ -19,14 +21,10 @@ public class InvitationPending implements InvitationState {
      */
     @Override
     public final Notification confirm(final Invitation invitation) {
-        if (invitation.getEvent().addParticipant(invitation.getGuest())) {
-            invitation.setState(new InvitationConfirmed().getName());
-            return new Notification(invitation.getGuest(),
-                    invitation.getEvent(), String.format(EVENT_MSG, invitation
-                            .getEvent().getName(), "confirmed"));
-        }
-        return new Notification(invitation.getGuest(), invitation.getEvent(),
-                "Sorry, but you don't have access to this event");
+        invitation.setState(new InvitationConfirmed().getName());
+        return new Notification(invitation.getGuest(),
+                invitation.getEvent(), String.format(EVENT_MSG, invitation
+                .getEvent().getName(), "confirmed"));
     }
 
     /*

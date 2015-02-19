@@ -123,15 +123,15 @@ public class EventDetailActivity extends FragmentActivity {
     private void setDataFields() {
         tvEventName.setText(event.getName());
         tvEventDescription.setText(event.getDescription());
-        tvInitialDate.setText(ParseUtil.ptbr.format(event.getInitialDate()));
-        tvFinalDate.setText(ParseUtil.ptbr.format(event.getFinalDate()));
+        tvInitialDate.setText(ParseUtil.PT_BR.format(event.getInitialDate()));
+        tvFinalDate.setText(ParseUtil.PT_BR.format(event.getFinalDate()));
         tvCapacity.setText(String.valueOf(event.getCapacity()));
         tvStatus.setText(event.getState());
         tvPrice.setText(String.valueOf(event.getPrice()));
         tvOutfit.setText(event.getOutfit());
         tvNotes.setText(event.getNote());
         tvOwner.setText(event.getOwnerName());
-        tvCreatedAt.setText(ParseUtil.ptbr.format(event.getCreatedAt()));
+        tvCreatedAt.setText(ParseUtil.PT_BR.format(event.getCreatedAt()));
     }
     
     /*

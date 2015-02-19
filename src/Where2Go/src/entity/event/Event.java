@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import entity.notifications.Notification;
 import entity.user.User;
 
 /**
@@ -38,7 +39,6 @@ public class Event extends ParseObject {
      * @param name        the name
      * @param description the description
      * @param newPhoto    the photo
-     * @param info        the info
      * @param initialDate the initial date
      * @param finalDate   the final date
      * @param price       the price
@@ -47,15 +47,14 @@ public class Event extends ParseObject {
      * @param isPublic    the is public
      * @param owner       the owner
      */
-    public Event(String name, String description,
-                 String newPhoto, String info, Date initialDate,
-                 Date finalDate, double price, String outfit,
-                 Integer capacity, boolean isPublic, User owner) {
+    public Event(final String name,final String description,
+                 final String newPhoto,final Date initialDate,
+                 final Date finalDate,final double price,final String outfit,
+                 final Integer capacity,final boolean isPublic,final User owner) {
         put("state", new EventOpened().getName());
         put("name", name);
         put("ownerName", owner.getName());
         put("description", description);
-        put("info", info);
         put("initialDate", initialDate);
         put("finalDate", finalDate);
         put("price", price);
@@ -81,7 +80,7 @@ public class Event extends ParseObject {
     /**
      * Seta o dono do evento
      */
-    public final void setOwner(final User owner) {
+    private final void setOwner(final User owner) {
         final ParseRelation<User> relat = getRelation("owner");
         relat.add(owner);
     }
@@ -174,24 +173,6 @@ public class Event extends ParseObject {
      */
     public final void setPhoto(final String newPhoto) {
         photo = newPhoto;
-    }
-
-    /**
-     * Gets the info.
-     *
-     * @return the info
-     */
-    public final String getInfo() {
-        return getString("info");
-    }
-
-    /**
-     * Sets the info.
-     *
-     * @param info the new info
-     */
-    public final void setInfo(final String info) {
-        put("info", info);
     }
 
     /**
@@ -364,24 +345,21 @@ public class Event extends ParseObject {
 
     /**
      * Adiciona um {@code participant} à lista de {@code participants}.
-     *
-     * @param participant O participante a ser adicionado
-     * @return True caso ele possa participar do evento
      */
-    public final boolean addParticipant(final User participant) {
+    public final Notification addParticipant(final User guest,final User host) {
         if (isFull()) {
-            return false;
+            return new Notification(host, this, "O evento está cheio.");
         }
-        return getParticipants().add(participant);
+        return getEventState().addParticipant(this, guest, host);
     }
 
     /**
      * Remove o {@code participant} da lista de {@code participants}.
      *
-     * @param participant O participante a ser removido
+     * @param guest O participante a ser removido
      */
-    public final void removeParticipant(final User participant) {
-        getParticipants().remove(participant);
+    public final Notification removeParticipant(final User guest,final User host) {
+        return getEventState().removeParticipant(this, guest, host);
     }
 
     /**

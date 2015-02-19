@@ -298,7 +298,7 @@ public class MainScreen extends Activity {
 		try {
 			getFragmentManager().putFragment(outState, "mContent", mContent);
 		} catch (final Exception e) {
-			Log.e("Mainscreen", e.getMessage());
+			Log.e("Mainscreen", "MainScreen not load");
 		}
 
 	}

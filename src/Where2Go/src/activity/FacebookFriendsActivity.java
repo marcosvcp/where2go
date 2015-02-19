@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import static com.facebook.Request.Callback;
+
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -31,6 +32,7 @@ import adapter.FacebookFriendsAdapter;
 import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.event.Invitation;
+import entity.notifications.Notification;
 import entity.user.User;
 import entity.user.UserFriend;
 import persistence.ParseUtil;
@@ -41,16 +43,24 @@ import utils.Authenticator;
  */
 public class FacebookFriendsActivity extends Activity {
 
-    /** The friend list. */
+    /**
+     * The friend list.
+     */
     private ListView friendList;
 
-    /** The friends. */
+    /**
+     * The friends.
+     */
     private List<UserFriend> friends;
 
-    /** The host. */
+    /**
+     * The host.
+     */
     private User host;
 
-    /** The event to invite. */
+    /**
+     * The event to invite.
+     */
     private Event eventToInvite;
 
     /*
@@ -88,31 +98,31 @@ public class FacebookFriendsActivity extends Activity {
     public final void showFriendsFacebook() {
         new Request(Session.getActiveSession(), "/me/friends", null,
                 HttpMethod.GET, new Callback() {
-                    @Override
-                    public void onCompleted(final Response response) {
-                        Log.e("FACEBOOK", response.getGraphObject()
-                                .getInnerJSONObject().toString());
-                        try {
-                            final JSONObject jsonFriends = new JSONObject(
-                                    response.getGraphObject()
-                                            .getInnerJSONObject().toString());
-                            final JSONArray jArray = jsonFriends
-                                    .getJSONArray("data");
+            @Override
+            public void onCompleted(final Response response) {
+                Log.e("FACEBOOK", response.getGraphObject()
+                        .getInnerJSONObject().toString());
+                try {
+                    final JSONObject jsonFriends = new JSONObject(
+                            response.getGraphObject()
+                                    .getInnerJSONObject().toString());
+                    final JSONArray jArray = jsonFriends
+                            .getJSONArray("data");
 
-                            for (int i = 0; i < jArray.length(); i++) {
-                                friends.add(new UserFriend(jArray
-                                        .getJSONObject(i).getString("name"),
-                                        jArray.getJSONObject(i).getString("id")));
-                            }
-                            final FacebookFriendsAdapter adapter = new FacebookFriendsAdapter(
-                                    friends, getApplicationContext());
-                            friendList.setAdapter(adapter);
-
-                        } catch (final JSONException e) {
-                            Log.e("FriendsActivity", e.getMessage());
-                        }
+                    for (int i = 0; i < jArray.length(); i++) {
+                        friends.add(new UserFriend(jArray
+                                .getJSONObject(i).getString("name"),
+                                jArray.getJSONObject(i).getString("id")));
                     }
-                }).executeAsync();
+                    final FacebookFriendsAdapter adapter = new FacebookFriendsAdapter(
+                            friends, getApplicationContext());
+                    friendList.setAdapter(adapter);
+
+                } catch (final JSONException e) {
+                    Log.e("FriendsActivity", e.getMessage());
+                }
+            }
+        }).executeAsync();
     }
 
     /*
@@ -162,9 +172,7 @@ public class FacebookFriendsActivity extends Activity {
                         public void done(final List<User> objects,
                                          final ParseException e) {
                             final User guest = objects.get(0);
-                            final Invitation invite = new Invitation(
-                                    guest, host, eventToInvite);
-                            ParseUtil.saveInvitation(invite);
+                            Notification notification = eventToInvite.addParticipant(guest, host); // TODO Lançar a notificação pro usuário
                             onBackPressed();
                         }
                     });

@@ -97,9 +97,6 @@ public final class Authenticator {
                                                 final User usuarioParse = objects
                                                         .get(0);
                                                 loggedUser
-                                                        .setInvitations(usuarioParse
-                                                                .getInvitations());
-                                                loggedUser
                                                         .setObjectId(usuarioParse
                                                                 .getObjectId());
                                             }

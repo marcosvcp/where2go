@@ -2,9 +2,13 @@
 package activity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +19,8 @@ import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +47,21 @@ public class MainActivity extends FragmentActivity {
      */
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "br.com.les.where2go",
+                    PackageManager.GET_SIGNATURES);
+            for (android.content.pm.Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("Error1", "NameNotFoundException");
+
+        } catch (NoSuchAlgorithmException e) {
+            Log.d("Error2", "Algorthim");
+        }
         super.onCreate(savedInstanceState);
         Parse.initialize(this, "nUL0Lh3eOXpMYmaUgMJuveMYC0cIkEupF0eaqmh6",
                 "vd7smIM4ePAFUtWhQfT7TpNKmJ2d9PvfDeqke16D");

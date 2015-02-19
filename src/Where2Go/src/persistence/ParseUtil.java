@@ -29,8 +29,8 @@ public final class ParseUtil {
     // Log.v("invts", objects.toString());
     // }
     // });
-    /** The ptbr. */
-    public final static SimpleDateFormat ptbr = new SimpleDateFormat("dd/MM/yyyy");
+    /** The PT_BR. */
+    public final static SimpleDateFormat PT_BR = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * Instantiates a new parses the util.

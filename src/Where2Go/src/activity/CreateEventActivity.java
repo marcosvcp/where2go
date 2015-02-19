@@ -205,7 +205,6 @@ public class CreateEventActivity extends Activity {
                                           final int year, final int monthOfYear,
                                           final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
-                        Log.d("testandoHora: ", " " + Calendar.getInstance().getTime());
                         newDate.set(year, monthOfYear, dayOfMonth);
                         if (newDate.after(Calendar.getInstance())) {
 
@@ -310,10 +309,9 @@ public class CreateEventActivity extends Activity {
             public void onClick(final View v) {
 
                 if (checkValidation()) {
-
                     event = new Event(etEventName.getText().toString(),
                             etEventDescription.getText().toString(),
-                            "Default Image Path", "INFO", initialDate,
+                            "Default Image Path", initialDate,
                             finalDate, 100.00, "Default Outfit", 999, rbRadioPublic.isChecked(),
                             Authenticator.getInstance().getLoggedUser());
 
