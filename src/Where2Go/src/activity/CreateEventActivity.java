@@ -193,11 +193,12 @@ public class CreateEventActivity extends Activity {
         etEventFinalDate.setText(dateFormatter.format(Calendar.getInstance().getTime()));
         etEventInitialTime.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
                 + Calendar.getInstance().get(Calendar.MINUTE));
-        etEventFinalTime.setText("23:59");
+        etEventFinalTime.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
+                + Calendar.getInstance().get(Calendar.MINUTE));
+//        etEventFinalTime.setText("23:59");
 
         initialDate = Calendar.getInstance().getTime();
         finalDate = Calendar.getInstance().getTime();
-
 
         final Calendar newCalendar = Calendar.getInstance();
 
@@ -367,7 +368,14 @@ public class CreateEventActivity extends Activity {
         listEditText.add(etEventDescription);
         listEditText.add(etEventInitialDate);
         listEditText.add(etEventFinalDate);
-
+        if (initialDate == null || finalDate == null){
+        	ret = false;
+        	Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.event_date_error), Toast.LENGTH_SHORT).show();
+        }
+        if (initialTime == null || finalTime == null){
+        	ret = false;
+        	Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.event_time_error), Toast.LENGTH_SHORT).show();
+        }
         if (!validation.hasText(etEventName)) {
             ret = false;
         }

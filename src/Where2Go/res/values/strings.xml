@@ -28,6 +28,8 @@
 
     <!-- Create Event -->
     <string name="action_cancel">Cancel</string>
+    <string name="event_time_error">Event time needs to be set</string>
+    <string name="event_date_error">Event date needs to be set</string>
 
     <!-- Event -->
     <string name="event_name">Event name</string>
