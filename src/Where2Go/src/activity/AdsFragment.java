@@ -112,7 +112,7 @@ public class AdsFragment extends Fragment {
                         // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
                         ParseQuery<Event> query = ParseUtil.getQueryEvent();
 
-                        query.whereEqualTo("type", "ads");
+                        query.whereEqualTo("isSponsored", true);
 
                         query.findInBackground(new FindCallback<Event>() {
                             @Override

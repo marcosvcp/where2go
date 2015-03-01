@@ -1,6 +1,8 @@
-
 package activity;
 
+import java.util.Arrays;
+
+import utils.Authenticator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +13,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import br.com.les.where2go.R;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
-
-import java.util.Arrays;
-
-import br.com.les.where2go.R;
-import utils.Authenticator;
 
 /**
  * Responsible to manager the session of facebook Created by marcos on 29/11/14.
@@ -44,8 +42,9 @@ public class MainFragment extends Fragment {
 
     /**
      * Instantiates a new main fragment.
-     * 
-     * @param context the context
+     *
+     * @param context
+     *            the context
      */
     public MainFragment(final Context context) {
         mContext = context;
@@ -66,17 +65,17 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
      * android.view.ViewGroup, android.os.Bundle)
      */
     @Override
-    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater,
+            final ViewGroup container, final Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.activity_main, container, false);
-        LoginButton authButton = (LoginButton) rootView
+        final LoginButton authButton = (LoginButton) rootView
                 .findViewById(R.id.authButton);
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays
@@ -87,7 +86,7 @@ public class MainFragment extends Fragment {
         btEnter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                Intent intent = new Intent(getActivity()
+                final Intent intent = new Intent(getActivity()
                         .getApplicationContext(), MainScreen.class);
                 intent.putExtra("eventslist", 0);
                 startActivity(intent);
@@ -98,7 +97,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
      */
     @Override
@@ -110,13 +109,16 @@ public class MainFragment extends Fragment {
 
     /**
      * On session state change.
-     * 
-     * @param session the session
-     * @param state the state
-     * @param exception the exception
+     *
+     * @param session
+     *            the session
+     * @param state
+     *            the state
+     * @param exception
+     *            the exception
      */
-    private void onSessionStateChange(final Session session, final SessionState state,
-            final Exception exception) {
+    private void onSessionStateChange(final Session session,
+            final SessionState state, final Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
         } else if (state.isClosed()) {
@@ -127,7 +129,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.Fragment#onResume()
      */
     @Override
@@ -136,7 +138,7 @@ public class MainFragment extends Fragment {
         // For scenarios where the main activity is launched and user
         // session is not null, the session state change notification
         // may not be triggered. Trigger it if it's open/closed.
-        Session session = Session.getActiveSession();
+        final Session session = Session.getActiveSession();
         if (session != null && (session.isOpened() || session.isClosed())) {
             onSessionStateChange(session, session.getState(), null);
         }
@@ -146,20 +148,20 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.Fragment#onActivityResult(int, int,
      * android.content.Intent)
      */
     @Override
-    public final void onActivityResult(final int requestCode, final int resultCode,
-            final Intent data) {
+    public final void onActivityResult(final int requestCode,
+            final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         uiHelper.onActivityResult(requestCode, resultCode, data);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.Fragment#onPause()
      */
     @Override
@@ -170,7 +172,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.Fragment#onDestroy()
      */
     @Override
@@ -181,7 +183,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
      */

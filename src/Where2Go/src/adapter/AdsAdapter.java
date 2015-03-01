@@ -170,6 +170,7 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
 
         final Event event = mListEvents.get(position);
         final LinearLayout card = (LinearLayout) view.findViewById(R.id.card);
+        final ImageButton photo = (ImageButton) view.findViewById(R.id.photo);
 
         final TextView eventName = (TextView) view
                 .findViewById(R.id.event_name);
@@ -194,18 +195,17 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
         listview.setClickable(true);
 
-        view.setOnLongClickListener(new OnLongClickListener() {
+        photo.setOnLongClickListener(new OnLongClickListener() {
 
             @Override
             public boolean onLongClick(final View v) {
-                // SE QUISER IMPLEMENTAR O LONG CLICK
-
+                showPopupMenu(v, event);
                 return false;
             }
 
         });
 
-        view.setOnClickListener(new OnClickListener() {
+        photo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
                 showDetail(event);
