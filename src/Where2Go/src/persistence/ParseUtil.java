@@ -1,20 +1,20 @@
-
 package persistence;
+
+import java.text.SimpleDateFormat;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.text.SimpleDateFormat;
-
+import entity.establishment.Establishment;
 import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
 
 /**
  * Classe utilitária de envio de entidade para o servidor.
- * 
+ *
  * @author marcos
  */
 public final class ParseUtil {
@@ -30,7 +30,8 @@ public final class ParseUtil {
     // }
     // });
     /** The PT_BR. */
-    public final static SimpleDateFormat PT_BR = new SimpleDateFormat("dd/MM/yyyy");
+    public final static SimpleDateFormat PT_BR = new SimpleDateFormat(
+            "dd/MM/yyyy");
 
     /**
      * Instantiates a new parses the util.
@@ -40,17 +41,29 @@ public final class ParseUtil {
 
     /**
      * Salva o {@code event} no Servidor.
-     * 
-     * @param event the event
+     *
+     * @param event
+     *            the event
      */
     public static void saveEvent(final Event event) {
         event.saveInBackground();
     }
 
     /**
+     * Salva o {@code event} no Servidor.
+     *
+     * @param event
+     *            the event
+     */
+    public static void saveEstablishment(final Establishment establishment) {
+        establishment.saveInBackground();
+    }
+
+    /**
      * Save invitation.
-     * 
-     * @param invitation the invitation
+     *
+     * @param invitation
+     *            the invitation
      */
     public static void saveInvitation(final Invitation invitation) {
         invitation.saveInBackground();
@@ -58,7 +71,7 @@ public final class ParseUtil {
 
     /**
      * Retorna O {@link ParseQuery} do {@link Event}.
-     * 
+     *
      * @return the query event
      */
     public static ParseQuery<Event> getQueryEvent() {
@@ -67,7 +80,7 @@ public final class ParseUtil {
 
     /**
      * Gets the query user.
-     * 
+     *
      * @return the query user
      */
     public static ParseQuery<User> getQueryUser() {
@@ -76,7 +89,7 @@ public final class ParseUtil {
 
     /**
      * Gets the query invitation.
-     * 
+     *
      * @return the query invitation
      */
     public static ParseQuery<Invitation> getQueryInvitation() {
@@ -85,9 +98,11 @@ public final class ParseUtil {
 
     /**
      * Find invitation by user guest.
-     * 
-     * @param from the from
-     * @param callback the callback
+     *
+     * @param from
+     *            the from
+     * @param callback
+     *            the callback
      */
     public static void findInvitationByUserGuest(final User from,
             final FindCallback<Invitation> callback) {
@@ -99,9 +114,11 @@ public final class ParseUtil {
 
     /**
      * Find by facebook id.
-     * 
-     * @param facebookId the facebook id
-     * @param callback the callback
+     *
+     * @param facebookId
+     *            the facebook id
+     * @param callback
+     *            the callback
      */
     public static void findByFacebookId(final String facebookId,
             final FindCallback<User> callback) {
@@ -114,9 +131,11 @@ public final class ParseUtil {
     /**
      * Busca o Objeto que tem o {@code objectId} no servidor e executa o
      * {@code callback} quando a requisição for terminada.
-     * 
-     * @param objectId the object id
-     * @param callback the callback
+     *
+     * @param objectId
+     *            the object id
+     * @param callback
+     *            the callback
      */
     public static void findEventById(final String objectId,
             final GetCallback<Event> callback) {
@@ -125,8 +144,9 @@ public final class ParseUtil {
 
     /**
      * Retorna todos os {@link Event} do servidor.
-     * 
-     * @param findCallback the find callback
+     *
+     * @param findCallback
+     *            the find callback
      */
     public static void findAllEvents(final FindCallback<Event> findCallback) {
         getQueryEvent().findInBackground(findCallback);
@@ -134,7 +154,7 @@ public final class ParseUtil {
 
     /**
      * Gets the query tag.
-     * 
+     *
      * @return the query tag
      */
     public static ParseQuery<ParseObject> getQueryTag() {
@@ -143,8 +163,9 @@ public final class ParseUtil {
 
     /**
      * Find all tags.
-     * 
-     * @param findCallback the find callback
+     *
+     * @param findCallback
+     *            the find callback
      */
     public static void findAllTags(final FindCallback<ParseObject> findCallback) {
         getQueryTag().findInBackground(findCallback);

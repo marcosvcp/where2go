@@ -24,6 +24,7 @@ import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 
+import entity.establishment.Establishment;
 import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
@@ -68,6 +69,7 @@ public class MainActivity extends FragmentActivity {
         ParseObject.registerSubclass(Event.class);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Invitation.class);
+        ParseObject.registerSubclass(Establishment.class);
         setContentView(R.layout.activity_main);
         setStatusBarColor(findViewById(R.id.statusBarBackground),
                 getResources().getColor(R.color.status_bar));
@@ -89,7 +91,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.FragmentActivity#onResume()
      */
     @Override
@@ -101,7 +103,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.FragmentActivity#onPause()
      */
     @Override
@@ -195,7 +197,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int,
      * android.content.Intent)
      */
