@@ -119,4 +119,11 @@ public final class Authenticator {
         }
         return instance;
     }
+    
+    /**
+     * Logout from facebook
+     */
+    public void logout() {
+    	loggedUser = null;
+    }
 }

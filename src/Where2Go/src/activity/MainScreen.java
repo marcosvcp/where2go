@@ -5,6 +5,7 @@ import java.util.List;
 
 import slidermenu.NavDrawerItem;
 import slidermenu.NavDrawerListAdapter;
+import utils.Authenticator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -171,7 +172,7 @@ public class MainScreen extends Activity {
 
         /*
          * (non-Javadoc)
-         *
+         * 
          * @see
          * android.widget.AdapterView.OnItemClickListener#onItemClick(android
          * .widget.AdapterView, android.view.View, int, long)
@@ -185,7 +186,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
@@ -196,7 +197,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
@@ -217,7 +218,7 @@ public class MainScreen extends Activity {
      */
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
      */
     @Override
@@ -255,13 +256,13 @@ public class MainScreen extends Activity {
                 fragment = new MapFragment();
                 break;
             case 5:
-                // fragment = new ProfileFragment();
+                fragment = new ProfileFragment();
                 break;
             case 6:
-                // logoutFacebook();
-                // final Intent intent = new Intent(getApplicationContext(),
-                // MainActivity.class);
-                // startActivity(intent);
+                logoutFacebook();
+                final Intent intent = new Intent(getApplicationContext(),
+                        MainActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -286,7 +287,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
      */
     @Override
@@ -304,7 +305,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#setTitle(java.lang.CharSequence)
      */
     @Override
@@ -315,7 +316,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onPostCreate(android.os.Bundle)
      */
     @Override
@@ -327,7 +328,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * android.app.Activity#onConfigurationChanged(android.content.res.Configuration
      * )
@@ -398,6 +399,7 @@ public class MainScreen extends Activity {
     public final void logoutFacebook() {
         if (Session.getActiveSession() != null) {
             Session.getActiveSession().closeAndClearTokenInformation();
+            Authenticator.getInstance().logout();
         }
         Session.setActiveSession(null);
     }
@@ -458,5 +460,4 @@ public class MainScreen extends Activity {
     public void setBackit(boolean backit) {
         backit = backit;
     }
-
 }

@@ -115,8 +115,10 @@ public class MyInvitesFragment extends Fragment {
             @Override
             public void done(final List<Invitation> objects,
                     final ParseException e) {
-                adapter = new InviteAdapter(context, objects, rootView, filter);
-                listview.setAdapter(adapter);
+            	if(objects != null) {
+	                adapter = new InviteAdapter(context, objects, rootView, filter);
+	                listview.setAdapter(adapter);
+            	}
             }
         });
     }
