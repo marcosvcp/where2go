@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="150dp"
-                    android:text="@string/event_price"
+                    android:text="@string/event_initial_date"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="normal" />

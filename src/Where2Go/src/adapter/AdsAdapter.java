@@ -170,6 +170,7 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
 
         final Event event = mListEvents.get(position);
         final LinearLayout card = (LinearLayout) view.findViewById(R.id.card);
+        final ImageButton photo = (ImageButton) view.findViewById(R.id.photo);
 
         final TextView eventName = (TextView) view
                 .findViewById(R.id.event_name);
@@ -205,7 +206,7 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
 
         });
 
-        view.setOnClickListener(new OnClickListener() {
+        photo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
                 showDetail(event);
