@@ -1,8 +1,14 @@
 
 package activity;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -12,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import br.com.les.where2go.R;
 import entity.event.Event;
@@ -35,6 +42,15 @@ public class CreateEventAditInfoActivity extends Activity {
     /** The bt_create_event_in_aditional_information. */
     private Button btCreateEventInAditionalInformation;
 
+    /** The Button Image Picker. */
+    private Button btImagePicker;
+    
+    /** The Image View Event. */
+    private ImageView evEvent;
+
+    /** The Select Photo. */
+    private final int SELECT_PHOTO = 1;
+    
     /** The validation. */
     private final FieldValidation validation = new FieldValidation(this);
 
@@ -53,8 +69,20 @@ public class CreateEventAditInfoActivity extends Activity {
         etEventNotes = (EditText) findViewById(R.id.et_event_notes);
         etEventOutfit = (EditText) findViewById(R.id.et_event_outfit);
         etEventCapacity = (EditText) findViewById(R.id.et_event_capacity);
+        btImagePicker = (Button) findViewById(R.id.bt_image_picker);
+        evEvent = (ImageView) findViewById(R.id.image_view_event);
         btCreateEventInAditionalInformation = (Button) findViewById(R.id.bt_create_event_in_aditional_information);
 
+        btImagePicker.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+				photoPickerIntent.setType("image/*");
+				startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+			}
+		});
+        
         btCreateEventInAditionalInformation
                 .setOnClickListener(new OnClickListener() {
 
@@ -84,6 +112,30 @@ public class CreateEventAditInfoActivity extends Activity {
                 });
     }
 
+    
+    /* (non-Javadoc)
+     * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
+
+        switch(requestCode) { 
+        case SELECT_PHOTO:
+            if(resultCode == RESULT_OK){
+				try {
+					final Uri imageUri = imageReturnedIntent.getData();
+					final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+					final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+					evEvent.setImageBitmap(selectedImage);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+
+            }
+        }
+    }
+    
     /**
      * Sets the status bar color.
      * 
