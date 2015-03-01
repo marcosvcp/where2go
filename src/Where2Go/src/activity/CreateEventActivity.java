@@ -148,6 +148,10 @@ public class CreateEventActivity extends Activity {
      * The event.
      */
     private static Event event;
+    
+    private String initialTime;
+    
+    private String finalTime;
 
     /*
      * (non-Javadoc)
@@ -232,6 +236,7 @@ public class CreateEventActivity extends Activity {
                                                 final int selectedHour,
                                                 final int selectedMinute) {
                         etEventInitialTime.setText("" + selectedHour + ":" + selectedMinute);
+                        initialTime = selectedHour + ":" + selectedMinute;
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -242,6 +247,8 @@ public class CreateEventActivity extends Activity {
                                                 final int selectedHour,
                                                 final int selectedMinute) {
                         etEventFinalTime.setText("" + selectedHour + ":" + selectedMinute);
+                        finalTime = selectedHour + ":" + selectedMinute;
+
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -307,19 +314,16 @@ public class CreateEventActivity extends Activity {
 
             @Override
             public void onClick(final View v) {
-
+            	
                 if (checkValidation()) {
-                    event = new Event(etEventName.getText().toString(),
-                            etEventDescription.getText().toString(),
-                            "Default Image Path", initialDate,
-                            finalDate, 100.00, "Default Outfit", 999, rbRadioPublic.isChecked(),
-                            Authenticator.getInstance().getLoggedUser());
+                	event = new Event(etEventName.getText().toString(),etEventDescription.getText().toString(), initialDate, finalDate, initialTime, finalTime, rbRadioPublic.isChecked(),Authenticator.getInstance().getLoggedUser());
 
                     if (!tags.isEmpty()) {
                         for (int i = 0; i < tags.size(); i++) {
                             event.addTags(tags.get(i));
                         }
                     }
+                    
                     ParseUtil.saveEvent(event);
                     EventsListFragment.getAdapter().notifyDataSetChanged();
                     final Intent intent = new Intent(getApplicationContext(),
