@@ -1,5 +1,9 @@
-
 package activity;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -13,18 +17,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import br.com.les.where2go.R;
 
 import com.facebook.AppEventsLogger;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
-import java.util.List;
-
-import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
@@ -42,24 +41,25 @@ public class MainActivity extends FragmentActivity {
 
     /**
      * Called when the activity is first created.
-     * 
-     * @param savedInstanceState the saved instance state
+     *
+     * @param savedInstanceState
+     *            the saved instance state
      */
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
         try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "br.com.les.where2go",
-                    PackageManager.GET_SIGNATURES);
-            for (android.content.pm.Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
+            final PackageInfo info = getPackageManager().getPackageInfo(
+                    "br.com.les.where2go", PackageManager.GET_SIGNATURES);
+            for (final android.content.pm.Signature signature : info.signatures) {
+                final MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                Log.d("KeyHash:",
+                        Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (final PackageManager.NameNotFoundException e) {
             Log.d("Error1", "NameNotFoundException");
 
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             Log.d("Error2", "Algorthim");
         }
         super.onCreate(savedInstanceState);
@@ -133,7 +133,8 @@ public class MainActivity extends FragmentActivity {
      * Open activity MainScreen.
      */
     public final void enterEventList() {
-        Intent intent = new Intent(getApplicationContext(), MainScreen.class);
+        final Intent intent = new Intent(getApplicationContext(),
+                MainScreen.class);
         intent.putExtra("eventslist", 2);
         startActivity(intent);
         unlockAll();
@@ -141,18 +142,20 @@ public class MainActivity extends FragmentActivity {
 
     /**
      * Sets the status bar color.
-     * 
-     * @param statusBar the status bar
-     * @param color the color
+     *
+     * @param statusBar
+     *            the status bar
+     * @param color
+     *            the color
      */
     public final void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow();
+            final Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             // status bar height
-            int actionBarHeight = getActionBarHeight();
-            int statusBarHeight = getStatusBarHeight();
+            final int actionBarHeight = getActionBarHeight();
+            final int statusBarHeight = getStatusBarHeight();
             // action bar height
             statusBar.getLayoutParams().height = actionBarHeight
                     + statusBarHeight;
@@ -162,12 +165,12 @@ public class MainActivity extends FragmentActivity {
 
     /**
      * Gets the action bar height.
-     * 
+     *
      * @return the action bar height
      */
     public final int getActionBarHeight() {
         int actionBarHeight = 0;
-        TypedValue tv = new TypedValue();
+        final TypedValue tv = new TypedValue();
         if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,
                     getResources().getDisplayMetrics());
@@ -177,13 +180,13 @@ public class MainActivity extends FragmentActivity {
 
     /**
      * Gets the status bar height.
-     * 
+     *
      * @return the status bar height
      */
     public final int getStatusBarHeight() {
         int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height",
-                "dimen", "android");
+        final int resourceId = getResources().getIdentifier(
+                "status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
         }
@@ -197,9 +200,10 @@ public class MainActivity extends FragmentActivity {
      * android.content.Intent)
      */
     @Override
-    protected final void onActivityResult(final int requestCode, final int resultCode,
-            final Intent data) {
+    protected final void onActivityResult(final int requestCode,
+            final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
     }
+
 }
