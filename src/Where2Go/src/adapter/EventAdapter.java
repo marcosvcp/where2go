@@ -198,8 +198,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
             @Override
             public boolean onLongClick(final View v) {
-                // SE QUISER IMPLEMENTAR O LONG CLICK
-
+                showPopupMenu(v, event);
                 return false;
             }
 

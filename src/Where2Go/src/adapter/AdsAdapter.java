@@ -195,12 +195,11 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
         listview.setClickable(true);
 
-        view.setOnLongClickListener(new OnLongClickListener() {
+        photo.setOnLongClickListener(new OnLongClickListener() {
 
             @Override
             public boolean onLongClick(final View v) {
-                // SE QUISER IMPLEMENTAR O LONG CLICK
-
+                showPopupMenu(v, event);
                 return false;
             }
 
