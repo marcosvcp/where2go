@@ -194,7 +194,13 @@ public class EventDetailActivity extends FragmentActivity {
     @Override
     public final boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_invite:
+        	case R.id.action_invite:
+	             final Intent intent = new Intent(getApplicationContext(),
+	             FacebookFriendsActivity.class);
+	             intent.putExtra("EventId", event.getObjectId());
+	             startActivity(intent);
+	        	return true;
+            case R.id.action_notification:
                 // final Intent intent = new Intent(getApplicationContext(),
                 // FacebookFriendsActivity.class);
                 // intent.putExtra("EventId", event.getObjectId());
@@ -202,6 +208,7 @@ public class EventDetailActivity extends FragmentActivity {
                 createNotification(getWindow().getDecorView().findViewById(
                         android.R.id.content));
                 return true;
+            
             default:
                 return super.onOptionsItemSelected(item);
         }

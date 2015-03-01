@@ -41,12 +41,9 @@ public class CreateEventAditInfoActivity extends Activity {
 
     /** The bt_create_event_in_aditional_information. */
     private Button btCreateEventInAditionalInformation;
-
-    /** The Button Image Picker. */
-    private Button btImagePicker;
     
     /** The Image View Event. */
-    private ImageView evEvent;
+    private ImageView ivEvent;
 
     /** The Select Photo. */
     private final int SELECT_PHOTO = 1;
@@ -69,11 +66,10 @@ public class CreateEventAditInfoActivity extends Activity {
         etEventNotes = (EditText) findViewById(R.id.et_event_notes);
         etEventOutfit = (EditText) findViewById(R.id.et_event_outfit);
         etEventCapacity = (EditText) findViewById(R.id.et_event_capacity);
-        btImagePicker = (Button) findViewById(R.id.bt_image_picker);
-        evEvent = (ImageView) findViewById(R.id.image_view_event);
+        ivEvent = (ImageView) findViewById(R.id.image_view_event);
         btCreateEventInAditionalInformation = (Button) findViewById(R.id.bt_create_event_in_aditional_information);
 
-        btImagePicker.setOnClickListener(new OnClickListener() {
+        ivEvent.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -127,7 +123,7 @@ public class CreateEventAditInfoActivity extends Activity {
 					final Uri imageUri = imageReturnedIntent.getData();
 					final InputStream imageStream = getContentResolver().openInputStream(imageUri);
 					final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-					evEvent.setImageBitmap(selectedImage);
+					ivEvent.setImageBitmap(selectedImage);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}

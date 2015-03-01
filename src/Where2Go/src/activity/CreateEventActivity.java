@@ -148,6 +148,10 @@ public class CreateEventActivity extends Activity {
      * The event.
      */
     private static Event event;
+    
+    private String initialTime;
+    
+    private String finalTime;
 
     /*
      * (non-Javadoc)
@@ -189,11 +193,12 @@ public class CreateEventActivity extends Activity {
         etEventFinalDate.setText(dateFormatter.format(Calendar.getInstance().getTime()));
         etEventInitialTime.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
                 + Calendar.getInstance().get(Calendar.MINUTE));
-        etEventFinalTime.setText("23:59");
+        etEventFinalTime.setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":"
+                + Calendar.getInstance().get(Calendar.MINUTE));
+//        etEventFinalTime.setText("23:59");
 
         initialDate = Calendar.getInstance().getTime();
         finalDate = Calendar.getInstance().getTime();
-
 
         final Calendar newCalendar = Calendar.getInstance();
 
@@ -232,6 +237,7 @@ public class CreateEventActivity extends Activity {
                                                 final int selectedHour,
                                                 final int selectedMinute) {
                         etEventInitialTime.setText("" + selectedHour + ":" + selectedMinute);
+                        initialTime = selectedHour + ":" + selectedMinute;
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -242,6 +248,8 @@ public class CreateEventActivity extends Activity {
                                                 final int selectedHour,
                                                 final int selectedMinute) {
                         etEventFinalTime.setText("" + selectedHour + ":" + selectedMinute);
+                        finalTime = selectedHour + ":" + selectedMinute;
+
                     }
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
@@ -307,19 +315,16 @@ public class CreateEventActivity extends Activity {
 
             @Override
             public void onClick(final View v) {
-
+            	
                 if (checkValidation()) {
-                    event = new Event(etEventName.getText().toString(),
-                            etEventDescription.getText().toString(),
-                            "Default Image Path", initialDate,
-                            finalDate, 100.00, "Default Outfit", 999, rbRadioPublic.isChecked(),
-                            Authenticator.getInstance().getLoggedUser());
+                	event = new Event(etEventName.getText().toString(),etEventDescription.getText().toString(), initialDate, finalDate, initialTime, finalTime, rbRadioPublic.isChecked(),Authenticator.getInstance().getLoggedUser());
 
                     if (!tags.isEmpty()) {
                         for (int i = 0; i < tags.size(); i++) {
                             event.addTags(tags.get(i));
                         }
                     }
+                    
                     ParseUtil.saveEvent(event);
                     EventsListFragment.getAdapter().notifyDataSetChanged();
                     final Intent intent = new Intent(getApplicationContext(),
@@ -363,7 +368,14 @@ public class CreateEventActivity extends Activity {
         listEditText.add(etEventDescription);
         listEditText.add(etEventInitialDate);
         listEditText.add(etEventFinalDate);
-
+        if (initialDate == null || finalDate == null){
+        	ret = false;
+        	Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.event_date_error), Toast.LENGTH_SHORT).show();
+        }
+        if (initialTime == null || finalTime == null){
+        	ret = false;
+        	Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.event_time_error), Toast.LENGTH_SHORT).show();
+        }
         if (!validation.hasText(etEventName)) {
             ret = false;
         }
