@@ -4,8 +4,10 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="/FacebookSDK"/>
+	<classpathentry kind="lib" path="libs/Parse-1.8.0.jar"/>
+	<classpathentry kind="lib" path="libs/ParseCrashReporting-1.8.0.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="/home/julioandherson/Projeto-LES/where2go/src/Where2Go/libs/Parse-1.8.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/google-play-services_lib"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
