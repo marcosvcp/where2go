@@ -41,8 +41,7 @@
                 android:layout_height="150dp"
                 android:src="@drawable/thumb" />
 
-            <Button
-                android:id="@+id/bt_image_picker"
+            <TextView
                 android:layout_width="150dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal|center_vertical"
