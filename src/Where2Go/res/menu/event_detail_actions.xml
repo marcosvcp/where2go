@@ -3,4 +3,8 @@
           android:icon="@drawable/ic_action_add_person"
           android:showAsAction="always"
           android:title="Invite Friends"/>
+	<item android:id="@+id/action_notification"
+          android:icon="@drawable/ic_action_about"
+          android:showAsAction="always"
+          android:title="Notification"/>
 </menu>	 
