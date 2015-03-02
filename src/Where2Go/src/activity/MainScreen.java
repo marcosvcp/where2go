@@ -6,6 +6,7 @@ import java.util.List;
 import slidermenu.NavDrawerItem;
 import slidermenu.NavDrawerListAdapter;
 import utils.Authenticator;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -25,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import br.com.les.where2go.R;
 
 import com.facebook.Session;
@@ -34,49 +36,72 @@ import com.facebook.Session;
  */
 public class MainScreen extends Activity {
 
-    /** The choosed fragment. */
+    /**
+     * The choosed fragment.
+     */
     private static int choosedFragment = 0;
 
-    /** The backit. */
+    /**
+     * The backit.
+     */
     private boolean backit = false;
 
-    /** The m drawer layout. */
+    /**
+     * The m drawer layout.
+     */
     private DrawerLayout mDrawerLayout;
 
-    /** The m drawer list. */
+    /**
+     * The m drawer list.
+     */
     private ListView mDrawerList;
 
-    /** The m drawer toggle. */
+    /**
+     * The m drawer toggle.
+     */
     private ActionBarDrawerToggle mDrawerToggle;
 
-    /** The m drawer title. */
+    /**
+     * The m drawer title.
+     */
     private CharSequence mDrawerTitle;
 
-    /** The m content. */
+    /**
+     * The m content.
+     */
     private static Fragment mContent;
 
     // nav drawer title
-    /** The m title. */
+    /**
+     * The m title.
+     */
     private CharSequence mTitle;
 
     // slide menu items
-    /** The nav menu titles. */
+    /**
+     * The nav menu titles.
+     */
     private String[] navMenuTitles;
 
-    /** The nav menu icons. */
+    /**
+     * The nav menu icons.
+     */
     private TypedArray navMenuIcons;
 
-    /** The nav drawer items. */
+    /**
+     * The nav drawer items.
+     */
     private List<NavDrawerItem> navDrawerItems;
 
-    /** The adapter. */
+    /**
+     * The adapter.
+     */
     private NavDrawerListAdapter adapter;
 
     /**
      * Called when the activity is first created.
      *
-     * @param savedInstanceState
-     *            the saved instance state
+     * @param savedInstanceState the saved instance state
      */
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
@@ -94,20 +119,29 @@ public class MainScreen extends Activity {
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
         navDrawerItems = new ArrayList<NavDrawerItem>();
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
-                .getResourceId(0, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
-                .getResourceId(1, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
-                .getResourceId(2, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
-                .getResourceId(3, -1), true, "22"));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
-                .getResourceId(4, -1), true, "50+"));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
-                .getResourceId(5, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
-                .getResourceId(6, -1)));
+        if (Authenticator.getInstance().getLoggedUser() != null) {
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
+                    .getResourceId(0, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
+                    .getResourceId(1, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
+                    .getResourceId(2, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
+                    .getResourceId(3, -1), true, "22"));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
+                    .getResourceId(4, -1), true, "50+"));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
+                    .getResourceId(5, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
+                    .getResourceId(6, -1)));
+        } else {
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
+                    .getResourceId(0, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
+                    .getResourceId(1, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
+                    .getResourceId(2, -1), true, "50+"));
+        }
         // Recycle the typed array
         navMenuIcons.recycle();
 
@@ -172,21 +206,21 @@ public class MainScreen extends Activity {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see
          * android.widget.AdapterView.OnItemClickListener#onItemClick(android
          * .widget.AdapterView, android.view.View, int, long)
          */
         @Override
         public void onItemClick(final AdapterView<?> parent, final View view,
-                final int position, final long id) {
+                                final int position, final long id) {
             displayView(position);
         }
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
@@ -197,7 +231,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
@@ -217,10 +251,10 @@ public class MainScreen extends Activity {
      * Called when invalidateOptionsMenu() is triggered
      */
     /*
-     * (non-Javadoc)
-     * 
-     * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
-     */
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
+	 */
     @Override
     public final boolean onPrepareOptionsMenu(final Menu menu) {
         // if nav drawer is opened, hide the action items
@@ -230,8 +264,7 @@ public class MainScreen extends Activity {
     /**
      * Diplaying fragment view for selected nav drawer list item.
      *
-     * @param position
-     *            the position
+     * @param position the position
      */
     private void displayView(final int position) {
         // update the main content by replacing fragments
@@ -253,7 +286,8 @@ public class MainScreen extends Activity {
                 fragment = new MyInvitesFragment();
                 break;
             case 4:
-                fragment = new MapFragment();
+                startActivity(new Intent(getApplicationContext(),
+                        MapActivity.class));
                 break;
             case 5:
                 fragment = new ProfileFragment();
@@ -287,7 +321,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
      */
     @Override
@@ -305,7 +339,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#setTitle(java.lang.CharSequence)
      */
     @Override
@@ -316,7 +350,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onPostCreate(android.os.Bundle)
      */
     @Override
@@ -328,7 +362,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * android.app.Activity#onConfigurationChanged(android.content.res.Configuration
      * )
@@ -343,10 +377,8 @@ public class MainScreen extends Activity {
     /**
      * Sets the status bar color.
      *
-     * @param statusBar
-     *            the status bar
-     * @param color
-     *            the color
+     * @param statusBar the status bar
+     * @param color     the color
      */
     public final void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -416,8 +448,7 @@ public class MainScreen extends Activity {
     /**
      * Set the mContent.
      *
-     * @param mContent
-     *            the new mContent
+     * @param mContent the new mContent
      */
     public static void setmContent(final Fragment mContent) {
         MainScreen.mContent = mContent;
@@ -435,8 +466,7 @@ public class MainScreen extends Activity {
     /**
      * Set the ChoosedFragment.
      *
-     * @param choosedFragment
-     *            the new choosedFragment
+     * @param choosedFragment the new choosedFragment
      */
     public static void setChoosedFragment(final int choosedFragment) {
         MainScreen.choosedFragment = choosedFragment;
@@ -454,8 +484,7 @@ public class MainScreen extends Activity {
     /**
      * Set the state of Backit.
      *
-     * @param backit
-     *            the new state of backit
+     * @param backit the new state of backit
      */
     public void setBackit(boolean backit) {
         backit = backit;

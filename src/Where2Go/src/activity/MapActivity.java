@@ -1,6 +1,7 @@
 
 package activity;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,12 +13,12 @@ import br.com.les.where2go.R;
 /**
  * The Class MapFragment.
  */
-public class MapFragment extends Fragment {
+public class MapActivity extends Activity {
 
     /**
      * Instantiates a new map fragment.
      */
-    public MapFragment() {
+    public MapActivity() {
     }
 
     /*
@@ -27,11 +28,8 @@ public class MapFragment extends Fragment {
      * android.view.ViewGroup, android.os.Bundle)
      */
     @Override
-    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.activity_map,
-                container, false);
-
-        return rootView;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
     }
 }

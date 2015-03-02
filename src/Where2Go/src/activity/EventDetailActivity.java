@@ -1,9 +1,11 @@
 package activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ParseUtil;
 import utils.Authenticator;
+import adapter.FacebookFriendsAdapter;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -24,10 +26,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.com.les.where2go.R;
 
+import com.facebook.widget.ProfilePictureView;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 
 import entity.event.Event;
+import entity.user.User;
+import entity.user.UserFriend;
 
 //import entity.notifications.Notification;
 
@@ -155,6 +160,7 @@ public class EventDetailActivity extends FragmentActivity {
 
             }
         });
+        
     }
 
     /**
@@ -172,6 +178,32 @@ public class EventDetailActivity extends FragmentActivity {
         tvNotes.setText(event.getNote());
         tvOwner.setText(event.getOwnerName());
         tvCreatedAt.setText(ParseUtil.PT_BR.format(event.getCreatedAt()));
+        
+        loadParticipantsPictures();
+
+    }
+    
+    private void loadParticipantsPictures(){
+    	List<ProfilePictureView> pictures = new ArrayList<ProfilePictureView>();
+    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_1));
+    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_2));
+    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_3));
+    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_4));
+    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_5));
+    	
+    	List<User> participants = event.getParticipants();
+    	for (int i = 0; i < 4 ; i ++){
+    		if(participants.size() > i){
+    			pictures.get(i).setVisibility(View.VISIBLE);
+    			pictures.get(i).setProfileId(participants.get(i).getFacebookId());
+    		}
+    	}
+    	
+    	if(participants.size() > 5){
+    		TextView mp = (TextView)findViewById(R.id.tv_more_participants);
+    		mp.setVisibility(View.VISIBLE);
+    		mp.setText("+ " + (participants.size() - 5));
+    	}
     }
 
     /*
@@ -201,10 +233,6 @@ public class EventDetailActivity extends FragmentActivity {
 	             startActivity(intent);
 	        	return true;
             case R.id.action_notification:
-                // final Intent intent = new Intent(getApplicationContext(),
-                // FacebookFriendsActivity.class);
-                // intent.putExtra("EventId", event.getObjectId());
-                // startActivity(intent);
                 createNotification(getWindow().getDecorView().findViewById(
                         android.R.id.content));
                 return true;
