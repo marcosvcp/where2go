@@ -1,14 +1,8 @@
-
 package entity.user;
 
 import com.google.common.base.Objects;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import entity.event.Invitation;
 
 /**
  * The Class User.
@@ -41,8 +35,9 @@ public class User extends ParseObject {
 
     /**
      * Instantiates a new user.
-     * 
-     * @param facebookId the facebook id
+     *
+     * @param facebookId
+     *            the facebook id
      */
     public User(final String facebookId) {
         setFacebookId(facebookId);
@@ -50,7 +45,7 @@ public class User extends ParseObject {
 
     /**
      * Gets the facebook id.
-     * 
+     *
      * @return the facebook id
      */
     public final String getFacebookId() {
@@ -59,8 +54,9 @@ public class User extends ParseObject {
 
     /**
      * Sets the facebook id.
-     * 
-     * @param facebookId the new facebook id
+     *
+     * @param facebookId
+     *            the new facebook id
      */
     public final void setFacebookId(final String facebookId) {
         put("facebookId", facebookId);
@@ -68,7 +64,7 @@ public class User extends ParseObject {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     public final String getName() {
@@ -77,16 +73,17 @@ public class User extends ParseObject {
 
     /**
      * Sets the name.
-     * 
-     * @param mName the new name
+     *
+     * @param mName
+     *            the new name
      */
     public final void setName(final String mName) {
-        name = mName;
+        put("name", mName);
     }
 
     /**
      * Gets the birthday.
-     * 
+     *
      * @return the birthday
      */
     public final String getBirthday() {
@@ -95,8 +92,9 @@ public class User extends ParseObject {
 
     /**
      * Sets the birthday.
-     * 
-     * @param newBirthday the new birthday
+     *
+     * @param newBirthday
+     *            the new birthday
      */
     public final void setBirthday(final String newBirthday) {
         birthday = newBirthday;
@@ -104,7 +102,7 @@ public class User extends ParseObject {
 
     /**
      * Gets the email.
-     * 
+     *
      * @return the email
      */
     public final String getEmail() {
@@ -113,8 +111,9 @@ public class User extends ParseObject {
 
     /**
      * Sets the email.
-     * 
-     * @param newEmail the new email
+     *
+     * @param newEmail
+     *            the new email
      */
     public final void setEmail(final String newEmail) {
         email = newEmail;
@@ -122,7 +121,7 @@ public class User extends ParseObject {
 
     /**
      * Gets the age.
-     * 
+     *
      * @return the age
      */
     public final int getAge() {
@@ -131,16 +130,17 @@ public class User extends ParseObject {
 
     /**
      * Sets the age.
-     * 
-     * @param mAge the new age
+     *
+     * @param mAge
+     *            the new age
      */
     public final void setAge(final int mAge) {
-        age = mAge;
+        put("age", mAge);
     }
 
     /**
      * Gets the gender.
-     * 
+     *
      * @return the gender
      */
     public String getGender() {
@@ -149,8 +149,9 @@ public class User extends ParseObject {
 
     /**
      * Sets the gender.
-     * 
-     * @param userGender the new gender
+     *
+     * @param userGender
+     *            the new gender
      */
     public final void setGender(final String userGender) {
         gender = userGender;
@@ -176,7 +177,7 @@ public class User extends ParseObject {
         if (therUser == null || !(therUser instanceof User)) {
             return false;
         }
-        User other = (User) therUser;
+        final User other = (User) therUser;
         return Objects.equal(getFacebookId(), other.getFacebookId());
     }
 }
