@@ -198,6 +198,12 @@ public class EventDetailActivity extends FragmentActivity {
     			pictures.get(i).setProfileId(participants.get(i).getFacebookId());
     		}
     	}
+    	
+    	if(participants.size() > 5){
+    		TextView mp = (TextView)findViewById(R.id.tv_more_participants);
+    		mp.setVisibility(View.VISIBLE);
+    		mp.setText("+ " + (participants.size() - 5));
+    	}
     }
 
     /*
