@@ -122,7 +122,9 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 			for (int i = 0; i < listEvents.size(); i++) {
 				final Event tempEvent = listEvents.get(i);
 				final List<String> tempEventTags = tempEvent.getTags();
-				if (tempEventTags.contains(filter)) {
+				if (tempEventTags.contains(filter)|| tempEvent
+						.isOwner(Authenticator.getInstance()
+								.getLoggedUser())) {
 					newListEvents.add(tempEvent);
 				}
 			}
