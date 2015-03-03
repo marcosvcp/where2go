@@ -68,7 +68,7 @@ public class User extends ParseObject {
      * @return the name
      */
     public final String getName() {
-        return name;
+        return getString("name");
     }
 
     /**
@@ -125,7 +125,7 @@ public class User extends ParseObject {
      * @return the age
      */
     public final int getAge() {
-        return age;
+        return Integer.parseInt(getString("age"));
     }
 
     /**
@@ -159,7 +159,7 @@ public class User extends ParseObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -169,7 +169,7 @@ public class User extends ParseObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
