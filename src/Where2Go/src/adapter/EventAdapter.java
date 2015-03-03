@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import activity.CreateEventActivity;
 import activity.EditEventActivity;
 import activity.EventDetailActivity;
 import activity.FacebookFriendsActivity;
@@ -120,7 +122,9 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 			for (int i = 0; i < listEvents.size(); i++) {
 				final Event tempEvent = listEvents.get(i);
 				final List<String> tempEventTags = tempEvent.getTags();
-				if (tempEventTags.contains(filter)) {
+				if (tempEventTags.contains(filter)
+						|| tempEvent.isOwner(Authenticator.getInstance()
+								.getLoggedUser())) {
 					newListEvents.add(tempEvent);
 				}
 			}
@@ -194,6 +198,10 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 		final int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
 				bitmap.getHeight() / 2);
 
+		if (event.getEventPhoto() != null) {
+			thumbnail.setImageURI(Uri.fromFile(event.getEventPhoto()));
+		}
+
 		card.setBackgroundColor(Color.argb(255, Color.red(pixel),
 				Color.green(pixel), Color.blue(pixel)));
 
@@ -224,8 +232,8 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 		btOptions.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				if(Authenticator.getInstance().getLoggedUser() != null){
-				showPopupMenu(v, event);
+				if (Authenticator.getInstance().getLoggedUser() != null) {
+					showPopupMenu(v, event);
 				}
 			}
 		});
@@ -244,8 +252,13 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 	 */
 	private void showPopupMenu(final View v, final Event event) {
 		final PopupMenu popupMenu = new PopupMenu(mcontext, v);
+		if(event.isOwner(Authenticator.getInstance().getLoggedUser())){
 		popupMenu.getMenuInflater().inflate(R.menu.event_options,
 				popupMenu.getMenu());
+		}else{
+			popupMenu.getMenuInflater().inflate(R.menu.not_owner_event_options,
+					popupMenu.getMenu());
+		}
 		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(final MenuItem item) {

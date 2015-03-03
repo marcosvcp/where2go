@@ -1,6 +1,7 @@
 
 package activity;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -47,6 +48,8 @@ public class CreateEventAditInfoActivity extends Activity {
 
     /** The Select Photo. */
     private final int SELECT_PHOTO = 1;
+    
+    private File eventImage;
     
     /** The validation. */
     private final FieldValidation validation = new FieldValidation(this);
@@ -98,6 +101,7 @@ public class CreateEventAditInfoActivity extends Activity {
                                     .parseInt(etEventCapacity.getText()
                                             .toString()));
                         }
+                        
                         ParseUtil.saveEvent(event);
                         EventsListFragment.getAdapter().notifyDataSetChanged();
                         final Intent intent = new Intent(
@@ -124,6 +128,10 @@ public class CreateEventAditInfoActivity extends Activity {
 					final InputStream imageStream = getContentResolver().openInputStream(imageUri);
 					final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
 					ivEvent.setImageBitmap(selectedImage);
+					
+					File imageFile = new File(imageUri.getPath());
+					CreateEventActivity.getEvent().setEventPhoto(imageFile);
+					
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}

@@ -9,6 +9,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,8 @@ public class Event extends ParseObject {
      */
     private String photo;
 
+    
+    private File eventPhoto;
     /**
      * Instantiates a new event.
      */
@@ -47,41 +50,6 @@ public class Event extends ParseObject {
         put("ownerName", eventOwner.getName());
         put("facebookId", eventOwner.getFacebookId());
         setOwner(eventOwner);
-        put(TAGS, "");
-    }
-    
-    /**
-     * Instantiates a new event.
-     *
-     * @param name        the name
-     * @param description the description
-     * @param newPhoto    the photo
-     * @param initialDate the initial date
-     * @param finalDate   the final date
-     * @param price       the price
-     * @param outfit      the outfit
-     * @param capacity    the capacity
-     * @param isPublic    the is public
-     * @param owner       the owner
-     */
-    public Event(final String name, final String description,
-                 final String newPhoto, final Date initialDate,
-                 final Date finalDate, final double price, final String outfit,
-                 final Integer capacity, final boolean isPublic, final User owner) {
-        put("state", new EventOpened().getName());
-        put("name", name);
-        put("ownerName", owner.getName());
-        put("description", description);
-        put("initialDate", initialDate);
-        put("finalDate", finalDate);
-        put("price", price);
-        put("outfit", outfit);
-        put("capacity", capacity);
-        put("note", "");
-        setOwner(owner);
-        put("facebookId", owner.getFacebookId());
-        photo = newPhoto;
-        put("isPublic", isPublic);
         put(TAGS, "");
     }
 
@@ -511,4 +479,12 @@ public class Event extends ParseObject {
     	this.saveInBackground();
     	return new Notification(participant, this, "Voc� saiu deste evento");
     }
+
+	public File getEventPhoto() {
+		return eventPhoto;
+	}
+
+	public void setEventPhoto(File eventPhoto) {
+		this.eventPhoto = eventPhoto;
+	}
 }

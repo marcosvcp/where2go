@@ -6,8 +6,8 @@
 	<classpathentry kind="src" path="/FacebookSDK"/>
 	<classpathentry kind="lib" path="libs/Parse-1.8.0.jar"/>
 	<classpathentry kind="lib" path="libs/ParseCrashReporting-1.8.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/google-play-services_lib"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/google-play-services_lib"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
