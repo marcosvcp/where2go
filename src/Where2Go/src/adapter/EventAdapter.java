@@ -122,8 +122,8 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 			for (int i = 0; i < listEvents.size(); i++) {
 				final Event tempEvent = listEvents.get(i);
 				final List<String> tempEventTags = tempEvent.getTags();
-				if (tempEventTags.contains(filter)|| tempEvent
-						.isOwner(Authenticator.getInstance()
+				if (tempEventTags.contains(filter)
+						|| tempEvent.isOwner(Authenticator.getInstance()
 								.getLoggedUser())) {
 					newListEvents.add(tempEvent);
 				}
@@ -201,7 +201,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 		if (event.getEventPhoto() != null) {
 			thumbnail.setImageURI(Uri.fromFile(event.getEventPhoto()));
 		}
-		
+
 		card.setBackgroundColor(Color.argb(255, Color.red(pixel),
 				Color.green(pixel), Color.blue(pixel)));
 
@@ -232,8 +232,8 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 		btOptions.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				if(Authenticator.getInstance().getLoggedUser() != null){
-				showPopupMenu(v, event);
+				if (Authenticator.getInstance().getLoggedUser() != null) {
+					showPopupMenu(v, event);
 				}
 			}
 		});
@@ -252,8 +252,13 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 	 */
 	private void showPopupMenu(final View v, final Event event) {
 		final PopupMenu popupMenu = new PopupMenu(mcontext, v);
+		if(event.isOwner(Authenticator.getInstance().getLoggedUser())){
 		popupMenu.getMenuInflater().inflate(R.menu.event_options,
 				popupMenu.getMenu());
+		}else{
+			popupMenu.getMenuInflater().inflate(R.menu.not_owner_event_options,
+					popupMenu.getMenu());
+		}
 		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(final MenuItem item) {
