@@ -347,9 +347,11 @@ public class CreateEventActivity extends Activity {
 
             @Override
             public void onClick(final View v) {
-                Intent intent = new Intent(getApplicationContext(),
-                        CreateEventAditInfoActivity.class);
-                startActivity(intent);
+                if (checkValidation()) {
+                	event = new Event(etEventName.getText().toString(),etEventDescription.getText().toString(), initialDate, finalDate, initialTime, finalTime, rbRadioPublic.isChecked(),Authenticator.getInstance().getLoggedUser());
+                	Intent intent = new Intent(getApplicationContext(), CreateEventAditInfoActivity.class);
+                	startActivity(intent);
+                }
             }
         });
 

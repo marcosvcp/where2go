@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import activity.CreateEventActivity;
 import activity.EditEventActivity;
 import activity.EventDetailActivity;
 import activity.FacebookFriendsActivity;
@@ -194,6 +196,10 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 		final int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
 				bitmap.getHeight() / 2);
 
+		if (event.getEventPhoto() != null) {
+			thumbnail.setImageURI(Uri.fromFile(event.getEventPhoto()));
+		}
+		
 		card.setBackgroundColor(Color.argb(255, Color.red(pixel),
 				Color.green(pixel), Color.blue(pixel)));
 
