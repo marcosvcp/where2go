@@ -21,7 +21,22 @@
         android:layout_marginTop="-50dp"
         android:layout_width="wrap_content"
         android:layout_height="50dp" 
-        android:src="@drawable/ic_action_event" />
+        android:maxLength="40"
+        android:src="@drawable/ic_action_event" />    
+    
+    <EditText 
+        android:id="@+id/editSearchInput"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:singleLine="true"
+        android:inputType="textShortMessage"/>
+    
+	<Button
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/nextBtn"
+        android:id="@+id/btnSearch"
+        android:text="Search" />"
     
     <ListView
         android:id="@+id/listViewEventsSearched"
