@@ -6,6 +6,9 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+import android.test.InstrumentationTestCase;
+import android.test.InstrumentationTestRunner;
+
 import com.parse.ParseObject;
 
 import java.text.ParseException;
@@ -19,7 +22,7 @@ import entity.user.User;
  * Testes da entidade usuario
  * Created by brunomb on 02/12/14.
  */
-public class UserTest extends TestCase{
+public class UserTest extends InstrumentationTestCase{
 	private User user1, user2;
 	
 	@Before
