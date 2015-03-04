@@ -65,7 +65,7 @@ public class Event extends ParseObject {
     /**
      * Seta o dono do evento
      */
-    private final void setOwner(final User owner) {
+    public final void setOwner(final User owner) {
         final ParseRelation<User> relat = getRelation("owner");
         relat.add(owner);
     }
