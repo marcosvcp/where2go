@@ -192,7 +192,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 .findViewById(R.id.photo);
         final Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable())
                 .getBitmap();
-        final int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
+        int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
                 bitmap.getHeight() / 2);
 
         if (event.getPhoto() != null) {
@@ -200,6 +200,8 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 Bitmap bmp = BitmapFactory
                         .decodeByteArray(event.getPhoto().getData(), 0, event.getPhoto().getData().length);
                 thumbnail.setImageBitmap(bmp);
+                pixel = bmp.getPixel(bmp.getWidth() / 2,
+                		bmp.getHeight() / 2);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
