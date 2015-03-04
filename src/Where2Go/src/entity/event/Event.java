@@ -6,10 +6,10 @@ import android.util.Log;
 import com.google.common.base.Objects;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,17 +28,14 @@ public class Event extends ParseObject {
     /**
      * The photo.
      */
-    private String photo;
 
-    
-    private File eventPhoto;
     /**
      * Instantiates a new event.
      */
     public Event() {
     }
 
-    public Event(String eventName, String eventDescription, Date initialDate, Date finalDate, String initialTime, String finalTime, boolean isPublic, User eventOwner){
+    public Event(String eventName, String eventDescription, Date initialDate, Date finalDate, String initialTime, String finalTime, boolean isPublic, User eventOwner) {
         put("state", new EventOpened().getName());
         put("name", eventName);
         put("description", eventDescription);
@@ -147,8 +144,8 @@ public class Event extends ParseObject {
      *
      * @return the photo
      */
-    public final String getPhoto() {
-        return photo;
+    public final ParseFile getPhoto() {
+        return getParseFile("photo");
     }
 
     /**
@@ -156,8 +153,8 @@ public class Event extends ParseObject {
      *
      * @param newPhoto the new photo
      */
-    public final void setPhoto(final String newPhoto) {
-        photo = newPhoto;
+    public final void setPhoto(final ParseFile newPhoto) {
+        put("photo", newPhoto);
     }
 
     /**
@@ -414,77 +411,69 @@ public class Event extends ParseObject {
     public final String getState() {
         return getString("state");
     }
-    
+
 
     /**
      * Gets the participants.
      *
      * @return the participants
-     * @throws ParseException 
+     * @throws ParseException
      */
-    public final List<User> getParticipants(){
+    public final List<User> getParticipants() {
         final ParseRelation<User> participants = getRelation("participants");
         try {
-			return participants.getQuery().find();
-		} catch (ParseException e) {
-			Log.e("Event", e.getMessage());
-		}
+            return participants.getQuery().find();
+        } catch (ParseException e) {
+            Log.e("Event", e.getMessage());
+        }
         return new ArrayList<User>();
     }
-    
+
     /**
      * Add one participant.
      *
      * @return the participants
-     * @throws ParseException 
+     * @throws ParseException
      */
-    public Notification addParticipant(User participant){
-    	String msg = "Agora voc� est� participando";
-    	if(!isPublic()){
-    		msg =  "Voc� n�o tem permiss�o para participar";
-    	}
-    	if(isFull()){
-    		msg =  "Evento lotado";
-    	}
-    	final ParseRelation<User> participants = getRelation("participants");
-    	try {
-			if(participants.getQuery().find().contains(participant)){
-				msg = "Voc� j� participa deste evento";
-			}else{
-				participants.add(participant);
-			}
-		} catch (ParseException e) {
-			Log.e("Event", e.getMessage());
-		}    	
-    	this.saveInBackground();
-    	return new Notification(participant, this, msg);
+    public Notification addParticipant(User participant) {
+        String msg = "Agora voc� est� participando";
+        if (!isPublic()) {
+            msg = "Voc� n�o tem permiss�o para participar";
+        }
+        if (isFull()) {
+            msg = "Evento lotado";
+        }
+        final ParseRelation<User> participants = getRelation("participants");
+        try {
+            if (participants.getQuery().find().contains(participant)) {
+                msg = "Voc� j� participa deste evento";
+            } else {
+                participants.add(participant);
+            }
+        } catch (ParseException e) {
+            Log.e("Event", e.getMessage());
+        }
+        this.saveInBackground();
+        return new Notification(participant, this, msg);
     }
 
     /**
      * Remove one participant.
      *
      * @return the participants
-     * @throws ParseException 
+     * @throws ParseException
      */
-    public Notification removeParticipant(User participant){
-    	final ParseRelation<User> participants = getRelation("participants");
-    	try {
-    		if(!participants.getQuery().find().contains(participant)){
-    			return new Notification(participant, this, "Voc� n�o participa deste evento");
-    		}
-    	} catch (ParseException e) {
-    		Log.e("Event", e.getMessage());
-    	}
-    	participants.remove(participant);
-    	this.saveInBackground();
-    	return new Notification(participant, this, "Voc� saiu deste evento");
+    public Notification removeParticipant(User participant) {
+        final ParseRelation<User> participants = getRelation("participants");
+        try {
+            if (!participants.getQuery().find().contains(participant)) {
+                return new Notification(participant, this, "Voc� n�o participa deste evento");
+            }
+        } catch (ParseException e) {
+            Log.e("Event", e.getMessage());
+        }
+        participants.remove(participant);
+        this.saveInBackground();
+        return new Notification(participant, this, "Voc� saiu deste evento");
     }
-
-	public File getEventPhoto() {
-		return eventPhoto;
-	}
-
-	public void setEventPhoto(File eventPhoto) {
-		this.eventPhoto = eventPhoto;
-	}
 }
