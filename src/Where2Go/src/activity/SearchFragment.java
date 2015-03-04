@@ -217,9 +217,7 @@ public class SearchFragment extends Fragment {
         // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
         ParseQuery<Event> query = ParseUtil
                 .getQueryEvent();
-        Log.d("Search", "1");
-        query.whereContains("name", "Teste");
-        Log.d("Search", "2");
+        query.whereContains("name", stringToSearch.getText().toString());
         query.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(final List<Event> objects,
@@ -233,7 +231,6 @@ public class SearchFragment extends Fragment {
                 }
             }
         });	
-        Log.d("Search", "3");
     }
     
     private void setFilterSelected(AdapterView<?> parent, View view, int position, long id){
