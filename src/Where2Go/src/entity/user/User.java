@@ -134,8 +134,9 @@ public class User extends ParseObject {
      * @param mAge
      *            the new age
      */
-    public final void setAge(final int mAge) {
-        put("age", mAge);
+    public final void setAge(final int age) {
+    	String newAge = "" + age;
+        put("age", newAge);
     }
 
     /**

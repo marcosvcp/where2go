@@ -208,6 +208,7 @@ public class Event extends ParseObject {
      * @param price the new price
      */
     public final void setPrice(final double price) {
+    	
         put("price", price);
     }
 
