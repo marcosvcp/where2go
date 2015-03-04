@@ -53,7 +53,7 @@
             android:layout_height="75dp"
             android:layout_gravity="center_horizontal|bottom"
             android:background="#77444444"
-            android:text="Entrar sem cadastro"
+            android:text="Entrar"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
     </LinearLayout>

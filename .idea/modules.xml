@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/src/Where2Go/Where2Go.iml" filepath="$PROJECT_DIR$/src/Where2Go/Where2Go.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/facebook-android-sdk-3.20.0/facebook/facebook.iml" filepath="$PROJECT_DIR$/src/facebook-android-sdk-3.20.0/facebook/facebook.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/google-play-services_lib/google-play-services_lib.iml" filepath="$PROJECT_DIR$/src/google-play-services_lib/google-play-services_lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/Where2Go/test/test.iml" filepath="$PROJECT_DIR$/src/Where2Go/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/Where2Go/where2go.iml" filepath="$PROJECT_DIR$/src/Where2Go/where2go.iml" />
     </modules>
   </component>
 </project>

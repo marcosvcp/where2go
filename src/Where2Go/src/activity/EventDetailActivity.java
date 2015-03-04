@@ -10,6 +10,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -22,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.les.where2go.R;
@@ -90,6 +93,7 @@ public class EventDetailActivity extends FragmentActivity {
     private TextView tvNotes;
 
     private ImageButton btAccept;
+    private ImageView imageEvent;
     private ImageButton btDecline;
 
     /**
@@ -123,7 +127,7 @@ public class EventDetailActivity extends FragmentActivity {
         tvNotes = (TextView) findViewById(R.id.tv_detail_notes);
         btAccept = (ImageButton) findViewById(R.id.bt_acept);
         btDecline = (ImageButton) findViewById(R.id.bt_decline);
-
+        imageEvent = (ImageView) findViewById(R.id.imageView1);
         // Busca no servidor o Objeto que tem o ID
         ParseUtil.findEventById(key, new GetCallback<Event>() {
             @Override
@@ -178,7 +182,15 @@ public class EventDetailActivity extends FragmentActivity {
         tvNotes.setText(event.getNote());
         tvOwner.setText(event.getOwnerName());
         tvCreatedAt.setText(ParseUtil.PT_BR.format(event.getCreatedAt()));
-        
+        if (event.getPhoto() != null) {
+            try {
+                Bitmap bmp = BitmapFactory
+                        .decodeByteArray(event.getPhoto().getData(), 0, event.getPhoto().getData().length);
+                imageEvent.setImageBitmap(bmp);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         loadParticipantsPictures();
 
     }

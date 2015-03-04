@@ -134,6 +134,8 @@ public class MainScreen extends Activity {
                     .getResourceId(5, -1)));
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
                     .getResourceId(6, -1)));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons
+            		.getResourceId(7, -1)));
         } else {
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
                     .getResourceId(0, -1)));
@@ -293,6 +295,9 @@ public class MainScreen extends Activity {
                 fragment = new ProfileFragment();
                 break;
             case 6:
+            	fragment = new SearchFragment();
+            	break;
+            case 7:
                 logoutFacebook();
                 final Intent intent = new Intent(getApplicationContext(),
                         MainActivity.class);
