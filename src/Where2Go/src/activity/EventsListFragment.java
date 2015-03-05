@@ -100,14 +100,8 @@ public class EventsListFragment extends Fragment {
         setHasOptionsMenu(true);
 
         searchSpinnerSetUp();
-
-        mBtnAddEvent.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(final View v) {
-                addEvent();
-            }
-        });
+        
+        mBtnAddEvent.setVisibility(View.GONE);
 
         return rootView;
     }
@@ -199,14 +193,6 @@ public class EventsListFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    /**
-     * Actions of the addEvent button.
-     */
-    public final void addEvent() {
-        Intent intent = new Intent(context, CreateEventActivity.class);
-        startActivity(intent);
     }
 
     /**

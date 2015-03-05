@@ -128,6 +128,12 @@ public class EventDetailActivity extends FragmentActivity {
         btAccept = (ImageButton) findViewById(R.id.bt_acept);
         btDecline = (ImageButton) findViewById(R.id.bt_decline);
         imageEvent = (ImageView) findViewById(R.id.imageView1);
+        
+        if(Authenticator.getInstance().getLoggedUser() == null){
+        	btAccept.setVisibility(View.GONE);
+            btDecline.setVisibility(View.GONE);
+        }
+        
         // Busca no servidor o Objeto que tem o ID
         ParseUtil.findEventById(key, new GetCallback<Event>() {
             @Override
