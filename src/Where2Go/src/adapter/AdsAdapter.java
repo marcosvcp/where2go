@@ -324,8 +324,7 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
 					public void onClick(final DialogInterface arg0,
 							final int arg1) {
 						try {
-							finalize();
-						} catch (final Throwable e) {
+						} catch (final Exception e) {
 							Log.e(FINALIZE, e.getMessage());
 						}
 					}
@@ -368,8 +367,7 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
 					public void onClick(final DialogInterface arg0,
 							final int arg1) {
 						try {
-							finalize();
-						} catch (Throwable e) {
+						} catch (Exception e) {
 							Log.e(FINALIZE, e.getMessage());
 						}
 					}

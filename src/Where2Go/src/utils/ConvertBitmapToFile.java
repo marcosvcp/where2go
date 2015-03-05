@@ -8,6 +8,7 @@ import java.io.IOException;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.util.Log;
 
 /**
  * The Class ConvertBitmapToFile.
@@ -27,7 +28,7 @@ public class ConvertBitmapToFile {
 	try {
 		file.createNewFile();
 	} catch (IOException e1) {
-		e1.printStackTrace();
+		Log.e("FileOutputStream Error", e1.getMessage());
 	}
 
 	//Convert bitmap to byte array
@@ -41,7 +42,7 @@ public class ConvertBitmapToFile {
 		fos = new FileOutputStream(file);
 		fos.write(bitmapdata);
 	} catch (IOException e) {
-		e.printStackTrace();
+		Log.e("FileOutputStream Error", e.getMessage());
 	}
 	return fos;
 	}

@@ -146,8 +146,6 @@ public class MyInvitesFragment extends Fragment {
      * Load invites.
      */
     public final void loadInvites() {
-        new ArrayList<Invitation>();
-
         ParseUtil.findInvitationByUserGuest(Authenticator.getInstance()
                 .getLoggedUser(), new FindCallback<Invitation>() {
 

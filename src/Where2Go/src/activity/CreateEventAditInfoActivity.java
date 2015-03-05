@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -156,9 +157,9 @@ public class CreateEventAditInfoActivity extends Activity {
                         CreateEventActivity.getEvent().setPhoto(pf);
 
                     } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                    	Log.e("CreateEvent onActivityResult Error", e.getMessage());
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                    	Log.e("CreateEvent onActivityResult Error", e.getMessage());
                     }
                 }
         }
