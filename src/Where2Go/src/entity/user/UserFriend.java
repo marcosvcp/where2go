@@ -1,4 +1,3 @@
-
 package entity.user;
 
 /**
@@ -17,10 +16,13 @@ public class UserFriend {
 
     /**
      * Instantiates a new user friend.
-     * 
-     * @param friendName the friend name
-     * @param friendPicture the friend picture
-     * @param friendid the friendid
+     *
+     * @param friendName
+     *            the friend name
+     * @param friendPicture
+     *            the friend picture
+     * @param friendid
+     *            the friendid
      */
     public UserFriend(final String friendName, final String friendPicture,
             final String friendid) {
@@ -32,9 +34,11 @@ public class UserFriend {
 
     /**
      * Instantiates a new user friend.
-     * 
-     * @param friendName the friend name
-     * @param friendid the friendid
+     *
+     * @param friendName
+     *            the friend name
+     * @param friendid
+     *            the friendid
      */
     public UserFriend(final String friendName, final String friendid) {
         super();
@@ -45,7 +49,7 @@ public class UserFriend {
 
     /**
      * Gets the friend name.
-     * 
+     *
      * @return the friend name
      */
     public final String getFriendName() {
@@ -54,8 +58,9 @@ public class UserFriend {
 
     /**
      * Sets the friend name.
-     * 
-     * @param friendName the new friend name
+     *
+     * @param friendName
+     *            the new friend name
      */
     public final void setFriendName(final String friendName) {
         mFriendName = friendName;
@@ -63,7 +68,7 @@ public class UserFriend {
 
     /**
      * Gets the friend picture.
-     * 
+     *
      * @return the friend picture
      */
     public final String getFriendPicture() {
@@ -72,8 +77,9 @@ public class UserFriend {
 
     /**
      * Sets the friend picture.
-     * 
-     * @param friendPicture the new friend picture
+     *
+     * @param friendPicture
+     *            the new friend picture
      */
     public final void setFriendPicture(final String friendPicture) {
         mFriendPicture = friendPicture;
@@ -81,7 +87,7 @@ public class UserFriend {
 
     /**
      * Gets the friendid.
-     * 
+     *
      * @return the friendid
      */
     public final String getFriendid() {
@@ -90,8 +96,9 @@ public class UserFriend {
 
     /**
      * Sets the friendid.
-     * 
-     * @param friendid the new friendid
+     *
+     * @param friendid
+     *            the new friendid
      */
     public final void setFriendid(final String friendid) {
         mFriendId = friendid;

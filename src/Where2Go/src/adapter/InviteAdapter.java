@@ -1,6 +1,9 @@
-
 package adapter;
-import static android.widget.PopupMenu.OnMenuItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import persistence.ParseUtil;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -10,14 +13,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.les.where2go.R;
 import entity.event.Invitation;
-import persistence.ParseUtil;
 
 /**
  * The Class InviteAdapter.
@@ -37,10 +36,13 @@ public class InviteAdapter extends BaseAdapter {
 
     /**
      * Instantiates a new event adapter.
-     * 
-     * @param context the context
-     * @param listInvites the list invites
-     * @param view the parent view
+     *
+     * @param context
+     *            the context
+     * @param listInvites
+     *            the list invites
+     * @param view
+     *            the parent view
      */
     public InviteAdapter(final Context context,
             final List<Invitation> listInvites, final View view) {
@@ -51,11 +53,15 @@ public class InviteAdapter extends BaseAdapter {
 
     /**
      * Instantiates a new invite adapter.
-     * 
-     * @param context the context
-     * @param listInvites the list invites
-     * @param view the parent view
-     * @param filter the filter
+     *
+     * @param context
+     *            the context
+     * @param listInvites
+     *            the list invites
+     * @param view
+     *            the parent view
+     * @param filter
+     *            the filter
      */
     public InviteAdapter(final Context context,
             final List<Invitation> listInvites, final View view,
@@ -95,8 +101,9 @@ public class InviteAdapter extends BaseAdapter {
 
     /**
      * Get id of item selected.
-     * 
-     * @param index the index
+     *
+     * @param index
+     *            the index
      * @return the item id
      */
     @Override
@@ -111,9 +118,10 @@ public class InviteAdapter extends BaseAdapter {
      * android.view.ViewGroup)
      */
     @Override
-    public final View getView(final int position, View myView,
+    public final View getView(final int position, final View myView,
             final ViewGroup viewGroup) {
-        View view = mInflater.inflate(R.layout.item_invitation_adapter, null);
+        final View view = mInflater.inflate(R.layout.item_invitation_adapter,
+                null);
 
         final Invitation invite = mListInvites.get(position);
 
@@ -139,55 +147,56 @@ public class InviteAdapter extends BaseAdapter {
 
     /**
      * Show popup menu.
-     * 
-     * @param v the v
-     * @param invite the invite
+     *
+     * @param v
+     *            the v
+     * @param invite
+     *            the invite
      */
     private void showPopupMenu(final View v, final Invitation invite) {
         final PopupMenu popupMenu = new PopupMenu(mcontext, v);
         popupMenu.getMenuInflater().inflate(R.menu.invitation_options,
                 popupMenu.getMenu());
-        popupMenu
-                .setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(final MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.invitation_accept:
-                                confirmInvitationState();
-                                return true;
-                            case R.id.invitation_refuse:
-                                deniedInvitationState();
-                                return true;
-                            default:
-                                break;
-                        }
-                        return true;
-                    }
+        popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(final MenuItem item) {
+                switch (item.getItemId()) {
+                case R.id.invitation_accept:
+                    confirmInvitationState();
+                    return true;
+                case R.id.invitation_refuse:
+                    deniedInvitationState();
+                    return true;
+                default:
+                    break;
+                }
+                return true;
+            }
 
-                    /**
-                     * Muda o estado do convite para negado, caso seja negado o mesmo.
-                     */
-                    private void deniedInvitationState() {
-                        if (!invite.getState().equals(DENIED)) {
-                            invite.setState(DENIED);
-                            ParseUtil.saveInvitation(invite);
-                            mListInvites.remove(invite);
-                            notifyDataSetChanged();
-                        }
-                    }
+            /**
+             * Muda o estado do convite para negado, caso seja negado o mesmo.
+             */
+            private void deniedInvitationState() {
+                if (!invite.getState().equals(DENIED)) {
+                    invite.setState(DENIED);
+                    ParseUtil.saveInvitation(invite);
+                    mListInvites.remove(invite);
+                    notifyDataSetChanged();
+                }
+            }
 
-                    /**
-                     * Muda o estado do convite para aceito, caso seja aceito o mesmo.
-                     */
-                    private void confirmInvitationState() {
-                        if (!invite.getState().equals(ACCEPTED)) {
-                            invite.setState(ACCEPTED);
-                            ParseUtil.saveInvitation(invite);
-                            mListInvites.remove(invite);
-                            notifyDataSetChanged();
-                        }
-                    }
-                });
+            /**
+             * Muda o estado do convite para aceito, caso seja aceito o mesmo.
+             */
+            private void confirmInvitationState() {
+                if (!invite.getState().equals(ACCEPTED)) {
+                    invite.setState(ACCEPTED);
+                    ParseUtil.saveInvitation(invite);
+                    mListInvites.remove(invite);
+                    notifyDataSetChanged();
+                }
+            }
+        });
         popupMenu.show();
     }
 }

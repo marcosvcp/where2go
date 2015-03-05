@@ -1,4 +1,3 @@
-
 package entity.event;
 
 import entity.notifications.Notification;
@@ -11,7 +10,7 @@ public class InvitationConfirmed implements InvitationState {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.InvitationState#confirm(entity.event.Invitation)
      */
     @Override
@@ -28,7 +27,8 @@ public class InvitationConfirmed implements InvitationState {
      */
     @Override
     public final Notification decline(final Invitation invitation) {
-        invitation.getEvent().removeParticipant(invitation.getGuest(), invitation.getHost());
+        invitation.getEvent().removeParticipant(invitation.getGuest(),
+                invitation.getHost());
         return new Notification(invitation.getGuest(), invitation.getEvent(),
                 String.format("You leave from this event %s",
                         invitation.getEvent()));
@@ -36,7 +36,7 @@ public class InvitationConfirmed implements InvitationState {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.InvitationState#getName()
      */
     @Override

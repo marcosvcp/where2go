@@ -64,6 +64,7 @@
         <item>Invites</item>
         <item>Map</item>
         <item>Profile</item>
+        <item>Search</item>
         <item>Logout</item>
     </string-array>
 

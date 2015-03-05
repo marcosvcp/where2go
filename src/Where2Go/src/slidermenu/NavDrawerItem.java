@@ -30,9 +30,11 @@ public class NavDrawerItem {
 
     /**
      * Instantiates a new nav drawer item.
-     * 
-     * @param title the title
-     * @param icon the icon
+     *
+     * @param title
+     *            the title
+     * @param icon
+     *            the icon
      */
     public NavDrawerItem(final String title, final int icon) {
         mTitle = title;
@@ -41,14 +43,18 @@ public class NavDrawerItem {
 
     /**
      * Instantiates a new nav drawer item.
-     * 
-     * @param title the title
-     * @param icon the icon
-     * @param isVisible the is counter visible
-     * @param newCount the count
+     *
+     * @param title
+     *            the title
+     * @param icon
+     *            the icon
+     * @param isVisible
+     *            the is counter visible
+     * @param newCount
+     *            the count
      */
-    public NavDrawerItem(final String title, final int icon, final boolean isVisible,
-            final String newCount) {
+    public NavDrawerItem(final String title, final int icon,
+            final boolean isVisible, final String newCount) {
         mTitle = title;
         mIcon = icon;
         isCounterVisible = isVisible;
@@ -57,7 +63,7 @@ public class NavDrawerItem {
 
     /**
      * Gets the title.
-     * 
+     *
      * @return the title
      */
     public final String getTitle() {
@@ -66,7 +72,7 @@ public class NavDrawerItem {
 
     /**
      * Gets the icon.
-     * 
+     *
      * @return the icon
      */
     public final int getIcon() {
@@ -75,7 +81,7 @@ public class NavDrawerItem {
 
     /**
      * Gets the count.
-     * 
+     *
      * @return the count
      */
     public final String getCount() {
@@ -84,7 +90,7 @@ public class NavDrawerItem {
 
     /**
      * Gets the counter visibility.
-     * 
+     *
      * @return the counter visibility
      */
     public final boolean getCounterVisibility() {
@@ -93,8 +99,9 @@ public class NavDrawerItem {
 
     /**
      * Sets the title.
-     * 
-     * @param title the new title
+     *
+     * @param title
+     *            the new title
      */
     public final void setTitle(final String title) {
         mTitle = title;
@@ -102,8 +109,9 @@ public class NavDrawerItem {
 
     /**
      * Sets the icon.
-     * 
-     * @param icon the new icon
+     *
+     * @param icon
+     *            the new icon
      */
     public final void setIcon(final int icon) {
         mIcon = icon;
@@ -111,8 +119,9 @@ public class NavDrawerItem {
 
     /**
      * Sets the count.
-     * 
-     * @param newCount the new count
+     *
+     * @param newCount
+     *            the new count
      */
     public final void setCount(final String newCount) {
         count = newCount;
@@ -120,8 +129,9 @@ public class NavDrawerItem {
 
     /**
      * Sets the counter visibility.
-     * 
-     * @param isVisible the new counter visibility
+     *
+     * @param isVisible
+     *            the new counter visibility
      */
     public final void setCounterVisibility(final boolean isVisible) {
         this.isCounterVisible = isVisible;

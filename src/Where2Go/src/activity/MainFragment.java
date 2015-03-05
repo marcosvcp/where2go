@@ -49,7 +49,7 @@ public class MainFragment extends Fragment {
     public MainFragment(final Context context) {
         mContext = context;
     }
-    
+
     public MainFragment() {
     }
 
@@ -65,7 +65,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
      * android.view.ViewGroup, android.os.Bundle)
@@ -97,7 +97,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
      */
     @Override
@@ -129,7 +129,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.Fragment#onResume()
      */
     @Override
@@ -148,7 +148,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.Fragment#onActivityResult(int, int,
      * android.content.Intent)
      */
@@ -161,7 +161,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.Fragment#onPause()
      */
     @Override
@@ -172,7 +172,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.Fragment#onDestroy()
      */
     @Override
@@ -183,7 +183,7 @@ public class MainFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
      */

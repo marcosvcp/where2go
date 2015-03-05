@@ -80,7 +80,7 @@ public class MainActivity extends FragmentActivity {
             // Add the fragment on initial activity setup
             mainFragment = new MainFragment(getApplicationContext());
             getSupportFragmentManager().beginTransaction()
-                    .add(android.R.id.content, mainFragment).commit();
+            .add(android.R.id.content, mainFragment).commit();
         } else {
             // Or set the fragment from restored state info
             mainFragment = (MainFragment) getSupportFragmentManager()
@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.FragmentActivity#onResume()
      */
     @Override
@@ -103,7 +103,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.FragmentActivity#onPause()
      */
     @Override
@@ -197,7 +197,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int,
      * android.content.Intent)
      */

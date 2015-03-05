@@ -1,4 +1,3 @@
-
 package entity.event;
 
 /**
@@ -17,8 +16,9 @@ public enum EventVisibility {
 
     /**
      * Instantiates a new event visibility.
-     * 
-     * @param newVisibility the visibility
+     *
+     * @param newVisibility
+     *            the visibility
      */
     EventVisibility(final String newVisibility) {
         visibility = newVisibility;
@@ -26,7 +26,7 @@ public enum EventVisibility {
 
     /**
      * Gets the visibility.
-     * 
+     *
      * @return the visibility
      */
     public String getVisibility() {
@@ -35,8 +35,9 @@ public enum EventVisibility {
 
     /**
      * Sets the visibility.
-     * 
-     * @param newVisibility the new visibility
+     *
+     * @param newVisibility
+     *            the new visibility
      */
     public void setVisibility(final String newVisibility) {
         visibility = newVisibility;

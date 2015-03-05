@@ -162,6 +162,15 @@ public final class ParseUtil {
     }
 
     /**
+     * Gets the query SearchTag.
+     *
+     * @return the query tag
+     */
+    public static ParseQuery<ParseObject> getQuerySearchTag() {
+        return ParseQuery.getQuery("SearchTag");
+    }
+
+    /**
      * Find all tags.
      *
      * @param findCallback
@@ -169,5 +178,16 @@ public final class ParseUtil {
      */
     public static void findAllTags(final FindCallback<ParseObject> findCallback) {
         getQueryTag().findInBackground(findCallback);
+    }
+
+    /**
+     * Find all SearchTags.
+     *
+     * @param findCallback
+     *            the find callback
+     */
+    public static void findAllSearchTags(
+            final FindCallback<ParseObject> findCallback) {
+        getQuerySearchTag().findInBackground(findCallback);
     }
 }

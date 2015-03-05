@@ -134,8 +134,9 @@ public class User extends ParseObject {
      * @param mAge
      *            the new age
      */
-    public final void setAge(final int mAge) {
-        put("age", mAge);
+    public final void setAge(final int age) {
+        final String newAge = "" + age;
+        put("age", newAge);
     }
 
     /**
@@ -159,7 +160,7 @@ public class User extends ParseObject {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -169,7 +170,7 @@ public class User extends ParseObject {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

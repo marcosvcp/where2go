@@ -1,23 +1,22 @@
-
 package activity;
 
+import utils.Authenticator;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import br.com.les.where2go.R;
 
 import com.facebook.widget.ProfilePictureView;
 
-import br.com.les.where2go.R;
 import entity.user.User;
-import utils.Authenticator;
 
 // TODO: Auto-generated Javadoc
 /**
  * Fragment responsible to manager of logged user.
- * 
+ *
  */
 public class ProfileFragment extends Fragment {
 
@@ -44,13 +43,13 @@ public class ProfileFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Fragment#onCreateView(android.view.LayoutInflater,
      * android.view.ViewGroup, android.os.Bundle)
      */
     @Override
-    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater,
+            final ViewGroup container, final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.activity_profile,
                 container, false);
 
@@ -69,7 +68,7 @@ public class ProfileFragment extends Fragment {
 
     /**
      * Gets the m user.
-     * 
+     *
      * @return the m user
      */
     public static User getmUser() {
@@ -78,8 +77,9 @@ public class ProfileFragment extends Fragment {
 
     /**
      * Sets the m user.
-     * 
-     * @param newUser the new m user
+     *
+     * @param newUser
+     *            the new m user
      */
     public static void setmUser(final User newUser) {
         ProfileFragment.mUser = newUser;

@@ -5,6 +5,8 @@
 
 package slidermenu;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,10 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.les.where2go.R;
 
 /**
@@ -32,8 +30,10 @@ public class NavDrawerListAdapter extends BaseAdapter {
     /**
      * Instantiates a new nav drawer list adapter.
      * 
-     * @param context the context
-     * @param navDrawerItems the nav drawer items
+     * @param context
+     *            the context
+     * @param navDrawerItems
+     *            the nav drawer items
      */
     public NavDrawerListAdapter(final Context context,
             final List<NavDrawerItem> navDrawerItems) {
@@ -43,7 +43,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.widget.Adapter#getCount()
      */
     @Override
@@ -53,7 +53,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
@@ -63,7 +63,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.widget.Adapter#getItemId(int)
      */
     @Override
@@ -73,19 +73,21 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.widget.Adapter#getView(int, android.view.View,
      * android.view.ViewGroup)
      */
     @Override
-    public final View getView(final int position, View convertView, final ViewGroup parent) {
+    public final View getView(final int position, final View convertView,
+            final ViewGroup parent) {
         View myConvertView = convertView;
         if (myConvertView == null) {
-            LayoutInflater mInflater = (LayoutInflater) mContext
+            final LayoutInflater mInflater = (LayoutInflater) mContext
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             myConvertView = mInflater.inflate(R.layout.drawer_list_item, null);
         }
-        TextView txtTitle = (TextView) myConvertView.findViewById(R.id.title);
+        final TextView txtTitle = (TextView) myConvertView
+                .findViewById(R.id.title);
         txtTitle.setText(mNavDrawerItems.get(position).getTitle());
         return myConvertView;
     }

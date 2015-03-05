@@ -1,5 +1,7 @@
-
 package adapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,13 +13,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import br.com.les.where2go.R;
 
 import com.facebook.widget.ProfilePictureView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.les.where2go.R;
 import entity.user.UserFriend;
 
 /**
@@ -42,11 +41,14 @@ public class FacebookFriendsAdapter extends BaseAdapter {
 
     /**
      * Instantiates a new facebook friends adapter.
-     * 
-     * @param friends the friends
-     * @param context the context
+     *
+     * @param friends
+     *            the friends
+     * @param context
+     *            the context
      */
-    public FacebookFriendsAdapter(final List<UserFriend> friends, final Context context) {
+    public FacebookFriendsAdapter(final List<UserFriend> friends,
+            final Context context) {
         mFriends = friends;
         mContext = context;
         setmListIdFacebook(new ArrayList<String>());
@@ -68,7 +70,7 @@ public class FacebookFriendsAdapter extends BaseAdapter {
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
-    public final Object getItem(int position) {
+    public final Object getItem(final int position) {
         return mFriends.get(position);
         /** The profile picture view. */
 
@@ -91,12 +93,13 @@ public class FacebookFriendsAdapter extends BaseAdapter {
      * android.view.ViewGroup)
      */
     @Override
-    public final View getView(final int position, final View convertView, final ViewGroup parent) {
-        View myView = LayoutInflater.from(mContext).inflate(
+    public final View getView(final int position, final View convertView,
+            final ViewGroup parent) {
+        final View myView = LayoutInflater.from(mContext).inflate(
                 R.layout.facebook_friends_adapter, null);
-        TextView tvFacebookName = (TextView) myView
+        final TextView tvFacebookName = (TextView) myView
                 .findViewById(R.id.tv_facebook_friend);
-        UserFriend user = (UserFriend) getItem(position);
+        final UserFriend user = (UserFriend) getItem(position);
         tvFacebookName.setText(user.getFriendName());
         profilePictureView = (ProfilePictureView) myView
                 .findViewById(R.id.image_facebook_friend);
@@ -105,9 +108,12 @@ public class FacebookFriendsAdapter extends BaseAdapter {
         profilePictureView.setProfileId(friendID);
 
         cbSelectFriend = (CheckBox) myView.findViewById(R.id.cbSelectFriend);
-        cbSelectFriend.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        cbSelectFriend
+        .setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
+            public void onCheckedChanged(
+                    final CompoundButton buttonView,
+                    final boolean isChecked) {
                 if (isChecked) {
                     mListIdFacebook.add(friendID);
                     Log.v("CHECKBOX", "MARCADO" + friendID);
@@ -122,7 +128,7 @@ public class FacebookFriendsAdapter extends BaseAdapter {
 
     /**
      * Gets the m list id facebook.
-     * 
+     *
      * @return the m list id facebook
      */
     public static List<String> getmListIdFacebook() {
@@ -131,8 +137,9 @@ public class FacebookFriendsAdapter extends BaseAdapter {
 
     /**
      * Sets the m list id facebook.
-     * 
-     * @param listIdFacebook the new m list id facebook
+     *
+     * @param listIdFacebook
+     *            the new m list id facebook
      */
     public static void setmListIdFacebook(final List<String> listIdFacebook) {
         FacebookFriendsAdapter.mListIdFacebook = listIdFacebook;

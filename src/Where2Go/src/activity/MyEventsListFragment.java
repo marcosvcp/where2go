@@ -134,43 +134,43 @@ public class MyEventsListFragment extends Fragment {
                 context, android.R.layout.simple_spinner_item, tags);
 
         spinnerDataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSearchEventSpinner.setAdapter(spinnerDataAdapter);
         mSearchEventSpinner
-                .setOnItemSelectedListener(new OnItemSelectedListener() {
+        .setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent,
+                    final View view, final int position, final long id) {
+                final String filter = parent
+                        .getItemAtPosition(position).toString();
+                // Atualiza o adapter passando o filtro como parametro
+                // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
+                final ParseQuery<Event> query = ParseUtil
+                        .getQueryEvent();
+
+                query.whereContains("facebookId", Authenticator
+                        .getInstance().getLoggedUser().getFacebookId());
+
+                query.findInBackground(new FindCallback<Event>() {
                     @Override
-                    public void onItemSelected(final AdapterView<?> parent,
-                            final View view, final int position, final long id) {
-                        final String filter = parent
-                                .getItemAtPosition(position).toString();
-                        // Atualiza o adapter passando o filtro como parametro
-                        // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
-                        final ParseQuery<Event> query = ParseUtil
-                                .getQueryEvent();
-
-                        query.whereContains("facebookId", Authenticator
-                                .getInstance().getLoggedUser().getFacebookId());
-
-                        query.findInBackground(new FindCallback<Event>() {
-                            @Override
-                            public void done(final List<Event> objects,
-                                    final ParseException e) {
-                                // Caso não tenha lançado exceção
-                                if (e == null) {
-                                    adapter = new EventAdapter(context,
-                                            objects, rootView, filter,
-                                            getActivity());
-                                    listview.setAdapter(adapter);
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onNothingSelected(final AdapterView<?> parent) {
-                        // TODO Auto-generated method stub
+                    public void done(final List<Event> objects,
+                            final ParseException e) {
+                        // Caso não tenha lançado exceção
+                        if (e == null) {
+                            adapter = new EventAdapter(context,
+                                    objects, rootView, filter,
+                                    getActivity());
+                            listview.setAdapter(adapter);
+                        }
                     }
                 });
+            }
+
+            @Override
+            public void onNothingSelected(final AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
     /**
@@ -198,13 +198,13 @@ public class MyEventsListFragment extends Fragment {
     @Override
     public final boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                final Intent intentBack = new Intent(context, MainScreen.class);
-                intentBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intentBack);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        case android.R.id.home:
+            final Intent intentBack = new Intent(context, MainScreen.class);
+            intentBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intentBack);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 

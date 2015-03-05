@@ -1,4 +1,3 @@
-
 package entity.event;
 
 import entity.notifications.Notification;
@@ -16,20 +15,20 @@ public class InvitationPending implements InvitationState {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.InvitationState#confirm(entity.event.Invitation)
      */
     @Override
     public final Notification confirm(final Invitation invitation) {
         invitation.setState(new InvitationConfirmed().getName());
-        return new Notification(invitation.getGuest(),
-                invitation.getEvent(), String.format(EVENT_MSG, invitation
-                .getEvent().getName(), "confirmed"));
+        return new Notification(invitation.getGuest(), invitation.getEvent(),
+                String.format(EVENT_MSG, invitation.getEvent().getName(),
+                        "confirmed"));
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.InvitationState#decline(entity.event.Invitation)
      */
     @Override
@@ -42,7 +41,7 @@ public class InvitationPending implements InvitationState {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.InvitationState#getName()
      */
     @Override

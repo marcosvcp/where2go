@@ -7,6 +7,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import android.test.InstrumentationTestCase;
+import android.test.InstrumentationTestRunner;
+
 import com.parse.ParseObject;
 
 import entity.establishment.Establishment;
@@ -14,7 +17,7 @@ import entity.event.Event;
 import entity.event.Invitation;
 import entity.user.User;
 
-public class EstablishmentTest extends TestCase{
+public class EstablishmentTest extends InstrumentationTestCase{
 	
 	private Establishment est1;
 	private Establishment est2;
