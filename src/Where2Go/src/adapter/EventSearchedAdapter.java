@@ -13,11 +13,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,9 +28,6 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import br.com.les.where2go.R;
-
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
 
 import entity.event.Event;
 import entity.event.EventCanceled;
@@ -334,8 +326,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 					public void onClick(final DialogInterface arg0,
 							final int arg1) {
 						try {
-							finalize();
-						} catch (final Throwable e) {
+						} catch (final Exception e) {
 							Log.e(FINALIZE, e.getMessage());
 						}
 					}
@@ -378,8 +369,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 					public void onClick(final DialogInterface arg0,
 							final int arg1) {
 						try {
-							finalize();
-						} catch (Throwable e) {
+						} catch (Exception e) {
 							Log.e(FINALIZE, e.getMessage());
 						}
 					}

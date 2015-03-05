@@ -5,7 +5,6 @@ import java.util.List;
 
 import persistence.ParseUtil;
 import utils.Authenticator;
-import adapter.FacebookFriendsAdapter;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -35,7 +34,6 @@ import com.parse.ParseException;
 
 import entity.event.Event;
 import entity.user.User;
-import entity.user.UserFriend;
 
 //import entity.notifications.Notification;
 

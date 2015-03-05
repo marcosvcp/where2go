@@ -31,7 +31,6 @@ import java.util.List;
 import adapter.FacebookFriendsAdapter;
 import br.com.les.where2go.R;
 import entity.event.Event;
-import entity.event.Invitation;
 import entity.notifications.Notification;
 import entity.user.User;
 import entity.user.UserFriend;

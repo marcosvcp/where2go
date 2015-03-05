@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,13 +27,10 @@ import android.widget.TextView;
 
 import com.parse.ParseException;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import activity.CreateEventActivity;
 import activity.EditEventActivity;
 import activity.EventDetailActivity;
 import activity.FacebookFriendsActivity;
