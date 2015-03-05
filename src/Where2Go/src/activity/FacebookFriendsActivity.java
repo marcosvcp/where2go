@@ -1,6 +1,15 @@
-
 package activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import persistence.ParseUtil;
+import utils.Authenticator;
+import adapter.FacebookFriendsAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,32 +19,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import static com.facebook.Request.Callback;
+import br.com.les.where2go.R;
 
 import com.facebook.HttpMethod;
 import com.facebook.Request;
+import com.facebook.Request.Callback;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import adapter.FacebookFriendsAdapter;
-import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.notifications.Notification;
 import entity.user.User;
 import entity.user.UserFriend;
-import persistence.ParseUtil;
-import utils.Authenticator;
 
 /**
  * The Class FacebookFriendsActivity.
@@ -64,7 +62,7 @@ public class FacebookFriendsActivity extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
     @Override
@@ -97,36 +95,36 @@ public class FacebookFriendsActivity extends Activity {
     public final void showFriendsFacebook() {
         new Request(Session.getActiveSession(), "/me/friends", null,
                 HttpMethod.GET, new Callback() {
-            @Override
-            public void onCompleted(final Response response) {
-                Log.e("FACEBOOK", response.getGraphObject()
-                        .getInnerJSONObject().toString());
-                try {
-                    final JSONObject jsonFriends = new JSONObject(
-                            response.getGraphObject()
-                                    .getInnerJSONObject().toString());
-                    final JSONArray jArray = jsonFriends
-                            .getJSONArray("data");
+                    @Override
+                    public void onCompleted(final Response response) {
+                        Log.e("FACEBOOK", response.getGraphObject()
+                                .getInnerJSONObject().toString());
+                        try {
+                            final JSONObject jsonFriends = new JSONObject(
+                                    response.getGraphObject()
+                                            .getInnerJSONObject().toString());
+                            final JSONArray jArray = jsonFriends
+                                    .getJSONArray("data");
 
-                    for (int i = 0; i < jArray.length(); i++) {
-                        friends.add(new UserFriend(jArray
-                                .getJSONObject(i).getString("name"),
-                                jArray.getJSONObject(i).getString("id")));
+                            for (int i = 0; i < jArray.length(); i++) {
+                                friends.add(new UserFriend(jArray
+                                        .getJSONObject(i).getString("name"),
+                                        jArray.getJSONObject(i).getString("id")));
+                            }
+                            final FacebookFriendsAdapter adapter = new FacebookFriendsAdapter(
+                                    friends, getApplicationContext());
+                            friendList.setAdapter(adapter);
+
+                        } catch (final JSONException e) {
+                            Log.e("FriendsActivity", e.getMessage());
+                        }
                     }
-                    final FacebookFriendsAdapter adapter = new FacebookFriendsAdapter(
-                            friends, getApplicationContext());
-                    friendList.setAdapter(adapter);
-
-                } catch (final JSONException e) {
-                    Log.e("FriendsActivity", e.getMessage());
-                }
-            }
-        }).executeAsync();
+                }).executeAsync();
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
@@ -139,18 +137,18 @@ public class FacebookFriendsActivity extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
     public final boolean onOptionsItemSelected(final MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
-            case R.id.action_done:
-                loadFacebookData();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        case R.id.action_done:
+            loadFacebookData();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -158,29 +156,30 @@ public class FacebookFriendsActivity extends Activity {
      * Carrega os dados do facebook
      */
     private void loadFacebookData() {
-        Toast.makeText(getApplicationContext(), "Done",
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG)
+                .show();
 
-        for (int i = 0; i < FacebookFriendsAdapter.getmListIdFacebook()
-                .size(); i++) {
+        for (int i = 0; i < FacebookFriendsAdapter.getmListIdFacebook().size(); i++) {
             final String facebookId = FacebookFriendsAdapter
                     .getmListIdFacebook().get(i);
-            ParseUtil.findByFacebookId(facebookId,
-                    new FindCallback<User>() {
-                        @Override
-                        public void done(final List<User> objects,
-                                         final ParseException e) {
-                            final User guest = objects.get(0);
-                            Notification notification = eventToInvite.addParticipant(guest, host); // TODO Lançar a notificação pro usuário
-                            onBackPressed();
-                        }
-                    });
+            ParseUtil.findByFacebookId(facebookId, new FindCallback<User>() {
+                @Override
+                public void done(final List<User> objects,
+                        final ParseException e) {
+                    final User guest = objects.get(0);
+                    final Notification notification = eventToInvite
+                            .addParticipant(guest, host); // TODO Lançar a
+                                                          // notificação pro
+                                                          // usuário
+                    onBackPressed();
+                }
+            });
         }
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onBackPressed()
      */
     @Override

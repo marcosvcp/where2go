@@ -41,7 +41,6 @@ import entity.user.User;
  * Application core.
  */
 public class EventDetailActivity extends FragmentActivity {
-
     /** The main fragment. */
     private MainFragment mainFragment;
 
@@ -126,12 +125,12 @@ public class EventDetailActivity extends FragmentActivity {
         btAccept = (ImageButton) findViewById(R.id.bt_acept);
         btDecline = (ImageButton) findViewById(R.id.bt_decline);
         imageEvent = (ImageView) findViewById(R.id.imageView1);
-        
-        if(Authenticator.getInstance().getLoggedUser() == null){
-        	btAccept.setVisibility(View.GONE);
+
+        if (Authenticator.getInstance().getLoggedUser() == null) {
+            btAccept.setVisibility(View.GONE);
             btDecline.setVisibility(View.GONE);
         }
-        
+
         // Busca no servidor o Objeto que tem o ID
         ParseUtil.findEventById(key, new GetCallback<Event>() {
             @Override
@@ -168,7 +167,7 @@ public class EventDetailActivity extends FragmentActivity {
 
             }
         });
-        
+
     }
 
     /**
@@ -188,43 +187,45 @@ public class EventDetailActivity extends FragmentActivity {
         tvCreatedAt.setText(ParseUtil.PT_BR.format(event.getCreatedAt()));
         if (event.getPhoto() != null) {
             try {
-                Bitmap bmp = BitmapFactory
-                        .decodeByteArray(event.getPhoto().getData(), 0, event.getPhoto().getData().length);
+                final Bitmap bmp = BitmapFactory.decodeByteArray(event
+                        .getPhoto().getData(), 0,
+                        event.getPhoto().getData().length);
                 imageEvent.setImageBitmap(bmp);
-            } catch (ParseException e) {
+            } catch (final ParseException e) {
                 e.printStackTrace();
             }
         }
         loadParticipantsPictures();
 
     }
-    
-    private void loadParticipantsPictures(){
-    	List<ProfilePictureView> pictures = new ArrayList<ProfilePictureView>();
-    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_1));
-    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_2));
-    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_3));
-    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_4));
-    	pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_5));
-    	
-    	List<User> participants = event.getParticipants();
-    	for (int i = 0; i < 4 ; i ++){
-    		if(participants.size() > i){
-    			pictures.get(i).setVisibility(View.VISIBLE);
-    			pictures.get(i).setProfileId(participants.get(i).getFacebookId());
-    		}
-    	}
-    	
-    	if(participants.size() > 5){
-    		TextView mp = (TextView)findViewById(R.id.tv_more_participants);
-    		mp.setVisibility(View.VISIBLE);
-    		mp.setText("+ " + (participants.size() - 5));
-    	}
+
+    private void loadParticipantsPictures() {
+        final List<ProfilePictureView> pictures = new ArrayList<ProfilePictureView>();
+        pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_1));
+        pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_2));
+        pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_3));
+        pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_4));
+        pictures.add((ProfilePictureView) findViewById(R.id.image_facebook_5));
+
+        final List<User> participants = event.getParticipants();
+        for (int i = 0; i < 4; i++) {
+            if (participants.size() > i) {
+                pictures.get(i).setVisibility(View.VISIBLE);
+                pictures.get(i).setProfileId(
+                        participants.get(i).getFacebookId());
+            }
+        }
+
+        if (participants.size() > 5) {
+            final TextView mp = (TextView) findViewById(R.id.tv_more_participants);
+            mp.setVisibility(View.VISIBLE);
+            mp.setText("+ " + (participants.size() - 5));
+        }
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
@@ -236,25 +237,25 @@ public class EventDetailActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
     public final boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-        	case R.id.action_invite:
-	             final Intent intent = new Intent(getApplicationContext(),
-	             FacebookFriendsActivity.class);
-	             intent.putExtra("EventId", event.getObjectId());
-	             startActivity(intent);
-	        	return true;
-            case R.id.action_notification:
-                createNotification(getWindow().getDecorView().findViewById(
-                        android.R.id.content));
-                return true;
-            
-            default:
-                return super.onOptionsItemSelected(item);
+        case R.id.action_invite:
+            final Intent intent = new Intent(getApplicationContext(),
+                    FacebookFriendsActivity.class);
+            intent.putExtra("EventId", event.getObjectId());
+            startActivity(intent);
+            return true;
+        case R.id.action_notification:
+            createNotification(getWindow().getDecorView().findViewById(
+                    android.R.id.content));
+            return true;
+
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -322,13 +323,13 @@ public class EventDetailActivity extends FragmentActivity {
         // Build notification
         // Actions are just fake
         final Notification noti = new Notification.Builder(this)
-                .setContentTitle("New invite for " + event.getName())
-                .setContentText("Where2go")
-                .setSmallIcon(R.drawable.ic_launcher).setContentIntent(pIntent)
-                .addAction(R.drawable.ic_action_accept, "Accept", pIntent)
-                .addAction(R.drawable.ic_action_cancel, "Ignore", pIntent)
-                .addAction(R.drawable.ic_action_discard, "Cancel", pIntent)
-                .build();
+        .setContentTitle("New invite for " + event.getName())
+        .setContentText("Where2go")
+        .setSmallIcon(R.drawable.ic_launcher).setContentIntent(pIntent)
+        .addAction(R.drawable.ic_action_accept, "Accept", pIntent)
+        .addAction(R.drawable.ic_action_cancel, "Ignore", pIntent)
+        .addAction(R.drawable.ic_action_discard, "Cancel", pIntent)
+        .build();
         final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // hide the notification after its selected
         noti.flags |= Notification.FLAG_AUTO_CANCEL;

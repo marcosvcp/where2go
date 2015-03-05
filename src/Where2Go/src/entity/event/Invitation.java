@@ -1,4 +1,3 @@
-
 package entity.event;
 
 import com.google.common.base.Objects;
@@ -24,10 +23,13 @@ public class Invitation extends ParseObject {
 
     /**
      * Instantiates a new invitation.
-     * 
-     * @param guest the guest
-     * @param host the host
-     * @param event the event
+     *
+     * @param guest
+     *            the guest
+     * @param host
+     *            the host
+     * @param event
+     *            the event
      */
     public Invitation(final User guest, final User host, final Event event) {
         put("status", new InvitationPending().getName());
@@ -38,7 +40,7 @@ public class Invitation extends ParseObject {
 
     /**
      * Gets the invitation state.
-     * 
+     *
      * @return the invitation state
      */
     public final InvitationState getInvitationState() {
@@ -54,79 +56,82 @@ public class Invitation extends ParseObject {
 
     /**
      * Gets the host.
-     * 
+     *
      * @return the host
      */
     public final User getHost() {
-        ParseRelation<User> query = getRelation("userHost");
+        final ParseRelation<User> query = getRelation("userHost");
         try {
             return query.getQuery().find().get(0);
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             return null;
         }
     }
 
     /**
      * Sets the host.
-     * 
-     * @param host the new host
+     *
+     * @param host
+     *            the new host
      */
     public final void setHost(final User host) {
-        ParseRelation<User> relat = getRelation("userHost");
+        final ParseRelation<User> relat = getRelation("userHost");
         relat.add(host);
     }
 
     /**
      * Gets the guest.
-     * 
+     *
      * @return the guest
      */
     public final User getGuest() {
-        ParseRelation<User> query = getRelation("userGuest");
+        final ParseRelation<User> query = getRelation("userGuest");
         try {
             return query.getQuery().find().get(0);
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             return null;
         }
     }
 
     /**
      * Sets the guest.
-     * 
-     * @param guest the new guest
+     *
+     * @param guest
+     *            the new guest
      */
     public final void setGuest(final User guest) {
-        ParseRelation<User> relat = getRelation("userGuest");
+        final ParseRelation<User> relat = getRelation("userGuest");
         relat.add(guest);
     }
 
     /**
      * Gets the event.
-     * 
+     *
      * @return the event
      */
     public final Event getEvent() {
-        ParseRelation<Event> query = getRelation("event");
+        final ParseRelation<Event> query = getRelation("event");
         try {
             return query.getQuery().find().get(0);
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             return null;
         }
     }
 
     /**
      * Sets the event.
-     * 
-     * @param event the new event
+     *
+     * @param event
+     *            the new event
      */
     public final void setEvent(final Event event) {
-        ParseRelation<Event> relat = getRelation("event");
+        final ParseRelation<Event> relat = getRelation("event");
         relat.add(event);
     }
 
     /**
      * Aceita um convite de um evento dependendo do seu {@code state}.
-     * 
+     *
      * @return the notification
      */
     public final Notification confirm() {
@@ -135,7 +140,7 @@ public class Invitation extends ParseObject {
 
     /**
      * Nega o convite para o {@code event}.
-     * 
+     *
      * @return the notification
      */
     public final Notification decline() {
@@ -144,7 +149,7 @@ public class Invitation extends ParseObject {
 
     /**
      * Gets the state.
-     * 
+     *
      * @return the state
      */
     public final String getState() {
@@ -153,8 +158,9 @@ public class Invitation extends ParseObject {
 
     /**
      * Sets the state.
-     * 
-     * @param state the new state
+     *
+     * @param state
+     *            the new state
      */
     public final void setState(final String state) {
         put("status", state);
@@ -162,7 +168,7 @@ public class Invitation extends ParseObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -172,7 +178,7 @@ public class Invitation extends ParseObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -180,7 +186,7 @@ public class Invitation extends ParseObject {
         if (otherEvent == null || !(otherEvent instanceof Invitation)) {
             return false;
         }
-        Invitation other = (Invitation) otherEvent;
+        final Invitation other = (Invitation) otherEvent;
         return Objects.equal(getGuest(), other.getGuest())
                 && Objects.equal(getEvent(), other.getEvent());
     }

@@ -1,6 +1,10 @@
-
 package activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import persistence.ParseUtil;
+import adapter.EventAdapter;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
@@ -18,19 +22,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import br.com.les.where2go.R;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import adapter.EventAdapter;
-import br.com.les.where2go.R;
 import entity.event.Event;
-import persistence.ParseUtil;
 
 /**
  * The Class EventsListFragment.
@@ -72,15 +71,18 @@ public class EventsListFragment extends Fragment {
 
     /**
      * Instantiate components.
-     * 
-     * @param inflater the inflater
-     * @param container the container
-     * @param savedInstanceState the saved instance state
+     *
+     * @param inflater
+     *            the inflater
+     * @param container
+     *            the container
+     * @param savedInstanceState
+     *            the saved instance state
      * @return the view
      */
     @Override
-    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater,
+            final ViewGroup container, final Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.activity_event_list, container,
                 false);
@@ -99,7 +101,7 @@ public class EventsListFragment extends Fragment {
         setHasOptionsMenu(true);
 
         searchSpinnerSetUp();
-        
+
         mBtnAddEvent.setVisibility(View.GONE);
 
         return rootView;
@@ -116,87 +118,94 @@ public class EventsListFragment extends Fragment {
         // Get all tags from parser
         ParseUtil.findAllTags(new FindCallback<ParseObject>() {
             @Override
-            public void done(final List<ParseObject> objects, final ParseException e) {
+            public void done(final List<ParseObject> objects,
+                    final ParseException e) {
                 if (e == null) {
-                    for (ParseObject po : objects) {
+                    for (final ParseObject po : objects) {
                         tags.add(po.getString("nome"));
                     }
                 }
             }
         });
 
-        ArrayAdapter<String> spinnerDataAdapter = new ArrayAdapter<String>(
+        final ArrayAdapter<String> spinnerDataAdapter = new ArrayAdapter<String>(
                 context, android.R.layout.simple_spinner_item, tags);
 
         spinnerDataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSearchEventSpinner.setAdapter(spinnerDataAdapter);
         mSearchEventSpinner
-                .setOnItemSelectedListener(new OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(final AdapterView<?> parent,
-                            final View view, final int position, final long id) {
-                        final String filter = parent
-                                .getItemAtPosition(position).toString();
-                        // Atualiza o adapter passando o filtro como parametro
-                        // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
-                        ParseQuery<Event> query = ParseUtil.getQueryEvent();
+        .setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent,
+                    final View view, final int position, final long id) {
+                final String filter = parent
+                        .getItemAtPosition(position).toString();
+                // Atualiza o adapter passando o filtro como parametro
+                // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
+                final ParseQuery<Event> query = ParseUtil
+                                .getQueryEvent();
 
-                        query.findInBackground(new FindCallback<Event>() {
-                            @Override
-                            public void done(final List<Event> objects,
-                                    final ParseException e) {
-                                // Caso não tenha lançado exceção
-                                if (e == null) {
-                                    adapter = new EventAdapter(context,
-                                            objects, rootView, filter, getActivity());
-                                    listview.setAdapter(adapter);
-                                }
-                            }
-                        });
-                    }
-
+                query.findInBackground(new FindCallback<Event>() {
                     @Override
-                    public void onNothingSelected(final AdapterView<?> parent) {
-                        // TODO Auto-generated method stub
+                    public void done(final List<Event> objects,
+                            final ParseException e) {
+                        // Caso não tenha lançado exceção
+                        if (e == null) {
+                            adapter = new EventAdapter(context,
+                                    objects, rootView, filter,
+                                            getActivity());
+                            listview.setAdapter(adapter);
+                        }
                     }
                 });
+            }
+
+            @Override
+            public void onNothingSelected(final AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
     /**
      * Inflate the menu items for use in the action bar.
-     * 
-     * @param menu the menu
-     * @param inflater the inflater
+     *
+     * @param menu
+     *            the menu
+     * @param inflater
+     *            the inflater
      */
     @Override
-    public final void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public final void onCreateOptionsMenu(final Menu menu,
+            final MenuInflater inflater) {
         inflater.inflate(R.menu.event_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     /**
      * Options for action bar, allowing create a new income.
-     * 
-     * @param item the item
+     *
+     * @param item
+     *            the item
      * @return true, if successful
      */
     @Override
     public final boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent intentBack = new Intent(context, MainScreen.class);
-                intentBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intentBack);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        case android.R.id.home:
+            final Intent intentBack = new Intent(context, MainScreen.class);
+            intentBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intentBack);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 
     /**
      * Gets the adapter.
-     * 
+     *
      * @return the adapter
      */
     public static EventAdapter getAdapter() {
@@ -205,8 +214,9 @@ public class EventsListFragment extends Fragment {
 
     /**
      * Sets the adapter.
-     * 
-     * @param newAdapter the new adapter
+     *
+     * @param newAdapter
+     *            the new adapter
      */
     public static void setAdapter(final EventAdapter newAdapter) {
         EventsListFragment.adapter = newAdapter;
@@ -214,17 +224,20 @@ public class EventsListFragment extends Fragment {
 
     /**
      * Get the context.
+     * 
      * @return context
      */
-	public static Context getContext() {
-		return context;
-	}
+    public static Context getContext() {
+        return context;
+    }
 
-	/**
-	 * Sets the context.
-	 * @param context the new context
-	 */
-	public static void setContext(Context context) {
-		EventsListFragment.context = context;
-	}
+    /**
+     * Sets the context.
+     * 
+     * @param context
+     *            the new context
+     */
+    public static void setContext(final Context context) {
+        EventsListFragment.context = context;
+    }
 }

@@ -1,6 +1,7 @@
-
 package activity;
 
+import persistence.ParseUtil;
+import utils.FieldValidation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -12,17 +13,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-
 import br.com.les.where2go.R;
 import entity.event.Event;
-import persistence.ParseUtil;
-import utils.FieldValidation;
 
 /**
  * The Class EditEventAditInfoActivity.
  */
 public class EditEventAditInfoActivity extends Activity {
-
     /** The et_event_notes. */
     private EditText etEventNotes;
 
@@ -40,7 +37,7 @@ public class EditEventAditInfoActivity extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
     @Override
@@ -56,41 +53,41 @@ public class EditEventAditInfoActivity extends Activity {
         btCreateEventInAditionalInformation = (Button) findViewById(R.id.bt_create_event_in_aditional_information);
 
         btCreateEventInAditionalInformation
-                .setOnClickListener(new OnClickListener() {
+        .setOnClickListener(new OnClickListener() {
 
-                    @Override
-                    public void onClick(final View v) {
+            @Override
+            public void onClick(final View v) {
 
-                        final Event event = CreateEventActivity.getEvent();
-                        if (validation.hasText(etEventNotes)) {
-                            event.setNote(etEventNotes.getText().toString());
-                        }
-                        if (validation.hasText(etEventOutfit)) {
-                            event.setOutfit(etEventOutfit.getText()
-                                    .toString());
-                        }
-                        if (validation.hasText(etEventCapacity)) {
-                            event.setCapacity(Integer
-                                    .parseInt(etEventCapacity.getText()
-                                            .toString()));
-                        }
-                        ParseUtil.saveEvent(event);
-                        EventsListFragment.getAdapter().notifyDataSetChanged();
-                        final Intent intent = new Intent(
-                                getApplicationContext(), MainScreen.class);
-                        intent.putExtra("eventslist", 2);
-                        startActivity(intent);
+                final Event event = CreateEventActivity.getEvent();
+                if (validation.hasText(etEventNotes)) {
+                    event.setNote(etEventNotes.getText().toString());
+                }
+                if (validation.hasText(etEventOutfit)) {
+                    event.setOutfit(etEventOutfit.getText().toString());
+                }
+                if (validation.hasText(etEventCapacity)) {
+                    event.setCapacity(Integer.parseInt(etEventCapacity
+                                    .getText().toString()));
+                }
+                ParseUtil.saveEvent(event);
+                EventsListFragment.getAdapter().notifyDataSetChanged();
+                final Intent intent = new Intent(
+                        getApplicationContext(), MainScreen.class);
+                intent.putExtra("eventslist", 2);
+                startActivity(intent);
 
-                    }
-                });
+            }
+        });
 
     }
 
     /**
      * Sets the status bar color.
-     * 
-     * @param statusBar the status bar
-     * @param color the color
+     *
+     * @param statusBar
+     *            the status bar
+     * @param color
+     *            the color
      */
     public final void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -109,7 +106,7 @@ public class EditEventAditInfoActivity extends Activity {
 
     /**
      * Gets the action bar height.
-     * 
+     *
      * @return the action bar height
      */
     public final int getActionBarHeight() {
@@ -124,7 +121,7 @@ public class EditEventAditInfoActivity extends Activity {
 
     /**
      * Gets the status bar height.
-     * 
+     *
      * @return the status bar height
      */
     public final int getStatusBarHeight() {

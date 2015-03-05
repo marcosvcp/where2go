@@ -1,4 +1,3 @@
-
 package entity.event;
 
 import entity.notifications.Notification;
@@ -12,7 +11,7 @@ public class InvitationDeclined implements InvitationState {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.InvitationState#confirm(entity.event.Invitation)
      */
     @Override
@@ -35,7 +34,7 @@ public class InvitationDeclined implements InvitationState {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.InvitationState#getName()
      */
     @Override

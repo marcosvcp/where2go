@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ParseUtil;
-import utils.Authenticator;
-import adapter.EventAdapter;
 import adapter.EventSearchedAdapter;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -26,7 +24,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import br.com.les.where2go.R;
@@ -60,11 +57,10 @@ public class SearchFragment extends Fragment {
 
     /** The m search event spinner. */
     private Spinner mSearchEventSpinner;
-    
+
     private EditText stringToSearch;
     private Button btnSearch;
     private String filter;
-
 
     /**
      * Instantiates a new events list fragment.
@@ -87,11 +83,12 @@ public class SearchFragment extends Fragment {
     public final View onCreateView(final LayoutInflater inflater,
             final ViewGroup container, final Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.activity_search_fragment, container,
-                false);
+        rootView = inflater.inflate(R.layout.activity_search_fragment,
+                container, false);
         mSearchEventSpinner = (Spinner) rootView
                 .findViewById(R.id.searchTagsList);
-        listview = (ListView) rootView.findViewById(R.id.listViewEventsSearched);
+        listview = (ListView) rootView
+                .findViewById(R.id.listViewEventsSearched);
         stringToSearch = (EditText) rootView.findViewById(R.id.editSearchInput);
         btnSearch = (Button) rootView.findViewById(R.id.btnSearch);
         setContext(rootView.getContext());
@@ -106,14 +103,14 @@ public class SearchFragment extends Fragment {
 
         searchSpinnerSetUp();
         btnSearch.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				updateListView();
-				
-			}
-		});
-        
+
+            @Override
+            public void onClick(final View v) {
+                updateListView();
+
+            }
+        });
+
         return rootView;
     }
 
@@ -124,8 +121,7 @@ public class SearchFragment extends Fragment {
         // Essa lista deve ser a lista de tags do BD
         final List<String> tags = new ArrayList<String>();
         tags.add("Search");
-        
-        
+
         // Get all tags from parser
         ParseUtil.findAllSearchTags(new FindCallback<ParseObject>() {
             @Override
@@ -143,19 +139,21 @@ public class SearchFragment extends Fragment {
                 context, android.R.layout.simple_spinner_item, tags);
 
         spinnerDataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSearchEventSpinner.setAdapter(spinnerDataAdapter);
-        mSearchEventSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(final AdapterView<?> parent,final View view, final int position, final long id) {
-                    	setFilterSelected(parent, view, position, id);
-                    }
+        mSearchEventSpinner
+                .setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent,
+                            final View view, final int position, final long id) {
+                        setFilterSelected(parent, view, position, id);
+            }
 
-                    @Override
-                    public void onNothingSelected(final AdapterView<?> parent) {
-                        // TODO Auto-generated method stub
-                    }
-                });
+            @Override
+            public void onNothingSelected(final AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
     /**
@@ -183,13 +181,13 @@ public class SearchFragment extends Fragment {
     @Override
     public final boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                final Intent intentBack = new Intent(context, MainScreen.class);
-                intentBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intentBack);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        case android.R.id.home:
+            final Intent intentBack = new Intent(context, MainScreen.class);
+            intentBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intentBack);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -211,38 +209,35 @@ public class SearchFragment extends Fragment {
     public static void setContext(final Context context) {
         SearchFragment.context = context;
     }
-    
-    private void updateListView(){
+
+    private void updateListView() {
         // Atualiza o adapter passando o filtro como parametro
         // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
-        ParseQuery<Event> query = ParseUtil
-                .getQueryEvent();
+        final ParseQuery<Event> query = ParseUtil.getQueryEvent();
         query.whereContains("name", stringToSearch.getText().toString());
         query.findInBackground(new FindCallback<Event>() {
             @Override
-            public void done(final List<Event> objects,
-                    final ParseException e) {
+            public void done(final List<Event> objects, final ParseException e) {
                 // Caso não tenha lançado exceção
                 if (e == null) {
-                    adapter = new EventSearchedAdapter(context,
-                            objects, rootView, filter,
-                            getActivity());
+                    adapter = new EventSearchedAdapter(context, objects,
+                            rootView, filter, getActivity());
                     listview.setAdapter(adapter);
                 }
             }
-        });	
+        });
     }
-    
-    private void setFilterSelected(AdapterView<?> parent, View view, int position, long id){
-    	filter = parent.getItemAtPosition(position).toString();
+
+    private void setFilterSelected(final AdapterView<?> parent,
+            final View view, final int position, final long id) {
+        filter = parent.getItemAtPosition(position).toString();
     }
-    
+
     public class LongOperation extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... params) {
-            ParseQuery<Event> query = ParseUtil
-                    .getQueryEvent();
+        protected String doInBackground(final String... params) {
+            final ParseQuery<Event> query = ParseUtil.getQueryEvent();
             Log.d("Search", "1");
             query.whereContains("name", "Scrum");
             Log.d("Search", "2");
@@ -252,25 +247,27 @@ public class SearchFragment extends Fragment {
                         final ParseException e) {
                     // Caso não tenha lançado exceção
                     if (e == null) {
-                        adapter = new EventSearchedAdapter(context,
-                                objects, rootView, filter,
-                                getActivity());
+                        adapter = new EventSearchedAdapter(context, objects,
+                                rootView, filter, getActivity());
                         listview.setAdapter(adapter);
                     }
                 }
-            });	
+            });
             Log.d("Search", "3");
             return "Executed";
         }
 
         @Override
-        protected void onPostExecute(String result) {}
+        protected void onPostExecute(final String result) {
+        }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+        }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(final Void... values) {
+        }
     }
 
 }

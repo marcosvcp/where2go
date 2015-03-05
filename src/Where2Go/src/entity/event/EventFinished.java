@@ -1,4 +1,3 @@
-
 package entity.event;
 
 import entity.notifications.Notification;
@@ -11,27 +10,31 @@ public class EventFinished implements EventState {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.EventState#removeParticipant()
      */
     @Override
-    public final Notification removeParticipant(Event event, User guest, User host) {
-        return new Notification(guest, event, "Você foi removido do evento " + event.getName());
+    public final Notification removeParticipant(final Event event,
+            final User guest, final User host) {
+        return new Notification(guest, event, "Você foi removido do evento "
+                + event.getName());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.EventState#addParticipant()
      */
     @Override
-    public final Notification addParticipant(Event event, User guest, User host) {
-        return new Notification(guest, event, "O evento " + event.getName() + " já foi concluído");
+    public final Notification addParticipant(final Event event,
+            final User guest, final User host) {
+        return new Notification(guest, event, "O evento " + event.getName()
+                + " já foi concluído");
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see entity.event.EventState#getName()
      */
     @Override

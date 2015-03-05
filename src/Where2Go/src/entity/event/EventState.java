@@ -1,4 +1,3 @@
-
 package entity.event;
 
 import entity.notifications.Notification;
@@ -11,21 +10,21 @@ public interface EventState {
 
     /**
      * Removes the participant.
-     * 
+     *
      * @return the notification
      */
     Notification removeParticipant(Event event, User guest, User host);
 
     /**
      * Adds the participant.
-     * 
+     *
      * @return the notification
      */
     Notification addParticipant(Event event, User guest, User host);
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     String getName();

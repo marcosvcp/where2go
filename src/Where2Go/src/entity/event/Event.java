@@ -1,5 +1,8 @@
-
 package entity.event;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import android.util.Log;
 
@@ -9,10 +12,6 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import entity.notifications.Notification;
 import entity.user.User;
@@ -24,6 +23,7 @@ import entity.user.User;
 public class Event extends ParseObject {
     public static final String TAGS = "tags";
     public static final String TAG_SEPARATOR = "@";
+
     // Mudar para File
     /**
      * The photo.
@@ -35,7 +35,10 @@ public class Event extends ParseObject {
     public Event() {
     }
 
-    public Event(String eventName, String eventDescription, Date initialDate, Date finalDate, String initialTime, String finalTime, boolean isPublic, User eventOwner) {
+    public Event(final String eventName, final String eventDescription,
+            final Date initialDate, final Date finalDate,
+            final String initialTime, final String finalTime,
+            final boolean isPublic, final User eventOwner) {
         put("state", new EventOpened().getName());
         put("name", eventName);
         put("description", eventDescription);
@@ -51,7 +54,8 @@ public class Event extends ParseObject {
     }
 
     /**
-     * Retorna o primeiro usuário da relação entre evento e usuário, ou seja o dono do evento
+     * Retorna o primeiro usuário da relação entre evento e usuário, ou seja o
+     * dono do evento
      */
     public final User getOwner() throws ParseException {
         final ParseRelation<User> a = getRelation("owner");
@@ -79,7 +83,8 @@ public class Event extends ParseObject {
     /**
      * Sets the owner name.
      *
-     * @param ownerName the new owner name
+     * @param ownerName
+     *            the new owner name
      */
     public final void setOwnerName(final String ownerName) {
         put("ownerName", ownerName);
@@ -97,7 +102,8 @@ public class Event extends ParseObject {
     /**
      * Sets the name.
      *
-     * @param name the new name
+     * @param name
+     *            the new name
      */
     public final void setName(final String name) {
         put("name", name);
@@ -115,7 +121,8 @@ public class Event extends ParseObject {
     /**
      * Sets the note.
      *
-     * @param notes the new note
+     * @param notes
+     *            the new note
      */
     public final void setNote(final String notes) {
         put("note", notes);
@@ -133,7 +140,8 @@ public class Event extends ParseObject {
     /**
      * Sets the description.
      *
-     * @param description the new description
+     * @param description
+     *            the new description
      */
     public final void setDescription(final String description) {
         put("description", description);
@@ -151,7 +159,8 @@ public class Event extends ParseObject {
     /**
      * Sets the photo.
      *
-     * @param newPhoto the new photo
+     * @param newPhoto
+     *            the new photo
      */
     public final void setPhoto(final ParseFile newPhoto) {
         put("photo", newPhoto);
@@ -169,7 +178,8 @@ public class Event extends ParseObject {
     /**
      * Sets the initial date.
      *
-     * @param initialDate the new initial date
+     * @param initialDate
+     *            the new initial date
      */
     public final void setInitialDate(final Date initialDate) {
         put("initialDate", initialDate);
@@ -187,7 +197,8 @@ public class Event extends ParseObject {
     /**
      * Sets the final date.
      *
-     * @param finalDate the new final date
+     * @param finalDate
+     *            the new final date
      */
     public final void setFinalDate(final Date finalDate) {
         put("finalDate", finalDate);
@@ -205,10 +216,11 @@ public class Event extends ParseObject {
     /**
      * Sets the price.
      *
-     * @param price the new price
+     * @param price
+     *            the new price
      */
     public final void setPrice(final double price) {
-    	
+
         put("price", price);
     }
 
@@ -224,7 +236,8 @@ public class Event extends ParseObject {
     /**
      * Sets the outfit.
      *
-     * @param outfit the new outfit
+     * @param outfit
+     *            the new outfit
      */
     public final void setOutfit(final String outfit) {
         put("outfit", outfit);
@@ -242,17 +255,18 @@ public class Event extends ParseObject {
     /**
      * Sets the capacity.
      *
-     * @param capacity the new capacity
+     * @param capacity
+     *            the new capacity
      */
     public final void setCapacity(final Integer capacity) {
         put("capacity", capacity);
     }
 
-
     /**
      * Sets the participants.
      *
-     * @param participants the new participants
+     * @param participants
+     *            the new participants
      */
     public final void setParticipants(final List<User> participants) {
         put("participants", participants);
@@ -270,7 +284,8 @@ public class Event extends ParseObject {
     /**
      * Sets the facebook id.
      *
-     * @param facebookId the new facebook id
+     * @param facebookId
+     *            the new facebook id
      */
     public final void setFacebookId(final String facebookId) {
         put("facebookId", facebookId);
@@ -288,7 +303,8 @@ public class Event extends ParseObject {
     /**
      * Sets the public.
      *
-     * @param isPublic the new public
+     * @param isPublic
+     *            the new public
      */
     public final void setPublic(final boolean isPublic) {
         put("isPublic", isPublic);
@@ -310,7 +326,8 @@ public class Event extends ParseObject {
     /**
      * Adds the tags.
      *
-     * @param tag the tag
+     * @param tag
+     *            the tag
      */
     public final void addTags(final String tag) {
         String tags = getString(TAGS);
@@ -331,9 +348,11 @@ public class Event extends ParseObject {
     /**
      * Remove o {@code participant} da lista de {@code participants}.
      *
-     * @param guest O participante a ser removido
+     * @param guest
+     *            O participante a ser removido
      */
-    public final Notification removeParticipant(final User guest, final User host) {
+    public final Notification removeParticipant(final User guest,
+            final User host) {
         return getEventState().removeParticipant(this, guest, host);
     }
 
@@ -348,17 +367,22 @@ public class Event extends ParseObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getName(), getDescription());// FIXME InitialDate deveria ser do tipo date @author Marcos v. Candeia
+        return Objects.hashCode(getName(), getDescription());// FIXME
+                                                             // InitialDate
+                                                             // deveria ser do
+                                                             // tipo date
+                                                             // @author Marcos
+                                                             // v. Candeia
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -374,7 +398,8 @@ public class Event extends ParseObject {
     /**
      * Retorna true caso {@code user} é o dono do evento.
      *
-     * @param user the user
+     * @param user
+     *            the user
      * @return true, if is owner
      */
     public final boolean isOwner(final User user) {
@@ -398,7 +423,8 @@ public class Event extends ParseObject {
     /**
      * Sets the state.
      *
-     * @param state the new state
+     * @param state
+     *            the new state
      */
     public final void setState(final String state) {
         put("state", state);
@@ -413,7 +439,6 @@ public class Event extends ParseObject {
         return getString("state");
     }
 
-
     /**
      * Gets the participants.
      *
@@ -424,7 +449,7 @@ public class Event extends ParseObject {
         final ParseRelation<User> participants = getRelation("participants");
         try {
             return participants.getQuery().find();
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             Log.e("Event", e.getMessage());
         }
         return new ArrayList<User>();
@@ -436,7 +461,7 @@ public class Event extends ParseObject {
      * @return the participants
      * @throws ParseException
      */
-    public Notification addParticipant(User participant) {
+    public Notification addParticipant(final User participant) {
         String msg = "Agora voc� est� participando";
         if (!isPublic()) {
             msg = "Voc� n�o tem permiss�o para participar";
@@ -451,7 +476,7 @@ public class Event extends ParseObject {
             } else {
                 participants.add(participant);
             }
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             Log.e("Event", e.getMessage());
         }
         this.saveInBackground();
@@ -464,13 +489,14 @@ public class Event extends ParseObject {
      * @return the participants
      * @throws ParseException
      */
-    public Notification removeParticipant(User participant) {
+    public Notification removeParticipant(final User participant) {
         final ParseRelation<User> participants = getRelation("participants");
         try {
             if (!participants.getQuery().find().contains(participant)) {
-                return new Notification(participant, this, "Voc� n�o participa deste evento");
+                return new Notification(participant, this,
+                        "Voc� n�o participa deste evento");
             }
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             Log.e("Event", e.getMessage());
         }
         participants.remove(participant);

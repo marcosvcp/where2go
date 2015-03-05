@@ -6,7 +6,6 @@ import java.util.List;
 import slidermenu.NavDrawerItem;
 import slidermenu.NavDrawerListAdapter;
 import utils.Authenticator;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -26,7 +25,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import br.com.les.where2go.R;
 
 import com.facebook.Session;
@@ -101,7 +99,8 @@ public class MainScreen extends Activity {
     /**
      * Called when the activity is first created.
      *
-     * @param savedInstanceState the saved instance state
+     * @param savedInstanceState
+     *            the saved instance state
      */
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
@@ -135,7 +134,7 @@ public class MainScreen extends Activity {
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
                     .getResourceId(6, -1)));
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons
-            		.getResourceId(7, -1)));
+                    .getResourceId(7, -1)));
         } else {
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
                     .getResourceId(0, -1)));
@@ -204,25 +203,25 @@ public class MainScreen extends Activity {
      * Display view for selected nav drawer item.
      */
     private class SlideMenuClickListener implements
-            ListView.OnItemClickListener {
+    ListView.OnItemClickListener {
 
         /*
          * (non-Javadoc)
-         *
+         * 
          * @see
          * android.widget.AdapterView.OnItemClickListener#onItemClick(android
          * .widget.AdapterView, android.view.View, int, long)
          */
         @Override
         public void onItemClick(final AdapterView<?> parent, final View view,
-                                final int position, final long id) {
+                final int position, final long id) {
             displayView(position);
         }
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
@@ -233,7 +232,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
@@ -244,8 +243,8 @@ public class MainScreen extends Activity {
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -253,10 +252,10 @@ public class MainScreen extends Activity {
      * Called when invalidateOptionsMenu() is triggered
      */
     /*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
-	 */
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
+     */
     @Override
     public final boolean onPrepareOptionsMenu(final Menu menu) {
         // if nav drawer is opened, hide the action items
@@ -266,51 +265,51 @@ public class MainScreen extends Activity {
     /**
      * Diplaying fragment view for selected nav drawer list item.
      *
-     * @param position the position
+     * @param position
+     *            the position
      */
     private void displayView(final int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
         backit = false;
         switch (position) {
-            case 0:
-                fragment = new AdsFragment();
-                backit = true;
-                choosedFragment = 0;
-                break;
-            case 1:
-                fragment = new EventsListFragment();
-                break;
-            case 2:
-                fragment = new MyEventsListFragment();
-                break;
-            case 3:
-                fragment = new MyInvitesFragment();
-                break;
-            case 4:
-                startActivity(new Intent(getApplicationContext(),
-                        MapActivity.class));
-                break;
-            case 5:
-                fragment = new ProfileFragment();
-                break;
-            case 6:
-            	fragment = new SearchFragment();
-            	break;
-            case 7:
-                logoutFacebook();
-                final Intent intent = new Intent(getApplicationContext(),
-                        MainActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
+        case 0:
+            fragment = new AdsFragment();
+            backit = true;
+            choosedFragment = 0;
+            break;
+        case 1:
+            fragment = new EventsListFragment();
+            break;
+        case 2:
+            fragment = new MyEventsListFragment();
+            break;
+        case 3:
+            fragment = new MyInvitesFragment();
+            break;
+        case 4:
+            startActivity(new Intent(getApplicationContext(), MapActivity.class));
+            break;
+        case 5:
+            fragment = new ProfileFragment();
+            break;
+        case 6:
+            fragment = new SearchFragment();
+            break;
+        case 7:
+            logoutFacebook();
+            final Intent intent = new Intent(getApplicationContext(),
+                    MainActivity.class);
+            startActivity(intent);
+            break;
+        default:
+            break;
         }
 
         if (fragment != null) {
             final FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment).commit();
+            .replace(R.id.frame_container, fragment).commit();
 
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
@@ -326,7 +325,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
      */
     @Override
@@ -344,7 +343,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#setTitle(java.lang.CharSequence)
      */
     @Override
@@ -355,7 +354,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onPostCreate(android.os.Bundle)
      */
     @Override
@@ -367,7 +366,7 @@ public class MainScreen extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * android.app.Activity#onConfigurationChanged(android.content.res.Configuration
      * )
@@ -382,8 +381,10 @@ public class MainScreen extends Activity {
     /**
      * Sets the status bar color.
      *
-     * @param statusBar the status bar
-     * @param color     the color
+     * @param statusBar
+     *            the status bar
+     * @param color
+     *            the color
      */
     public final void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -453,7 +454,8 @@ public class MainScreen extends Activity {
     /**
      * Set the mContent.
      *
-     * @param mContent the new mContent
+     * @param mContent
+     *            the new mContent
      */
     public static void setmContent(final Fragment mContent) {
         MainScreen.mContent = mContent;
@@ -471,7 +473,8 @@ public class MainScreen extends Activity {
     /**
      * Set the ChoosedFragment.
      *
-     * @param choosedFragment the new choosedFragment
+     * @param choosedFragment
+     *            the new choosedFragment
      */
     public static void setChoosedFragment(final int choosedFragment) {
         MainScreen.choosedFragment = choosedFragment;
@@ -489,7 +492,8 @@ public class MainScreen extends Activity {
     /**
      * Set the state of Backit.
      *
-     * @param backit the new state of backit
+     * @param backit
+     *            the new state of backit
      */
     public void setBackit(boolean backit) {
         backit = backit;

@@ -28,7 +28,6 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import br.com.les.where2go.R;
-
 import entity.event.Event;
 import entity.event.EventCanceled;
 
@@ -37,346 +36,342 @@ import entity.event.EventCanceled;
  */
 public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 
-	/**
-	 * The Constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	public static final String FINALIZE = "Finalize";
-	public static final String EVENT_ID = "event_id";
-	public static final String TODOS = "Todos";
-	/**
-	 * The m list events.
-	 */
-	private List<Event> mListEvents;
+    /**
+     * The Constant serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
+    public static final String FINALIZE = "Finalize";
+    public static final String EVENT_ID = "event_id";
+    public static final String TODOS = "Todos";
+    /**
+     * The m list events.
+     */
+    private final List<Event> mListEvents;
 
-	/**
-	 * The m inflater.
-	 */
-	private final LayoutInflater mInflater;
+    /**
+     * The m inflater.
+     */
+    private final LayoutInflater mInflater;
 
-	/**
-	 * The mcontext.
-	 */
-	private final Context mcontext;
+    /**
+     * The mcontext.
+     */
+    private final Context mcontext;
 
-	/**
-	 * The parent view.
-	 */
-	private final View parentView;
+    /**
+     * The parent view.
+     */
+    private final View parentView;
 
-	/**
-	 * The listview.
-	 */
-	private ListView listview;
+    /**
+     * The listview.
+     */
+    private ListView listview;
 
-	/**
-	 * The parent activity.
-	 */
-	private Activity parentActivity;
+    /**
+     * The parent activity.
+     */
+    private Activity parentActivity;
 
-	/**
-	 * Instantiates a new event adapter.
-	 *
-	 * @param context
-	 *            the context
-	 * @param listEvents
-	 *            the list events
-	 * @param view
-	 *            the parent view
-	 */
-	public EventSearchedAdapter(final Context context,
-			final List<Event> listEvents, final View view) {
-		mListEvents = listEvents;
-		mInflater = LayoutInflater.from(context);
-		mcontext = context;
-		parentView = view;
-	}
+    /**
+     * Instantiates a new event adapter.
+     *
+     * @param context
+     *            the context
+     * @param listEvents
+     *            the list events
+     * @param view
+     *            the parent view
+     */
+    public EventSearchedAdapter(final Context context,
+            final List<Event> listEvents, final View view) {
+        mListEvents = listEvents;
+        mInflater = LayoutInflater.from(context);
+        mcontext = context;
+        parentView = view;
+    }
 
-	/**
-	 * Instantiates a new event adapter.
-	 *
-	 * @param context
-	 *            the context
-	 * @param listEvents
-	 *            the list events
-	 * @param view
-	 *            the parent view
-	 * @param filter
-	 *            the filter
-	 * @param activity
-	 *            the parent activity
-	 */
-	public EventSearchedAdapter(final Context context,
-			final List<Event> listEvents, final View view, final String filter,
-			final Activity activity) {
+    /**
+     * Instantiates a new event adapter.
+     *
+     * @param context
+     *            the context
+     * @param listEvents
+     *            the list events
+     * @param view
+     *            the parent view
+     * @param filter
+     *            the filter
+     * @param activity
+     *            the parent activity
+     */
+    public EventSearchedAdapter(final Context context,
+            final List<Event> listEvents, final View view, final String filter,
+            final Activity activity) {
 
-		mListEvents = listEvents;
-		mInflater = LayoutInflater.from(context);
-		mcontext = context;
-		parentView = view;
-		parentActivity = activity;
-	}
+        mListEvents = listEvents;
+        mInflater = LayoutInflater.from(context);
+        mcontext = context;
+        parentView = view;
+        parentActivity = activity;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.widget.Adapter#getCount()
-	 */
-	@Override
-	public final int getCount() {
-		return mListEvents.size();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see android.widget.Adapter#getCount()
+     */
+    @Override
+    public final int getCount() {
+        return mListEvents.size();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.widget.Adapter#getItem(int)
-	 */
-	@Override
-	public final Event getItem(final int position) {
-		return mListEvents.get(position);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see android.widget.Adapter#getItem(int)
+     */
+    @Override
+    public final Event getItem(final int position) {
+        return mListEvents.get(position);
+    }
 
-	/**
-	 * Get id of item selected.
-	 *
-	 * @param index
-	 *            the index
-	 * @return the item id
-	 */
-	@Override
-	public final long getItemId(final int index) {
-		return index;
-	}
+    /**
+     * Get id of item selected.
+     *
+     * @param index
+     *            the index
+     * @return the item id
+     */
+    @Override
+    public final long getItemId(final int index) {
+        return index;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.widget.Adapter#getView(int, android.view.View,
-	 * android.view.ViewGroup)
-	 */
-	@Override
-	public final View getView(final int position, View myView,
-			final ViewGroup viewGroup) {
-		final View view = mInflater.inflate(R.layout.item_event_adapter, null);
+    /*
+     * (non-Javadoc)
+     *
+     * @see android.widget.Adapter#getView(int, android.view.View,
+     * android.view.ViewGroup)
+     */
+    @Override
+    public final View getView(final int position, final View myView,
+            final ViewGroup viewGroup) {
+        final View view = mInflater.inflate(R.layout.item_event_adapter, null);
 
-		final Event event = mListEvents.get(position);
-		final LinearLayout card = (LinearLayout) view.findViewById(R.id.card);
+        final Event event = mListEvents.get(position);
+        final LinearLayout card = (LinearLayout) view.findViewById(R.id.card);
 
-		final TextView eventName = (TextView) view
-				.findViewById(R.id.event_name);
-		eventName.setText(event.getName());
+        final TextView eventName = (TextView) view
+                .findViewById(R.id.event_name);
+        eventName.setText(event.getName());
 
-		final TextView eventInitialDate = (TextView) view
-				.findViewById(R.id.event_initial_date);
-		eventInitialDate
-				.setText(ParseUtil.PT_BR.format(event.getInitialDate()));
+        final TextView eventInitialDate = (TextView) view
+                .findViewById(R.id.event_initial_date);
+        eventInitialDate
+        .setText(ParseUtil.PT_BR.format(event.getInitialDate()));
 
-		/*final ImageButton thumbnail = (ImageButton) view
-				.findViewById(R.id.photo);
-		final Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable())
-				.getBitmap();
-		final int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
-				bitmap.getHeight() / 2);
+        /*
+         * final ImageButton thumbnail = (ImageButton) view
+         * .findViewById(R.id.photo); final Bitmap bitmap = ((BitmapDrawable)
+         * thumbnail.getDrawable()) .getBitmap(); final int pixel =
+         * bitmap.getPixel(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+         *
+         * if (event.getPhoto() != null) {
+         * event.getPhoto().getDataInBackground(new GetDataCallback() {
+         *
+         * @Override public void done(byte[] data, ParseException e) { Bitmap
+         * bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+         * thumbnail.setImageBitmap(Bitmap.createScaledBitmap(bmp, 120, 120,
+         * false)); } }); }
+         *
+         * card.setBackgroundColor(Color.argb(255, Color.red(pixel),
+         * Color.green(pixel), Color.blue(pixel)));
+         */
 
-		if (event.getPhoto() != null) {
-				event.getPhoto().getDataInBackground(new GetDataCallback() {
-					@Override
-					public void done(byte[] data, ParseException e) {
-						Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
-								data.length);
-						thumbnail.setImageBitmap(Bitmap.createScaledBitmap(bmp,
-								120, 120, false));
-					}
-				});
-		}
+        listview = (ListView) parentView
+                .findViewById(R.id.listViewEventsSearched);
+        listview.setClickable(true);
 
-		card.setBackgroundColor(Color.argb(255, Color.red(pixel),
-				Color.green(pixel), Color.blue(pixel)));*/
+        view.setOnLongClickListener(new OnLongClickListener() {
 
-		listview = (ListView) parentView
-				.findViewById(R.id.listViewEventsSearched);
-		listview.setClickable(true);
+            @Override
+            public boolean onLongClick(final View v) {
+                if (Authenticator.getInstance().getLoggedUser() != null) {
+                    showPopupMenu(v, event);
+                }
+                return false;
+            }
 
-		view.setOnLongClickListener(new OnLongClickListener() {
+        });
 
-			@Override
-			public boolean onLongClick(final View v) {
-				if (Authenticator.getInstance().getLoggedUser() != null) {
-					showPopupMenu(v, event);
-				}
-				return false;
-			}
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                showDetail(event);
+            }
+        });
 
-		});
+        final ImageButton btOptions = (ImageButton) view
+                .findViewById(R.id.bt_options);
+        btOptions.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if (Authenticator.getInstance().getLoggedUser() != null) {
+                    showPopupMenu(v, event);
+                }
+            }
+        });
 
-		view.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(final View v) {
-				showDetail(event);
-			}
-		});
+        return view;
+    }
 
-		final ImageButton btOptions = (ImageButton) view
-				.findViewById(R.id.bt_options);
-		btOptions.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(final View v) {
-				if (Authenticator.getInstance().getLoggedUser() != null) {
-					showPopupMenu(v, event);
-				}
-			}
-		});
+    /**
+     * Shows popup menu with delete and edit options for a given event in the
+     * list.
+     *
+     * @param v
+     *            - view refers the screen listing
+     * @param event
+     *            selected
+     */
+    private void showPopupMenu(final View v, final Event event) {
+        final PopupMenu popupMenu = new PopupMenu(mcontext, v);
+        if (event.isOwner(Authenticator.getInstance().getLoggedUser())) {
+            popupMenu.getMenuInflater().inflate(R.menu.event_options,
+                    popupMenu.getMenu());
+        } else {
+            popupMenu.getMenuInflater().inflate(R.menu.not_owner_event_options,
+                    popupMenu.getMenu());
+        }
+        popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(final MenuItem item) {
+                switch (item.getItemId()) {
+                case R.id.details:
+                    showDetail(event);
+                    return true;
+                case R.id.invite:
+                    final Intent intent = new Intent(parentActivity,
+                            FacebookFriendsActivity.class);
+                    intent.putExtra("EventId", event.getObjectId());
+                    parentActivity.startActivity(intent);
+                    return true;
+                case R.id.edit:
+                    editAlert(event);
+                    return true;
+                case R.id.cancel:
+                    cancelAlert(event);
+                    break;
+                default:
+                    break;
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
 
-		return view;
-	}
+    /**
+     * Redirects to EventDetail activity
+     *
+     * @param event
+     *            the event
+     */
+    public final void showDetail(final Event event) {
+        final Intent intentDetail = new Intent(parentView.getContext(),
+                EventDetailActivity.class);
+        intentDetail.putExtra(EVENT_ID, event.getObjectId());
+        parentView.getContext().startActivity(intentDetail);
+    }
 
-	/**
-	 * Shows popup menu with delete and edit options for a given event in the
-	 * list.
-	 *
-	 * @param v
-	 *            - view refers the screen listing
-	 * @param event
-	 *            selected
-	 */
-	private void showPopupMenu(final View v, final Event event) {
-		final PopupMenu popupMenu = new PopupMenu(mcontext, v);
-		if (event.isOwner(Authenticator.getInstance().getLoggedUser())) {
-			popupMenu.getMenuInflater().inflate(R.menu.event_options,
-					popupMenu.getMenu());
-		} else {
-			popupMenu.getMenuInflater().inflate(R.menu.not_owner_event_options,
-					popupMenu.getMenu());
-		}
-		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(final MenuItem item) {
-				switch (item.getItemId()) {
-				case R.id.details:
-					showDetail(event);
-					return true;
-				case R.id.invite:
-					final Intent intent = new Intent(parentActivity,
-							FacebookFriendsActivity.class);
-					intent.putExtra("EventId", event.getObjectId());
-					parentActivity.startActivity(intent);
-					return true;
-				case R.id.edit:
-					editAlert(event);
-					return true;
-				case R.id.cancel:
-					cancelAlert(event);
-					break;
-				default:
-					break;
-				}
-				return true;
-			}
-		});
-		popupMenu.show();
-	}
+    /**
+     * Alert dialog to edit event.
+     *
+     * @param event
+     *            the event
+     */
+    public final void editAlert(final Event event) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                parentView.getContext());
 
-	/**
-	 * Redirects to EventDetail activity
-	 *
-	 * @param event
-	 *            the event
-	 */
-	public final void showDetail(final Event event) {
-		final Intent intentDetail = new Intent(parentView.getContext(),
-				EventDetailActivity.class);
-		intentDetail.putExtra(EVENT_ID, event.getObjectId());
-		parentView.getContext().startActivity(intentDetail);
-	}
+        builder.setTitle(parentView.getResources().getString(
+                R.string.edit_alert_title));
+        builder.setMessage(parentView.getResources().getString(
+                R.string.edit_alert_message));
+        builder.setPositiveButton(
+                parentView.getResources().getString(
+                        R.string.edit_alert_positive),
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface arg0,
+                            final int arg1) {
+                        final Intent intent = new Intent(parentView
+                                .getContext(), EditEventActivity.class);
+                        intent.putExtra(EVENT_ID, event.getObjectId());
+                        parentView.getContext().startActivity(intent);
+                    }
+                });
 
-	/**
-	 * Alert dialog to edit event.
-	 *
-	 * @param event
-	 *            the event
-	 */
-	public final void editAlert(final Event event) {
-		final AlertDialog.Builder builder = new AlertDialog.Builder(
-				parentView.getContext());
+        builder.setNegativeButton(
+                parentView.getResources().getString(
+                        R.string.edit_alert_negative),
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface arg0,
+                            final int arg1) {
+                        try {
+                        } catch (final Exception e) {
+                            Log.e(FINALIZE, e.getMessage());
+                        }
+                    }
+                });
 
-		builder.setTitle(parentView.getResources().getString(
-				R.string.edit_alert_title));
-		builder.setMessage(parentView.getResources().getString(
-				R.string.edit_alert_message));
-		builder.setPositiveButton(
-				parentView.getResources().getString(
-						R.string.edit_alert_positive),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(final DialogInterface arg0,
-							final int arg1) {
-						final Intent intent = new Intent(parentView
-								.getContext(), EditEventActivity.class);
-						intent.putExtra(EVENT_ID, event.getObjectId());
-						parentView.getContext().startActivity(intent);
-					}
-				});
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
 
-		builder.setNegativeButton(
-				parentView.getResources().getString(
-						R.string.edit_alert_negative),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(final DialogInterface arg0,
-							final int arg1) {
-						try {
-						} catch (final Exception e) {
-							Log.e(FINALIZE, e.getMessage());
-						}
-					}
-				});
+    /**
+     * Alert dialog to cancel event.
+     *
+     * @param event
+     *            the event
+     */
+    public final void cancelAlert(final Event event) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                parentView.getContext());
+        builder.setTitle(parentView.getResources().getString(
+                R.string.cancel_alert_title));
+        builder.setMessage(parentView.getResources().getString(
+                R.string.cancel_alert_message));
+        builder.setPositiveButton(
+                parentView.getResources().getString(
+                        R.string.cancel_alert_positive),
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface arg0,
+                            final int arg1) {
+                        event.setState(new EventCanceled().getName());
+                        ParseUtil.saveEvent(event);
+                        notifyDataSetChanged();
+                    }
+                });
+        builder.setNegativeButton(
+                parentView.getResources().getString(
+                        R.string.cancel_alert_negative),
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface arg0,
+                            final int arg1) {
+                        try {
+                        } catch (final Exception e) {
+                            Log.e(FINALIZE, e.getMessage());
+                        }
+                    }
+                });
 
-		final AlertDialog alert = builder.create();
-		alert.show();
-	}
-
-	/**
-	 * Alert dialog to cancel event.
-	 *
-	 * @param event
-	 *            the event
-	 */
-	public final void cancelAlert(final Event event) {
-		final AlertDialog.Builder builder = new AlertDialog.Builder(
-				parentView.getContext());
-		builder.setTitle(parentView.getResources().getString(
-				R.string.cancel_alert_title));
-		builder.setMessage(parentView.getResources().getString(
-				R.string.cancel_alert_message));
-		builder.setPositiveButton(
-				parentView.getResources().getString(
-						R.string.cancel_alert_positive),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(final DialogInterface arg0,
-							final int arg1) {
-						event.setState(new EventCanceled().getName());
-						ParseUtil.saveEvent(event);
-						notifyDataSetChanged();
-					}
-				});
-		builder.setNegativeButton(
-				parentView.getResources().getString(
-						R.string.cancel_alert_negative),
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(final DialogInterface arg0,
-							final int arg1) {
-						try {
-						} catch (Exception e) {
-							Log.e(FINALIZE, e.getMessage());
-						}
-					}
-				});
-
-		final AlertDialog alert = builder.create();
-		alert.show();
-	}
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
 
 }

@@ -1,19 +1,18 @@
-
 package utils;
 
-import static com.facebook.Request.GraphUserCallback;
+import java.util.List;
+
+import persistence.ParseUtil;
 
 import com.facebook.Request;
+import com.facebook.Request.GraphUserCallback;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
-import java.util.List;
-
 import entity.user.User;
-import persistence.ParseUtil;
 
 /**
  * Classe utilitária para o usuário logado Singleton.
@@ -39,7 +38,8 @@ public final class Authenticator {
     /**
      * Seta o usuário logado para o resultado da requisição.
      *
-     * @param session the session
+     * @param session
+     *            the session
      */
     public void loadLoggedUser(final Session session) {
         if (session != null && session.isOpened()) {
@@ -59,52 +59,49 @@ public final class Authenticator {
     /**
      * Make me request to get user's data.
      *
-     * @param session the session
+     * @param session
+     *            the session
      */
     private void makeMeRequest(final Session session) {
         final Request request = Request.newMeRequest(session,
                 new GraphUserCallback() {
-                    @Override
-                    public void onCompleted(final GraphUser user,
-                                            final Response response) {
-                        if (session == Session.getActiveSession() && user != null) {
-                            ParseUtil.findByFacebookId(user.getId(),
-                                    new FindCallback<User>() {
-                                        @Override
-                                        public void done(
-                                                final List<User> objects,
-                                                final ParseException e) {
-                                            loggedUser = new User(user
-                                                    .getId());
-                                            loggedUser.setBirthday(user
-                                                    .asMap()
-                                                    .get("birthday")
-                                                    .toString());
-                                            loggedUser.setEmail(user
-                                                    .asMap().get("email")
-                                                    .toString());
-                                            loggedUser.setGender(user
-                                                    .asMap().get("gender")
-                                                    .toString());
-                                            loggedUser.setName(user
-                                                    .getName());
-                                            if (objects.isEmpty()) {
-                                                loggedUser
-                                                        .saveInBackground();
-                                            } else {
-                                                // Pega o resultado do
-                                                // usu�rio
-                                                final User usuarioParse = objects
-                                                        .get(0);
-                                                loggedUser
-                                                        .setObjectId(usuarioParse
-                                                                .getObjectId());
-                                            }
-                                        }
-                                    });
+            @Override
+            public void onCompleted(final GraphUser user,
+                            final Response response) {
+                if (session == Session.getActiveSession()
+                                && user != null) {
+                    ParseUtil.findByFacebookId(user.getId(),
+                            new FindCallback<User>() {
+                        @Override
+                        public void done(
+                                final List<User> objects,
+                                final ParseException e) {
+                            loggedUser = new User(user.getId());
+                            loggedUser
+                                                    .setBirthday(user.asMap()
+                                                            .get("birthday")
+                                                            .toString());
+                            loggedUser.setEmail(user.asMap()
+                                                    .get("email").toString());
+                            loggedUser.setGender(user.asMap()
+                                                    .get("gender").toString());
+                            loggedUser.setName(user.getName());
+                            if (objects.isEmpty()) {
+                                loggedUser.saveInBackground();
+                            } else {
+                                // Pega o resultado do
+                                    // usu�rio
+                                final User usuarioParse = objects
+                                        .get(0);
+                                loggedUser
+                                .setObjectId(usuarioParse
+                                        .getObjectId());
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            }
+        });
         request.executeAsync();
     }
 
@@ -119,11 +116,11 @@ public final class Authenticator {
         }
         return instance;
     }
-    
+
     /**
      * Logout from facebook
      */
     public void logout() {
-    	loggedUser = null;
+        loggedUser = null;
     }
 }
