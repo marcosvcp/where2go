@@ -1,14 +1,5 @@
 package adapter;
 
-import java.io.Serializable;
-import java.util.List;
-
-import persistence.ParseUtil;
-import utils.Authenticator;
-import activity.EditEventActivity;
-import activity.EventDetailActivity;
-import activity.FacebookFriendsActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -36,9 +27,17 @@ import android.widget.TextView;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 
+import java.io.Serializable;
+import java.util.List;
+
+import activity.EditEventActivity;
+import activity.EventDetailActivity;
+import activity.FacebookFriendsActivity;
 import br.com.les.where2go.R;
 import entity.event.Event;
 import entity.event.EventCanceled;
+import persistence.ParseUtil;
+import utils.Authenticator;
 
 /**
  * The Class EventAdapter.
@@ -171,8 +170,6 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
         eventInitialDate
                 .setText(ParseUtil.PT_BR.format(event.getInitialDate()));
 
-<<<<<<< HEAD
-
         final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
         if (event.getImageEvent() == null && event.getPhoto() != null) {
@@ -192,7 +189,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
                             Color.green(pixel), Color.blue(pixel)));
                 }
             });
-        }else if(event.getImageEvent() != null) {
+        } else if (event.getImageEvent() != null) {
             final Bitmap bitmap = event.getImageEvent();
             int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
                     bitmap.getHeight() / 2);
@@ -201,25 +198,6 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
             card.setBackgroundColor(Color.argb(255, Color.red(pixel),
                     Color.green(pixel), Color.blue(pixel)));
         }
-=======
-        /*
-         * final ImageButton thumbnail = (ImageButton) view
-         * .findViewById(R.id.photo); final Bitmap bitmap = ((BitmapDrawable)
-         * thumbnail.getDrawable()) .getBitmap(); final int pixel =
-         * bitmap.getPixel(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
-         * 
-         * if (event.getPhoto() != null) {
-         * event.getPhoto().getDataInBackground(new GetDataCallback() {
-         * 
-         * @Override public void done(byte[] data, ParseException e) { Bitmap
-         * bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-         * thumbnail.setImageBitmap(Bitmap.createScaledBitmap(bmp, 120, 120,
-         * false)); } }); }
-         * 
-         * card.setBackgroundColor(Color.argb(255, Color.red(pixel),
-         * Color.green(pixel), Color.blue(pixel)));
-         */
->>>>>>> 34fd8f2ddd766a8f1958bccf8f37d45dd4a07149
 
         listview = (ListView) parentView
                 .findViewById(R.id.listViewEventsSearched);
