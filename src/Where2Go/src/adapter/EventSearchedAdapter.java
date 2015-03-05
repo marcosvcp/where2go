@@ -46,32 +46,32 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
     /**
      * The m list events.
      */
-    private final List<Event> mListEvents;
+    private transient final List<Event> mListEvents;
 
     /**
      * The m inflater.
      */
-    private final LayoutInflater mInflater;
+    private transient final LayoutInflater mInflater;
 
     /**
      * The mcontext.
      */
-    private final Context mcontext;
+    private transient final Context mcontext;
 
     /**
      * The parent view.
      */
-    private final View parentView;
+    private transient final View parentView;
 
     /**
      * The listview.
      */
-    private ListView listview;
+    private transient ListView listview;
 
     /**
      * The parent activity.
      */
-    private Activity parentActivity;
+    private transient Activity parentActivity;
 
     /**
      * Instantiates a new event adapter.
@@ -118,7 +118,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getCount()
      */
     @Override
@@ -128,7 +128,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
@@ -150,7 +150,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getView(int, android.view.View,
      * android.view.ViewGroup)
      */
@@ -169,22 +169,22 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
         final TextView eventInitialDate = (TextView) view
                 .findViewById(R.id.event_initial_date);
         eventInitialDate
-        .setText(ParseUtil.PT_BR.format(event.getInitialDate()));
+                .setText(ParseUtil.PT_BR.format(event.getInitialDate()));
 
         /*
          * final ImageButton thumbnail = (ImageButton) view
          * .findViewById(R.id.photo); final Bitmap bitmap = ((BitmapDrawable)
          * thumbnail.getDrawable()) .getBitmap(); final int pixel =
          * bitmap.getPixel(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
-         *
+         * 
          * if (event.getPhoto() != null) {
          * event.getPhoto().getDataInBackground(new GetDataCallback() {
-         *
+         * 
          * @Override public void done(byte[] data, ParseException e) { Bitmap
          * bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
          * thumbnail.setImageBitmap(Bitmap.createScaledBitmap(bmp, 120, 120,
          * false)); } }); }
-         *
+         * 
          * card.setBackgroundColor(Color.argb(255, Color.red(pixel),
          * Color.green(pixel), Color.blue(pixel)));
          */
@@ -302,7 +302,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
         builder.setPositiveButton(
                 parentView.getResources().getString(
                         R.string.edit_alert_positive),
-                        new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
                             final int arg1) {
@@ -316,7 +316,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
         builder.setNegativeButton(
                 parentView.getResources().getString(
                         R.string.edit_alert_negative),
-                        new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
                             final int arg1) {
@@ -347,7 +347,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
         builder.setPositiveButton(
                 parentView.getResources().getString(
                         R.string.cancel_alert_positive),
-                        new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
                             final int arg1) {
@@ -359,7 +359,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
         builder.setNegativeButton(
                 parentView.getResources().getString(
                         R.string.cancel_alert_negative),
-                        new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
                             final int arg1) {
