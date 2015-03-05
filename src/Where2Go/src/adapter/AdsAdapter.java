@@ -51,32 +51,32 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
     /**
      * The m list events.
      */
-    private List<Event> mListEvents;
+    private transient List<Event> mListEvents;
 
     /**
      * The m inflater.
      */
-    private final LayoutInflater mInflater;
+    private transient final LayoutInflater mInflater;
 
     /**
      * The mcontext.
      */
-    private final Context mcontext;
+    private transient final Context mcontext;
 
     /**
      * The parent view.
      */
-    private final View parentView;
+    private transient final View parentView;
 
     /**
      * The listview.
      */
-    private ListView listview;
+    private transient ListView listview;
 
     /**
      * The parent activity.
      */
-    private Activity parentActivity;
+    private transient Activity parentActivity;
 
     /**
      * Instantiates a new event adapter.

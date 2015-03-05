@@ -56,32 +56,32 @@ public class EventAdapter extends BaseAdapter implements Serializable {
     /**
      * The m list events.
      */
-    private List<Event> mListEvents;
+    private transient List<Event> mListEvents;
 
     /**
      * The m inflater.
      */
-    private final LayoutInflater mInflater;
+    private transient final LayoutInflater mInflater;
 
     /**
      * The mcontext.
      */
-    private final Context mcontext;
+    private transient final Context mcontext;
 
     /**
      * The parent view.
      */
-    private final View parentView;
+    private transient final View parentView;
 
     /**
      * The listview.
      */
-    private ListView listview;
+    private transient ListView listview;
 
     /**
      * The parent activity.
      */
-    private Activity parentActivity;
+    private transient Activity parentActivity;
 
     /**
      * Instantiates a new event adapter.
@@ -191,7 +191,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         final TextView eventInitialDate = (TextView) view
                 .findViewById(R.id.event_initial_date);
         eventInitialDate
-                .setText(ParseUtil.PT_BR.format(event.getInitialDate()));
+        .setText(ParseUtil.PT_BR.format(event.getInitialDate()));
 
         final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
@@ -333,7 +333,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         builder.setPositiveButton(
                 parentView.getResources().getString(
                         R.string.edit_alert_positive),
-                new DialogInterface.OnClickListener() {
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
                             final int arg1) {
@@ -347,7 +347,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         builder.setNegativeButton(
                 parentView.getResources().getString(
                         R.string.edit_alert_negative),
-                new DialogInterface.OnClickListener() {
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
                             final int arg1) {
@@ -378,7 +378,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         builder.setPositiveButton(
                 parentView.getResources().getString(
                         R.string.cancel_alert_positive),
-                new DialogInterface.OnClickListener() {
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
                             final int arg1) {
@@ -390,7 +390,7 @@ public class EventAdapter extends BaseAdapter implements Serializable {
         builder.setNegativeButton(
                 parentView.getResources().getString(
                         R.string.cancel_alert_negative),
-                new DialogInterface.OnClickListener() {
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface arg0,
                             final int arg1) {

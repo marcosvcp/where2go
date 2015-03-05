@@ -55,32 +55,32 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
     /**
      * The m list events.
      */
-    private final List<Event> mListEvents;
+    private transient final List<Event> mListEvents;
 
     /**
      * The m inflater.
      */
-    private final LayoutInflater mInflater;
+    private transient final LayoutInflater mInflater;
 
     /**
      * The mcontext.
      */
-    private final Context mcontext;
+    private transient final Context mcontext;
 
     /**
      * The parent view.
      */
-    private final View parentView;
+    private transient final View parentView;
 
     /**
      * The listview.
      */
-    private ListView listview;
+    private transient ListView listview;
 
     /**
      * The parent activity.
      */
-    private Activity parentActivity;
+    private transient Activity parentActivity;
 
     /**
      * Instantiates a new event adapter.
@@ -119,7 +119,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getCount()
      */
     @Override
@@ -129,7 +129,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getItem(int)
      */
     @Override
@@ -150,7 +150,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.widget.Adapter#getView(int, android.view.View,
      * android.view.ViewGroup)
      */
@@ -171,6 +171,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
         eventInitialDate
                 .setText(ParseUtil.PT_BR.format(event.getInitialDate()));
 
+<<<<<<< HEAD
 
         final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
@@ -200,6 +201,25 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
             card.setBackgroundColor(Color.argb(255, Color.red(pixel),
                     Color.green(pixel), Color.blue(pixel)));
         }
+=======
+        /*
+         * final ImageButton thumbnail = (ImageButton) view
+         * .findViewById(R.id.photo); final Bitmap bitmap = ((BitmapDrawable)
+         * thumbnail.getDrawable()) .getBitmap(); final int pixel =
+         * bitmap.getPixel(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+         * 
+         * if (event.getPhoto() != null) {
+         * event.getPhoto().getDataInBackground(new GetDataCallback() {
+         * 
+         * @Override public void done(byte[] data, ParseException e) { Bitmap
+         * bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+         * thumbnail.setImageBitmap(Bitmap.createScaledBitmap(bmp, 120, 120,
+         * false)); } }); }
+         * 
+         * card.setBackgroundColor(Color.argb(255, Color.red(pixel),
+         * Color.green(pixel), Color.blue(pixel)));
+         */
+>>>>>>> 34fd8f2ddd766a8f1958bccf8f37d45dd4a07149
 
         listview = (ListView) parentView
                 .findViewById(R.id.listViewEventsSearched);
