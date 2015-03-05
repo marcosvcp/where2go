@@ -34,6 +34,7 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import br.com.les.where2go.R;
 
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 
 import entity.event.Event;
@@ -194,25 +195,33 @@ public class EventAdapter extends BaseAdapter implements Serializable {
 
         final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
-        final Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable())
-                .getBitmap();
-        int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
-                bitmap.getHeight() / 2);
 
-        if (event.getPhoto() != null) {
-            try {
-                final Bitmap bmp = BitmapFactory.decodeByteArray(event
-                        .getPhoto().getData(), 0,
-                        event.getPhoto().getData().length);
-                thumbnail.setImageBitmap(bmp);
-                pixel = bmp.getPixel(bmp.getWidth() / 2, bmp.getHeight() / 2);
-            } catch (final ParseException e) {
-                e.printStackTrace();
-            }
+        if (event.getImageEvent() == null && event.getPhoto() != null) {
+            event.getPhoto().getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] bytes, ParseException e) {
+                    final Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable())
+                            .getBitmap();
+                    int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
+                            bitmap.getHeight() / 2);
+                    final Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0,
+                            bytes.length);
+                    thumbnail.setImageBitmap(bmp);
+                    event.setImageEvent(bmp);
+                    pixel = bmp.getPixel(bmp.getWidth() / 2, bmp.getHeight() / 2);
+                    card.setBackgroundColor(Color.argb(255, Color.red(pixel),
+                            Color.green(pixel), Color.blue(pixel)));
+                }
+            });
+        }else if(event.getImageEvent() != null) {
+            final Bitmap bitmap = event.getImageEvent();
+            int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
+                    bitmap.getHeight() / 2);
+            thumbnail.setImageBitmap(bitmap);
+            pixel = bitmap.getPixel(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+            card.setBackgroundColor(Color.argb(255, Color.red(pixel),
+                    Color.green(pixel), Color.blue(pixel)));
         }
-
-        card.setBackgroundColor(Color.argb(255, Color.red(pixel),
-                Color.green(pixel), Color.blue(pixel)));
 
         listview = (ListView) parentView.findViewById(R.id.listViewEvents);
         listview.setClickable(true);
@@ -226,7 +235,6 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 }
                 return false;
             }
-
         });
 
         view.setOnClickListener(new OnClickListener() {
@@ -246,7 +254,6 @@ public class EventAdapter extends BaseAdapter implements Serializable {
                 }
             }
         });
-
         return view;
     }
 

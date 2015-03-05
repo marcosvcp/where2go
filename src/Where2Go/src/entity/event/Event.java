@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.google.common.base.Objects;
@@ -29,6 +30,7 @@ public class Event extends ParseObject {
      * The photo.
      */
 
+    private Bitmap imageEvent;
     /**
      * Instantiates a new event.
      */
@@ -502,5 +504,13 @@ public class Event extends ParseObject {
         participants.remove(participant);
         this.saveInBackground();
         return new Notification(participant, this, "Voc� saiu deste evento");
+    }
+
+    public Bitmap getImageEvent() {
+        return imageEvent;
+    }
+
+    public void setImageEvent(Bitmap imageEvent) {
+        this.imageEvent = imageEvent;
     }
 }

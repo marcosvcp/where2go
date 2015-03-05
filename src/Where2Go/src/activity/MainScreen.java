@@ -141,7 +141,7 @@ public class MainScreen extends Activity {
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
                     .getResourceId(1, -1)));
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
-                    .getResourceId(2, -1), true, "50+"));
+                    .getResourceId(4, -1), true, "50+"));
         }
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -282,7 +282,11 @@ public class MainScreen extends Activity {
             fragment = new EventsListFragment();
             break;
         case 2:
-            fragment = new MyEventsListFragment();
+            if(Authenticator.getInstance().getLoggedUser() == null) {
+                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+            }else{
+                fragment = new MyEventsListFragment();
+            }
             break;
         case 3:
             fragment = new MyInvitesFragment();
