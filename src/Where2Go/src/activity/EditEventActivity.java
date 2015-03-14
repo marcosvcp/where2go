@@ -64,7 +64,7 @@ public class EditEventActivity extends Activity {
     private Button btEditAditionalInformations;
 
     /** The event. */
-    private Event event;
+    private static Event event;
 
     /** The date formatter. */
     private SimpleDateFormat dateFormatter;
@@ -342,6 +342,10 @@ public class EditEventActivity extends Activity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public static Event getEvent() {
+        return event;
     }
 
 }
