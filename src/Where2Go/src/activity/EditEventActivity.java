@@ -1,10 +1,6 @@
+
 package activity;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import persistence.ParseUtil;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -24,12 +20,19 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
 import br.com.les.where2go.R;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
 
 import entity.event.Event;
+import persistence.ParseUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * The Class EditEventActivity.
@@ -80,7 +83,7 @@ public class EditEventActivity extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
     @Override
@@ -92,6 +95,9 @@ public class EditEventActivity extends Activity {
 
         final Bundle data = getIntent().getExtras();
         final String key = data.getString("event_id");
+
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+
         etEventName = (EditText) findViewById(R.id.et_event_name);
         etEventDescription = (EditText) findViewById(R.id.et_event_description);
         etEventInitialDate = (EditText) findViewById(R.id.et_event_initial_date);
@@ -123,60 +129,65 @@ public class EditEventActivity extends Activity {
         initialDatePickerDialog = new DatePickerDialog(this,
                 new OnDateSetListener() {
 
-            @Override
-            public void onDateSet(final DatePicker view,
-                    final int year, final int monthOfYear,
-                    final int dayOfMonth) {
-                final Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                final Date initialDate = newDate.getTime();
-                etEventInitialDate.setText(dateFormatter.format(newDate
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void onDateSet(final DatePicker view,
+                            final int year, final int monthOfYear,
+                            final int dayOfMonth) {
+                        final Calendar newDate = Calendar.getInstance();
+                        Date eventDate = event.getInitialDate();
+                        newDate.set(eventDate.getYear(), eventDate.getMonth(), eventDate.getYear());
+                        etEventInitialDate.setText(dateFormatter.format(newDate
                                 .getTime()));
-            }
+                    }
 
-        }, newCalendar.get(Calendar.YEAR),
-        newCalendar.get(Calendar.MONTH),
-        newCalendar.get(Calendar.DAY_OF_MONTH));
+                }, newCalendar.get(Calendar.YEAR),
+                newCalendar.get(Calendar.MONTH),
+                newCalendar.get(Calendar.DAY_OF_MONTH));
 
         initialTimePickerDialog = new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(final TimePicker timePicker,
-                    final int selectedHour, final int selectedMinute) {
-                etEventInitialTime.setText("" + selectedHour + ":"
+                    @Override
+                    public void onTimeSet(final TimePicker timePicker,
+                            final int selectedHour, final int selectedMinute) {
+                        etEventInitialTime.setText("" + selectedHour + ":"
                                 + selectedMinute);
-            }
-        }, newCalendar.get(Calendar.HOUR_OF_DAY),
+                        event.setInitialTime("" + selectedHour + ":"
+                                + selectedMinute);
+                    }
+                }, newCalendar.get(Calendar.HOUR_OF_DAY),
                 newCalendar.get(Calendar.MINUTE), true);
 
         finalTimePickerDialog = new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(final TimePicker timePicker,
+                    @Override
+                    public void onTimeSet(final TimePicker timePicker,
                             final int selectedHour, final int selectedMinute) {
-                etEventFinalTime.setText("" + selectedHour + ":"
+                        etEventFinalTime.setText("" + selectedHour + ":"
                                 + selectedMinute);
-            }
-        }, newCalendar.get(Calendar.HOUR_OF_DAY),
+                        event.setFinalTime("" + selectedHour + ":"
+                                + selectedMinute);
+                    }
+                }, newCalendar.get(Calendar.HOUR_OF_DAY),
                 newCalendar.get(Calendar.MINUTE), true);
 
         finalDatePickerDialog = new DatePickerDialog(this,
                 new OnDateSetListener() {
 
-            @Override
-            public void onDateSet(final DatePicker view,
-                    final int year, final int monthOfYear,
-                    final int dayOfMonth) {
-                final Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                final Date finalDate = newDate.getTime();
-                etEventFinalDate.setText(dateFormatter.format(newDate
+                    @Override
+                    public void onDateSet(final DatePicker view,
+                            final int year, final int monthOfYear,
+                            final int dayOfMonth) {
+                        final Calendar newDate = Calendar.getInstance();
+                        Date eventDate = event.getFinalDate();
+                        newDate.set(eventDate.getYear(), eventDate.getMonth(), eventDate.getDay());
+                        etEventFinalDate.setText(dateFormatter.format(newDate
                                 .getTime()));
-            }
+                    }
 
-        }, newCalendar.get(Calendar.YEAR),
-        newCalendar.get(Calendar.MONTH),
-        newCalendar.get(Calendar.DAY_OF_MONTH));
+                }, newCalendar.get(Calendar.YEAR),
+                newCalendar.get(Calendar.MONTH),
+                newCalendar.get(Calendar.DAY_OF_MONTH));
 
         etEventInitialDate.setOnClickListener(new OnClickListener() {
 
@@ -255,12 +266,11 @@ public class EditEventActivity extends Activity {
         etEventInitialTime.setText(Calendar.getInstance().get(
                 Calendar.HOUR_OF_DAY)
                 + ":" + Calendar.getInstance().get(Calendar.MINUTE));
-        etEventFinalTime.setText("23:59");
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
@@ -272,7 +282,7 @@ public class EditEventActivity extends Activity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
@@ -285,11 +295,9 @@ public class EditEventActivity extends Activity {
 
     /**
      * Sets the status bar color.
-     *
-     * @param statusBar
-     *            the status bar
-     * @param color
-     *            the color
+     * 
+     * @param statusBar the status bar
+     * @param color the color
      */
     public final void setStatusBarColor(final View statusBar, final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -308,7 +316,7 @@ public class EditEventActivity extends Activity {
 
     /**
      * Gets the action bar height.
-     *
+     * 
      * @return the action bar height
      */
     public final int getActionBarHeight() {
@@ -323,7 +331,7 @@ public class EditEventActivity extends Activity {
 
     /**
      * Gets the status bar height.
-     *
+     * 
      * @return the status bar height
      */
     public final int getStatusBarHeight() {
