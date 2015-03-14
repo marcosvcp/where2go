@@ -48,7 +48,7 @@ public class EventDetailActivity extends FragmentActivity {
     private List<View> mViews;
 
     /** The event. */
-    private Event event;
+    private static Event event;
 
     /** The event name. */
     private TextView tvEventName;
@@ -247,6 +247,7 @@ public class EventDetailActivity extends FragmentActivity {
             final Intent intent = new Intent(getApplicationContext(),
                     FacebookFriendsActivity.class);
             intent.putExtra("EventId", event.getObjectId());
+            intent.putExtra("RequestId", "invite");
             startActivity(intent);
             return true;
         case R.id.action_notification:
@@ -336,5 +337,9 @@ public class EventDetailActivity extends FragmentActivity {
 
         notificationManager.notify(0, noti);
 
+    }
+
+    public static Event getEvent() {
+        return event;
     }
 }
