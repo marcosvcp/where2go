@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,10 +22,15 @@ import br.com.les.where2go.R;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 
 import entity.event.Event;
 import persistence.ParseUtil;
 import utils.FieldValidation;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * The Class EditEventAditInfoActivity.
@@ -46,6 +53,11 @@ public class EditEventAditInfoActivity extends Activity {
     private ImageView ivEventPhoto;
 
     private Event event;
+
+    /**
+     * The Select Photo.
+     */
+    private final int SELECT_PHOTO = 1;
 
     /** The validation. */
     private final FieldValidation validation = new FieldValidation(this);
@@ -90,7 +102,15 @@ public class EditEventAditInfoActivity extends Activity {
             ivEventPhoto.setImageBitmap(bitmap);
         }
 
-        ivEventPhoto.setImageBitmap(event.getImageEvent());
+        ivEventPhoto.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(final View v) {
+                final Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+            }
+        });
 
         btCreateEventInAditionalInformation
                 .setOnClickListener(new OnClickListener() {
@@ -98,7 +118,7 @@ public class EditEventAditInfoActivity extends Activity {
                     @Override
                     public void onClick(final View v) {
 
-                        final Event event = CreateEventActivity.getEvent();
+                        final Event event = EditEventActivity.getEvent();
                         if (validation.hasText(etEventNotes)) {
                             event.setNote(etEventNotes.getText().toString());
                         }
@@ -127,6 +147,48 @@ public class EditEventAditInfoActivity extends Activity {
             }
         });
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onActivityResult(int, int,
+     * android.content.Intent)
+     */
+    @Override
+    protected void onActivityResult(final int requestCode,
+            final int resultCode, final Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch (requestCode) {
+            case SELECT_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        final Uri imageUri = imageReturnedIntent.getData();
+                        final InputStream imageStream = getContentResolver()
+                                .openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory
+                                .decodeStream(imageStream);
+                        ivEventPhoto.setImageBitmap(selectedImage);
+                        final ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        selectedImage.compress(Bitmap.CompressFormat.PNG, 100,
+                                stream);
+                        final byte[] byteArray = stream.toByteArray();
+
+                        final String eventId = EditEventActivity.getEvent()
+                                .getName();
+                        final ParseFile pf = new ParseFile(eventId + ".png",
+                                byteArray);
+                        EditEventActivity.getEvent().setPhoto(pf);
+                        pf.save();
+
+                    } catch (final FileNotFoundException e) {
+                        Log.e("EditEvent onActivityResult Error", e.getMessage());
+                    } catch (final ParseException e) {
+                        Log.e("EditEvent onActivityResult Error", e.getMessage());
+                    }
+                }
+        }
     }
 
     /**
