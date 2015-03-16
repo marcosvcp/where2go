@@ -21,8 +21,12 @@ import br.com.les.where2go.R;
 
 import com.facebook.AppEventsLogger;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
 
 import entity.establishment.Establishment;
 import entity.event.Event;
@@ -87,11 +91,26 @@ public class MainActivity extends FragmentActivity {
                     .findFragmentById(android.R.id.content);
         }
 
+        ParsePush.subscribeInBackground("", new SaveCallback() {
+            @Override
+            public void done(final ParseException e) {
+                if (e == null) {
+                    Log.d("com.parse.push",
+                            "successfully subscribed to the broadcast channel.");
+                } else {
+                    Log.e("com.parse.push", "failed to subscribe for push", e);
+                }
+            }
+        });
+
+        // Save the current Installation to Parse.
+        ParseInstallation.getCurrentInstallation().saveInBackground();
+
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.FragmentActivity#onResume()
      */
     @Override
@@ -103,7 +122,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.FragmentActivity#onPause()
      */
     @Override
@@ -197,7 +216,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int,
      * android.content.Intent)
      */

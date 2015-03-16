@@ -7,7 +7,11 @@ import persistence.ParseUtil;
 import utils.Authenticator;
 import adapter.InviteAdapter;
 import android.app.Fragment;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +56,7 @@ public class MyInvitesFragment extends Fragment {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.app.Fragment#onCreateView(android.view.LayoutInflater,
      * android.view.ViewGroup, android.os.Bundle)
      */
@@ -83,23 +87,23 @@ public class MyInvitesFragment extends Fragment {
         final ArrayAdapter<String> spinnerDataAdapter = new ArrayAdapter<String>(
                 context, android.R.layout.simple_spinner_item, status);
         spinnerDataAdapter
-        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSearchEventSpinner.setAdapter(spinnerDataAdapter);
         mSearchEventSpinner
-        .setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(final AdapterView<?> parent,
-                    final View view, final int position, final long id) {
-                loadInvites(parent.getItemAtPosition(position)
-                        .toString());
-            }
+                .setOnItemSelectedListener(new OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(final AdapterView<?> parent,
+                            final View view, final int position, final long id) {
+                        loadInvites(parent.getItemAtPosition(position)
+                                .toString());
+                    }
 
-            @Override
-            public void onNothingSelected(final AdapterView<?> parent) {
-                // TODO Auto-generated method stub
+                    @Override
+                    public void onNothingSelected(final AdapterView<?> parent) {
+                        // TODO Auto-generated method stub
 
-            }
-        });
+                    }
+                });
     }
 
     /**
@@ -140,6 +144,7 @@ public class MyInvitesFragment extends Fragment {
                 adapter = new InviteAdapter(context, objects, rootView,
                         "Pending");
                 listview.setAdapter(adapter);
+                createNotification();
             }
         });
     }
@@ -162,7 +167,7 @@ public class MyInvitesFragment extends Fragment {
 
     /**
      * Get the listView.
-     * 
+     *
      * @return the ListView
      */
     public static ListView getListview() {
@@ -171,7 +176,7 @@ public class MyInvitesFragment extends Fragment {
 
     /**
      * Set the listView.
-     * 
+     *
      * @param listview
      *            the new listview
      */
@@ -181,7 +186,7 @@ public class MyInvitesFragment extends Fragment {
 
     /**
      * Get the context.
-     * 
+     *
      * @return the context
      */
     public static Context getContext() {
@@ -190,11 +195,39 @@ public class MyInvitesFragment extends Fragment {
 
     /**
      * Set the context.
-     * 
+     *
      * @param context
      *            the new context
      */
     public static void setContext(final Context context) {
         MyInvitesFragment.context = context;
+    }
+
+    public static void createNotification() {
+        // Prepare intent which is triggered if the
+        // notification is selected
+        final Intent intent = new Intent(context,
+                NotificationReceiverActivity.class);
+        final PendingIntent pIntent = PendingIntent.getActivity(context, 0,
+                intent, 0);
+
+        // Build notification
+        // Actions are just fake
+        final Notification noti = new Notification.Builder(context)
+                .setContentTitle("New invite for " + "teste")
+                .setContentText("Where2go")
+                .setSmallIcon(R.drawable.ic_launcher).setContentIntent(pIntent)
+                .addAction(R.drawable.ic_action_accept, "Accept", pIntent)
+                .addAction(R.drawable.ic_action_cancel, "Ignore", pIntent)
+                .addAction(R.drawable.ic_action_discard, "Cancel", pIntent)
+                .build();
+        final String ns = Context.NOTIFICATION_SERVICE;
+        final NotificationManager mNotificationManager = (NotificationManager) context
+                .getSystemService(ns);
+        // hide the notification after its selected
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        mNotificationManager.notify(0, noti);
+
     }
 }
