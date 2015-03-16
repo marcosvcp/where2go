@@ -1,18 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:background="#DDDDDD"
     android:orientation="vertical"
     tools:context="activity.EventListActivity" >
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="fill_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical" >
 
             <View
@@ -29,7 +29,7 @@
                 android:ems="10"
                 android:hint="@string/event_name"
                 android:inputType="textCapWords"
-                android:maxLength="20"
+                android:maxLength="50"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
@@ -238,14 +238,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_gravity="center_horizontal|bottom"
-                android:gravity="center_horizontal|bottom"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal" >
 
                 <Button
                     android:id="@+id/bt_add_aditional_informations"
-                    android:layout_width="190dp"
-                    android:layout_height="55dp"
+                    android:layout_width="220dp"
+                    android:layout_height="fill_parent"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_weight="0.5"
                     android:background="#444444"
@@ -255,8 +256,8 @@
 
                 <Button
                     android:id="@+id/bt_create_event"
-                    android:layout_width="190dp"
-                    android:layout_height="55dp"
+                    android:layout_width="220dp"
+                    android:layout_height="fill_parent"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_weight="0.5"
                     android:background="@color/status_bar"
