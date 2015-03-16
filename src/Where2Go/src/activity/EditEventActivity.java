@@ -202,9 +202,10 @@ public class EditEventActivity extends Activity {
         
         etEventName.setText(event.getName());
         etEventDescription.setText(event.getDescription());
-        etEventInitialDate.setText(ParseUtil.PT_BR.format(event
-                .getInitialDate()));
-        etEventFinalDate.setText(ParseUtil.PT_BR.format(event.getFinalDate()));
+        
+        
+        etEventInitialDate.setText(dateFormatter.format(event.getInitialDate().getTime()));
+        etEventFinalDate.setText(dateFormatter.format(event.getFinalDate().getTime()));
         etEventInitialTime.setText(Calendar.getInstance().get(
                 Calendar.HOUR_OF_DAY)
                 + ":" + Calendar.getInstance().get(Calendar.MINUTE));
@@ -219,9 +220,8 @@ public class EditEventActivity extends Activity {
                             final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
                         Date eventDate = event.getInitialDate();
-                        
-                        newDate.set(eventDate.getYear(), eventDate.getMonth(), eventDate.getYear());
-                        etEventInitialDate.setText(ParseUtil.PT_BR.format(newDate
+                        newDate.set(year, monthOfYear, dayOfMonth);
+                        etEventInitialDate.setText(dateFormatter.format(newDate
                                 .getTime()));
                     }
 
@@ -264,7 +264,7 @@ public class EditEventActivity extends Activity {
                             final int dayOfMonth) {
                         final Calendar newDate = Calendar.getInstance();
                         Date eventDate = event.getFinalDate();
-                        newDate.set(eventDate.getYear(), eventDate.getMonth(), eventDate.getDay());
+                        newDate.set(year, monthOfYear, dayOfMonth);
                         etEventFinalDate.setText(dateFormatter.format(newDate
                                 .getTime()));
                     }
