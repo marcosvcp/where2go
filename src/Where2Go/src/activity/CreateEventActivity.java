@@ -192,12 +192,6 @@ public class CreateEventActivity extends Activity {
                 .getTime()));
         etEventFinalDate.setText(dateFormatter.format(Calendar.getInstance()
                 .getTime()));
-        etEventInitialTime.setText(Calendar.getInstance().get(
-                Calendar.HOUR_OF_DAY)
-                + ":" + Calendar.getInstance().get(Calendar.MINUTE));
-        etEventFinalTime.setText(Calendar.getInstance().get(
-                Calendar.HOUR_OF_DAY)
-                + ":" + Calendar.getInstance().get(Calendar.MINUTE));
         // etEventFinalTime.setText("23:59");
 
         initialDate = Calendar.getInstance().getTime();

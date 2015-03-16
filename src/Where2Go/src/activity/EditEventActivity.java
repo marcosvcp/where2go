@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
-
+import android.widget.Toast;
 import br.com.les.where2go.R;
 
 import com.parse.GetCallback;
@@ -113,7 +113,7 @@ public class EditEventActivity extends Activity {
         etEventFinalDate.requestFocusFromTouch();
         etEventInitialDate.setInputType(InputType.TYPE_NULL);
         etEventInitialTime.setInputType(InputType.TYPE_NULL);
-
+        
         btEditAditionalInformations.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -124,70 +124,8 @@ public class EditEventActivity extends Activity {
             }
         });
 
-        final Calendar newCalendar = Calendar.getInstance();
 
-        initialDatePickerDialog = new DatePickerDialog(this,
-                new OnDateSetListener() {
-
-                    @SuppressWarnings("deprecation")
-                    @Override
-                    public void onDateSet(final DatePicker view,
-                            final int year, final int monthOfYear,
-                            final int dayOfMonth) {
-                        final Calendar newDate = Calendar.getInstance();
-                        Date eventDate = event.getInitialDate();
-                        newDate.set(eventDate.getYear(), eventDate.getMonth(), eventDate.getYear());
-                        etEventInitialDate.setText(dateFormatter.format(newDate
-                                .getTime()));
-                    }
-
-                }, newCalendar.get(Calendar.YEAR),
-                newCalendar.get(Calendar.MONTH),
-                newCalendar.get(Calendar.DAY_OF_MONTH));
-
-        initialTimePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(final TimePicker timePicker,
-                            final int selectedHour, final int selectedMinute) {
-                        etEventInitialTime.setText("" + selectedHour + ":"
-                                + selectedMinute);
-                        event.setInitialTime("" + selectedHour + ":"
-                                + selectedMinute);
-                    }
-                }, newCalendar.get(Calendar.HOUR_OF_DAY),
-                newCalendar.get(Calendar.MINUTE), true);
-
-        finalTimePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(final TimePicker timePicker,
-                            final int selectedHour, final int selectedMinute) {
-                        etEventFinalTime.setText("" + selectedHour + ":"
-                                + selectedMinute);
-                        event.setFinalTime("" + selectedHour + ":"
-                                + selectedMinute);
-                    }
-                }, newCalendar.get(Calendar.HOUR_OF_DAY),
-                newCalendar.get(Calendar.MINUTE), true);
-
-        finalDatePickerDialog = new DatePickerDialog(this,
-                new OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(final DatePicker view,
-                            final int year, final int monthOfYear,
-                            final int dayOfMonth) {
-                        final Calendar newDate = Calendar.getInstance();
-                        Date eventDate = event.getFinalDate();
-                        newDate.set(eventDate.getYear(), eventDate.getMonth(), eventDate.getDay());
-                        etEventFinalDate.setText(dateFormatter.format(newDate
-                                .getTime()));
-                    }
-
-                }, newCalendar.get(Calendar.YEAR),
-                newCalendar.get(Calendar.MONTH),
-                newCalendar.get(Calendar.DAY_OF_MONTH));
+        
 
         etEventInitialDate.setOnClickListener(new OnClickListener() {
 
@@ -258,6 +196,10 @@ public class EditEventActivity extends Activity {
      * Set all fields of view with name of events fields.
      */
     private void setDataFields() {
+        final Calendar newCalendar = Calendar.getInstance();
+        Date initialDate = event.getInitialDate();
+        Toast.makeText(getApplicationContext(), initialDate.toString(), Toast.LENGTH_LONG).show();
+        
         etEventName.setText(event.getName());
         etEventDescription.setText(event.getDescription());
         etEventInitialDate.setText(ParseUtil.PT_BR.format(event
@@ -266,6 +208,70 @@ public class EditEventActivity extends Activity {
         etEventInitialTime.setText(Calendar.getInstance().get(
                 Calendar.HOUR_OF_DAY)
                 + ":" + Calendar.getInstance().get(Calendar.MINUTE));
+        
+        initialDatePickerDialog = new DatePickerDialog(this,
+                new OnDateSetListener() {
+
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void onDateSet(final DatePicker view,
+                            final int year, final int monthOfYear,
+                            final int dayOfMonth) {
+                        final Calendar newDate = Calendar.getInstance();
+                        Date eventDate = event.getInitialDate();
+                        
+                        newDate.set(eventDate.getYear(), eventDate.getMonth(), eventDate.getYear());
+                        etEventInitialDate.setText(ParseUtil.PT_BR.format(newDate
+                                .getTime()));
+                    }
+
+                }, newCalendar.get(Calendar.YEAR),
+                newCalendar.get(Calendar.MONTH),
+                newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        initialTimePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(final TimePicker timePicker,
+                            final int selectedHour, final int selectedMinute) {
+                        etEventInitialTime.setText("" + selectedHour + ":"
+                                + selectedMinute);
+                        event.setInitialTime("" + selectedHour + ":"
+                                + selectedMinute);
+                    }
+                }, newCalendar.get(Calendar.HOUR_OF_DAY),
+                newCalendar.get(Calendar.MINUTE), true);
+
+        finalTimePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(final TimePicker timePicker,
+                            final int selectedHour, final int selectedMinute) {
+                        etEventFinalTime.setText("" + selectedHour + ":"
+                                + selectedMinute);
+                        event.setFinalTime("" + selectedHour + ":"
+                                + selectedMinute);
+                    }
+                }, newCalendar.get(Calendar.HOUR_OF_DAY),
+                newCalendar.get(Calendar.MINUTE), true);
+
+        finalDatePickerDialog = new DatePickerDialog(this,
+                new OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(final DatePicker view,
+                            final int year, final int monthOfYear,
+                            final int dayOfMonth) {
+                        final Calendar newDate = Calendar.getInstance();
+                        Date eventDate = event.getFinalDate();
+                        newDate.set(eventDate.getYear(), eventDate.getMonth(), eventDate.getDay());
+                        etEventFinalDate.setText(dateFormatter.format(newDate
+                                .getTime()));
+                    }
+
+                }, newCalendar.get(Calendar.YEAR),
+                newCalendar.get(Calendar.MONTH),
+                newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
     /*
