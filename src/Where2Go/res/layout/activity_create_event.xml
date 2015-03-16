@@ -6,254 +6,265 @@
     android:orientation="vertical"
     tools:context="activity.EventListActivity" >
 
-    <View
-        android:id="@+id/statusBarBackground"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/et_event_name"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/status_bar_sec_level"
-        android:ems="10"
-        android:hint="@string/event_name"
-        android:inputType="textCapWords"
-        android:maxLength="20"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:singleLine="true"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#AAAAAA"
-        android:textCursorDrawable="@drawable/cursor"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/et_event_description"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/status_bar_third_level"
-        android:ems="10"
-        android:maxLength="50"
-        android:hint="@string/event_description"
-        android:inputType="textMultiLine|textCapSentences"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="5dp"
-        android:singleLine="true"
-        android:textColor="#777777"
-        android:textCursorDrawable="@drawable/cursor" />
-
-    
-    <Button
-        android:id="@+id/bt_select_tags"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical|left"
-        android:gravity="center_vertical|left"
-        android:background="#CCCCCC"
-        android:maxLength="10"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dip"
-        android:paddingTop="5dp"
-        android:text="@string/event_tags"
-        android:textColor="@color/status_bar" />
-    
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Início"
-        android:textColor="#999999"
-        android:textSize="16sp"
-        android:textStyle="italic" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/et_event_initial_date"
-            android:layout_width="150dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_weight="0.5"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:focusable="false"
-            android:gravity="center_horizontal|center_vertical"
-            android:hint="DD/MM/AAAA"
-            android:inputType="date"
-            android:maxLength="10"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="5dp"
-            android:singleLine="true"
-            android:textColor="@color/status_bar"
-            android:textCursorDrawable="@drawable/cursor"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/et_event_initial_time"
-            android:layout_width="150dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="0.5"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:focusable="false"
-            android:gravity="center_horizontal|center_vertical"
-            android:hint="00:00"
-            android:inputType="time"
-            android:maxLength="10"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="5dp"
-            android:singleLine="true"
-            android:textColor="@color/status_bar"
-            android:textCursorDrawable="@drawable/cursor"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Fim"
-        android:textColor="#999999"
-        android:textSize="16sp"
-        android:textStyle="italic" />
-
-   <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/et_event_final_date"
-            android:layout_width="150dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_weight="0.5"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:focusable="false"
-            android:gravity="center_horizontal|center_vertical"
-            android:hint="DD/MM/AAAA"
-            android:inputType="date"
-            android:maxLength="10"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="5dp"
-            android:singleLine="true"
-            android:textColor="@color/status_bar"
-            android:textCursorDrawable="@drawable/cursor"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/et_event_final_time"
-            android:layout_width="150dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="0.5"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:focusable="false"
-            android:gravity="center_horizontal|center_vertical"
-            android:hint="23:59"
-            android:inputType="time"
-            android:maxLength="10"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="5dp"
-            android:singleLine="true"
-            android:textColor="@color/status_bar"
-            android:textCursorDrawable="@drawable/cursor"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal" >
-
-        <RadioButton
-            android:id="@+id/rb_radio_public"
-            android:layout_width="280dp"
-            android:layout_weight="0.5"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Public Event"
-            android:checked="true"
-            android:layout_marginLeft="10dp"
-            android:button="@drawable/radio_button"
-            android:textColor="#777777"
-            android:textSize="16dp" />
+            android:orientation="vertical" >
 
-        <RadioButton
-            android:id="@+id/rb_radio_private"
-            android:layout_width="280dp"
-            android:layout_weight="0.5"
-            android:layout_height="match_parent"
-            android:text="Private Event"
-            android:layout_marginLeft="10dp"
-			android:button="@drawable/radio_button"
-            android:textColor="#777777"
-            android:textSize="16dp" />
-    </RadioGroup>
+            <View
+                android:id="@+id/statusBarBackground"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
+            <EditText
+                android:id="@+id/et_event_name"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/status_bar_sec_level"
+                android:ems="10"
+                android:hint="@string/event_name"
+                android:inputType="textCapWords"
+                android:maxLength="20"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#AAAAAA"
+                android:textCursorDrawable="@drawable/cursor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/bt_add_aditional_informations"
-            android:layout_width="190dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_weight="0.5"
-            android:background="#444444"
-            android:text="More Info"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            <EditText
+                android:id="@+id/et_event_description"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/status_bar_third_level"
+                android:ems="10"
+                android:hint="@string/event_description"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLength="50"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="5dp"
+                android:singleLine="true"
+                android:textColor="#777777"
+                android:textCursorDrawable="@drawable/cursor" />
 
-        <Button
-            android:id="@+id/bt_create_event"
-            android:layout_width="190dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_weight="0.5"
-            android:background="@color/status_bar"
-            android:text="@string/create_event"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/bt_select_tags"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical|left"
+                android:background="#CCCCCC"
+                android:gravity="center_vertical|left"
+                android:maxLength="10"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dip"
+                android:paddingTop="5dp"
+                android:text="@string/event_tags"
+                android:textColor="@color/status_bar" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Início"
+                android:textColor="#999999"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/et_event_initial_date"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:hint="DD/MM/AAAA"
+                    android:inputType="date"
+                    android:maxLength="10"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/status_bar"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_event_initial_time"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:hint="00:00"
+                    android:inputType="time"
+                    android:maxLength="10"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/status_bar"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Fim"
+                android:textColor="#999999"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/et_event_final_date"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:hint="DD/MM/AAAA"
+                    android:inputType="date"
+                    android:maxLength="10"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/status_bar"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_event_final_time"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:hint="23:59"
+                    android:inputType="time"
+                    android:maxLength="10"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/status_bar"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_radio_public"
+                    android:layout_width="280dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:button="@drawable/radio_button"
+                    android:checked="true"
+                    android:text="Public Event"
+                    android:textColor="#777777"
+                    android:textSize="16dp" />
+
+                <RadioButton
+                    android:id="@+id/rb_radio_private"
+                    android:layout_width="280dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:button="@drawable/radio_button"
+                    android:text="Private Event"
+                    android:textColor="#777777"
+                    android:textSize="16dp" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal|bottom"
+                android:gravity="center_horizontal|bottom"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/bt_add_aditional_informations"
+                    android:layout_width="190dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_weight="0.5"
+                    android:background="#444444"
+                    android:text="More Info"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/bt_create_event"
+                    android:layout_width="190dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_weight="0.5"
+                    android:background="@color/status_bar"
+                    android:text="@string/create_event"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

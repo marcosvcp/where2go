@@ -125,7 +125,11 @@ public class EventDetailActivity extends FragmentActivity {
         btAccept = (ImageButton) findViewById(R.id.bt_acept);
         btDecline = (ImageButton) findViewById(R.id.bt_decline);
         imageEvent = (ImageView) findViewById(R.id.imageView1);
+        
+        
 
+        getActionBar().setBackgroundDrawable(null);
+        
         if (Authenticator.getInstance().getLoggedUser() == null) {
             btAccept.setVisibility(View.GONE);
             btDecline.setVisibility(View.GONE);
@@ -191,6 +195,11 @@ public class EventDetailActivity extends FragmentActivity {
                         .getPhoto().getData(), 0,
                         event.getPhoto().getData().length);
                 imageEvent.setImageBitmap(bmp);
+                
+                int pixel = bmp.getPixel(bmp.getWidth() / 2, bmp.getHeight() / 2);
+                setStatusBarColor(findViewById(R.id.statusBarBackground),pixel);
+                findViewById(R.id.layout_name).setBackgroundColor(pixel);
+                
             } catch (final ParseException e) {
                 e.printStackTrace();
             }
