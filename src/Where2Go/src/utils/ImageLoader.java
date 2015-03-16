@@ -39,10 +39,9 @@ public class ImageLoader {
     {
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
-        if(bitmap!=null)
+        if(bitmap!=null){
             imageView.setImageBitmap(bitmap);
-        else
-        {
+        }else{
             queuePhoto(url, imageView);
             imageView.setImageResource(stub_id);
         }
@@ -54,7 +53,7 @@ public class ImageLoader {
         executorService.submit(new PhotosLoader(p));
     }
     
-    private Bitmap getBitmap(String url) 
+    public Bitmap getBitmap(String url) 
     {
         File f=fileCache.getFile(url);
         

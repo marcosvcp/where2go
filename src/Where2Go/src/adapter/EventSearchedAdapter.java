@@ -185,6 +185,10 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
         	url = "http://www.hdpaperz.com/wallpaper/original/free-hd-wallpaper.jpg";
         }
         imgLoader.DisplayImage(url, thumbnail);
+        Bitmap bmp = imgLoader.getBitmap(url);
+        int pixel = bmp.getPixel(bmp.getWidth() / 2, bmp.getHeight() / 2);
+        card.setBackgroundColor(Color.argb(255, Color.red(pixel),
+                Color.green(pixel), Color.blue(pixel)));
         
         
         
