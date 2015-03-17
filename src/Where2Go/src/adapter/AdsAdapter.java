@@ -6,6 +6,7 @@ import java.util.List;
 
 import persistence.ParseUtil;
 import utils.Authenticator;
+import utils.ImageLoader;
 import activity.EditEventActivity;
 import activity.EventDetailActivity;
 import activity.FacebookFriendsActivity;
@@ -67,7 +68,12 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
      * The parent view.
      */
     private transient final View parentView;
-
+    
+    /**
+     * The image loader.
+     */
+    private ImageLoader imgLoader;
+    
     /**
      * The listview.
      */
@@ -177,6 +183,7 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
         final Event event = mListEvents.get(position);
         final LinearLayout card = (LinearLayout) view.findViewById(R.id.card);
         final ImageButton photo = (ImageButton) view.findViewById(R.id.photo);
+        imgLoader = new ImageLoader(mcontext);
 
         final TextView eventName = (TextView) view
                 .findViewById(R.id.event_name);
@@ -189,11 +196,17 @@ public class AdsAdapter extends BaseAdapter implements Serializable {
 
         final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
-        final Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable())
-                .getBitmap();
-        final int pixel = bitmap.getPixel(bitmap.getWidth() / 2,
-                bitmap.getHeight() / 2);
-
+        imgLoader = new ImageLoader(mcontext);
+        String url;
+        if(event.getPhoto() != null){
+        	url = event.getPhoto().getUrl().toString();
+        }else{
+        	url = "http://www.hdpaperz.com/wallpaper/original/free-hd-wallpaper.jpg";
+        }
+        imgLoader.DisplayImage(url, thumbnail);
+        Bitmap bmp = imgLoader.getBitmap(url);
+        int pixel = bmp.getPixel(bmp.getWidth() / 2, bmp.getHeight() / 2);
+        
         card.setBackgroundColor(Color.argb(255, Color.red(pixel),
                 Color.green(pixel), Color.blue(pixel)));
 

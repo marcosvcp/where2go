@@ -50,7 +50,7 @@ public class EventTest extends InstrumentationTestCase {
 
         event1 = new Event("Event Name 1", "Event 1 Description",
                 formatter.parse("03/15/15"), formatter.parse("03/15/15"), "",
-                "", true, user1);
+                "", true, user1,true);
         event1.setNote("Event Note 1");
         final byte[] data = new byte[10];
         user1photo = new ParseFile(data);
@@ -63,7 +63,7 @@ public class EventTest extends InstrumentationTestCase {
 
         event2 = new Event("Event Name 2", "Event 2 Description",
                 formatter.parse("02/29/02"), formatter.parse("02/29/02"), "",
-                "", true, user2);
+                "", true, user2,false);
 
         invitation1 = new Invitation(user1, user2, event1);
     }
@@ -78,7 +78,7 @@ public class EventTest extends InstrumentationTestCase {
         Assert.assertNull(event1);
         event1 = new Event("New Event Name", "New Event 1 Description",
                 formatter.parse("01/29/02"), formatter.parse("01/29/02"),
-                "20:00", "23:00", true, user1);
+                "20:00", "23:00", true, user1,false);
         Assert.assertNotNull("User constructor not working", user1);
     }
 
