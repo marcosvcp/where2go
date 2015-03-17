@@ -50,6 +50,11 @@ public class CreateEventAditInfoActivity extends Activity {
      * The et_event_capacity.
      */
     private EditText etEventCapacity;
+    
+    /**
+     * The et_event_price.
+     */
+    private EditText etEventPrice;
 
     /**
      * The bt_create_event_in_aditional_information.
@@ -86,6 +91,7 @@ public class CreateEventAditInfoActivity extends Activity {
         etEventNotes = (EditText) findViewById(R.id.et_event_notes);
         etEventOutfit = (EditText) findViewById(R.id.et_event_outfit);
         etEventCapacity = (EditText) findViewById(R.id.et_event_capacity);
+        etEventPrice = (EditText) findViewById(R.id.et_event_price);
         ivEvent = (ImageView) findViewById(R.id.image_view_event);
         btCreateEventInAditionalInformation = (Button) findViewById(R.id.bt_create_event_in_aditional_information);
 
@@ -114,6 +120,10 @@ public class CreateEventAditInfoActivity extends Activity {
                         }
                         if (validation.hasText(etEventCapacity)) {
                             event.setCapacity(Integer.parseInt(etEventCapacity
+                                    .getText().toString()));
+                        }
+                        if (validation.hasText(etEventPrice)) {
+                            event.setPrice(Double.parseDouble(etEventPrice
                                     .getText().toString()));
                         }
 

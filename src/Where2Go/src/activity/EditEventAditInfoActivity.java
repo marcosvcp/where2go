@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import br.com.les.where2go.R;
 
 import com.parse.GetDataCallback;
@@ -44,6 +43,9 @@ public class EditEventAditInfoActivity extends Activity {
 
     /** The et_event_capacity. */
     private EditText etEventCapacity;
+    
+    /** The et_event_price. */
+    private EditText etEventPrice;
 
     /** The bt_create_event_in_aditional_information. */
     private Button btCreateEventInAditionalInformation;
@@ -79,6 +81,7 @@ public class EditEventAditInfoActivity extends Activity {
         etEventNotes = (EditText) findViewById(R.id.et_event_notes);
         etEventOutfit = (EditText) findViewById(R.id.et_event_outfit);
         etEventCapacity = (EditText) findViewById(R.id.et_event_capacity);
+        etEventPrice = (EditText) findViewById(R.id.et_event_price);
         ivEventPhoto = (ImageView) findViewById(R.id.iv_event_photo);
         btCreateEventInAditionalInformation = (Button) findViewById(R.id.bt_create_event_in_aditional_information);
         btCancel = (Button) findViewById(R.id.bt_cancel);
@@ -127,6 +130,10 @@ public class EditEventAditInfoActivity extends Activity {
                         }
                         if (validation.hasText(etEventCapacity)) {
                             event.setCapacity(Integer.parseInt(etEventCapacity
+                                    .getText().toString()));
+                        }
+                        if (validation.hasText(etEventPrice)) {
+                            event.setPrice(Double.parseDouble(etEventPrice
                                     .getText().toString()));
                         }
                         ParseUtil.saveEvent(event);
