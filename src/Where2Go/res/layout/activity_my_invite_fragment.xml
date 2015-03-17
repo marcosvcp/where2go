@@ -10,9 +10,17 @@
 
     <Spinner
         android:id="@+id/searchInvitationList"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="50dp" 
+        android:paddingLeft="30dp"
+        android:background="@color/status_bar_sec_level"/>
+      <ImageView
+        android:id="@+id/imageView1"
+        android:layout_marginTop="-50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" 
+        android:src="@drawable/ic_action_event" />
 
     <ListView
         android:id="@+id/listInvites"

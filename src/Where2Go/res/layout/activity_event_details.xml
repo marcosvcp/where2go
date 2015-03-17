@@ -40,7 +40,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Event Name"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -51,7 +50,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Date"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="normal" />
@@ -62,7 +60,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
-                    android:text="Hour"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="normal" />

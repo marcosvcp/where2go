@@ -11,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -104,7 +105,9 @@ public class EventDetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
         setStatusBarColor(findViewById(R.id.statusBarBackground),
-                getResources().getColor(R.color.status_bar));
+                getResources().getColor(R.color.bg2));
+        findViewById(R.id.layout_name).setBackgroundColor(getResources().getColor(R.color.bg2));
+
         final Bundle data = getIntent().getExtras();
         final String key = data.getString("event_id");
 
