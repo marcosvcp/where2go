@@ -14,6 +14,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: br.com.les.where2go" />
   </component>
   <component name="ChangeListManager">
@@ -41,20 +42,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CreateEventAditInfoActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Where2Go/src/activity/CreateEventAditInfoActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2261" max-vertical-offset="3944">
-              <caret line="133" column="59" selection-start-line="133" selection-start-column="59" selection-end-line="133" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MainScreen.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Where2Go/src/activity/MainScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3844" max-vertical-offset="8024">
+            <state vertical-scroll-proportion="0.0" vertical-offset="4539" max-vertical-offset="8687">
               <caret line="267" column="22" selection-start-line="267" selection-start-column="22" selection-end-line="267" selection-end-column="22" />
               <folding />
             </state>
@@ -101,16 +92,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Event.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Where2Go/src/entity/event/Event.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="8874">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SearchFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Where2Go/src/activity/SearchFragment.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -121,14 +102,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventSearchedAdapter.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="EventSearchedAdapter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Where2Go/src/adapter/EventSearchedAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5" vertical-offset="2398" max-vertical-offset="5202">
-              <caret line="197" column="69" selection-start-line="197" selection-start-column="69" selection-end-line="197" selection-end-column="69" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2686" max-vertical-offset="5117">
+              <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Where2Go/src/activity/MapActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7763158" vertical-offset="444" max-vertical-offset="850">
+              <caret line="54" column="39" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Where2Go/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.631579" vertical-offset="887" max-vertical-offset="2363">
+              <caret line="61" column="121" selection-start-line="61" selection-start-column="121" selection-end-line="61" selection-end-column="121" />
               <folding>
-                <element signature="e#6379#6677#0" expanded="true" />
-                <element signature="e#6665#6666#0" expanded="true" />
+                <element signature="e#3128#3153#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -193,8 +193,6 @@
         <option value="$PROJECT_DIR$/src/Where2Go/src/activity/MapFragment.java" />
         <option value="$PROJECT_DIR$/src/Where2Go/src/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/Where2Go/src/activity/EventMapFragment.java" />
-        <option value="$PROJECT_DIR$/src/Where2Go/src/activity/MapActivity.java" />
-        <option value="$PROJECT_DIR$/src/Where2Go/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/Where2Go/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/Where2Go/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/Where2Go/src/activity/EventDetailActivity.java" />
@@ -203,6 +201,8 @@
         <option value="$PROJECT_DIR$/src/Where2Go/src/adapter/EventAdapter.java" />
         <option value="$PROJECT_DIR$/src/Where2Go/src/activity/MainScreen.java" />
         <option value="$PROJECT_DIR$/src/Where2Go/src/adapter/EventSearchedAdapter.java" />
+        <option value="$PROJECT_DIR$/src/Where2Go/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/Where2Go/src/activity/MapActivity.java" />
       </list>
     </option>
   </component>
@@ -307,9 +307,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -452,6 +450,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1063,14 +1063,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Where2Go/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67105263" vertical-offset="0" max-vertical-offset="1598">
-          <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Where2Go/src/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="3230">
@@ -1091,13 +1083,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1139" max-vertical-offset="3383">
           <caret line="67" column="23" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Where2Go/src/activity/MapActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="595">
-          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -1146,16 +1131,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Where2Go/src/activity/CreateEventAditInfoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1462" max-vertical-offset="3332">
-          <caret line="133" column="59" selection-start-line="133" selection-start-column="59" selection-end-line="133" selection-end-column="59" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2244" max-vertical-offset="3893">
+          <caret line="132" column="59" selection-start-line="132" selection-start-column="59" selection-end-line="132" selection-end-column="59" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Where2Go/src/entity/event/Event.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="7956">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="9894">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1218,12 +1203,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Where2Go/src/adapter/EventSearchedAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5" vertical-offset="2398" max-vertical-offset="5202">
-          <caret line="197" column="69" selection-start-line="197" selection-start-column="69" selection-end-line="197" selection-end-column="69" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2686" max-vertical-offset="5117">
+          <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Where2Go/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.631579" vertical-offset="887" max-vertical-offset="2363">
+          <caret line="61" column="121" selection-start-line="61" selection-start-column="121" selection-end-line="61" selection-end-column="121" />
           <folding>
-            <element signature="e#6379#6677#0" expanded="true" />
-            <element signature="e#6665#6666#0" expanded="true" />
+            <element signature="e#3128#3153#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Where2Go/src/activity/MapActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7763158" vertical-offset="444" max-vertical-offset="850">
+          <caret line="54" column="39" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>

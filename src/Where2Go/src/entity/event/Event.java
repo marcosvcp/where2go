@@ -59,7 +59,7 @@ public class Event extends ParseObject {
     public Event(final String eventName, final String eventDescription,
             final Date initialDate, final Date finalDate,
             final String initialTime, final String finalTime,
-            final boolean isPublic, final User eventOwner) {
+            final boolean isPublic, final User eventOwner, final boolean isSponsored) {
         put("state", new EventOpened().getName());
         put("name", eventName);
         put("description", eventDescription);
@@ -71,6 +71,7 @@ public class Event extends ParseObject {
         put("ownerName", eventOwner.getName());
         put("facebookId", eventOwner.getFacebookId());
         setOwner(eventOwner);
+        put("isSponsored", isSponsored);
         put(TAGS, "");
     }
 
@@ -313,6 +314,15 @@ public class Event extends ParseObject {
     public final boolean isPublic() {
         return getBoolean("isPublic");
     }
+    
+    /**
+     * Checks if is sponsored.
+     * 
+     * @return true, if is sponsored
+     */
+    public final boolean isSponsored() {
+        return getBoolean("isSponsored");
+    }
 
     /**
      * Sets the public.
@@ -321,6 +331,15 @@ public class Event extends ParseObject {
      */
     public final void setPublic(final boolean isPublic) {
         put("isPublic", isPublic);
+    }
+    
+    /**
+     * Sets the sponsored.
+     * 
+     * @param isSponsored the new sponsored
+     */
+    public final void setSponsored(final boolean isSponsored) {
+        put("isPublic", isSponsored);
     }
 
     /**
@@ -358,7 +377,7 @@ public class Event extends ParseObject {
      */
     public final Notification addParticipant(final User guest, final User host) {
         if (isFull()) {
-            return new Notification(host, this, "O evento está cheio.");
+            return new Notification(host, this, "Evento lotado.");
         }
         return getEventState().addParticipant(this, guest, host);
     }

@@ -11,9 +11,9 @@
         android:id="@+id/card"
         android:layout_width="fill_parent"
         android:layout_height="120dp"
-        android:layout_marginBottom="5dp"
-        android:background="#FFFFFF"
-        android:orientation="vertical">
+        android:layout_marginBottom="2dp"
+        android:background="@color/bg"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -36,7 +36,8 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:contentDescription="DESCRICAO"
-                android:src="@drawable/w2go" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/thumb" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

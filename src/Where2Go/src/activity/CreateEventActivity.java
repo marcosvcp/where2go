@@ -97,6 +97,11 @@ public class CreateEventActivity extends Activity {
      * The rb_radio_public.
      */
     private RadioButton rbRadioPublic;
+    
+    /**
+     * The rb_radio_sponsored.
+     */
+    private RadioButton rbRadioSponsored;
 
     /**
      * The final date.
@@ -180,6 +185,7 @@ public class CreateEventActivity extends Activity {
         btAddAditionalInformations = (Button) findViewById(R.id.bt_add_aditional_informations);
 
         rbRadioPublic = (RadioButton) findViewById(R.id.rb_radio_public);
+        rbRadioSponsored = (RadioButton) findViewById(R.id.rb_radio_sponsored);
 
         etEventFinalTime.setInputType(InputType.TYPE_NULL);
         etEventFinalTime.requestFocusFromTouch();
@@ -192,12 +198,6 @@ public class CreateEventActivity extends Activity {
                 .getTime()));
         etEventFinalDate.setText(dateFormatter.format(Calendar.getInstance()
                 .getTime()));
-        etEventInitialTime.setText(Calendar.getInstance().get(
-                Calendar.HOUR_OF_DAY)
-                + ":" + Calendar.getInstance().get(Calendar.MINUTE));
-        etEventFinalTime.setText(Calendar.getInstance().get(
-                Calendar.HOUR_OF_DAY)
-                + ":" + Calendar.getInstance().get(Calendar.MINUTE));
         // etEventFinalTime.setText("23:59");
 
         initialDate = Calendar.getInstance().getTime();
@@ -328,7 +328,8 @@ public class CreateEventActivity extends Activity {
                             etEventDescription.getText().toString(),
                             initialDate, finalDate, initialTime, finalTime,
                             rbRadioPublic.isChecked(), Authenticator
-                                    .getInstance().getLoggedUser());
+                                    .getInstance().getLoggedUser(),
+                                    rbRadioSponsored.isChecked());
 
                     if (!tags.isEmpty()) {
                         for (int i = 0; i < tags.size(); i++) {
@@ -363,7 +364,8 @@ public class CreateEventActivity extends Activity {
                             etEventDescription.getText().toString(),
                             initialDate, finalDate, initialTime, finalTime,
                             rbRadioPublic.isChecked(), Authenticator
-                                    .getInstance().getLoggedUser());
+                                    .getInstance().getLoggedUser(),
+                                    rbRadioSponsored.isChecked());
                     final Intent intent = new Intent(getApplicationContext(),
                             CreateEventAditInfoActivity.class);
                     startActivity(intent);

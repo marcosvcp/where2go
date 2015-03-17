@@ -1,18 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:background="#DDDDDD"
     android:orientation="vertical"
     tools:context="activity.EventListActivity" >
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="fill_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical" >
 
             <View
@@ -29,7 +29,7 @@
                 android:ems="10"
                 android:hint="@string/event_name"
                 android:inputType="textCapWords"
-                android:maxLength="20"
+                android:maxLength="50"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
@@ -235,17 +235,50 @@
                     android:textSize="16dp" />
             </RadioGroup>
 
+            <RadioGroup
+                android:id="@+id/radioGroup2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_radio_not_sponsored"
+                    android:layout_width="280dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:button="@drawable/radio_button"
+                    android:checked="true"
+                    android:text="Not Sponsored"
+                    android:textColor="#777777"
+                    android:textSize="16dp" />
+
+                <RadioButton
+                    android:id="@+id/rb_radio_sponsored"
+                    android:layout_width="280dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:button="@drawable/radio_button"
+                    android:text="Sponsored"
+                    android:textColor="#777777"
+                    android:textSize="16dp" />
+            </RadioGroup>
+            
+            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_gravity="center_horizontal|bottom"
-                android:gravity="center_horizontal|bottom"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal" >
 
                 <Button
                     android:id="@+id/bt_add_aditional_informations"
-                    android:layout_width="190dp"
-                    android:layout_height="55dp"
+                    android:layout_width="220dp"
+                    android:layout_height="fill_parent"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_weight="0.5"
                     android:background="#444444"
@@ -255,8 +288,8 @@
 
                 <Button
                     android:id="@+id/bt_create_event"
-                    android:layout_width="190dp"
-                    android:layout_height="55dp"
+                    android:layout_width="220dp"
+                    android:layout_height="fill_parent"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_weight="0.5"
                     android:background="@color/status_bar"

@@ -38,6 +38,7 @@ import entity.event.Event;
 import entity.event.EventCanceled;
 import persistence.ParseUtil;
 import utils.Authenticator;
+import utils.ImageLoader;
 
 /**
  * The Class EventAdapter.
@@ -80,6 +81,11 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
      * The parent activity.
      */
     private transient Activity parentActivity;
+    
+    /**
+     * The image loader.
+     */
+    private ImageLoader imgLoader;
 
     /**
      * Instantiates a new event adapter.
@@ -169,8 +175,26 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
                 .findViewById(R.id.event_initial_date);
         eventInitialDate
                 .setText(ParseUtil.PT_BR.format(event.getInitialDate()));
-
-        final ImageButton thumbnail = (ImageButton) view
+        
+        ImageButton thumbnail = (ImageButton) view.findViewById(R.id.photo);
+        imgLoader = new ImageLoader(mcontext);
+        String url;
+        if(event.getPhoto() != null){
+        	url = event.getPhoto().getUrl().toString();
+        }else{
+        	url = "http://www.hdpaperz.com/wallpaper/original/free-hd-wallpaper.jpg";
+        }
+        imgLoader.DisplayImage(url, thumbnail);
+        Bitmap bmp = imgLoader.getBitmap(url);
+        int pixel = bmp.getPixel(bmp.getWidth() / 2, bmp.getHeight() / 2);
+        card.setBackgroundColor(Color.argb(255, Color.red(pixel),
+                Color.green(pixel), Color.blue(pixel)));
+        
+        
+        
+        // ===== Parte feita por Marcos, vou deixar aqui por seguranca
+        
+        /*final ImageButton thumbnail = (ImageButton) view
                 .findViewById(R.id.photo);
         if (event.getImageEvent() == null && event.getPhoto() != null) {
             event.getPhoto().getDataInBackground(new GetDataCallback() {
@@ -197,7 +221,7 @@ public class EventSearchedAdapter extends BaseAdapter implements Serializable {
             pixel = bitmap.getPixel(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
             card.setBackgroundColor(Color.argb(255, Color.red(pixel),
                     Color.green(pixel), Color.blue(pixel)));
-        }
+        }*/
 
         listview = (ListView) parentView
                 .findViewById(R.id.listViewEventsSearched);
