@@ -1,9 +1,13 @@
 package manager;
 
-import persistence.ParseUtil;
 import android.content.Context;
+import android.util.Log;
+
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
+
 import entity.event.Event;
-import entity.event.Invitation;
 import entity.user.User;
 
 public class InvitationManager {
@@ -41,8 +45,17 @@ public class InvitationManager {
 
     public void makeInvitation(final User guest, final User host,
             final Event event) {
-        final Invitation newInvite = new Invitation(guest, host, event);
-        ParseUtil.saveInvitation(newInvite);
+        // final Invitation newInvite = new Invitation(guest, host, event);
+        // ParseUtil.saveInvitation(newInvite);
+        final ParseQuery pushQuery = ParseInstallation.getQuery();
+        pushQuery.whereEqualTo("user", guest.getInstalationId());
+        Log.d("Push", guest.getName() + guest.getInstalationId());
+        // Send push notification to query
+        final ParsePush push = new ParsePush();
+        push.setQuery(pushQuery); // Set our Installation query
+        push.setMessage("Voce tem um novo convite!");
+        push.sendInBackground();
+        Log.d("Push", "Sended");
     }
 
     public void makeInvitationNotification() {

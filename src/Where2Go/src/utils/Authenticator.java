@@ -86,11 +86,12 @@ public final class Authenticator {
                             loggedUser.setGender(user.asMap()
                                                     .get("gender").toString());
                             loggedUser.setName(user.getName());
+
                             if (objects.isEmpty()) {
                                 loggedUser.saveInBackground();
                             } else {
                                 // Pega o resultado do
-                                    // usu�rio
+                                // usu�rio
                                 final User usuarioParse = objects
                                         .get(0);
                                 loggedUser

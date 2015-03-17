@@ -1,5 +1,7 @@
 package entity.user;
 
+import activity.MainActivity;
+
 import com.google.common.base.Objects;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -41,6 +43,7 @@ public class User extends ParseObject {
      */
     public User(final String facebookId) {
         setFacebookId(facebookId);
+        setInstalationId(MainActivity.getInstalationId());
     }
 
     /**
@@ -60,6 +63,25 @@ public class User extends ParseObject {
      */
     public final void setFacebookId(final String facebookId) {
         put("facebookId", facebookId);
+    }
+
+    /**
+     * Sets the instalation id.
+     *
+     * @param facebookId
+     *            the new instalation id
+     */
+    public final void setInstalationId(final String instalationId) {
+        put("instalationId", instalationId);
+    }
+
+    /**
+     * Gets the instalation id.
+     *
+     * @return the instalation id
+     */
+    public final String getInstalationId() {
+        return getString("instalationId");
     }
 
     /**
@@ -160,7 +182,7 @@ public class User extends ParseObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -170,7 +192,7 @@ public class User extends ParseObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

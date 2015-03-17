@@ -69,7 +69,7 @@ public class FacebookFriendsActivity extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
     @Override
@@ -107,36 +107,36 @@ public class FacebookFriendsActivity extends Activity {
     public final void showFriendsFacebook() {
         new Request(Session.getActiveSession(), "/me/friends", null,
                 HttpMethod.GET, new Callback() {
-            @Override
-            public void onCompleted(final Response response) {
-                Log.e("FACEBOOK", response.getGraphObject()
-                        .getInnerJSONObject().toString());
-                try {
-                    final JSONObject jsonFriends = new JSONObject(
-                            response.getGraphObject()
-                            .getInnerJSONObject().toString());
-                    final JSONArray jArray = jsonFriends
-                            .getJSONArray("data");
+                    @Override
+                    public void onCompleted(final Response response) {
+                        Log.e("FACEBOOK", response.getGraphObject()
+                                .getInnerJSONObject().toString());
+                        try {
+                            final JSONObject jsonFriends = new JSONObject(
+                                    response.getGraphObject()
+                                            .getInnerJSONObject().toString());
+                            final JSONArray jArray = jsonFriends
+                                    .getJSONArray("data");
 
-                    for (int i = 0; i < jArray.length(); i++) {
-                        friends.add(new UserFriend(jArray
-                                .getJSONObject(i).getString("name"),
-                                jArray.getJSONObject(i).getString("id")));
+                            for (int i = 0; i < jArray.length(); i++) {
+                                friends.add(new UserFriend(jArray
+                                        .getJSONObject(i).getString("name"),
+                                        jArray.getJSONObject(i).getString("id")));
+                            }
+                            final FacebookFriendsAdapter adapter = new FacebookFriendsAdapter(
+                                    friends, getApplicationContext());
+                            friendList.setAdapter(adapter);
+
+                        } catch (final JSONException e) {
+                            Log.e("FriendsActivity", e.getMessage());
+                        }
                     }
-                    final FacebookFriendsAdapter adapter = new FacebookFriendsAdapter(
-                            friends, getApplicationContext());
-                    friendList.setAdapter(adapter);
-
-                } catch (final JSONException e) {
-                    Log.e("FriendsActivity", e.getMessage());
-                }
-            }
-        }).executeAsync();
+                }).executeAsync();
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
@@ -149,7 +149,7 @@ public class FacebookFriendsActivity extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override
@@ -169,7 +169,7 @@ public class FacebookFriendsActivity extends Activity {
      */
     private void loadFacebookData() {
         Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG)
-        .show();
+                .show();
 
         for (int i = 0; i < FacebookFriendsAdapter.getmListIdFacebook().size(); i++) {
             final String facebookId = FacebookFriendsAdapter
@@ -180,6 +180,8 @@ public class FacebookFriendsActivity extends Activity {
                         final ParseException e) {
                     if (request.equals("invite")) {
                         for (final User guest : objects) {
+                            Log.d("Push",
+                                    guest.getName() + guest.getInstalationId());
                             invitationManage.makeInvitation(guest, host,
                                     EventDetailActivity.getEvent());
                         }
@@ -197,7 +199,7 @@ public class FacebookFriendsActivity extends Activity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.app.Activity#onBackPressed()
      */
     @Override

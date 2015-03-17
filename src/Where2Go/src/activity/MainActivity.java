@@ -26,6 +26,7 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
+import com.parse.PushService;
 import com.parse.SaveCallback;
 
 import entity.establishment.Establishment;
@@ -43,6 +44,8 @@ public class MainActivity extends FragmentActivity {
 
     /** The m views. */
     private List<View> mViews;
+
+    private static String instalationID;
 
     /**
      * Called when the activity is first created.
@@ -70,6 +73,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         Parse.initialize(this, "nUL0Lh3eOXpMYmaUgMJuveMYC0cIkEupF0eaqmh6",
                 "vd7smIM4ePAFUtWhQfT7TpNKmJ2d9PvfDeqke16D");
+        PushService.setDefaultPushCallback(this, MainActivity.class);
         ParseObject.registerSubclass(Event.class);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Invitation.class);
@@ -84,7 +88,7 @@ public class MainActivity extends FragmentActivity {
             // Add the fragment on initial activity setup
             mainFragment = new MainFragment(getApplicationContext());
             getSupportFragmentManager().beginTransaction()
-            .add(android.R.id.content, mainFragment).commit();
+                    .add(android.R.id.content, mainFragment).commit();
         } else {
             // Or set the fragment from restored state info
             mainFragment = (MainFragment) getSupportFragmentManager()
@@ -102,15 +106,25 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
+        ParsePush.subscribeInBackground("Giants");
 
         // Save the current Installation to Parse.
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        final ParseInstallation installation = ParseInstallation
+                .getCurrentInstallation();
+        installation.put("user", ParseInstallation.getCurrentInstallation()
+                .getInstallationId());
+        ParseInstallation.getCurrentInstallation().getInstallationId();
+        Log.e("Instalation ID", ParseInstallation.getCurrentInstallation()
+                .getInstallationId());
+        instalationID = ParseInstallation.getCurrentInstallation()
+                .getInstallationId();
+        installation.saveInBackground();
 
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.FragmentActivity#onResume()
      */
     @Override
@@ -122,7 +136,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.FragmentActivity#onPause()
      */
     @Override
@@ -216,7 +230,7 @@ public class MainActivity extends FragmentActivity {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int,
      * android.content.Intent)
      */
@@ -225,6 +239,10 @@ public class MainActivity extends FragmentActivity {
             final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
+    }
+
+    public static String getInstalationId() {
+        return instalationID;
     }
 
 }
