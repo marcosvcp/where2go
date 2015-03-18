@@ -49,8 +49,9 @@
 
                 <TextView
                     android:id="@+id/invitation_event_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:maxHeight="75dp"
                     android:text="@string/event_name"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
