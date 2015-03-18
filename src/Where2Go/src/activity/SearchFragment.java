@@ -61,6 +61,12 @@ public class SearchFragment extends Fragment {
     private EditText stringToSearch;
     private Button btnSearch;
     private String filter;
+    
+    private final int SEARCH = 0;
+    private final int OUTFIT = 1;
+    private final int NAME = 2;
+    private final int OWNER = 3;
+    private final int TAGS = 4;
 
     /**
      * Instantiates a new events list fragment.
@@ -214,7 +220,25 @@ public class SearchFragment extends Fragment {
         // Atualiza o adapter passando o filtro como parametro
         // BUSCA NO SERVIDOR TODOS OS EVENTOS E SETA NO ADAPTER
         final ParseQuery<Event> query = ParseUtil.getQueryEvent();
-        query.whereContains("name", stringToSearch.getText().toString());
+        String str = stringToSearch.getText().toString().trim();
+        
+        switch ((int)mSearchEventSpinner.getSelectedItemId()) {
+        case OUTFIT:
+        	query.whereContains("outfit", str);
+            break;
+        case NAME:
+        	query.whereContains("name", str);
+            break;
+        case OWNER:
+        	query.whereContains("ownerName", str);
+            break;
+        case TAGS:
+        	query.whereContains("tags", str);
+            break;
+        default:
+        	query.whereContains("name", str);
+        }
+        
         query.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(final List<Event> objects, final ParseException e) {
